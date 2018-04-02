@@ -24,7 +24,7 @@ public class Game extends JPanel{
 	class Runner implements Runnable{
 		public void run(){
 			while(MARBLE IS ALIVE){//ADDITION
-				world.MAKE SHIT HAPPEN(1.0 / (double)(FPS));//ADDITION
+				world.nextFrame(1.0 / (double)(FPS));
 				repaint();
 				try{
 					Thread.sleep(1000 / FPS);
@@ -47,6 +47,6 @@ public class Game extends JPanel{
 		super.paintComponent(G);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		//INSERT: world.METHOD TO DRAW SHIT
+		world.drawToScreen();
 	}
 }

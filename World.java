@@ -8,22 +8,20 @@ public class World{
    
     }
 
-    public static void drawToScreen(Graphics g){
+    public void nextFrame(double INPUT){//What does the input represent exactly?
+
+    }
+
+    public void drawToScreen(Graphics g){
 	drawPath();
     }
 
-   public static void drawPath(){
+   private void drawPath(){
 	Path [] visiblePaths = getVisiblePaths();
 	for(int i = 0; i < visiblePaths.length; i++){
-		if(ARGUMENT){
-			//drawStraightPath();
-		}
-		else if(ARGUMENT){
-			//drawRightCorner();
-		}
-		else{
-			//drawLeftCorner();
-		}
+		if(ARGUMENT) drawStraightPath();
+		else if(ARGUMENT) drawRightCorner();
+		else drawLeftCorner();
 	}
     }
 
