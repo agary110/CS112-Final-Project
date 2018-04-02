@@ -11,6 +11,26 @@ public class Game extends JPanel{
 	public static final int FPS = 60;
 	World world;
 
+	public Game(){
+		world = new World(WIDTH, HEIGHT);
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		Thread mainThread = new Thread(new Runner());
+		mainThread.start();
+	}
+
+	class Runner implements Runnable{
+		public void run(){
+			while(MARBLE IS ALIVE){//ADDITION
+				world.MAKE SHIT HAPPEN(1.0 / (double)(FPS));//ADDITION
+				repaint();
+				try{
+					Thread.sleep(1000 / FPS);
+				}
+				catch(InterruptedException e){}
+			}
+		}
+	}
+
 	public static void main(String [] args){
 		JFrame frame = new JFrame(“aMAZE-ing Maze”);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
