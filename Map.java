@@ -4,6 +4,7 @@ import java.util.Random;
 
 class Map{
 	public static List<Path> upcomingPaths;
+	public static final pathsPerFrame = HEIGHT / path.length;//Check variable name for path length
 	public final double originalSpeed;
 	public static speed;
 	private final double boosterSpeedAlt = 666;//How much should boosters alter the map speed (positively or negatively?
@@ -23,7 +24,7 @@ class Map{
 		}
 	}
 
-	public Path generateNext(){
+	private Path generateNext(){
 		Random rand = new Random(key);
 		int randNum = rand.nextInt(3);
 		if(randNum == 0) return straight;
@@ -31,11 +32,18 @@ class Map{
 		else return leftCorner;
 	}
 
-	public static int moveScreenForward(){
+	private int moveScreenForward(){
 		upcomingPaths.add(generateNext());
-		int pathsPerFrame = HEIGHT / path.length;//Check variable name for path length
 		int firstDisplayIndex = upcomingPaths.size() - pathsPerFrame;
 		return firstDisplayIndex;
+	}
+
+	public static Path[] getVisiblePaths(){
+		Path [] visiblePaths = new Path [pathsPerFrame];
+		for(int i = 0; i < visiblePaths.length; i++){
+			visiblePaths [i] = upcomingPaths.get(moveScreenForward() + i);
+		}
+		return visiblePaths;
 	}
 
 	public void changeSpeed(boolean faster){//Changes speed as a result of booster
