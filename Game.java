@@ -10,12 +10,16 @@ public class Game extends JPanel{
 	public static final int HEIGHT = 750;
 	public static final int FPS = 60;
 	World world;
+	public static final int key;
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		Thread mainThread = new Thread(new Runner());
 		mainThread.start();
+
+		Random rand = new Random();
+		int key = rand.nextInt();
 	}
 
 	class Runner implements Runnable{
