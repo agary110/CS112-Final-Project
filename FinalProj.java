@@ -5,5 +5,6 @@ public class FinalProj{
 		System.out.println("Where is Amy?");
 		System.out.println("haha i'm bored.");
 		System.out.println("haha me too");
+		System.out.println(“I’m here!”);
 	}
 }
