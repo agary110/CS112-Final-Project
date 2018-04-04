@@ -2,6 +2,7 @@ public class World{
     int height;
     int width;
     Marble marble;
+    Map map;
 
     public World(int initHeight, int initwidth){
 	height = initheight;
@@ -12,7 +13,7 @@ public class World{
 
 
     public void drawMarble(Graphics g){
-	g.fillOval()
+	g.fillOval();
     }
 
     public void updateMarble(double time){
@@ -20,32 +21,17 @@ public class World{
     }
 
 
-    public void nextFrame(double INPUT){//What does the input represent exactly?
-
+    public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
     }
 
     public void drawToScreen(Graphics g){
-	drawPath();
     }
 
-   private void drawPath(){
-	Path [] visiblePaths = getVisiblePaths();
-	for(int i = 0; i < visiblePaths.length; i++){
-		if(ARGUMENT) drawStraightPath();
-		else if(ARGUMENT) drawRightCorner();
-		else drawLeftCorner();
-	}
+//=======================================
+//Updates Paths visible on the screen
+   private void updatePath(){
+	map.update();
     }
-
-    private void drawStraightPath(Graphics g){
-    }
-
-    private void drawRightCorner(Graphics g){
-    }
-
-    private void drawLeftCorner(Graphics g){
-    }
-
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction.
     public void moveMarble(char c){
