@@ -78,9 +78,24 @@ class Marble{
 	g.setColor(c);
     }
 
+    public void moveUp(){}
+
+    public void moveDown(){}
+
+    public void moveRight(){}
+
+    public void moveLeft(){}
+
+    public void stopUp(){}
+
+    public void stopDown(){}
+
+    public void stopRight(){}
+
+    public void stopLeft(){}
 }
 
-public class KeyboardSpheres extends JPanel implements KeyListener{
+public class KeyMarble extends JPanel implements KeyListener{
     public static final int WIDTH = 1024;
     public static final int HEIGHT = 768;
     public static final int FPS = 60;
@@ -103,13 +118,15 @@ public class KeyboardSpheres extends JPanel implements KeyListener{
     }
 
     public void keyPressed(KeyEvent e) {
-        char c=e.getKeyChar();
-	System.out.println("You pressed down: " + c);			
+        char c = e.getKeyChar();
+	System.out.println("You pressed down: " + c);
+	world.moveMarble(c);			
 
     }
     public void keyReleased(KeyEvent e) {
         char c=e.getKeyChar();
 	System.out.println("\tYou let go of: " + c);
+	world.stopMarble(c);
 	
     }
 
@@ -123,7 +140,7 @@ public class KeyboardSpheres extends JPanel implements KeyListener{
         requestFocus();
     }
 
-    public KeyboardSpheres(){
+    public KeyMarble(){
 	world = new World(WIDTH, HEIGHT, 50);
 	addKeyListener(this);
 	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
