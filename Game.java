@@ -10,22 +10,21 @@ public class Game extends JPanel{
 	public static final int HEIGHT = 750;
 	public static final int FPS = 60;
 	World world;
-	public static final int key;
+	public static final long key;
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		Thread mainThread = new Thread(new Runner());
 		mainThread.start();
-
 		Random rand = new Random();
-		int key = rand.nextInt();
+		long key = rand.nextLong();//Do we actually need to have a key?
 	}
 
 	class Runner implements Runnable{
 		public void run(){
 			while(MARBLE IS ALIVE){//ADDITION
-				world.MAKE SHIT HAPPEN(1.0 / (double)(FPS));//ADDITION
+				world.nextFrame(1.0 / (double)(FPS));
 				repaint();
 				try{
 					Thread.sleep(1000 / FPS);
@@ -48,6 +47,6 @@ public class Game extends JPanel{
 		super.paintComponent(G);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		//INSERT: world.METHOD TO DRAW SHIT
+		world.drawToScreen();
 	}
 }
