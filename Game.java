@@ -11,6 +11,7 @@ public class Game extends JPanel{
 	public static final int FPS = 60;
 	World world;
 	public static final long key;
+	public static alive;
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
@@ -19,11 +20,12 @@ public class Game extends JPanel{
 		mainThread.start();
 		Random rand = new Random();
 		long key = rand.nextLong();//Do we actually need to have a key?
+		alive = true;
 	}
 
 	class Runner implements Runnable{
 		public void run(){
-			while(marble.IS ALIVE){//ADDITION
+			while(alive){
 				world.nextFrame(1.0 / (double)(FPS));
 				repaint();
 				try{

@@ -79,19 +79,4 @@ class Map{
 	public void changeSpeed(){
 		speed = originalSpeed;
 	}
-//=======================================
-//Returns a random type of Booster (BOOSTER TYPES)
-	public static Booster generateNextBooster(){//Insert Booster subclasses & should be run whenever Booster is passed or collected
-		int randNum = rand.nextInt(NUMBER-OF-BOOSTERS);
-		if(randNum == 0){
-			TYPEOFBOOSTER booster = new TYPEOFBOOSTER();
-		}
-		else{
-			TYPEOFBOOSTER booster = new TYPEOFBOOSTER();
-		}
-		int distanceToNext = rand.nextInt(500) + RANGEBASEDONDIFFICULTY;
-		booster.position.y = marble.position.y + distanceToNext;
-		booster.position.x = LEFT-SIDE-OF-PATH-AT-booster.position.y + rand.nextInt(PATHWIDTH - booster.width);
-		return booster;
-	}
 }
