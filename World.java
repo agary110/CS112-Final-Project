@@ -5,6 +5,7 @@ public class World{
     double height;
     double width;
     Marble marble;
+    Map map;
 
     public World(double initHeight, double initwidth){
 	height = initheight;
@@ -16,6 +17,7 @@ public class World{
 
     public void drawMarble(Graphics g){
 	marble.draw(g);
+
     }
 
     public void updateMarble(double time){
@@ -23,11 +25,11 @@ public class World{
     }
 
 
-    public void nextFrame(double INPUT){//What does the input represent exactly?
-
+    public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
     }
 
     public void drawToScreen(Graphics g){
+<<<<<<< HEAD
 	drawPath();
     }
 
@@ -47,11 +49,15 @@ public class World{
     }
 
     private void drawRightCorner(Graphics g){
+=======
+>>>>>>> 7222cef79abe6429d19e80d956613029c8f048fd
     }
 
-    private void drawLeftCorner(Graphics g){
+//=======================================
+//Updates Paths visible on the screen
+   private void updatePath(){
+	map.update();
     }
-
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction.
 

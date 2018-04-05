@@ -6,24 +6,50 @@ class Map{
 	public static List<Path> upcomingPaths;
 	public static final int pathsPerFrame = HEIGHT / path.length;//Check variable name for path length
 	public final double originalSpeed;
+<<<<<<< HEAD
 	public static double speed;
 	private final double boosterSpeedAlt = 666;//How much should boosters alter the map speed (positively or negatively?
+=======
+	public static double speed;//x or y values moved per frame
+	private final double boosterSpeedAlt = 666;//How much should boosters alter the map speed (positively or negatively)?
+>>>>>>> 7222cef79abe6429d19e80d956613029c8f048fd
 	private final STRAGIHTPATH straight;//Check class name
 	private final RIGHTCORNER rightCorner;//Check class name
 	private final LEFTCORNER leftCorner;//Check class name
 	private Random rand;
-
+//=======================================
+//Constructor
 	public Map(){
 		rand = new Random();
-		originalSpeed = //What speed? (This is dependent on the difficulty level)
+		originalSpeed = ;//What speed? (This is dependent on the difficulty level)
 		speed = originalSpeed;
-		//Create straight path using Path class
 		upcomingPaths = new LinkedList<Path>();
 		for(int i = 0; i < HEIGHT * 2; i++){
 			upcomingPaths.add(straight);
 		}
 	}
-
+//=======================================
+//When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
+	public void update(){
+		Path [] visiblePaths = getVisiblePaths();
+		for(int i = 0; i < visiblePaths.length; i++){
+			if(ARGUMENT) CREATE NEW STRAIGHTPATH;
+			else if(ARGUMENT) CREATE NEW RIGHTCORNER;
+			else CREATE NEW LEFTCORNER;
+		}
+		if(marble.velocity.y == 0);
+		else{
+			for(int i = 0; i < visiblePaths.length; i++){
+				visiblePaths [i].position.y = visiblePaths [i].position.y + speed;
+				if(i == 0 && visiblePaths [i].position.y > HEIGHT){
+					moveScreenForward();
+					this.update();
+				}
+			}
+		}
+	}
+//=======================================
+//Returns a random type of Path (Straight, rightCorner, or leftCorner)
 	private Path generateNext(){
 		Random rand = new Random(key);
 		int randNum = rand.nextInt(3);
@@ -31,13 +57,15 @@ class Map{
 		else if(randNum == 1) return rightCorner;
 		else return leftCorner;
 	}
-
-	private int moveScreenForward(){
+//=======================================
+//Returns the index within upcomingPaths that corresponds to the visible Path at the top of the screen
+	private static int moveScreenForward(){
 		upcomingPaths.add(generateNext());
 		int firstDisplayIndex = upcomingPaths.size() - pathsPerFrame;
 		return firstDisplayIndex;
 	}
-
+//=======================================
+//Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen
 	public static Path[] getVisiblePaths(){
 		Path [] visiblePaths = new Path [pathsPerFrame];
 		for(int i = 0; i < visiblePaths.length; i++){
@@ -45,13 +73,15 @@ class Map{
 		}
 		return visiblePaths;
 	}
-
-	public void changeSpeed(boolean faster){//Changes speed as a result of booster
+//=======================================
+//Increases or decreases speed by a specified constant
+	public void changeSpeed(boolean faster){
 		if(faster) speed = speed + boosterSpeedAlt;
 		else speed = speed - boosterSpeedAlt;
 	}
-
-	public void changeSpeed(){//Reverts speed back to default
+//=======================================
+//Reverts speed back to default
+	public void changeSpeed(){
 		speed = originalSpeed;
 	}
 }
