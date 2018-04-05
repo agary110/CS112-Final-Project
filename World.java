@@ -1,9 +1,12 @@
+import java.awt.Graphics;
+import java.util.Random;
+
 public class World{
-    int height;
-    int width;
+    double height;
+    double width;
     Marble marble;
 
-    public World(int initHeight, int initwidth){
+    public World(double initHeight, double initwidth){
 	height = initheight;
 	width = initwidth;
    
@@ -12,7 +15,7 @@ public class World{
 
 
     public void drawMarble(Graphics g){
-	g.fillOval()
+	marble.draw(g);
     }
 
     public void updateMarble(double time){
@@ -29,10 +32,13 @@ public class World{
     }
 
    private void drawPath(){
+	Random rand = new Random();
+	rand.setSeed(112);
+	pathInt = rand.nextInt(2);
 	Path [] visiblePaths = getVisiblePaths();
 	for(int i = 0; i < visiblePaths.length; i++){
-		if(ARGUMENT) drawStraightPath();
-		else if(ARGUMENT) drawRightCorner();
+		if(pathInt == 0) drawStraightPath();
+		else if(pathInt == 1) drawRightCorner();
 		else drawLeftCorner();
 	}
     }
@@ -48,6 +54,7 @@ public class World{
 
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction.
+
     public void moveMarble(char c){
 	if (c == 'i') {
 	    marble.moveUp();

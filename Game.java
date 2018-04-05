@@ -23,7 +23,7 @@ public class Game extends JPanel{
 
 	class Runner implements Runnable{
 		public void run(){
-			while(MARBLE IS ALIVE){//ADDITION
+			while(true){  //MARBLE IS ALIVE){//ADDITION
 				world.nextFrame(1.0 / (double)(FPS));
 				repaint();
 				try{
@@ -35,7 +35,7 @@ public class Game extends JPanel{
 	}
 
 	public static void main(String [] args){
-		JFrame frame = new JFrame(“aMAZE-ing Maze”);
+		JFrame frame = new JFrame("aMAZE-ing Maze");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Game mainInstance = new Game();
 		frame.setContentPane(mainInstance);

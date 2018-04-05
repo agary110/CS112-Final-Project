@@ -4,9 +4,9 @@ import java.util.Random;
 
 class Map{
 	public static List<Path> upcomingPaths;
-	public static final pathsPerFrame = HEIGHT / path.length;//Check variable name for path length
+	public static final int pathsPerFrame = HEIGHT / path.length;//Check variable name for path length
 	public final double originalSpeed;
-	public static speed;
+	public static double speed;
 	private final double boosterSpeedAlt = 666;//How much should boosters alter the map speed (positively or negatively?
 	private final STRAGIHTPATH straight;//Check class name
 	private final RIGHTCORNER rightCorner;//Check class name

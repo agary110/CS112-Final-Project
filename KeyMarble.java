@@ -45,8 +45,7 @@ class Marble{
     double radius;
     double dampening;
     Color color;
-    public Sphere()
-    {
+    public Marble(){
 	Random rand = new Random(); 
 	position = new Pair(500.0, 500.0);
 	velocity = new Pair((double)(rand.nextInt(1000) - 500), (double)(rand.nextInt(1000) - 500));
@@ -58,7 +57,7 @@ class Marble{
     public void update(World w, double time){
 	position = position.add(velocity.times(time));
 	velocity = velocity.add(acceleration.times(time));
-	bounce(w);
+	//bounce(w);
     }
     
     public void setPosition(Pair p){
@@ -73,8 +72,8 @@ class Marble{
     public void draw(Graphics g){
 	Color c = g.getColor();
 	
-	g.setColor(color);
-	g.fillOval((int)(position.x - radius), (int)(position.y - radius), (int)(2*radius), (int)(2*radius));
+	g.setColor(Color.RED);
+	g.fillOval(100,100,100,100);
 	g.setColor(c);
     }
 
@@ -105,7 +104,7 @@ public class KeyMarble extends JPanel implements KeyListener{
 	public void run()
 	{
 	    while(true){
-		world.updateSpheres(1.0 / (double)FPS);
+		world.updateMarble(1.0 / (double)FPS);
 		repaint();
 		try{
 		    Thread.sleep(1000/FPS);
@@ -141,7 +140,7 @@ public class KeyMarble extends JPanel implements KeyListener{
     }
 
     public KeyMarble(){
-	world = new World(WIDTH, HEIGHT, 50);
+	world = new World(WIDTH, HEIGHT);
 	addKeyListener(this);
 	this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	Thread mainThread = new Thread(new Runner());
@@ -151,7 +150,7 @@ public class KeyMarble extends JPanel implements KeyListener{
     public static void main(String[] args){
 	JFrame frame = new JFrame("Physics!!!");
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	KeyboardSpheres mainInstance = new KeyboardSpheres();
+	KeyMarble mainInstance = new KeyMarble();
 	frame.setContentPane(mainInstance);
 	frame.pack();
 	frame.setVisible(true);
@@ -164,7 +163,7 @@ public class KeyMarble extends JPanel implements KeyListener{
 	g.setColor(Color.BLACK);
 	g.fillRect(0, 0, WIDTH, HEIGHT);
 
-	world.drawSpheres(g);
+	world.drawMarble(g);
 
     }
 
