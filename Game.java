@@ -12,6 +12,7 @@ public class Game extends JPanel{
 	World world;
 	public static final long key;
 	public static alive;
+	public static double points;
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
@@ -21,6 +22,7 @@ public class Game extends JPanel{
 		Random rand = new Random();
 		long key = rand.nextLong();//Do we actually need to have a key?
 		alive = true;
+		points = 0;
 	}
 
 	class Runner implements Runnable{

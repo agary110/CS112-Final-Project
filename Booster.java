@@ -7,7 +7,7 @@ class Booster{
 	public Booster(int x, int y){
 		this.x = x;
 		this.y = y;
-		timeActive = ;//How long should the time-based boosters stay active?
+		timeActive = 10;
 	}
 
 	public void update(){
@@ -95,8 +95,8 @@ class Booster{
 		}
 	}
 //=======================================
-//Class Bomb extends Booster
-	class Bomb extends Booster{
+//Class Bomb
+	class Bomb{
 		public Bomb(){
 		}
 
@@ -105,8 +105,8 @@ class Booster{
 		}
 	}
 //=======================================
-//Class Ammo extends Booster
-	class Ammo extends Booster{
+//Class Ammo
+	class Ammo{
 		int increase;
 
 		public Ammo(){

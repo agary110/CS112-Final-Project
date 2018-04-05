@@ -3,17 +3,19 @@ public class World{
     int width;
     Marble marble;
     Map map;
+    Boolean aliveBooster;
 
     public World(int initHeight, int initwidth){
 	height = initheight;
 	width = initwidth;
-   
+   	aliveBooster = false;
     }
 
-
-
     public void drawMarble(Graphics g){
-	g.fillOval();
+	marble.draw(g);
+    }
+
+    public void drawPoints(Graphics g){
     }
 
     public void updateMarble(double time){
@@ -22,14 +24,26 @@ public class World{
 
 
     public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
+	points = points + 1/60;//Awards one point per second
     }
 
     public void drawToScreen(Graphics g){
     }
+//=======================================
+//Creates new random Booster, given aliveBooster = false
+    private void newBooster(){
+		visiblePaths = getVisiblePaths();
+		Booster booster = new Booster(visiblePaths[visiblePaths.length - 1].x + path.width / 2 - booster.width / 2, 0);
+    }
+//=======================================
+//
+   private void updateBooster(){
+	booster.update();
+   }
 
 //=======================================
 //Updates Paths visible on the screen
-   private void updatePath(){
+   private void updateMap(){
 	map.update();
     }
 //=======================================
