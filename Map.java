@@ -6,8 +6,13 @@ class Map{
 	public static List<Path> upcomingPaths;
 	public static final int pathsPerFrame = HEIGHT / path.length;//Check variable name for path length
 	public final double originalSpeed;
+<<<<<<< HEAD
+	public static double speed;
+	private final double boosterSpeedAlt = 666;//How much should boosters alter the map speed (positively or negatively?
+=======
 	public static double speed;//x or y values moved per frame
 	private final double boosterSpeedAlt = 666;//How much should boosters alter the map speed (positively or negatively)?
+>>>>>>> 7222cef79abe6429d19e80d956613029c8f048fd
 	private final STRAGIHTPATH straight;//Check class name
 	private final RIGHTCORNER rightCorner;//Check class name
 	private final LEFTCORNER leftCorner;//Check class name

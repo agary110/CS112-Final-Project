@@ -27,6 +27,7 @@ public class Game extends JPanel{
 
 	class Runner implements Runnable{
 		public void run(){
+
 			while(alive){
 				world.nextFrame(1.0 / (double)(FPS));
 				repaint();
