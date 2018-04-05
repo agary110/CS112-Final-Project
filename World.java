@@ -6,41 +6,35 @@ public class World{
     double width;
     Marble marble;
     Map map;
-    Boolean aliveBooster;
-
+    Booster booster;
+    double timeUntilNextBooster;
+    final double originalTimeUntilNextBooster;
+//=======================================
+//Constructor
     public World(double initHeight, double initwidth){
 	height = initheight;
 	width = initwidth;
    	aliveBooster = false;
+	booster = newBooster();
+	originalTimeUntilNextBooster = ;//specified amount based on difficulty level
+    }
+//=======================================
+//Draw Methods
+    public void drawToScreen(Graphics g){
+	drawPath();
     }
 
     public void drawMarble(Graphics g){
 	marble.draw(g);
-
     }
 
-    public void drawPoints(Graphics g){
-
-    }
-
-    public void updateMarble(double time){
-	marble.update(this, time);
-    }
-
-
-    public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
-	points = points + 1/60;//Awards one point per second
-    }
-
-    public void drawToScreen(Graphics g){
-<<<<<<< HEAD
-	drawPath();
+    public void drawBooster(Graphics g){
+	booster.draw(g);
     }
 
    private void drawPath(){
 	Random rand = new Random();
-	rand.setSeed(112);
-	pathInt = rand.nextInt(2);
+	pathInt = rand.nextInt(3);
 	Path [] visiblePaths = getVisiblePaths();
 	for(int i = 0; i < visiblePaths.length; i++){
 		if(pathInt == 0) drawStraightPath();
@@ -52,26 +46,42 @@ public class World{
     private void drawStraightPath(Graphics g){
     }
 
-    private void drawRightCorner(Graphics g){
-=======
->>>>>>> 7222cef79abe6429d19e80d956613029c8f048fd
+    private void drawRightCorner(){
+    }
+
+    private void drawLeftCorner(){
     }
 //=======================================
-//Creates new random Booster, given aliveBooster = false
-    private void newBooster(){
-		visiblePaths = getVisiblePaths();
-		Booster booster = new Booster(visiblePaths[visiblePaths.length - 1].x + path.width / 2 - booster.width / 2, 0);
+//Update Methods
+    public void updateMarble(double time){
+	marble.update(this, time);
     }
-//=======================================
-//
+
    private void updateBooster(){
 	booster.update();
    }
 
-//=======================================
-//Updates Paths visible on the screen
    private void updateMap(){
 	map.update();
+    }
+//=======================================
+//Updates Frame and values that change by frame
+    public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
+	points = points + 1/60;//Awards one point per second
+	if(booster.activated) timeActive - 1/60;
+		if(timeActive == 0){
+			booster.deactivate();
+			double timeUntilNextBooster = originalTimeUntilNextBooster;
+		}
+	}
+	else if(booster.y >= 0 - booster.width && booster.y <= HEIGHT + booster.width);
+	else timeUntilNextBooster = timeUntilNextBooster - 1/60;
+	if(timeUntilNextBooster = 0) newBooster();
+    }
+//=======================================
+//Creates new random Booster, given aliveBooster = false & points have increased by a given amount based on the difficulty setting
+    private void newBooster(){
+	booster = generateNextBooster();
     }
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction.

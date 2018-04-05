@@ -1,13 +1,19 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Random;
+
 class Booster{
 	public int x;
 	public int y;
 	public final int width = 15;
-	int timeActive;
+	public double timeActive;
+	public boolean activated;
 
 	public Booster(int x, int y){
 		this.x = x;
 		this.y = y;
 		timeActive = 10;
+		alive = true;
 	}
 
 	public void update(){
@@ -16,35 +22,44 @@ class Booster{
 			this.y = this.y + speed;
 		}
 	}
+
+	public void draw(Graphics g){
+		g.setColor(Color.BLACK);
+		g.fillRect(this.x, this.y, width, width);
+		g.setColor(Color.RED);
+		g.drawRect(this.x, this.y, width, width);
+		g.drawString("?", this.x + width / 3, this.y + width / 3);
+	}
 //=======================================
 //Returns a random type of Booster (Bumpers, changeSpeed, changeSize, Bomb, or Ammo)
-	public static Booster generateNextBooster(){//Insert Booster subclasses & should be run whenever Booster is passed or collected
+	public static Booster generateNextBooster(){
+		Path [] visiblePaths = getVisiblePaths();
 		int randNum = rand.nextInt(5);
+		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].width / 2 - width / 2;
+		int y = 0 - width;
 		if(randNum == 0){
-			Bumpers booster = new Bumpers();
+			Bumpers booster = new Bumpers(x, y);
 		}
 		else if(randNum == 1){
-			changeSpeed booster = new changeSpeed();
+			changeSpeed booster = new changeSpeed(x, y);
 		}
 		else if(randNum == 2){
-			changeSize booster = new changeSize();
+			changeSize booster = new changeSize(x, y);
 		}
 		else if(randNum == 3){
-			Bomb booster = new Bomb();
+			Bomb booster = new Bomb(x, y);
 		}
 		else{
-			Ammo booster = new Ammo();
+			Ammo booster = new Ammo(x, y);
 		}
-		int distanceToNext = rand.nextInt(500) + RANGEBASEDONDIFFICULTY;
-		booster.y = marble.position.y - distanceToNext;
-		booster.x = LEFT-SIDE-OF-PATH-AT-booster.y + rand.nextInt(3) * booster.width;
 		return booster;
 	}
 //=======================================
 //Class Bumpers extends Booster
 	class Bumpers extends Booster{//needs to be able to keep track of time to “wear off” after given time
 
-		public Bumpers(){
+		public Bumpers(int x, int y){
+			super(x, y);
 		}
 
 		public void activate(boolean pickedUp){
@@ -60,7 +75,8 @@ class Booster{
 	class changeSpeed extends Booster{//needs to be able to keep track of time to “wear off” after given time
 		boolean increase;
 
-		public changeSpeed(){
+		public changeSpeed(int x, int y){
+			super(x, y);
 			boolean rand = new Random();
 			increase = rand.nextBoolean();
 		}
@@ -79,7 +95,8 @@ class Booster{
 		boolean increase;
 		double proportion;
 
-		public changeSize(){
+		public changeSize(int x, int y){
+			super(x, y);
 			boolean rand = new Random();
 			increase = rand.nextBoolean();
 			proportion = marble.radius * 0.5;
@@ -97,7 +114,12 @@ class Booster{
 //=======================================
 //Class Bomb
 	class Bomb{
-		public Bomb(){
+		int x;
+		int y;
+
+		public Bomb(int x, int y){
+			this.x = x;
+			this.y = y;
 		}
 
 		public void activate(boolean pickedUp){
@@ -107,9 +129,13 @@ class Booster{
 //=======================================
 //Class Ammo
 	class Ammo{
+		int x;
+		int y;
 		int increase;
 
-		public Ammo(){
+		public Ammo(int x, int y){
+			this.x = x;
+			this.y = y;
 			Random rand = new Random();
 			increase = rand.nextInt(5);
 		}
