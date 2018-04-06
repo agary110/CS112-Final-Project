@@ -27,7 +27,7 @@ class Booster{
 			boolean pickedUp;
 			if(this.x + this.width / 2 >= marble.position.x && this.x <= marble.position.x + this.width / 2) pickedUp = true;
 			else pickedUp = false;
-			this.activate()
+			this.activate();
 		if(this.activated){
 			time Active = timeActive - (1 / (double)(FPS));
 			if(timeActive == 0){
@@ -39,6 +39,7 @@ class Booster{
 		else timeUntilNextBooster = timeUntilNextBooster - (1 / (double)(FPS));
 		if(timeUntilNextBooster = 0) world.booster = generateNextBooster();
 	}
+
 
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);
@@ -111,7 +112,7 @@ class Booster{
 	}
 //=======================================
 //Class changeSize extends Booster
-	class changeSize extends Booster{//needs to be able to keep track of time to “wear off” after given time
+	class changeSize extends Booster{
 		boolean increase;
 		double proportion;
 
