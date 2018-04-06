@@ -1,3 +1,5 @@
+//Need to figure out update and draw methods for Ammo and Bomb (not subclasses of Booster because they don’t have a time limit quality)
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
@@ -124,6 +126,15 @@ class Booster{
 
 		public void activate(boolean pickedUp){
 			if(pickedUp) alive = false;
+		}
+
+		public void draw(Graphics g){
+			g.setColor(Color.BLACK);
+			g.fillOval(this.x, this.y, width, width);
+			g.setColor(Color.WHITE);
+			g.drawLine(this.x + width / 2, y, this.x + width, this.y - width / 3);
+			g.setColor(Color.ORANGE);
+			g.drawOval(this.x + width, this.y - width / 3, 3, 3);
 		}
 	}
 //=======================================

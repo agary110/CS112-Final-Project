@@ -36,6 +36,7 @@ public class Game extends JPanel{
 				}
 				catch(InterruptedException e){}
 			}
+			//Once outside of the while loop above, a message should appear on the screen to declare that the game is over.
 		}
 	}
 

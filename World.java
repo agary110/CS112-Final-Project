@@ -22,6 +22,8 @@ public class World{
 //Draw Methods
     public void drawToScreen(Graphics g){
 	drawPath();
+	drawBooster(g);
+	drawMarble(g);
     }
 
     public void drawMarble(Graphics g){
@@ -32,24 +34,8 @@ public class World{
 	booster.draw(g);
     }
 
-   private void drawPath(){
-	Random rand = new Random();
-	pathInt = rand.nextInt(3);
-	Path [] visiblePaths = getVisiblePaths();
-	for(int i = 0; i < visiblePaths.length; i++){
-		if(pathInt == 0) drawStraightPath();
-		else if(pathInt == 1) drawRightCorner();
-		else drawLeftCorner();
-	}
-    }
-
-    private void drawStraightPath(Graphics g){
-    }
-
-    private void drawRightCorner(){
-    }
-
-    private void drawLeftCorner(){
+   public void drawPath(){
+	map.draw();
     }
 //=======================================
 //Update Methods
@@ -67,14 +53,18 @@ public class World{
 //=======================================
 //Updates Frame and values that change by frame
     public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
+	updateMarble(time);
+	updateBooster();
+	updateMap();
+	drawToScreen(g);
 	points = points + 1/60;//Awards one point per second
-	if(booster.activated) timeActive - 1/60;
+	if(booster.activated) timeActive = timeActive - 1/60;
 		if(timeActive == 0){
 			booster.deactivate();
 			double timeUntilNextBooster = originalTimeUntilNextBooster;
 		}
 	}
-	else if(booster.y >= 0 - booster.width && booster.y <= HEIGHT + booster.width);
+	else if(booster.y >= (-)(booster.width) && booster.y <= HEIGHT);
 	else timeUntilNextBooster = timeUntilNextBooster - 1/60;
 	if(timeUntilNextBooster = 0) newBooster();
     }
