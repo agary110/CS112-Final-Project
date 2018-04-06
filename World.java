@@ -4,11 +4,12 @@ import java.util.Random;
 public class World{
     double height;
     double width;
-    Marble marble;
+    static Marble marble;
     Map map;
     Booster booster;
     double timeUntilNextBooster;
     final double originalTimeUntilNextBooster;
+    int points;
 //=======================================
 //Constructor
     public World(double initHeight, double initwidth){
@@ -16,12 +17,14 @@ public class World{
 	width = initwidth;
    	aliveBooster = false;
 	booster = newBooster();
-	originalTimeUntilNextBooster = ;//specified amount based on difficulty level
+	originalTimeUntilNextBooster = 7;//random num - specified amount based on difficulty level
+	points = 0;
     }
 //=======================================
 //Draw Methods
     public void drawToScreen(Graphics g){
 	drawPath();
+	drawPoints(g);
 	drawBooster(g);
 	drawMarble(g);
     }
@@ -37,6 +40,9 @@ public class World{
    public void drawPath(){
 	map.draw();
     }
+
+   public void drawPoints(Graphics g){
+   }
 //=======================================
 //Update Methods
     public void updateMarble(double time){
@@ -50,23 +56,17 @@ public class World{
    private void updateMap(){
 	map.update();
     }
+   private void updatePoints(){
+	points = points + (1 / (double)(FPS));
+   }
 //=======================================
 //Updates Frame and values that change by frame
     public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
 	updateMarble(time);
 	updateBooster();
 	updateMap();
+	updatePoints();
 	drawToScreen(g);
-	points = points + 1/60;//Awards one point per second
-	if(booster.activated) timeActive = timeActive - 1/60;
-		if(timeActive == 0){
-			booster.deactivate();
-			double timeUntilNextBooster = originalTimeUntilNextBooster;
-		}
-	}
-	else if(booster.y >= (-)(booster.width) && booster.y <= HEIGHT);
-	else timeUntilNextBooster = timeUntilNextBooster - 1/60;
-	if(timeUntilNextBooster = 0) newBooster();
     }
 //=======================================
 //Creates new random Booster, given aliveBooster = false & points have increased by a given amount based on the difficulty setting

@@ -11,7 +11,7 @@ public class Game extends JPanel{
 	public static final int FPS = 60;
 	World world;
 	public static final long key;
-	public static alive;
+	public static boolean alive;
 	public static double points;
 
 	public Game(){

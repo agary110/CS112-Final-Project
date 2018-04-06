@@ -23,6 +23,21 @@ class Booster{
 		else{
 			this.y = this.y + speed;
 		}
+		if(marble.position.y == y){
+			boolean pickedUp;
+			if(this.x + this.width / 2 >= marble.position.x && this.x <= marble.position.x + this.width / 2) pickedUp = true;
+			else pickedUp = false;
+			this.activate()
+		if(this.activated){
+			time Active = timeActive - (1 / (double)(FPS));
+			if(timeActive == 0){
+				this.deactivate();
+				double timeUntilNextBooster = originalTimeUntilNextBooster;
+			}
+		}
+		else if(this.y >= -1 * this.width && this.y <= HEIGHT);
+		else timeUntilNextBooster = timeUntilNextBooster - (1 / (double)(FPS));
+		if(timeUntilNextBooster = 0) world.booster = generateNextBooster();
 	}
 
 	public void draw(Graphics g){
@@ -34,6 +49,7 @@ class Booster{
 	}
 //=======================================
 //Returns a random type of Booster (Bumpers, changeSpeed, changeSize, Bomb, or Ammo)
+//Doesn't work because Ammo and Bomb aren't boosters
 	public static Booster generateNextBooster(){
 		Path [] visiblePaths = getVisiblePaths();
 		int randNum = rand.nextInt(5);
@@ -70,6 +86,7 @@ class Booster{
 
 		public void deactivate(){//Runs when timeActive = 0
 			//Turn off bumpers in the Path class
+			super.activated = false;
 		}
 	}
 //=======================================
@@ -89,6 +106,7 @@ class Booster{
 
 		public void deactivate(){//Runs when timeActive = 0
 			map.changeSpeed();
+			super.activated = false;
 		}
 	}
 //=======================================
@@ -111,6 +129,7 @@ class Booster{
 
 		public void deactivate(){//Runs when timeActive = 0
 			//Revert to original radius. Might have to create another variable in the Marble class that holds the original radius.
+			super.activated = false;
 		}
 	}
 //=======================================

@@ -1,17 +1,16 @@
 //////////////////////
-//For this class to work properly, the Path class must… [1] have an x and y coordinate that corresponds to the Path's upper-left-most corner; [2] have one public, non-static method to change x and another to change y; [3] an int width variable that holds the entire width of the Path; [4] a String name that denotes the name of the subclass (i.e. in Straight subclass, super.name = "Straight"; in rightCorner subclass, super.name = "rightCorner"; in leftCorner subclass, super.name = "leftCorner")
+//For this class to work properly, the Path class must… [1] have x as an input variable when it's first created (y will always start at 0)
 //Also, just realized that within the Path class, we will need two more subclasses: leftElbow (L) and rightElbow(reflection of L). These subclasses will always precede leftCorner and rightCorner instances of the Path class, respectively. Also, we need a Horizontal subclass of Path :)
 //////////////////////
 
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.Math;
+import java.lang.Math;
 
 class Map{
 	public static List<Path> upcomingPaths;
 	public final double originalSpeed;
-	public static double speed;
 	private final double boosterSpeedAlt;
 	public static double speed;//x or y values moved per frame
 	private List<Path> pathTypes;
@@ -20,9 +19,10 @@ class Map{
 //Constructor
 	public Map(){
 		rand = new Random();
-		originalSpeed = ;//What speed? (This is dependent on the difficulty level)
+		originalSpeed = 20;//Random num for now - (This is dependent on the difficulty level)
 		speed = originalSpeed;
 		boosterSpeedAlt = originalSpeed * 0.3;
+		Straight straight = new Straight();
 		upcomingPaths = new LinkedList<Path>();
 		for(int i = 0; i < HEIGHT * 2; i++){
 			upcomingPaths.add(straight);
@@ -32,12 +32,12 @@ class Map{
 //=======================================
 //Fills pathTypes with instances of each subclass of Path
 	private void initializePathTypes(){
-		pathTypes<Path> = new LinkedList<Path>();
+		pathTypes = new LinkedList<Path>();
 		Straight straight = new Straight();
-		rightCorner rightC = new rightCorner();
-		leftCorner leftC = new leftCorner();
-		rightElbow rightE = new rightElbow();
-		leftElbow leftE = new leftElbow();
+		RightCorner rightC = new RightCorner();
+		LeftCorner leftC = new LeftCorner();
+		RightElbow rightE = new RightElbow();
+		LeftElbow leftE = new LeftElbow();
 		Horizontal horizontal = new Horizontal();
 		pathTypes.add(straight);//Index 0
 		pathTypes.add(rightC);//Index 1
@@ -53,7 +53,7 @@ class Map{
 		else{
 			Path [] visiblePaths= getVisiblePaths();
 			for(int i = 0; i < visiblePaths.length; i++){
-				visiblePaths [i].y = visiblePaths [i].y + speed;
+				visiblePaths [i].y = visiblePaths [i].y + (int)(speed);
 			}
 			if(visiblePaths [visiblePaths.length - 1].y > HEIGHT){
 				addNewPath();
@@ -63,24 +63,29 @@ class Map{
 	}
 //=======================================
 //Draws Map using draw methods from subclasses of Path
+//draw methods should be named draw(Graphics g0ri) only (?)
 	public void draw(){
 		Path [] visiblePaths = getVisiblePaths();
+		Path visible;
 		for(int i = 0; i < visiblePaths.length; i++){
-			if(upcomingPaths.get(upcomingPaths.size()) - visiblePaths.length + i).name == "Straight") drawStraight(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).x, upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y);
-			else if(upcomingPaths.get(upcomingPaths.size()) - visiblePaths.length + i).name == "rightCorner") drawRightCorner(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).x, upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y);
-			else if(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).name == "leftCorner") drawLeftCorner(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).x, upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y);
-			else if(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).name == "rightElbow") drawRightElbow(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).x, upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y);
-			else if(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).name == "leftElbow") drawLeftElbow(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).x, upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y);
-			else drawHorizontal(upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).x, upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y);
+			visible = upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i);
+			if(visible.name == "Straight") visible = new Straight();
+			else if(visible.name == "rightCorner") visible = new RightCorner();
+			else if(visible.name == "leftCorner") visible = new LeftCorner();
+			else if(visible.name == "rightElbow") visible = new RightElbow();
+			else if(visible.name == "leftElbow") visible = new LeftElbow();
+			else visible = new Horizontal();
+			visible.draw(g);
 		}
 	}
 //=======================================
 //Returns a random type of Path (Straight, rightCorner, or leftCorner)
-	private Path<P> generateNext(){
-		if(upcomingPaths.getLast().name != "Horizontal){
+	private Path generateNext(){
+		Path toReturn;
+		if(upcomingPaths.getLast().name != "Horizontal"){
 			if(upcomingPaths.getLast().name == "Straight"){
 				int randNum = rand.nextInt(5);//includes all except Horizontal
-				P toReturn = pathTypes.get(randNum);
+				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(5);
 					toReturn = pathTypes.get(randNum);
@@ -88,8 +93,8 @@ class Map{
 			}
 			else if(upcomingPaths.getLast().name == "rightCorner"){//includes rightElbow and Horizontal
 				int randNum = rand.nextInt(2);
-				if(randNum == 0) P toReturn = pathTypes.get(3);
-				else P toReturn = pathTypes.get(5);
+				if(randNum == 0) toReturn = pathTypes.get(3);
+				else toReturn = pathTypes.get(5);
 				while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(2);
 					if(randNum == 0) toReturn = pathTypes.get(3);
@@ -98,7 +103,7 @@ class Map{
 			}
 			else if(upcomingPaths.getLast().name == "leftCorner"){//includes leftElbow and Horizontal
 				int randNum = rand.nextInt(2) + 4;
-				P toReturn = pathTypes.get(randNum);
+				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(2) + 4;
 					toReturn = pathTypes.get(randNum);
@@ -106,7 +111,7 @@ class Map{
 			}
 			else if(upcomingPaths.getLast().name == "rightElbow"){//includes Straight, rightCorner, and leftCorner
 				int randNum = rand.nextInt(3);
-				P toReturn = pathTypes.get(randNum);
+				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(3);
 					toReturn = pathTypes.get(randNum);
@@ -114,7 +119,7 @@ class Map{
 			}
 			else if(upcomingPaths.getLast().name == "leftElbow"){//includes Straight, rightCorner, and leftCorner
 				int randNum = rand.nextInt(3);
-				P toReturn = pathTypes.get(randNum);
+				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(3);
 					toReturn = pathTypes.get(randNum);
@@ -123,23 +128,23 @@ class Map{
 			toReturn.x = upcomingPaths.getLast().x;
 			return toReturn;
 		}
-		else{//if upcomingPaths.getLast() is a Horizontal, returns Horizontal or an elbow (left vs. right is dependent on previous Path direction
+		else{//if Path.name == "Horizontal"…
 			int randNum = rand.nextInt(2);
-			if(randNum == 0) P toReturn = pathTypes.get(5);
-			else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) P toReturn = pathTypes.get(3);
-			else P toReturn = pathTypes.get(4);
+			if(randNum == 0) toReturn = pathTypes.get(5);
+			else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) toReturn = pathTypes.get(3);
+			else toReturn = pathTypes.get(4);
 			while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(2);
 					if(ranNum == 0) toReturn = pathTypes.get(5);
-					else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) P toReturn = pathTypes.get(3);
-					else P toReturn = pathTypes.get(4);
+					else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) toReturn = pathTypes.get(3);
+					else toReturn = pathTypes.get(4);
 			}
 			return toReturn;
 		}
 	}
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
-	private boolean checkOnScreen(Path<P> proposedPath){
+	private boolean checkOnScreen(Path proposedPath){
 		if(proposedPath.x > 0 && proposedPath.x + proposedPath.width < WIDTH) return true;
 		else return false;
 	}
