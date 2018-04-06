@@ -8,21 +8,12 @@ public class Path {
     //  final int gapLength; //are we still doing this?
     String name;
 
-    public Path() {
+    public Path(int x) {
 	name = "";
 	bumperWidth=10; //random for now
 	WIDTH=200;
 	HEIGHT=300;
-	x=800;
-	y=450;
-    }
-
-    public void changeX(){
-	//not sure what we're putting here?
-    }
-
-    public void changeY(){
-
-	//same as changeX
+	x=x;
+	y=0;
     }
 }
