@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.RenderingHints;
 
 public class Straight extends Path{
 
