@@ -1,6 +1,6 @@
 public class Path {
     boolean bumpersOn=false;
-    final int bumperWidth = 10; //need to decide what this is
+    final int bumperWidth; //need to decide what this is
     final int WIDTH;
     final int HEIGHT;
     int x; //corresponds to path's upper left corner
