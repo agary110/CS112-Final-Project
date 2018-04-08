@@ -57,7 +57,7 @@ class Marble{
     public void update(World w, double time){
 	position = position.add(velocity.times(time));
 	velocity = velocity.add(acceleration.times(time));
-	//bounce(w);
+	bounce(w);
     }
     
     public void setPosition(Pair p){
@@ -77,15 +77,24 @@ class Marble{
 	g.setColor(c);
     }
 
-    public void moveUp(){}
+    public void moveUp(){
+	marble.velocity.y -= 50.0;
+    }
 
-    public void moveDown(){}
+    public void moveDown(){
+	marble.velocity.y += 50.0;
+    }
 
-    public void moveRight(){}
+    public void moveRight(){
+	marble.velocity.x += 50.0;
+    }
 
-    public void moveLeft(){}
+    public void moveLeft(){
+	marble.velocity.x -= 50.0;
+    }
 
-    public void stopUp(){}
+    public void stopUp(){
+	}
 
     public void stopDown(){}
 
