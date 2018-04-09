@@ -2,10 +2,11 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class World{
-    double height;
-    double width;
+    static double HEIGHT;
+    static double WIDTH;
     static Marble marble;
     Map map;
+    boolean aliveBooster;
     Booster booster;
     double timeUntilNextItem;
     final double originalTimeUntilNextItem;
@@ -13,9 +14,10 @@ public class World{
     static int ammoCount;
 //=======================================
 //Constructor
-    public World(double initHeight, double initwidth){
-	height = initheight;
-	width = initwidth;
+    public World(double initHeight, double initWidth){
+	HEIGHT = initHeight;
+	WIDTH = initWidth;
+	marble = new Marble();
    	aliveBooster = false;
 	booster = newBooster();
 	originalTimeUntilNextBooster = 7;//random num - specified amount based on difficulty level
@@ -74,7 +76,7 @@ public class World{
 	updateBooster();
 	updateMap();
 	updatePoints();
-	drawToScreen(g);
+	this.drawToScreen(g);
     }
 //=======================================
 //Creates new random Booster, given aliveBooster = false & points have increased by a given amount based on the difficulty setting

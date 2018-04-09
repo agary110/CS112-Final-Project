@@ -10,6 +10,7 @@ class Booster{
 	public final int width = 15;
 	public double timeActive;
 	public boolean activated;
+	public boolean alive;
 
 	public Booster(int x, int y){
 		this.x = x;
@@ -19,6 +20,7 @@ class Booster{
 	}
 
 	public void update(){
+		double timeUntilNextBooster;
 		if(marble.velocity.y == 0){}
 		else{
 			this.y = this.y + speed;
@@ -32,12 +34,12 @@ class Booster{
 			timeActive = timeActive - (1 / (double)(FPS));
 			if(timeActive == 0){
 				this.deactivate();
-				double timeUntilNextBooster = originalTimeUntilNextBooster;
+				timeUntilNextBooster = originalTimeUntilNextBooster;
 			}
 		}
 		else if(this.y >= -1 * this.width && this.y <= HEIGHT);
 		else timeUntilNextBooster = timeUntilNextBooster - (1 / (double)(FPS));
-		if(timeUntilNextBooster = 0) world.booster = generateNextBooster();
+		if(timeUntilNextBooster == 0) world.booster = generateNextBooster();
 	}
 }
 
@@ -71,7 +73,8 @@ class Booster{
 		else{
 			Ammo booster = new Ammo(x, y);
 		}
-		return booster;
+		return booster; 
+	// this doesn't work (sends an error) because booster isn't necessarily initialized (should have it be Booster booster; and then initialize in the if statements
 	}
 //=======================================
 //Interface that relates to subclasses of Booster that are deactivated after a certain amount of time passes
@@ -108,7 +111,7 @@ public interface TimeSensitive{
 
 		public changeSpeed(int x, int y){
 			super(x, y);
-			boolean rand = new Random();
+			Random rand = new Random();
 			increase = rand.nextBoolean();
 		}
 
@@ -133,7 +136,7 @@ public interface TimeSensitive{
 
 		public changeSize(int x, int y){
 			super(x, y);
-			boolean rand = new Random();
+			Random rand = new Random();
 			increase = rand.nextBoolean();
 			proportion = marble.radius * 0.5;
 		}

@@ -31,13 +31,14 @@ class Map{
 //=======================================
 //Fills pathTypes with instances of each subclass of Path
 	private void initializePathTypes(){
+	/* all of these instances need to take int x in the constructor */
 		pathTypes = new LinkedList<Path>();
 		Straight straight = new Straight();
 		RightCorner rightC = new RightCorner();
 		LeftCorner leftC = new LeftCorner();
 		RightElbow rightE = new RightElbow();
 		LeftElbow leftE = new LeftElbow();
-		Horizontal horizontal = new Horizontal();
+		Horizontal horizontal = new Horizontal(); // constructor takes int
 		pathTypes.add(straight);//Index 0
 		pathTypes.add(rightC);//Index 1
 		pathTypes.add(leftC);//Index 2
@@ -74,7 +75,7 @@ class Map{
 			else if(visible.name == "rightElbow") visible = new RightElbow();
 			else if(visible.name == "leftElbow") visible = new LeftElbow();
 			else visible = new Horizontal();
-			visible.draw(g);
+			visible.draw(g);// We need a draw method for class path/the subclasses
 		}
 	}
 //=======================================
@@ -127,14 +128,14 @@ class Map{
 			toReturn.x = upcomingPaths.getLast().x;
 			return toReturn;
 		}
-		else{//if Path.name == "Horizontal"…
+		else{//if Path.name == "Horizontal"
 			int randNum = rand.nextInt(2);
 			if(randNum == 0) toReturn = pathTypes.get(5);
 			else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) toReturn = pathTypes.get(3);
 			else toReturn = pathTypes.get(4);
 			while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(2);
-					if(ranNum == 0) toReturn = pathTypes.get(5);
+					if(randNum == 0) toReturn = pathTypes.get(5);
 					else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) toReturn = pathTypes.get(3);
 					else toReturn = pathTypes.get(4);
 			}

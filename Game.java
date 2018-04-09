@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Dimension;
 import java.util.Random;
 
-public class Game extends JPanel{
+public class Game extends JPanel implements KeyListener{
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 750;
 	public static final int FPS = 60;
@@ -16,6 +16,7 @@ public class Game extends JPanel{
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
+		addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		Thread mainThread = new Thread(new Runner());
 		mainThread.start();
@@ -39,6 +40,19 @@ public class Game extends JPanel{
 			//Once outside of the while loop above, a message should appear on the screen to declare that the game is over.
 		}
 	}
+    public void keyPressed(KeyEvent e) {
+       char c = e.getKeyChar();
+	world.moveMarble(c);			
+
+    }
+    public void keyReleased(KeyEvent e) {
+        char c=e.getKeyChar();
+    }
+
+    public void keyTyped(KeyEvent e) {
+	char c = e.getKeyChar();
+	
+    }
 
 	public static void main(String [] args){
 		JFrame frame = new JFrame("aMAZE-ing Maze");
@@ -50,9 +64,9 @@ public class Game extends JPanel{
 	}
 
 	public void paintComponent(Graphics g){
-		super.paintComponent(G);
+		super.paintComponent(g);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		world.drawToScreen();
+		world.drawToScreen(g);
 	}
 }
