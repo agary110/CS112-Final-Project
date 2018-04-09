@@ -4,8 +4,9 @@ import java.util.Random;
 public class World{
     static double HEIGHT;
     static double WIDTH;
-    static Marble marble;
+    Marble marble;
     Map map;
+    Item item;
     boolean aliveBooster;
     Booster booster;
     double timeUntilNextItem;

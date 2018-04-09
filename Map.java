@@ -145,13 +145,13 @@ class Map{
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
 	private boolean checkOnScreen(Path proposedPath){
-		if(proposedPath.x > 0 && proposedPath.x + proposedPath.width < WIDTH) return true;
+		if(proposedPath.x > 0 && proposedPath.x + proposedPath.WIDTH < WIDTH) return true;
 		else return false;
 	}
 //=======================================
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths
 	private static void addNewPath(){
-		Path next = generateNext();
+		Path next = generateNext(); // gives error: non-static method generateNext() cannot be referenced from a static context
 		next.x = upcomingPaths.getLast().x;
 		upcomingPaths.add(next);
 	}
@@ -161,7 +161,7 @@ class Map{
 		int cumPathHeight = 0;
 		int index = 0;
 		while(cumPathHeight <= HEIGHT){
-			cumPathHeight = cumPathHeight + upcomingPaths.get[upcomingPaths.size() - 1 - index].height;
+			cumPathHeight = cumPathHeight + upcomingPaths.get(upcomingPaths.size() - 1 - index).HEIGHT;
 			index++;
 		}
 		if(cumPathHeight < HEIGHT) index++;
