@@ -11,7 +11,8 @@ import java.awt.RenderingHints;
 
 public class RightCorner extends Path {
 
-    public RightCorner() {
+    public RightCorner(int x) {
+	super(x);
 	super.name="rightCorner";
     }
     public void drawRightCorner(Graphics g0ri){

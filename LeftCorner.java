@@ -9,7 +9,8 @@ import java.awt.RenderingHints;
 
 public class LeftCorner extends Path {
 
-    public LeftCorner() {
+    public LeftCorner(int x) {
+	super(x);
 	super.name="leftCorner";
     }
     public void drawLeftCorner(Graphics g0ri){

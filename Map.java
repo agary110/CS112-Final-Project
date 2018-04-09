@@ -1,6 +1,5 @@
 //////////////////////
-//For this class to work properly, the Path class must… [1] have x as an input variable when it's first created (y will always start at 0)
-//Also, just realized that within the Path class, we will need two more subclasses: leftElbow (L) and rightElbow(reflection of L). These subclasses will always precede leftCorner and rightCorner instances of the Path class, respectively. Also, we need a Horizontal subclass of Path :)
+//Also, just realized that within the Path class, we will need two more subclasses: leftElbow (L) and rightElbow(reflection of L). These subclasses will always precede leftCorner and rightCorner instances of the Path class, respectively.
 //////////////////////
 
 import java.util.List;
@@ -151,7 +150,9 @@ class Map{
 //=======================================
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths
 	private static void addNewPath(){
-		upcomingPaths.add(generateNext());
+		Path next = generateNext();
+		next.x = upcomingPaths.getLast().x;
+		upcomingPaths.add(next);
 	}
 //=======================================
 //Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen

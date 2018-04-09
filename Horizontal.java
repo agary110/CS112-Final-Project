@@ -11,7 +11,8 @@ import java.awt.RenderingHints;
 
 public class Horizontal extends Path{
 
-    public Horizontal(){
+    public Horizontal(int x){
+	super(x);
 	super.name="Horizontal";
     }
 

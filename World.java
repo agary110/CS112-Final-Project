@@ -7,9 +7,10 @@ public class World{
     static Marble marble;
     Map map;
     Booster booster;
-    double timeUntilNextBooster;
-    final double originalTimeUntilNextBooster;
-    int points;
+    double timeUntilNextItem;
+    final double originalTimeUntilNextItem;
+    static int points;
+    static int ammoCount;
 //=======================================
 //Constructor
     public World(double initHeight, double initwidth){
@@ -18,6 +19,7 @@ public class World{
    	aliveBooster = false;
 	booster = newBooster();
 	originalTimeUntilNextBooster = 7;//random num - specified amount based on difficulty level
+	ammoCount = 0;
 	points = 0;
     }
 //=======================================
@@ -27,6 +29,8 @@ public class World{
 	drawPoints(g);
 	drawBooster(g);
 	drawMarble(g);
+	drawPoints(g);
+	drawAmmoCount(g);
     }
 
     public void drawMarble(Graphics g){
@@ -43,6 +47,9 @@ public class World{
 
    public void drawPoints(Graphics g){
    }
+
+   public void drawAmmoCount(Graphics g){
+   }
 //=======================================
 //Update Methods
     public void updateMarble(double time){
@@ -56,6 +63,7 @@ public class World{
    private void updateMap(){
 	map.update();
     }
+
    private void updatePoints(){
 	points = points + (1 / (double)(FPS));
    }

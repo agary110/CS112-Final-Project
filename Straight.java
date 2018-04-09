@@ -10,7 +10,8 @@ import java.awt.RenderingHints;
 
 public class Straight extends Path{
 
-    public Straight(){
+    public Straight(int x){
+	super(x);
 	super.name="Straight";
     }
 

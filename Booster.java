@@ -1,4 +1,4 @@
-//Need to figure out update and draw methods for Ammo and Bomb (not subclasses of Booster because they don’t have a time limit quality)
+//Created a new Item class that might replace all of this
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -29,7 +29,7 @@ class Booster{
 			else pickedUp = false;
 			this.activate();
 		if(this.activated){
-			time Active = timeActive - (1 / (double)(FPS));
+			timeActive = timeActive - (1 / (double)(FPS));
 			if(timeActive == 0){
 				this.deactivate();
 				double timeUntilNextBooster = originalTimeUntilNextBooster;
@@ -74,8 +74,15 @@ class Booster{
 		return booster;
 	}
 //=======================================
-//Class Bumpers extends Booster
-	class Bumpers extends Booster{//needs to be able to keep track of time to “wear off” after given time
+//Interface that relates to subclasses of Booster that are deactivated after a certain amount of time passes
+public interface TimeSensitive{
+	public void activate(boolean pickedUp);
+	public void deactivate();
+	public void draw(Graphics g);
+}
+//=======================================
+//Class Bumpers
+	class Bumpers extends Booster implements TimeSensitive{
 
 		public Bumpers(int x, int y){
 			super(x, y);
@@ -89,10 +96,14 @@ class Booster{
 			//Turn off bumpers in the Path class
 			super.activated = false;
 		}
+
+		public void draw(Graphics g){
+			super(g);
+		}
 	}
 //=======================================
-//Class changeSpeed extends Booster
-	class changeSpeed extends Booster{//needs to be able to keep track of time to “wear off” after given time
+//Class changeSpeed
+	class changeSpeed extends Booster implements TimeSensitive{
 		boolean increase;
 
 		public changeSpeed(int x, int y){
@@ -109,10 +120,14 @@ class Booster{
 			map.changeSpeed();
 			super.activated = false;
 		}
+
+		public void draw(Graphics g){
+			super(g);
+		}
 	}
 //=======================================
-//Class changeSize extends Booster
-	class changeSize extends Booster{
+//Class changeSize
+	class changeSize extends Booster implements TimeSensitive{
 		boolean increase;
 		double proportion;
 
@@ -131,6 +146,10 @@ class Booster{
 		public void deactivate(){//Runs when timeActive = 0
 			//Revert to original radius. Might have to create another variable in the Marble class that holds the original radius.
 			super.activated = false;
+		}
+
+		public void draw(Graphics g){
+			super(g);
 		}
 	}
 //=======================================
