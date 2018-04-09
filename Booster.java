@@ -19,7 +19,7 @@ class Booster{
 	}
 
 	public void update(){
-		if(marble.velocity.y == 0);
+		if(marble.velocity.y == 0){}
 		else{
 			this.y = this.y + speed;
 		}
@@ -39,7 +39,7 @@ class Booster{
 		else timeUntilNextBooster = timeUntilNextBooster - (1 / (double)(FPS));
 		if(timeUntilNextBooster = 0) world.booster = generateNextBooster();
 	}
-
+}
 
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);

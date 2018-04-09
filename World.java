@@ -82,7 +82,7 @@ public class World{
 	booster = generateNextBooster();
     }
 //=======================================
-// When the key (char c) is pressed, the marble will start moving in that direction.
+// When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
 
     public void moveMarble(char c){
 	if (c == 'i') {
@@ -98,23 +98,6 @@ public class World{
 	    marble.moveRight();
 	}
     }
-//=======================================
-// When the key (char c) is released, the marble will stop moving in that direction.
 
-    public void stopMarble(char c){
-	if (c == 'i') {
-	    marble.stopUp();
-	}
-	if (c == 'j') {
-	    marble.stopLeft();
-	}
-	if (c == 'k') {
-	    marble.stopDown();
-	}
-	if (c == 'l') {
-	    marble.stopRight();
-	}
-    }
-//=======================================
 
 }

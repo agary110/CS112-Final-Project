@@ -48,7 +48,7 @@ class Marble{
     public Marble(){
 	Random rand = new Random(); 
 	position = new Pair(500.0, 500.0);
-	velocity = new Pair((double)(rand.nextInt(1000) - 500), (double)(rand.nextInt(1000) - 500));
+	velocity = new Pair(0.0, 0.0);
 	acceleration = new Pair(0.0, 0.0);
 	radius = 25;
 	dampening = 1.3;
@@ -93,14 +93,26 @@ class Marble{
 	marble.velocity.x -= 50.0;
     }
 
-    public void stopUp(){
+    private void bounce(World w){
+	if (position.x - radius < 0){
+	    velocity.x = 0.0;
+	    position.x = radius;
 	}
+	else if (position.x + radius > w.width){
+	    velocity.x = 0.0;
+	    position.x = w.width - radius;
+	 
+	}
+	if (position.y - radius < 0){
+	    velocity.y = 0.0;
+	    position.y = radius;
+	}
+	else if(position.y + radius >  w.height){
+	    velocity.y = 0.0;
+	    position.y = w.height - radius;
+	}
+    }
 
-    public void stopDown(){}
-
-    public void stopRight(){}
-
-    public void stopLeft(){}
 }
 
 public class KeyMarble extends JPanel implements KeyListener{
