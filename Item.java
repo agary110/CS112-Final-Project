@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
+//=======================================
+//Class Item (includes anything that the marble might encounter on the path)
+
 class Item{
 	public int x;
 	public int y;
@@ -33,12 +36,47 @@ class Item{
 		}
 	}
 
+	public static Item generateNextItem(){
+		Path [] visiblePaths = getVisiblePaths();
+		int randNum = rand.nextInt(5);
+		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].width / 2 - width / 2;
+		int y = 0 - width;
+
+		//Bomb
+		if(randNum == 0){
+			Bomb bomb = new Bomb(x, y);
+		}
+
+		//Ammo
+		else if(randNum == 1){
+			Ammo ammo = new Ammo(x, y);
+		}
+
+		//Bumpers
+		else if(randNum == 2){
+			Bumpers bumpers = new Bumpers(x, y);
+		}
+
+		//ChangeSpeed
+		else if(randNum == 3){
+			ChangeSpeed changeSpeed = new ChangeSpeed(x, y);
+		}
+
+		//ChangeSize
+		else{
+			ChangeSize changeSize = new ChangeSize(x, y);
+		}
+	}
+
 	public void draw(Graphics g){
 	}
 
 	public void activate(){
 	}
 }
+
+//=======================================
+//Class Bomb extends Item (if bomb is ever activated, the player automatically loses)
 
 class Bomb extends Item{
 	public Bomb(int x, int y){
@@ -59,13 +97,16 @@ class Bomb extends Item{
 	}
 }
 
+//=======================================
+//Class Ammo extends Item (increases ammoCount by 1-3)
+
 class Ammo extends Item{
 	int increase;
 
 	public Ammo(int x, int y){
 		super(x, y);
 		Random rand = new Random();
-		increase = rand.nextInt(3);
+		increase = rand.nextInt(3) + 1;
 	}
 
 	public void draw(Graphics g){
@@ -83,6 +124,9 @@ class Ammo extends Item{
 		timeUntilNextItem = originalTimeUntilNextItem;
 	}
 }
+
+//=======================================
+//Class Booster extends Item (includes all time-sensitive Items)
 
 class Booster extends Item{
 	public double timeActive;
@@ -109,7 +153,80 @@ class Booster extends Item{
 		}
 	}
 
+	public void activate(){
+	}
+
 	public void deactivate(){
 		this.activated = false;
+	}
+}
+
+//=======================================
+//Class Bumpers extends Booster (activates bumpers that prevent the marble from falling off the path)
+
+class Bumpers extends Booster{
+	
+	public Bumpers(int x, int y){
+		super(x, y);
+	}
+
+	public void activate(){
+	//How to actually turn the bumpers on
+	}
+
+	public void deactivate(){
+		this.activated = false;
+		//How to actually turn the bumpers off
+	}
+}
+
+//=======================================
+//Class ChangeSpeed extends Booster (changes the speed of the path by a constant - positive or negative change is based on a Random)
+
+class ChangeSpeed extends Booster{
+	boolean increase;
+
+	public ChangeSpeed(int x, int y){
+		super(x, y);
+		Random rand = new Random();
+		increase = rand.nextBoolean();
+	}
+
+	public void activate(){
+		if(increase){
+			map.speed = map.speed + map.boosterSpeedAlt;
+		}
+		else{
+			map.speed = map.speed - map.boosterSpeedAlt;
+		}
+	}
+
+	public void deactivate(){
+		this.activated = false;
+		map.speed = map.originalSpeed;
+	}
+}
+
+//=======================================
+//ChangeSize extends Booster (changes the size of the marble by a constant - positive or negative change is based on a Random)
+
+class ChangeSize extends Booster{
+	boolean increase;
+	double proportion;
+
+	public ChangeSize(int x, int y){
+		super(x, y);
+		Random rand = new Random();
+		increase = rand.nextBoolean();
+		proportion = marble.radius * 0.5;
+	}
+
+	public void activate(){
+		//How to actually change the size of the marble
+	}
+
+	public void deactivate(){
+		this.activated = false;
+		//How to actually make the size of the marble normal again
 	}
 }

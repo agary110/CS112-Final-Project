@@ -11,7 +11,7 @@ class Map{
 	public static List<Path> upcomingPaths;
 	public final double originalSpeed;
 	private final double boosterSpeedAlt;
-	public static double speed;//x or y values moved per frame
+	public double speed;//x or y values moved per frame
 	private List<Path> pathTypes;
 	private Random rand;
 //=======================================

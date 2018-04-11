@@ -4,11 +4,10 @@ import java.util.Random;
 public class World{
     static double HEIGHT;
     static double WIDTH;
-    Marble marble;
-    Map map;
+    static Marble marble;
+    static Map map;
     Item item;
-    boolean aliveBooster;
-    Booster booster;
+    boolean aliveItem;
     double timeUntilNextItem;
     final double originalTimeUntilNextItem;
     static int points;
@@ -21,7 +20,7 @@ public class World{
 	marble = new Marble();
    	aliveBooster = false;
 	booster = newBooster();
-	originalTimeUntilNextBooster = 7;//random num - specified amount based on difficulty level
+	originalTimeUntilNextItem = 7;//random num - specified amount based on difficulty level
 	ammoCount = 0;
 	points = 0;
     }
@@ -30,7 +29,7 @@ public class World{
     public void drawToScreen(Graphics g){
 	drawPath();
 	drawPoints(g);
-	drawBooster(g);
+	drawItem(g);
 	drawMarble(g);
 	drawPoints(g);
 	drawAmmoCount(g);
@@ -40,8 +39,8 @@ public class World{
 	marble.draw(g);
     }
 
-    public void drawBooster(Graphics g){
-	booster.draw(g);
+    public void drawItem(Graphics g){
+	item.draw(g);
     }
 
    public void drawPath(){
@@ -59,8 +58,8 @@ public class World{
 	marble.update(this, time);
     }
 
-   private void updateBooster(){
-	booster.update();
+   private void updateItem(){
+	item.update();
    }
 
    private void updateMap(){
@@ -74,15 +73,15 @@ public class World{
 //Updates Frame and values that change by frame
     public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
 	updateMarble(time);
-	updateBooster();
+	updateItem();
 	updateMap();
 	updatePoints();
 	this.drawToScreen(g);
     }
 //=======================================
-//Creates new random Booster, given aliveBooster = false & points have increased by a given amount based on the difficulty setting
-    private void newBooster(){
-	booster = generateNextBooster();
+//Creates new random Item, given aliveItem = false & timeUntilNextItem = 0
+    private void newItem(){
+	item = generateNextItem();
     }
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
