@@ -6,7 +6,7 @@ public class World{
     static double WIDTH;
     static Marble marble;
     static Map map;
-    Item item;
+    //Item item;
     boolean aliveItem;
     double timeUntilNextItem;
     final double originalTimeUntilNextItem;
@@ -18,8 +18,8 @@ public class World{
 	HEIGHT = initHeight;
 	WIDTH = initWidth;
 	marble = new Marble();
-   	aliveBooster = false;
-	booster = newBooster();
+   	aliveItem = false;
+	//item = newItem();
 	originalTimeUntilNextItem = 7;//random num - specified amount based on difficulty level
 	ammoCount = 0;
 	points = 0;
@@ -27,11 +27,11 @@ public class World{
 //=======================================
 //Draw Methods
     public void drawToScreen(Graphics g){
-	drawPath();
-	drawPoints(g);
-	drawItem(g);
+	drawPath(g);
+	//drawPoints(g);
+	//drawItem(g);
 	drawMarble(g);
-	drawPoints(g);
+	//drawPoints(g);
 	drawAmmoCount(g);
     }
 
@@ -39,16 +39,16 @@ public class World{
 	marble.draw(g);
     }
 
-    public void drawItem(Graphics g){
+    /*public void drawItem(Graphics g){
 	item.draw(g);
+    }*/
+
+   public void drawPath(Graphics g){
+	map.draw(g);
     }
 
-   public void drawPath(){
-	map.draw();
-    }
-
-   public void drawPoints(Graphics g){
-   }
+   /*public void drawPoints(Graphics g){
+   }*/
 
    public void drawAmmoCount(Graphics g){
    }
@@ -58,31 +58,31 @@ public class World{
 	marble.update(this, time);
     }
 
-   private void updateItem(){
+   /*private void updateItem(){
 	item.update();
-   }
+   }*/
 
    private void updateMap(){
 	map.update();
     }
 
-   private void updatePoints(){
+   /*private void updatePoints(){
 	points = points + (1 / (double)(FPS));
-   }
+   }*/
 //=======================================
 //Updates Frame and values that change by frame
     public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
 	updateMarble(time);
-	updateItem();
+	//updateItem();
 	updateMap();
-	updatePoints();
+	//updatePoints();
 	this.drawToScreen(g);
     }
 //=======================================
 //Creates new random Item, given aliveItem = false & timeUntilNextItem = 0
-    private void newItem(){
+    /*private void newItem(){
 	item = generateNextItem();
-    }
+    }*/
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
 

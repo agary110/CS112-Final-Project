@@ -1,29 +1,32 @@
 //////////////////////
 //Also, just realized that within the Path class, we will need two more subclasses: leftElbow (L) and rightElbow(reflection of L). These subclasses will always precede leftCorner and rightCorner instances of the Path class, respectively.
+
+//Still need to edit the following methods: addNewPath() and draw(Graphics g)
 //////////////////////
 
+import java.awt.Graphics;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
 import java.lang.Math;
 
 class Map{
-	public static List<Path> upcomingPaths;
+	public static LinkedList<Path> upcomingPaths;
 	public final double originalSpeed;
 	private final double boosterSpeedAlt;
 	public double speed;//x or y values moved per frame
-	private List<Path> pathTypes;
-	private Random rand;
+	public static List<Path> pathTypes;
+	public static Random rand;
 //=======================================
 //Constructor
 	public Map(){
 		rand = new Random();
 		originalSpeed = 20;//Random num for now - (This is dependent on the difficulty level)
 		speed = originalSpeed;
-		boosterSpeedAlt = originalSpeed * 0.3;
-		Straight straight = new Straight();
+		//boosterSpeedAlt = originalSpeed * 0.3;
+		Straight straight = new Straight(Game.WIDTH / 2 - Path.WIDTH / 2);
 		upcomingPaths = new LinkedList<Path>();
-		for(int i = 0; i < HEIGHT * 2; i++){
+		for(int i = 0; i < Game.HEIGHT * 2; i++){
 			upcomingPaths.add(straight);
 		}
 		initializePathTypes();
@@ -31,14 +34,13 @@ class Map{
 //=======================================
 //Fills pathTypes with instances of each subclass of Path
 	private void initializePathTypes(){
-	/* all of these instances need to take int x in the constructor */
 		pathTypes = new LinkedList<Path>();
-		Straight straight = new Straight();
-		RightCorner rightC = new RightCorner();
-		LeftCorner leftC = new LeftCorner();
-		RightElbow rightE = new RightElbow();
-		LeftElbow leftE = new LeftElbow();
-		Horizontal horizontal = new Horizontal(); // constructor takes int
+		Straight straight = new Straight(0);
+		RightCorner rightC = new RightCorner(0);
+		LeftCorner leftC = new LeftCorner(0);
+		RightElbow rightE = new RightElbow(0);
+		LeftElbow leftE = new LeftElbow(0);
+		Horizontal horizontal = new Horizontal(0);
 		pathTypes.add(straight);//Index 0
 		pathTypes.add(rightC);//Index 1
 		pathTypes.add(leftC);//Index 2
@@ -55,7 +57,7 @@ class Map{
 			for(int i = 0; i < visiblePaths.length; i++){
 				visiblePaths [i].y = visiblePaths [i].y + (int)(speed);
 			}
-			if(visiblePaths [visiblePaths.length - 1].y > HEIGHT){
+			if(visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
 				addNewPath();
 				this.update();
 			}
@@ -63,28 +65,50 @@ class Map{
 	}
 //=======================================
 //Draws Map using draw methods from subclasses of Path
-//draw methods should be named draw(Graphics g0ri) only (?)
-	public void draw(){
+
+/* Since visible is of an unknown subclass of Path, Path needs to have a draw(Graphics g) method that is overridden by each subclass of Path (tried using the original method names (ex. visible.drawHorizontal(g);) and received the following error message…
+
+	error: cannot find symbol
+		visible.drawHorizontal(g);
+				       ^
+  	symbol:   method drawHorizontal(Graphics)
+ 	location: variable visible of type Path*/
+
+	public void draw(Graphics g){
 		Path [] visiblePaths = getVisiblePaths();
 		Path visible;
+		Path previousVisible;
 		for(int i = 0; i < visiblePaths.length; i++){
 			visible = upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i);
-			if(visible.name == "Straight") visible = new Straight();
-			else if(visible.name == "rightCorner") visible = new RightCorner();
-			else if(visible.name == "leftCorner") visible = new LeftCorner();
-			else if(visible.name == "rightElbow") visible = new RightElbow();
-			else if(visible.name == "leftElbow") visible = new LeftElbow();
-			else visible = new Horizontal();
-			visible.draw(g);// We need a draw method for class path/the subclasses
+			previousVisible = upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i - 1);
+			if(visible.name == "Straight"){
+				visible = new Straight(previousVisible.x);
+			}
+			else if(visible.name == "rightCorner"){
+				visible = new RightCorner(previousVisible.x);
+			}
+			else if(visible.name == "leftCorner"){
+				visible = new LeftCorner(previousVisible.x);
+			}
+			else if(visible.name == "rightElbow"){
+				visible = new RightElbow(previousVisible.x);
+			}
+			else if(visible.name == "leftElbow"){
+				visible = new LeftElbow(previousVisible.x);
+			}
+			else{
+				visible = new Horizontal(previousVisible.x);
+			}
+			visible.draw(g);
 		}
 	}
 //=======================================
-//Returns a random type of Path (Straight, rightCorner, or leftCorner)
-	private Path generateNext(){
+//Returns an instance of random subclass of Path
+	public static Path generateNext(){
 		Path toReturn;
 		if(upcomingPaths.getLast().name != "Horizontal"){
-			if(upcomingPaths.getLast().name == "Straight"){
-				int randNum = rand.nextInt(5);//includes all except Horizontal
+			if(upcomingPaths.getLast().name == "Straight"){//includes all except Horizontal
+				int randNum = rand.nextInt(5);
 				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(5);
@@ -93,8 +117,12 @@ class Map{
 			}
 			else if(upcomingPaths.getLast().name == "rightCorner"){//includes rightElbow and Horizontal
 				int randNum = rand.nextInt(2);
-				if(randNum == 0) toReturn = pathTypes.get(3);
-				else toReturn = pathTypes.get(5);
+				if(randNum == 0){
+					toReturn = pathTypes.get(3);
+				}
+				else{
+					toReturn = pathTypes.get(5);
+				}
 				while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(2);
 					if(randNum == 0) toReturn = pathTypes.get(3);
@@ -130,28 +158,43 @@ class Map{
 		}
 		else{//if Path.name == "Horizontal"
 			int randNum = rand.nextInt(2);
-			if(randNum == 0) toReturn = pathTypes.get(5);
-			else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) toReturn = pathTypes.get(3);
-			else toReturn = pathTypes.get(4);
+			if(randNum == 0){
+				toReturn = pathTypes.get(5);
+			}
+			else if(upcomingPaths.get(upcomingPaths.size() - 2).x < upcomingPaths.getLast().x){
+				toReturn = pathTypes.get(3);
+			}
+			else{
+				toReturn = pathTypes.get(4);
+			}
 			while(checkOnScreen(toReturn) == false){
 					randNum = rand.nextInt(2);
-					if(randNum == 0) toReturn = pathTypes.get(5);
-					else if(upcomingPaths.get(size() - 2).x < upcomingPaths.getLast().x) toReturn = pathTypes.get(3);
-					else toReturn = pathTypes.get(4);
+					if(randNum == 0){
+						toReturn = pathTypes.get(5);
+					}
+					else if(upcomingPaths.get(upcomingPaths.size() - 2).x < upcomingPaths.getLast().x){
+						toReturn = pathTypes.get(3);
+					}
+					else{
+						toReturn = pathTypes.get(4);
+					}
 			}
 			return toReturn;
 		}
 	}
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
-	private boolean checkOnScreen(Path proposedPath){
-		if(proposedPath.x > 0 && proposedPath.x + proposedPath.WIDTH < WIDTH) return true;
+	public static boolean checkOnScreen(Path proposedPath){
+		if(proposedPath.x > 0 && proposedPath.x + proposedPath.WIDTH < Game.WIDTH) return true;
 		else return false;
 	}
 //=======================================
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths
+
+/* Will need to edit this method so that next.BOTTUM_X = upcomingPaths.getLast().TOP_OPENNING_X (current implementation does not account for the fact that the Path.x value at the top is different from that of the bottom */
+
 	private static void addNewPath(){
-		Path next = generateNext(); // gives error: non-static method generateNext() cannot be referenced from a static context
+		Path next = generateNext();
 		next.x = upcomingPaths.getLast().x;
 		upcomingPaths.add(next);
 	}
@@ -160,26 +203,17 @@ class Map{
 	public static Path[] getVisiblePaths(){
 		int cumPathHeight = 0;
 		int index = 0;
-		while(cumPathHeight <= HEIGHT){
+		while(cumPathHeight <= Game.HEIGHT){
 			cumPathHeight = cumPathHeight + upcomingPaths.get(upcomingPaths.size() - 1 - index).HEIGHT;
 			index++;
 		}
-		if(cumPathHeight < HEIGHT) index++;
+		if(cumPathHeight < Game.HEIGHT){
+			index++;
+		}
 		Path [] visiblePaths = new Path [index];
 		for(int i = visiblePaths.length; i > 0; i++){
 			visiblePaths [i] = upcomingPaths.get(upcomingPaths.size() - i);
 		}
 		return visiblePaths;
-	}
-//=======================================
-//Increases or decreases speed by a specified constant
-	public void changeSpeed(boolean faster){
-		if(faster) speed = speed + boosterSpeedAlt;
-		else speed = speed - boosterSpeedAlt;
-	}
-//=======================================
-//Reverts speed back to default
-	public void changeSpeed(){
-		speed = originalSpeed;
 	}
 }
