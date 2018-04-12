@@ -72,11 +72,11 @@ public class World{
 //=======================================
 //Updates Frame and values that change by frame
     public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
-	updateMarble(time);
+	updateMarble(INPUT);
 	//updateItem();
 	updateMap();
 	//updatePoints();
-	this.drawToScreen(g);
+	//this.drawToScreen(g);
     }
 //=======================================
 //Creates new random Item, given aliveItem = false & timeUntilNextItem = 0

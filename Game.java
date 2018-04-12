@@ -11,8 +11,8 @@ public class Game extends JPanel implements KeyListener{
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 750;
 	public static final int FPS = 60;
-	World world;
-	public static final long key;
+	public static World world;
+	//public static final long key;
 	public static boolean alive;
 	public static double points;
 
@@ -23,7 +23,7 @@ public class Game extends JPanel implements KeyListener{
 		Thread mainThread = new Thread(new Runner());
 		mainThread.start();
 		Random rand = new Random();
-		long key = rand.nextLong();//Do we actually need to have a key?
+		//long key = rand.nextLong();//Do we actually need to have a key?
 		alive = true;
 		points = 0;
 	}

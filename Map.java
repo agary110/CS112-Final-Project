@@ -51,8 +51,7 @@ class Map{
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
 	public void update(){
-		if(marble.velocity.y == 0);
-		else{
+		if (world.marble.velocity.y != 0) {
 			Path [] visiblePaths= getVisiblePaths();
 			for(int i = 0; i < visiblePaths.length; i++){
 				visiblePaths [i].y = visiblePaths [i].y + (int)(speed);
@@ -184,9 +183,13 @@ class Map{
 	}
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
+
 	public static boolean checkOnScreen(Path proposedPath){
-		if(proposedPath.x > 0 && proposedPath.x + proposedPath.WIDTH < Game.WIDTH) return true;
-		else return false;
+	    if(proposedPath.x > 0 && proposedPath.x + proposedPath.WIDTH < Game.WIDTH) {
+		return true;
+	    } else {
+		return false;
+	    }
 	}
 //=======================================
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths

@@ -1,8 +1,8 @@
 public class Path {
     boolean bumpersOn=false;
     final int bumperWidth; //need to decide what this is
-    static final int WIDTH=200;
-    static final int HEIGHT=300;
+    public static final int WIDTH = 200;
+    public static final int HEIGHT = 300;
     int x; //corresponds to path's upper left corner
     int y; //corresponds to path's upper left corner
     //  final int gapLength; //are we still doing this?

@@ -38,7 +38,7 @@ class Pair{
 }
 
 
-class Marble{
+public class Marble{
     Pair position;
     Pair velocity;
     Pair acceleration;
@@ -73,19 +73,19 @@ class Marble{
     }
 
     public void moveUp(){
-	marble.velocity.y -= 25.0;
+	velocity.y -= 25.0;
     }
 
     public void moveDown(){
-	marble.velocity.y += 25.0;
+	velocity.y += 25.0;
     }
 
     public void moveRight(){
-	marble.velocity.x += 25.0;
+	velocity.x += 25.0;
     }
 
     public void moveLeft(){
-	marble.velocity.x -= 25.0;
+	velocity.x -= 25.0;
     }
 
     private void bounce(World w){
