@@ -1,5 +1,7 @@
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
@@ -42,7 +44,7 @@ public class Game extends JPanel implements KeyListener{
 	}
     public void keyPressed(KeyEvent e) {
        char c = e.getKeyChar();
-	world.moveMarble(c);			
+			
 
     }
     public void keyReleased(KeyEvent e) {
@@ -51,6 +53,7 @@ public class Game extends JPanel implements KeyListener{
 
     public void keyTyped(KeyEvent e) {
 	char c = e.getKeyChar();
+	world.moveMarble(c);	
 	
     }
 
