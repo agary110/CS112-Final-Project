@@ -74,8 +74,7 @@ class Map{
 		}
 		if(upcomingPaths.getLast().y > 0){
 			//addNewPath();
-			//upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
-			upcomingPaths.add(new RightCorner(upcomingPaths.getLast().x));
+			upcomingPaths.add(addNewPath());
 		}
 
 	}
@@ -123,13 +122,27 @@ class Map{
 //=======================================
 //Returns an instance of random subclass of Path
 	public static Path generateNext(){
+		
+		int randNum = rand.nextInt(6);
 		Path toReturn;
+		String pathName = pathTypes.get(randNum).name;
+
+		if(pathName == "Straight") toReturn = new Straight(upcomingPaths.getLast().x);
+		else if(pathName == "rightCorner") toReturn = new RightCorner(upcomingPaths.getLast().x);
+		else if(pathName == "leftCorner") toReturn = new LeftCorner(upcomingPaths.getLast().x);
+		else if(pathName == "rightElbow") toReturn = new RightElbow(upcomingPaths.getLast().x);
+		else if(pathName == "leftElbow") toReturn = new LeftElbow(upcomingPaths.getLast().x);
+		else toReturn = new Horizontal(upcomingPaths.getLast().x, true);
+
+		return toReturn;
+
+		/*Path toReturn;
 		if(upcomingPaths.getLast().name != "Horizontal"){
 			if(upcomingPaths.getLast().name == "Straight"){//includes all except Horizontal
-				int randNum = rand.nextInt(5);
+				int randNum = rand.nextInt(3);
 				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
-					randNum = rand.nextInt(5);
+					randNum = rand.nextInt(3);
 					toReturn = pathTypes.get(randNum);
 				}
 			}
@@ -171,8 +184,6 @@ class Map{
 					toReturn = pathTypes.get(randNum);
 				}
 			}
-			toReturn.x = upcomingPaths.getLast().x;
-			return toReturn;
 		}
 		else{//if Path.name == "Horizontal"
 			int randNum = rand.nextInt(2);
@@ -197,8 +208,10 @@ class Map{
 						toReturn = pathTypes.get(4);
 					}
 			}
-			return toReturn;
 		}
+
+		toReturn.exitX = upcomingPaths.getLast().x;
+		return toReturn;*/
 	}
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
@@ -219,10 +232,10 @@ class Map{
 	}
 //=======================================
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths
-	private static void addNewPath(){
+	private static Path addNewPath(){
 		Path next = generateNext();
-		next.exitX = upcomingPaths.getLast().x;
-		upcomingPaths.add(next);
+		System.out.println(next.name);
+		return next;
 	}
 //=======================================
 //Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen
