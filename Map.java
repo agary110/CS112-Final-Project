@@ -79,7 +79,12 @@ class Map{
 				visible = new LeftElbow(previousVisible.x);
 			}
 			else{
-				visible = new Horizontal(previousVisible.x);
+				if(visiblePaths [visiblePaths.length - 2].x < visiblePaths [visiblePaths.length - 1]){
+					visible = new Horizontal(previousVisible.x, true);//true return value indicates that exitX < x
+				}
+				else{
+					visible = new Horizontal(previousVisible.x, false);//false return values indicates that x < exitX
+				}
 			}
 			visible.draw(g);
 		}
