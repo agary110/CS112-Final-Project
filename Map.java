@@ -12,18 +12,12 @@ import java.lang.Math;
 
 class Map{
 	public static LinkedList<Path> upcomingPaths;
-	public final double originalSpeed;
-	private final double boosterSpeedAlt;
-	public double speed;//x or y values moved per frame
 	public static List<Path> pathTypes;
 	public static Random rand;
 //=======================================
 //Constructor
 	public Map(){
 		rand = new Random();
-		originalSpeed = 20;//Random num for now - (This is dependent on the difficulty level)
-		speed = originalSpeed;
-		//boosterSpeedAlt = originalSpeed * 0.3;
 		Straight straight = new Straight(Game.WIDTH / 2 - Path.WIDTH / 2);
 		upcomingPaths = new LinkedList<Path>();
 		for(int i = 0; i < Game.HEIGHT * 2; i++){
@@ -50,16 +44,14 @@ class Map{
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
-	public void update(){
-		if (world.marble.velocity.y != 0) {
-			Path [] visiblePaths= getVisiblePaths();
-			for(int i = 0; i < visiblePaths.length; i++){
-				visiblePaths [i].y = visiblePaths [i].y + (int)(speed);
-			}
-			if(visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
-				addNewPath();
-				this.update();
-			}
+	public void update(double time){
+		Path [] visiblePaths = getVisiblePaths();
+		for (int i = 0; i < visiblePaths.length; i++){
+			visiblePaths [i].y = visiblePaths [i].y + (int)(time);
+		}
+		if (visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
+			addNewPath();
+			this.update(time);
 		}
 	}
 //=======================================

@@ -45,67 +45,69 @@ public class Marble{
     double radius;
     double dampening;
     Color color;
+	double speedIncrement;
     public Marble(){
-	Random rand = new Random(); 
-	position = new Pair(500.0, 500.0);
-	velocity = new Pair(0.0, 0.0);
-	radius = 25;
-	dampening = 1.3;
-	color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+		Random rand = new Random(); 
+		position = new Pair(500.0, 500.0);
+		velocity = new Pair(0.0, 0.0);
+		radius = 25;
+		dampening = 1.3;
+		double speedIncrement = 25.0;
+		color = Color.RED;
     }
     public void update(World w, double time){
-	position = position.add(velocity.times(time));
-	bounce(w);
+		position = position.add(velocity.times(time));
+		bounce(w);
     }
     
     public void setPosition(Pair p){
-	position = p;
+		position = p;
     }
     public void setVelocity(Pair v){
-	velocity = v;
+		velocity = v;
     }
     public void draw(Graphics g){
-	Color c = g.getColor();
+		Color c = g.getColor();
 	
-	g.setColor(Color.RED);
-	g.fillOval(100,100,100,100);
-	g.setColor(c);
+		g.setColor(color);
+		g.fillOval(100,100,100,100);
+		g.setColor(c);
     }
 
     public void moveUp(){
-	velocity.y -= 25.0;
+		velocity.y -= speedIncrement;
     }
 
     public void moveDown(){
-	velocity.y += 25.0;
+		velocity.y += speedIncrement;
     }
 
     public void moveRight(){
-	velocity.x += 25.0;
+		velocity.x += speedIncrement;
     }
 
     public void moveLeft(){
-	velocity.x -= 25.0;
+		velocity.x -= speedIncrement;
     }
 
     private void bounce(World w){
-	if (position.x - radius < 0){
-	    velocity.x = 0.0;
-	    position.x = radius;
+		if (position.x - radius < 0){
+			velocity.x = 0.0;
+			position.x = radius;
 	}
-	else if (position.x + radius > w.WIDTH){
-	    velocity.x = 0.0;
-	    position.x = w.WIDTH - radius;
+		else if (position.x + radius > w.WIDTH){
+			velocity.x = 0.0;
+			position.x = w.WIDTH - radius;
 	 
 	}
-	if (position.y - radius < 0){
-	    velocity.y = 0.0;
-	    position.y = radius;
+		if (position.y - radius < 0){
+			velocity.y = 0.0;
+			position.y = radius;
 	}
-	else if(position.y + radius >  w.HEIGHT){
-	    velocity.y = 0.0;
-	    position.y = w.HEIGHT - radius;
-	}
+		else if(position.y + radius >  w.HEIGHT){
+			velocity.y = 0.0;
+			position.y = w.HEIGHT - radius;
+		}
     }
 
 }

@@ -26,58 +26,60 @@ public class World{
     }
 //=======================================
 //Draw Methods
-    public void drawToScreen(Graphics g){
-	drawPath(g);
-	//drawPoints(g);
-	//drawItem(g);
-	drawMarble(g);
-	//drawPoints(g);
-	drawAmmoCount(g);
-    }
+	public void drawToScreen(Graphics g){
+		drawPath(g);
+		//drawPoints(g);
+		//drawItem(g);
+		drawMarble(g);
+		//drawPoints(g);
+		drawAmmoCount(g);
+	}
 
-    public void drawMarble(Graphics g){
-	marble.draw(g);
-    }
+	public void drawMarble(Graphics g){
+		marble.draw(g);
+	}
 
-    /*public void drawItem(Graphics g){
-	item.draw(g);
-    }*/
+	/*public void drawItem(Graphics g){
+		item.draw(g);
+	}*/
 
-   public void drawPath(Graphics g){
-	map.draw(g);
-    }
+	public void drawPath(Graphics g){
+		map.draw(g);
+	}
 
-   /*public void drawPoints(Graphics g){
-   }*/
+	/*public void drawPoints(Graphics g){
+	}*/
 
    public void drawAmmoCount(Graphics g){
    }
 //=======================================
 //Update Methods
-    public void updateMarble(double time){
-	marble.update(this, time);
-    }
+	public void updateMarble(double time){
+		marble.update(this, time);
+	}
 
-   /*private void updateItem(){
-	item.update();
-   }*/
+	/*private void updateItem(){
+		item.update();
+	}*/
 
-   private void updateMap(){
-	map.update();
-    }
+	private void updateMap(double time){
+		if(marble.velocity.y != 0){
+			map.update(time);
+		}
+	}
 
-   /*private void updatePoints(){
-	points = points + (1 / (double)(FPS));
-   }*/
+	/*private void updatePoints(double time){
+		points = points + time;
+	}*/
 //=======================================
 //Updates Frame and values that change by frame
-    public void nextFrame(double INPUT){//What does the input represent exactly? Specified as (1.0 / (double)(FPS)) in Runner class
-	updateMarble(INPUT);
-	//updateItem();
-	updateMap();
-	//updatePoints();
-	//this.drawToScreen(g);
-    }
+	public void nextFrame(double time){
+		updateMarble(time);
+		//updateItem();
+		updateMap(time);
+		//updatePoints(time);
+		//this.drawToScreen(g);
+	}
 //=======================================
 //Creates new random Item, given aliveItem = false & timeUntilNextItem = 0
     /*private void newItem(){
