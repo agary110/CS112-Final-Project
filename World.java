@@ -23,6 +23,7 @@ public class World{
 	originalTimeUntilNextItem = 7;//random num - specified amount based on difficulty level
 	ammoCount = 0;
 	points = 0;
+	map = new Map();
     }
 //=======================================
 //Draw Methods

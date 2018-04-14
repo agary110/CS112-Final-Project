@@ -13,7 +13,7 @@ public class LeftCorner extends Path {
 
     public LeftCorner(int exitX) {
 	super(exitX);
-	this..name="leftCorner";
+	this.name="leftCorner";
 	this.x=exitX-super.WIDTH;
     }
     public void draw(Graphics g0ri){

@@ -12,7 +12,6 @@ public class Game extends JPanel implements KeyListener{
 	public static final int HEIGHT = 750;
 	public static final int FPS = 60;
 	public static World world;
-	//public static final long key;
 	public static boolean alive;
 	public static double points;
 
@@ -23,7 +22,6 @@ public class Game extends JPanel implements KeyListener{
 		Thread mainThread = new Thread(new Runner());
 		mainThread.start();
 		Random rand = new Random();
-		//long key = rand.nextLong();//Do we actually need to have a key?
 		alive = true;
 		points = 0;
 	}
@@ -49,11 +47,13 @@ public class Game extends JPanel implements KeyListener{
     }
     public void keyReleased(KeyEvent e) {
         char c=e.getKeyChar();
+	System.out.println(c);
     }
 
     public void keyTyped(KeyEvent e) {
 	char c = e.getKeyChar();
 	world.moveMarble(c);	
+	System.out.println(c);
 	
     }
 

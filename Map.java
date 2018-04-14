@@ -34,7 +34,7 @@ class Map{
 		LeftCorner leftC = new LeftCorner(0);
 		RightElbow rightE = new RightElbow(0);
 		LeftElbow leftE = new LeftElbow(0);
-		Horizontal horizontal = new Horizontal(0);
+		Horizontal horizontal = new Horizontal(0, true);
 		pathTypes.add(straight);//Index 0
 		pathTypes.add(rightC);//Index 1
 		pathTypes.add(leftC);//Index 2
@@ -79,7 +79,7 @@ class Map{
 				visible = new LeftElbow(previousVisible.x);
 			}
 			else{
-				if(visiblePaths [visiblePaths.length - 2].x < visiblePaths [visiblePaths.length - 1]){
+				if(visiblePaths [visiblePaths.length - 2].x < visiblePaths [visiblePaths.length - 1].x){
 					visible = new Horizontal(previousVisible.x, true);//true return value indicates that exitX < x
 				}
 				else{
@@ -132,7 +132,7 @@ class Map{
 					toReturn = pathTypes.get(randNum);
 				}
 			}
-			else if(upcomingPaths.getLast().name == "leftElbow"){//includes Straight, rightCorner, and leftCorner
+			else /*if(upcomingPaths.getLast().name == "leftElbow”)*/{//includes Straight, rightCorner, and leftCorner
 				int randNum = rand.nextInt(3);
 				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
@@ -188,9 +188,6 @@ class Map{
 	}
 //=======================================
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths
-
-/* Will need to edit this method so that next.BOTTUM_X = upcomingPaths.getLast().TOP_OPENNING_X (current implementation does not account for the fact that the Path.x value at the top is different from that of the bottom */
-
 	private static void addNewPath(){
 		Path next = generateNext();
 		next.x = upcomingPaths.getLast().x;
@@ -209,8 +206,8 @@ class Map{
 			index++;
 		}
 		Path [] visiblePaths = new Path [index];
-		for(int i = visiblePaths.length; i > 0; i++){
-			visiblePaths [i] = upcomingPaths.get(upcomingPaths.size() - i);
+		for(int i = visiblePaths.length - 1; i >= 0; i--){
+			visiblePaths [i] = upcomingPaths.get(upcomingPaths.size() - 1 - i);
 		}
 		return visiblePaths;
 	}
