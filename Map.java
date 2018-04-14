@@ -56,15 +56,6 @@ class Map{
 	}
 //=======================================
 //Draws Map using draw methods from subclasses of Path
-
-/* Since visible is of an unknown subclass of Path, Path needs to have a draw(Graphics g) method that is overridden by each subclass of Path (tried using the original method names (ex. visible.drawHorizontal(g);) and received the following error message…
-
-	error: cannot find symbol
-		visible.drawHorizontal(g);
-				       ^
-  	symbol:   method drawHorizontal(Graphics)
- 	location: variable visible of type Path*/
-
 	public void draw(Graphics g){
 		Path [] visiblePaths = getVisiblePaths();
 		Path visible;
@@ -177,11 +168,18 @@ class Map{
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
 
 	public static boolean checkOnScreen(Path proposedPath){
-	    if(proposedPath.x > 0 && proposedPath.x + proposedPath.WIDTH < Game.WIDTH) {
-		return true;
-	    } else {
-		return false;
+		if(proposedPath.x > proposedPath.exitX){
+			if(proposedPath.exitX > 0 && proposedPath.x  + proposedPath.WIDTH < Game.WIDTH){
+				return true;
+			}
+			else return false;
 	    }
+		else {
+			if(proposedPath.x > 0 && proposedPath.exitX + proposedPath.WIDTH < Game.WIDTH){
+				return true;
+			}
+			else return false;
+		}
 	}
 //=======================================
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths
