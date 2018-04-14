@@ -10,16 +10,16 @@ import java.awt.RenderingHints;
 
 public class Straight extends Path{
 
-    public Straight(int x){
-	super(x);
-	super.name="Straight";
+    public Straight(int exitX){
+	super(exitX);
+	this.name="Straight";
+	this.x=exitX;
     }
 
-    public void drawStraight(Graphics g0ri){
+    public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
 	g.fill(new Rectangle2D.Double(super.x, super.y, super.WIDTH, super.HEIGHT));
     }
 }
-
