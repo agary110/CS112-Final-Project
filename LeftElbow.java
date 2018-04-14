@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
@@ -8,12 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
-public class Straight extends Path{
+public class LeftElbow extends Path{
 
-    public Straight(int exitX){
+    public LeftElbow(int exitX){
 	super(exitX);
-	this.name="Straight";
-	this.x=exitX;
+	super.name="leftElbow";
+	this.x=exitX-2*super.WIDTH;
     }
 
     public void draw(Graphics g0ri){
@@ -21,5 +20,6 @@ public class Straight extends Path{
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
 	g.fill(new Rectangle2D.Double(super.x, super.y, super.WIDTH, super.HEIGHT));
+	g.fill(new Rectangle2D.Double(super.x+super.WIDTH, super.y+super.HEIGHT/2, super.WIDTH, super.HEIGHT/2));
     }
 }
