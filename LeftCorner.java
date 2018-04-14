@@ -18,7 +18,7 @@ public class LeftCorner extends Path {
     }
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
-	    g.setColor(Color.GREEN);
+	    g.setColor(color);
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   RenderingHints.VALUE_ANTIALIAS_ON);
  

@@ -1,3 +1,4 @@
+import java.awt.Color;
 //////////////////////
 //Also, just realized that within the Path class, we will need two more subclasses: leftElbow (L) and rightElbow(reflection of L). These subclasses will always precede leftCorner and rightCorner instances of the Path class, respectively.
 
@@ -18,14 +19,15 @@ class Map{
 //Constructor
 	public Map(){
 		rand = new Random();
-		Straight straight = new Straight(Game.WIDTH / 2 - Path.WIDTH / 2);
 		upcomingPaths = new LinkedList<Path>();
-		int y = 0;
-		for(int i = 0; i < Game.HEIGHT * 2; i += Path.HEIGHT){
-			upcomingPaths.add(straight);
-			straight.y = y;
-			y += Path.HEIGHT;
+
+		for(int i = 0; i < 6; i++){
+			upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
+			if(i > 2){
+				upcomingPaths.get(upcomingPaths.size() - 2).y += Path.HEIGHT;
+			}
 		}
+
 		initializePathTypes();
 	}
 //=======================================
@@ -48,25 +50,40 @@ class Map{
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
 	public void update(double time){
-		Path [] visiblePaths = getVisiblePaths();
+		/*Path [] visiblePaths = getVisiblePaths();
 		for (int i = 0; i < visiblePaths.length; i++){
 			//visiblePaths [i].y = visiblePaths [i].y + (int)(time);
 			upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y += (int)(time) * 25;
 		}
-		/*if (visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
+		if (visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
 			addNewPath();
 			this.update(time);
-		}*/
-		if(upcomingPaths.getLast().y > Game.HEIGHT){
-			addNewPath();
-			//this.update(time);
 		}
+
+		for(int i = 0; i < upcomingPaths.size(); i++){
+			upcomingPaths.get(i).setY(10);
+		}
+
+		if(upcomingPaths.getLast().y > 0){
+			addNewPath();
+		}*/
+
+		for(int i = 0; i < upcomingPaths.size(); i++){
+			upcomingPaths.get(i).update();	
+			System.out.println("Trying to update");
+		}
+		if(upcomingPaths.getLast().y > 0){
+			//addNewPath();
+			//upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+			upcomingPaths.add(new RightCorner(upcomingPaths.getLast().x));
+		}
+
 	}
 //=======================================
 //Draws Map using draw methods from subclasses of Path
 	public void draw(Graphics g){
-		Path [] visiblePaths = getVisiblePaths();
-		Path visible;
+		//Path [] visiblePaths = getVisiblePaths();
+		/*Path visible;
 		Path previousVisible;
 		for(int i = 0; i < visiblePaths.length; i++){
 			visible = upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i);
@@ -95,7 +112,12 @@ class Map{
 				}
 			}
 			System.out.println("Path drawn");
+			g.setColor(new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
 			visible.draw(g);
+		}*/
+
+		for(int i = 0; i < upcomingPaths.size(); i++){
+			upcomingPaths.get(i).draw(g);
 		}
 	}
 //=======================================
@@ -141,7 +163,7 @@ class Map{
 					toReturn = pathTypes.get(randNum);
 				}
 			}
-			else /*if(upcomingPaths.getLast().name == "leftElbow”)*/{//includes Straight, rightCorner, and leftCorner
+			else{//includes Straight, rightCorner, and leftCorner
 				int randNum = rand.nextInt(3);
 				toReturn = pathTypes.get(randNum);
 				while(checkOnScreen(toReturn) == false){
@@ -199,7 +221,7 @@ class Map{
 //Appends a random Path to the end of LinkedList<Path> upcomingPaths
 	private static void addNewPath(){
 		Path next = generateNext();
-		next.x = upcomingPaths.getLast().x;
+		next.exitX = upcomingPaths.getLast().x;
 		upcomingPaths.add(next);
 	}
 //=======================================
@@ -208,7 +230,7 @@ class Map{
 		int cumPathHeight = 0;
 		int index = 0;
 		while(cumPathHeight <= Game.HEIGHT){
-			cumPathHeight = cumPathHeight + upcomingPaths.get(upcomingPaths.size() - 1 - index).HEIGHT;
+			cumPathHeight += upcomingPaths.get(upcomingPaths.size() - 1 - index).HEIGHT;
 			index++;
 		}
 		if(cumPathHeight < Game.HEIGHT){

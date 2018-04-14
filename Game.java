@@ -8,7 +8,7 @@ import java.awt.Dimension;
 import java.util.Random;
 
 public class Game extends JPanel implements KeyListener{
-	public static final int WIDTH = 1000;
+	public static final int WIDTH = 1400;
 	public static final int HEIGHT = 750;
 	public static final int FPS = 60;
 	public static World world;
