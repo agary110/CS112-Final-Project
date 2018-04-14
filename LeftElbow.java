@@ -17,6 +17,7 @@ public class LeftElbow extends Path{
 
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
+	    g.setColor(Color.GREEN);
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
 	g.fill(new Rectangle2D.Double(super.x, super.y, super.WIDTH, super.HEIGHT));
