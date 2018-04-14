@@ -20,8 +20,11 @@ class Map{
 		rand = new Random();
 		Straight straight = new Straight(Game.WIDTH / 2 - Path.WIDTH / 2);
 		upcomingPaths = new LinkedList<Path>();
-		for(int i = 0; i < Game.HEIGHT * 2; i++){
+		int y = 0;
+		for(int i = 0; i < Game.HEIGHT * 2; i += Path.HEIGHT){
 			upcomingPaths.add(straight);
+			straight.y = y;
+			y += Path.HEIGHT;
 		}
 		initializePathTypes();
 	}
@@ -47,11 +50,16 @@ class Map{
 	public void update(double time){
 		Path [] visiblePaths = getVisiblePaths();
 		for (int i = 0; i < visiblePaths.length; i++){
-			visiblePaths [i].y = visiblePaths [i].y + (int)(time);
+			//visiblePaths [i].y = visiblePaths [i].y + (int)(time);
+			upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y += (int)(time) * 25;
 		}
-		if (visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
+		/*if (visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
 			addNewPath();
 			this.update(time);
+		}*/
+		if(upcomingPaths.getLast().y > Game.HEIGHT){
+			addNewPath();
+			//this.update(time);
 		}
 	}
 //=======================================
@@ -86,6 +94,7 @@ class Map{
 					visible = new Horizontal(previousVisible.x, false);//false return values indicates that x < exitX
 				}
 			}
+			System.out.println("Path drawn");
 			visible.draw(g);
 		}
 	}

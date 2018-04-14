@@ -33,7 +33,7 @@ public class World{
 		//drawItem(g);
 		drawMarble(g);
 		//drawPoints(g);
-		drawAmmoCount(g);
+		//drawAmmoCount(g);
 	}
 
 	public void drawMarble(Graphics g){
@@ -80,6 +80,7 @@ public class World{
 		updateMap(time);
 		//updatePoints(time);
 		//this.drawToScreen(g);
+		System.out.println("Next Frame");
 	}
 //=======================================
 //Creates new random Item, given aliveItem = false & timeUntilNextItem = 0

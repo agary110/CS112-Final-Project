@@ -70,7 +70,7 @@ public class Marble{
 		Color c = g.getColor();
 	
 		g.setColor(color);
-		g.fillOval(100,100,100,100);
+		g.fillOval(Game.WIDTH/2 - Path.WIDTH/2 ,100,100,100);
 		g.setColor(c);
     }
 

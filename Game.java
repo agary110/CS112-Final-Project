@@ -31,6 +31,7 @@ public class Game extends JPanel implements KeyListener{
 
 			while(alive){
 				world.nextFrame(1.0 / (double)(FPS));
+				System.out.println("I’m alive");
 				repaint();
 				try{
 					Thread.sleep(1000 / FPS);
@@ -71,5 +72,6 @@ public class Game extends JPanel implements KeyListener{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
+		System.out.println("Repaints");
 	}
 }
