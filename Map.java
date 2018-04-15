@@ -1,10 +1,4 @@
 import java.awt.Color;
-//////////////////////
-//Also, just realized that within the Path class, we will need two more subclasses: leftElbow (L) and rightElbow(reflection of L). These subclasses will always precede leftCorner and rightCorner instances of the Path class, respectively.
-
-//Still need to edit the following methods: addNewPath() and draw(Graphics g)
-//////////////////////
-
 import java.awt.Graphics;
 import java.util.List;
 import java.util.LinkedList;
@@ -121,7 +115,7 @@ class Map{
 	}
 //=======================================
 //Returns an instance of random subclass of Path
-	public static Path generateNext(){
+	/*public static Path generateNext(){
 		
 		int randNum = rand.nextInt(6);
 		Path toReturn;
@@ -136,7 +130,7 @@ class Map{
 
 		return toReturn;
 
-		/*Path toReturn;
+		Path toReturn;
 		if(upcomingPaths.getLast().name != "Horizontal"){
 			if(upcomingPaths.getLast().name == "Straight"){//includes all except Horizontal
 				int randNum = rand.nextInt(3);
@@ -211,8 +205,91 @@ class Map{
 		}
 
 		toReturn.exitX = upcomingPaths.getLast().x;
-		return toReturn;*/
+		return toReturn;
+	}*/
+
+
+public static Path generateNext(){
+	int randNum;
+	String lastName = upcomingPaths.getLast().name;
+	String nextName;
+
+	if(lastName != "Horizontal"){
+		
+		if(lastName == "Straight"){//Straight
+			randNum = rand.nextInt(3);
+			nextName = pathTypes.get(randNum).name;
+		}
+
+		else if(lastName == "rightCorner"){//rightCorner
+			randNum = rand.nextInt(2);
+			if(randNum == 0){
+				nextName = pathTypes.get(3).name;
+			}
+			else{
+				nextName = pathTypes.get(5).name;
+			}
+		}
+
+		else if(lastName == "leftCorner"){//leftCorner
+			randNum = rand.nextInt(2) + 4;
+			nextName = pathTypes.get(randNum).name;
+		}
+
+		else{//rightElbow and leftElbow
+			randNum = rand.nextInt(3);
+			nextName = pathTypes.get(randNum).name;
+		}
 	}
+
+	else{//Horizontal
+		randNum = rand.nextInt(2);
+		if(randNum == 0){
+			nextName = pathTypes.get(5).name;
+		}
+		else if(upcomingPaths.get(upcomingPaths.size() - 3).x < upcomingPaths.getLast().x){
+			nextName = pathTypes.get(3).name;
+		}
+		else{
+			nextName = pathTypes.get(4).name;
+		}
+	}
+
+	Path toReturn;
+	int exitX = upcomingPaths.getLast().x;
+
+	if(nextName == "Straight"){
+		toReturn = new Straight(exitX);
+	}
+	else if(nextName == "rightCorner"){
+		toReturn = new RightCorner(exitX);
+	}
+	else if(nextName == "leftCorner"){
+		toReturn = new LeftCorner(exitX);
+	}
+	else if(nextName == "rightElbow"){
+		toReturn = new RightElbow(exitX);
+	}
+	else if(nextName == "leftElbow"){
+		toReturn = new LeftElbow(exitX);
+	}
+	else{
+		boolean direction;
+		if(upcomingPaths.getLast().x > upcomingPaths.get(upcomingPaths.size() - 2).x){
+			direction = true;
+		}
+		else{
+			direction = false;
+		}
+		toReturn = new Horizontal(exitX, direction);
+	}
+
+	return toReturn;
+
+}
+
+
+
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
 
