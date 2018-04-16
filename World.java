@@ -36,17 +36,7 @@ public class World{
 		drawMarble(g);
 		//drawPoints(g);
 		//drawAmmoCount(g);
-<<<<<<< HEAD
-=======
-		youLose(g);
-	}
-	
-	public static void youLose(Graphics g) {
-		if (Game.alive=false) {
-			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
-	g.drawChars(data, 0, 6, 400, 400);
-		}
->>>>>>> a5789388c6f6afdf2ccb5898bec471ad1d04f14a
+
 	}
 
 	public void drawMarble(Graphics g){
@@ -92,6 +82,8 @@ public class World{
 		//updatePoints(time);
 		marble.checkDead(this);
 		//this.drawToScreen(g);
+		
+
 	}
 //=======================================
 //Creates new random Item, given aliveItem = false & timeUntilNextItem = 0
