@@ -16,6 +16,13 @@ public class RightElbow extends Path{
 	
     }
 
+	public RightElbow(Path previous){
+		super(previous);
+		name = "rightElbow";
+		exitX = previous.x;
+		x = 
+	}
+
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
 	    g.setColor(Color.GREEN);

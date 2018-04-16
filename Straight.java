@@ -20,8 +20,8 @@ public class Straight extends Path{
 	public Straight(Path previous){
 		super(previous);
 		name = "Straight";
-		x = previous.exitX;
-		exitX = this.x;
+		exitX = previous.x;
+		x = this.exitX;
 		y = previous.y - Path.HEIGHT;
 	}
 
