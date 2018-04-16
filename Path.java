@@ -24,6 +24,15 @@ public class Path {
 	color = new Color(rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
     }
 
+	public Path(Path previous){
+		name = "";
+		Random rand = new Random();
+		color = new Color(rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
+		x = 0;
+		y = 0;
+		exitX = 0;
+	}
+
     public void draw (Graphics g) {
     }
 

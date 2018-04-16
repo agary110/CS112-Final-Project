@@ -22,6 +22,8 @@ class Map{
 			}
 		}
 
+		prototypePaths();
+
 		initializePathTypes();
 	}
 //=======================================
@@ -113,98 +115,42 @@ class Map{
 	}
 //=======================================
 //Returns an instance of random subclass of Path
-	/*public static Path generateNext(){
-		
-		int randNum = rand.nextInt(6);
-		Path toReturn;
-		String pathName = pathTypes.get(randNum).name;
 
-		if(pathName == "Straight") toReturn = new Straight(upcomingPaths.getLast().x);
-		else if(pathName == "rightCorner") toReturn = new RightCorner(upcomingPaths.getLast().x);
-		else if(pathName == "leftCorner") toReturn = new LeftCorner(upcomingPaths.getLast().x);
-		else if(pathName == "rightElbow") toReturn = new RightElbow(upcomingPaths.getLast().x);
-		else if(pathName == "leftElbow") toReturn = new LeftElbow(upcomingPaths.getLast().x);
-		else toReturn = new Horizontal(upcomingPaths.getLast().x, true);
-
-		return toReturn;
-
-		Path toReturn;
-		if(upcomingPaths.getLast().name != "Horizontal"){
-			if(upcomingPaths.getLast().name == "Straight"){//includes all except Horizontal
-				int randNum = rand.nextInt(3);
-				toReturn = pathTypes.get(randNum);
-				while(checkOnScreen(toReturn) == false){
-					randNum = rand.nextInt(3);
-					toReturn = pathTypes.get(randNum);
-				}
-			}
-			else if(upcomingPaths.getLast().name == "rightCorner"){//includes rightElbow and Horizontal
-				int randNum = rand.nextInt(2);
-				if(randNum == 0){
-					toReturn = pathTypes.get(3);
-				}
-				else{
-					toReturn = pathTypes.get(5);
-				}
-				while(checkOnScreen(toReturn) == false){
-					randNum = rand.nextInt(2);
-					if(randNum == 0) toReturn = pathTypes.get(3);
-					else toReturn = pathTypes.get(5);
-				}
-			}
-			else if(upcomingPaths.getLast().name == "leftCorner"){//includes leftElbow and Horizontal
-				int randNum = rand.nextInt(2) + 4;
-				toReturn = pathTypes.get(randNum);
-				while(checkOnScreen(toReturn) == false){
-					randNum = rand.nextInt(2) + 4;
-					toReturn = pathTypes.get(randNum);
-				}
-			}
-			else if(upcomingPaths.getLast().name == "rightElbow"){//includes Straight, rightCorner, and leftCorner
-				int randNum = rand.nextInt(3);
-				toReturn = pathTypes.get(randNum);
-				while(checkOnScreen(toReturn) == false){
-					randNum = rand.nextInt(3);
-					toReturn = pathTypes.get(randNum);
-				}
-			}
-			else{//includes Straight, rightCorner, and leftCorner
-				int randNum = rand.nextInt(3);
-				toReturn = pathTypes.get(randNum);
-				while(checkOnScreen(toReturn) == false){
-					randNum = rand.nextInt(3);
-					toReturn = pathTypes.get(randNum);
-				}
-			}
-		}
-		else{//if Path.name == "Horizontal"
-			int randNum = rand.nextInt(2);
-			if(randNum == 0){
-				toReturn = pathTypes.get(5);
-			}
-			else if(upcomingPaths.get(upcomingPaths.size() - 2).x < upcomingPaths.getLast().x){
-				toReturn = pathTypes.get(3);
-			}
-			else{
-				toReturn = pathTypes.get(4);
-			}
-			while(checkOnScreen(toReturn) == false){
-					randNum = rand.nextInt(2);
-					if(randNum == 0){
-						toReturn = pathTypes.get(5);
-					}
-					else if(upcomingPaths.get(upcomingPaths.size() - 2).x < upcomingPaths.getLast().x){
-						toReturn = pathTypes.get(3);
-					}
-					else{
-						toReturn = pathTypes.get(4);
-					}
-			}
-		}
-
-		toReturn.exitX = upcomingPaths.getLast().x;
-		return toReturn;
-	}*/
+public static void prototypePaths(){
+	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
+	upcomingPaths.add(new RightElbow(upcomingPaths.getLast().x));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast().x));
+	upcomingPaths.add(new Horizontal(upcomingPaths.getLast().x, false));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new Horizontal(upcomingPaths.getLast().x, false));
+		upcomingPaths.add(new Horizontal(upcomingPaths.getLast().x, false));
+	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast().x));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+	upcomingPaths.add(new RightCorner(upcomingPaths.getLast().x));
+	upcomingPaths.add(new Horizontal(upcomingPaths.getLast().x + Path.HEIGHT, true));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new RightElbow(upcomingPaths.getLast().x));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+	upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast().x));
+	upcomingPaths.add(new Horizontal(upcomingPaths.getLast().x + Path.HEIGHT, false));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast().x));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+	upcomingPaths.add(new RightCorner(upcomingPaths.getLast().x));
+	upcomingPaths.add(new RightElbow(upcomingPaths.getLast().x));
+		upcomingPaths.getLast().y += Path.WIDTH;
+	upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+	upcomingPaths.add(new Straight(upcomingPaths.getLast().x));
+	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast().x));
+	upcomingPaths.add(new Horizontal(upcomingPaths.getLast().x + Path.HEIGHT, false));
+		upcomingPaths.getLast().y += Path.WIDTH;
+}
 
 public static Path generateNext(){
 	int randNum;
@@ -285,9 +231,21 @@ public static Path generateNext(){
 	}
 
 	if(checkOnScreen(toReturn) == false){
-		generateNext();
+		if(nextName == "Straight" || nextName == "rightElbow" || nextName == "leftElbow"){
+			toReturn = new Straight(exitX);
+		}
+		else{
+			boolean direction;
+			if(upcomingPaths.getLast().x > upcomingPaths.get(upcomingPaths.size() - 2).x){
+				direction = true;
+			}
+			else{
+				direction = false;
+			}
+			toReturn = new Horizontal(exitX, direction);
+		}
 	}
-
+	
 	return toReturn;
 
 }
@@ -318,25 +276,31 @@ public static Path generateNext(){
 		if(proposedPath.name == "Horizontal"){//Horizontal
 			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
 				return true;
-			} else {
+			}
+			else {
 				return false;
 			}
 
-		} else if(proposedPath.name == "Straight" || proposedPath.name == "rightElbow" || proposedPath.name == "leftElbow"){//Straight, RightElbow, LeftElbow
+		}
+
+		else if(proposedPath.name == "Straight" || proposedPath.name == "rightElbow" || proposedPath.name == "leftElbow"){//Straight, RightElbow, LeftElbow
 			if(proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.x > Path.WIDTH * 2){
 				return true;
-			} else {
+			}
+			else {
 				return false;
 			}
-		} else {//RightCorner, LeftCorner
+		}
+
+		else{//RightCorner, LeftCorner
 			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
 				return true;
-			} else {
+			}
+			else {
 				return false;
 			}
 		}
 	}
-
 //=======================================
 //Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen
 	public static Path[] getVisiblePaths(){
