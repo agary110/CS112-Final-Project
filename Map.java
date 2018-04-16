@@ -299,35 +299,44 @@ public static Path generateNext(){
 			if(proposedPath.exitX > 0 && proposedPath.x  + proposedPath.WIDTH < Game.WIDTH){
 				return true;
 			}
-			else return false;
+			else {
+				return false;
+			}
 	    }
 		else {
 			if(proposedPath.x > 0 && proposedPath.exitX + proposedPath.WIDTH < Game.WIDTH){
 				return true;
 			}
-			else return false;
+			else {
+				return false;
+			}
 		}*/
 
 		if(proposedPath.name == "Horizontal"){//Horizontal
 			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
 				return true;
-			else return false;
+			else {
+				return false;
+			}
 		}
 
 		else if(proposedPath.name == "Straight" || proposedPath.name == "rightElbow" || proposedPath.name == "leftElbow"){//Straight, RightElbow, LeftElbow
 			if(proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.x > Path.WIDTH * 2){
 				return true;
 			}
-			else return false;
+			else {
+				return false;
+			}
 		}
 
 		else{//RightCorner, LeftCorner
 			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
 				return true;
 			}
-			else return false;
+			else {
+				return false;
+			}
 		}
-
 	}
 //=======================================
 //Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen
@@ -347,4 +356,4 @@ public static Path generateNext(){
 		}
 		return visiblePaths;
 	}
-}
+}}
