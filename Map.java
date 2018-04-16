@@ -112,10 +112,6 @@ class Map{
 		for(int i = 0; i < upcomingPaths.size(); i++){
 			upcomingPaths.get(i).draw(g);
 		}
-		if (alive=false) {
-			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
-	g.drawChars(data, 0, 6, 400, 400);
-		}
 	}
 //=======================================
 //Returns an instance of random subclass of Path

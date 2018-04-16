@@ -36,6 +36,11 @@ public class World{
 		drawMarble(g);
 		//drawPoints(g);
 		//drawAmmoCount(g);
+
+		/*if (Game.alive=false) {
+			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
+	g.drawChars(data, 0, 6, 400, 400);
+		}*/
 	}
 
 	public void drawMarble(Graphics g){
