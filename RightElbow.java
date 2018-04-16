@@ -21,7 +21,7 @@ public class RightElbow extends Path{
 		name = "rightElbow";
 		exitX = previous.x;
 		x = exitX + Path.WIDTH;
-		y = previous.y - Path.WIDTH;
+		y = previous.y;
 	}
 
     public void draw(Graphics g0ri){
@@ -29,7 +29,7 @@ public class RightElbow extends Path{
 	    g.setColor(Color.GREEN);
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-	g.fill(new Rectangle2D.Double(x, y, HEIGHT, WIDTH));
-	g.fill(new Rectangle2D.Double(x+WIDTH, y-WIDTH, WIDTH, WIDTH));
+	g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
+	g.fill(new Rectangle2D.Double(x+WIDTH, y, WIDTH, WIDTH));
     }
 }
