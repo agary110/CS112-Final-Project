@@ -71,10 +71,13 @@ if(world.map.upcomingPaths.getLast().y > 0){
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
+<<<<<<< HEAD
 		/*if (alive=false) {
 			System.out.println("hjkasd");
 			frame.dispose();
 		}*/
+=======
+>>>>>>> 6f44ea2dac1f9e4a3c046801059e43f1ceb7e6cb
 	}
 
 	public void paintComponent(Graphics g){
@@ -82,5 +85,11 @@ if(world.map.upcomingPaths.getLast().y > 0){
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
+	}
+	public void youLose(Graphics g) {
+		if (alive=false) {
+			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
+	g.drawChars(data, 0, 6, 400, 400);
+		}
 	}
 }
