@@ -68,7 +68,7 @@ class Map{
 		}
 		if(upcomingPaths.getLast().y > 0){
 			//addNewPath();
-			upcomingPaths.add(addNewPath());
+			upcomingPaths.add(generateNext());
 		}
 
 	}
@@ -208,7 +208,6 @@ class Map{
 		return toReturn;
 	}*/
 
-
 public static Path generateNext(){
 	int randNum;
 	String lastName = upcomingPaths.getLast().name;
@@ -284,6 +283,10 @@ public static Path generateNext(){
 		toReturn = new Horizontal(exitX, direction);
 	}
 
+	if(checkOnScreen(toReturn) == false){
+		generateNext();
+	}
+
 	return toReturn;
 
 }
@@ -294,7 +297,7 @@ public static Path generateNext(){
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
 
 	public static boolean checkOnScreen(Path proposedPath){
-		if(proposedPath.x > proposedPath.exitX){
+		/*if(proposedPath.x > proposedPath.exitX){
 			if(proposedPath.exitX > 0 && proposedPath.x  + proposedPath.WIDTH < Game.WIDTH){
 				return true;
 			}
@@ -305,14 +308,28 @@ public static Path generateNext(){
 				return true;
 			}
 			else return false;
+		}*/
+
+		if(proposedPath.name == "Horizontal"){//Horizontal
+			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
+				return true;
+			else return false;
 		}
-	}
-//=======================================
-//Appends a random Path to the end of LinkedList<Path> upcomingPaths
-	private static Path addNewPath(){
-		Path next = generateNext();
-		System.out.println(next.name);
-		return next;
+
+		else if(proposedPath.name == "Straight" || proposedPath.name == "rightElbow" || proposedPath.name == "leftElbow"){//Straight, RightElbow, LeftElbow
+			if(proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.x > Path.WIDTH * 2){
+				return true;
+			}
+			else return false;
+		}
+
+		else{//RightCorner, LeftCorner
+			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
+				return true;
+			}
+			else return false;
+		}
+
 	}
 //=======================================
 //Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen
