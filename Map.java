@@ -318,6 +318,7 @@ public static Path generateNext(){
 			else {
 				return false;
 			}
+
 		}
 
 		else if(proposedPath.name == "Straight" || proposedPath.name == "rightElbow" || proposedPath.name == "leftElbow"){//Straight, RightElbow, LeftElbow
