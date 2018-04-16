@@ -23,6 +23,6 @@ public class LeftCorner extends Path {
 			   RenderingHints.VALUE_ANTIALIAS_ON);
  
 	g.fill (new Rectangle2D.Double(x, y, WIDTH, WIDTH));
-	g.fill (new Rectangle2D.Double(x+WIDTH, y, WIDTH, HEIGHT);
+	g.fill (new Rectangle2D.Double(x+WIDTH, y, WIDTH, HEIGHT));
     }
 }
