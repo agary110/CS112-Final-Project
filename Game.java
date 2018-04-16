@@ -73,6 +73,9 @@ if(world.map.upcomingPaths.getLast().y > 0){
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
+		if (alive=false) {
+			frame.dispose();
+		}
 	}
 
 	public void paintComponent(Graphics g){
