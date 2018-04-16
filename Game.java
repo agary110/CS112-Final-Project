@@ -79,7 +79,7 @@ if(world.map.upcomingPaths.getLast().y > 0){
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
 	}
-	public void youLose(Graphics g) {
+	public static void youLose(Graphics g) {
 		if (alive=false) {
 			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
 	g.drawChars(data, 0, 6, 400, 400);
