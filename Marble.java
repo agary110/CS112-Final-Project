@@ -105,6 +105,36 @@ public class Marble{
 			}
 		}
 
+		else if(path.name == "rightCorner"){
+			if(marb.y < path.y){
+				Game.alive = false;
+			}
+			if(marb.x < path.exitX){
+				Game.alive = false;
+			}
+			if(marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+				Game.alive = false;
+			}
+			if(marb.x > path.x + path.WIDTH && marb.y > path.y + path.WIDTH){
+				Game.alive = false;
+			}
+		}
+
+		else if(path.name == "leftCorner"){
+			if(marb.y < path.y){
+				Game.alive = false;
+			}
+			if(marb.x > path.exitX + path.WIDTH){
+				Game.alive = false;
+			}
+			if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
+				Game.alive = false;
+			}
+			if(marb.y > path.y + path.WIDTH && marb.x < path.exitX){
+				Game.alive = false;
+			}
+		}
+
 		else if(path.name == "rightElbow"){
 			if(marb.y > path.y + path.WIDTH){
 				if(marb.x > path.exitX + path.HEIGHT){
@@ -134,7 +164,16 @@ public class Marble{
 				Game.alive = false;
 			}
 			if(marb.y < path.y + path.WIDTH){
+				Game.alive = false;
+			}
+			if(marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
+				Game.alive = false;
+			}
+		}
 
+		else{//Horizontal
+			if(marb.y < path.y || marb.y > path.y + path.WIDTH){
+				Game.alive = false;
 			}
 		}
 
