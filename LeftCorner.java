@@ -14,7 +14,7 @@ public class LeftCorner extends Path {
     public LeftCorner(int exitX) {
 	super(exitX);
 	this.name="leftCorner";
-	this.x=exitX-super.WIDTH;
+	this.x=exitX-WIDTH;
     }
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
@@ -22,7 +22,7 @@ public class LeftCorner extends Path {
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   RenderingHints.VALUE_ANTIALIAS_ON);
  
-	g.fill (new Rectangle2D.Double(super.x, super.y, 2*super.WIDTH, super.HEIGHT/2));
-	g.fill (new Rectangle2D.Double(super.x+super.WIDTH/2, super.y+super.HEIGHT/2, super.WIDTH, super.HEIGHT/2));
+	g.fill (new Rectangle2D.Double(x, y, WIDTH, WIDTH));
+	g.fill (new Rectangle2D.Double(x+WIDTH, y, WIDTH, HEIGHT);
     }
 }
