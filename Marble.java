@@ -74,7 +74,9 @@ public class Marble{
 
     public void moveUp(){
 		velocity.y -= speedIncrement;
-		position.y -= 5;
+		if(position.y > Game.HEIGHT / 4){
+			position.y -= 5;
+		}
     }
 
     public void moveDown(){
@@ -84,53 +86,65 @@ public class Marble{
     public void moveRight(){
 		velocity.x += speedIncrement;
 	    position.x+=5.0;
-		position.y += 5;
+		position.y += 7;
     }
 
     public void moveLeft(){
 		velocity.x -= speedIncrement;
 	    position.x-=5.0;
-		position.y+=5;
+		position.y+=7;
     }
 
     public static void checkDead(World w){
 
 		Path path = checkPath();
+
+		System.out.println("Name: " + path.name);
+		System.out.println("X: " + path.x);
+		System.out.println("exitX: " + path.exitX);
+
+
 		Pair marb = World.marble.position;
+
+		System.out.println("Marb: " + marb.x);
+		System.out.println("Path: " + path.x + " " + path.exitX);
 
 		if(path.name == "Straight"){
 			if(marb.x < path.x || marb.x > path.x + path.WIDTH){
-				System.out.println("dead");
 				Game.alive = false;
 			}
 		}
 
 		else if(path.name == "rightCorner"){
 			if(marb.y < path.y){
+	System.out.println("you died b/c you're on top");
+
 				Game.alive = false;
 			}
 			if(marb.x < path.exitX){
+System.out.println("you died b/c you're too far left");
+
 				Game.alive = false;
 			}
+
 			if(marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+				System.out.println("you died b/c you're in the weird gap place");
+
 				Game.alive = false;
 			}
-			if(marb.x > path.x + path.WIDTH && marb.y > path.y + path.WIDTH){
-				Game.alive = false;
-			}
+
 		}
 
 		else if(path.name == "leftCorner"){
 			if(marb.y < path.y){
 				Game.alive = false;
 			}
+
 			if(marb.x > path.exitX + path.WIDTH){
 				Game.alive = false;
 			}
+
 			if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
-				Game.alive = false;
-			}
-			if(marb.y > path.y + path.WIDTH && marb.x < path.exitX){
 				Game.alive = false;
 			}
 		}
@@ -140,15 +154,18 @@ public class Marble{
 				if(marb.x > path.exitX + path.HEIGHT){
 					Game.alive = false;
 				}
+
 				if(marb.y > path.y + path.HEIGHT){
 					Game.alive = false;
 				}
+
 				if(marb.x < path.x){
 					if(marb.y < path.y + path.WIDTH){
 						Game.alive = false;
 					}
 				}
 			}
+
 			else{
 				if(marb.x < path.x || marb.x > path.x + path.WIDTH){
 					Game.alive = false;
@@ -156,10 +173,12 @@ public class Marble{
 			}
 		}
 
+
 		else if(path.name == "leftElbow"){
 			if(marb.y > path.y + path.HEIGHT){
 				Game.alive = false;
 			}
+
 			if(marb.x < path.x){
 				Game.alive = false;
 			}
@@ -177,6 +196,8 @@ public class Marble{
 			}
 		}
 
+		if(Game.alive == false) System.out.println("you dead");
+
     }
 
 	private static Path checkPath(){
@@ -191,13 +212,26 @@ public class Marble{
 			}
 		}
 
-		for(int i = 0; i < visiblePaths.length - 1; i++){
-			if(World.marble.position.y >= visiblePaths [i].y && World.marble.position.y < visiblePaths [i].y + visiblePaths [i].HEIGHT){
-				return visiblePaths [i];
+		/*for(int i = 1; i < visiblePaths.length - 1; i++){
+			if(visiblePaths[i] != null){
+				if(World.marble.position.y >= visiblePaths [i].y && World.marble.position.y < visiblePaths [i].y + visiblePaths [i].HEIGHT && World.marble.position.x>= visiblePaths[i].x && World.marble.position.x < visiblePaths[i].x+visiblePaths[i].WIDTH){
+					return visiblePaths [i];
+				}
 			}
+		}*/
+
+		for(int i = 0; i < Map.upcomingPaths.size(); i++){
+				if(World.marble.position.y >= Map.upcomingPaths.get(i).y && World.marble.position.y < Map.upcomingPaths.get(i).y + Map.upcomingPaths.get(i).HEIGHT 
+
+/*&& (World.marble.position.x>= Map.upcomingPaths.get(i).x || World.marble.position.x>= Map.upcomingPaths.get(i).exitX) && (World.marble.position.x < Map.upcomingPaths.get(i).exitX+Map.upcomingPaths.get(i).WIDTH || World.marble.position.x < Map.upcomingPaths.get(i).x+Map.upcomingPaths.get(i).WIDTH)*/
+
+){
+					return Map.upcomingPaths.get(i);
+				}
 		}
 
 		return new Path(0);
+
 	}
 
 }

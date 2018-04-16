@@ -20,7 +20,7 @@ public class RightCorner extends Path {
 		name="rightCorner";
 		exitX=previous.x;
 		x = exitX + Path.HEIGHT;
-		y=previous.y-Path.HEIGHT;
+		y=previous.y - Path.HEIGHT;
 	}
 	
     public void draw(Graphics g0ri){
