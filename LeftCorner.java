@@ -18,6 +18,11 @@ public class LeftCorner extends Path {
     }
 	public LeftCorner(Path previous) {
 		super(previous);
+		name="leftCorner";
+		exitX=this.x;
+		y=previous.y-Path.HEIGHT;
+	}
+	
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
 	    g.setColor(color);
