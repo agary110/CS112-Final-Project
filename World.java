@@ -36,7 +36,6 @@ public class World{
 		drawMarble(g);
 		//drawPoints(g);
 		//drawAmmoCount(g);
-		youLose(g);
 	}
 
 	public void drawMarble(Graphics g){

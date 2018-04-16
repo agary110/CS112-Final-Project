@@ -13,14 +13,14 @@ public class Horizontal extends Path{
     boolean direction;
 
     public Horizontal(int exitX, boolean direction){
-	super(exitX);
-	this.name="Horizontal";
-	if (!direction) {
-	    this.x=exitX+HEIGHT;
-	}
-	else {
-	    this.x=exitX-HEIGHT;
-	}
+		super(exitX);
+		this.name="Horizontal";
+		if (direction) {
+	 	   this.x=exitX+HEIGHT;
+		}
+		else {
+	   	 this.x=exitX-HEIGHT;
+		}
     }
 
 	public Horizontal(Path previous, boolean direction){
@@ -36,11 +36,11 @@ public class Horizontal extends Path{
 		y = previous.y;
 	}
 
-    public void draw(Graphics g0ri){
-	Graphics2D g = (Graphics2D) g0ri;
-	    g.setColor(color);
-	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-        RenderingHints.VALUE_ANTIALIAS_ON);
+	public void draw(Graphics g0ri){
+		Graphics2D g = (Graphics2D) g0ri;
+		g.setColor(color);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		RenderingHints.VALUE_ANTIALIAS_ON);
 		if(direction){
 			g.fill(new Rectangle2D.Double(exitX, y, HEIGHT, WIDTH));
 		}
