@@ -57,7 +57,22 @@ if(world.map.upcomingPaths.getLast().y > 0){
 
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-		world.moveMarble(c);	
+		if (c == 'i') {
+	    	marble.moveUp();
+			System.out.println("moved up");
+		}
+		if (c == 'j') {
+		    marble.moveLeft();
+			System.out.println("moved left");
+		}
+		if (c == 'k') {
+		    marble.moveDown();
+			System.out.println("moved down");
+		}
+		if (c == 'l') {
+		    marble.moveRight();
+			System.out.println("moved right");
+		}
 		System.out.println(c);
 	}
 
