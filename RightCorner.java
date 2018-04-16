@@ -13,14 +13,14 @@ public class RightCorner extends Path {
     public RightCorner(int exitX) {
 	super(exitX);
 	this.name="rightCorner";
-	this.x=exitX;
+	this.x=exitX-HEIGHT;
     }
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   RenderingHints.VALUE_ANTIALIAS_ON);
  g.setColor(Color.GREEN);
-	g.fill (new Rectangle2D.Double(super.x, super.y, 2*super.WIDTH, super.HEIGHT/2));
-	g.fill (new Rectangle2D.Double(super.x, super.y+super.HEIGHT/2, super.WIDTH, super.HEIGHT/2));
+	g.fill (new Rectangle2D.Double(x, y, WIDTH, HEIGHT);
+	g.fill (new Rectangle2D.Double(x+WIDTH, y, WIDTH, WIDTH);
     }
 }
