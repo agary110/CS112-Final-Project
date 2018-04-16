@@ -57,7 +57,6 @@ public class Marble{
     }
     public void update(World w, double time){
 		position = position.add(velocity.times(time));
-		hitwalls(w);
     }
     
     public void setPosition(Pair p){
@@ -76,7 +75,6 @@ public class Marble{
     public void moveUp(){
 		velocity.y -= speedIncrement;
 		position.y -= 5;
-	    System.out.println("Inside moveUp");
     }
 
     public void moveDown(){
@@ -86,20 +84,28 @@ public class Marble{
     public void moveRight(){
 		velocity.x += speedIncrement;
 	    position.x+=5.0;
-	    //velocity.y=1/(double)(Game.FPS);
 		position.y += 5;
-	    System.out.println("Inside moveRight");
     }
 
     public void moveLeft(){
 		velocity.x -= speedIncrement;
 	    position.x-=5.0;
 		position.y+=5;
-	   // velocity.y=1/(double)(Game.FPS);
     }
 
-    private void hitwalls(World w){
-		if (position.x - radius < 0){
+    public static void checkDead(World w){
+
+		Path path = checkPath();
+		Pair marb = World.marble.position;
+
+		if(path.name == "Straight"){
+			if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+				System.out.println("dead");
+				Game.alive = false;
+			}
+		}
+
+		/*if (position.x - radius < 0){
 			velocity.x = 0.0;
 			position.x = radius;
 		}
@@ -115,9 +121,32 @@ public class Marble{
 		if(position.y + radius >  w.HEIGHT){
 			velocity.y = 0.0;
 			position.y = w.HEIGHT - radius;
-		}
+		}*/
     }
 
+	private static Path checkPath(){
+
+		Path [] visiblePaths = new Path [Game.HEIGHT / Path.HEIGHT + 1];
+		int j = 0;
+
+		for(int i = 0; i < Map.upcomingPaths.size(); i++){
+			if(Map.upcomingPaths.get(i).y > 0 && Map.upcomingPaths.get(i).y < Game.HEIGHT){
+				visiblePaths [j] = Map.upcomingPaths.get(i);
+				j++;
+			}
+		}
+
+		for(int i = 0; i < visiblePaths.length; i++){
+			if(World.marble.position.y >= visiblePaths [i].y && World.marble.position.y < visiblePaths [i].y + visiblePaths [i].HEIGHT){
+				System.out.println(visiblePaths[i].name);
+				return visiblePaths [i];
+			}
+System.out.println("This is the marble's position:" + World.marble.position.y);
+System.out.println("This is the minimum straight path value:" + visiblePaths[i].y);
+System.out.println("This is the maximum straight path value:" + (visiblePaths[i].y+visiblePaths[i].HEIGHT));
+		}
+
+		return new Path(0);
+	}
+
 }
-
-

@@ -79,6 +79,7 @@ public class World{
 		//updateItem();
 		updateMap(time);
 		//updatePoints(time);
+		marble.checkDead(this);
 		//this.drawToScreen(g);
 	}
 //=======================================
