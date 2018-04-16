@@ -12,7 +12,7 @@ public class LeftElbow extends Path{
     public LeftElbow(int exitX){
 	super(exitX);
 	super.name="leftElbow";
-	this.x=exitX-2*super.WIDTH;
+	this.x=exitX-HEIGHT;
     }
 
     public void draw(Graphics g0ri){
@@ -20,7 +20,7 @@ public class LeftElbow extends Path{
 	    g.setColor(Color.GREEN);
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-	g.fill(new Rectangle2D.Double(super.x, super.y, super.WIDTH, super.HEIGHT));
-	g.fill(new Rectangle2D.Double(super.x+super.WIDTH, super.y+super.HEIGHT/2, super.WIDTH, super.HEIGHT/2));
+	g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
+	g.fill(new Rectangle2D.Double(x+WIDTH, y+WIDTH, WIDTH, WIDTH));
     }
 }
