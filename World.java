@@ -36,11 +36,14 @@ public class World{
 		drawMarble(g);
 		//drawPoints(g);
 		//drawAmmoCount(g);
-
-		/*if (Game.alive=false) {
+		youLose(g);
+	}
+	
+	public static void youLose(Graphics g) {
+		if (alive=false) {
 			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
 	g.drawChars(data, 0, 6, 400, 400);
-		}*/
+		}
 	}
 
 	public void drawMarble(Graphics g){
