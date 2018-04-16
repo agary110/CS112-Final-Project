@@ -211,7 +211,7 @@ public static Path generateNext(){
 	}
 	else{
 		boolean direction;
-		if(upcomingPaths.getLast().x > upcomingPaths.get(upcomingPaths.size() - 2).x){
+		if(upcomingPaths.getLast().x > upcomingPaths.get(upcomingPaths.size() - 2).x)){
 			direction = true;
 		}
 		else{
