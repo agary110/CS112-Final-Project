@@ -15,7 +15,7 @@ public class Horizontal extends Path{
     public Horizontal(int exitX, boolean direction){
 	super(exitX);
 	this.name="Horizontal";
-	if (direction) {
+	if (!direction) {
 	    this.x=exitX+HEIGHT;
 	}
 	else {
