@@ -44,8 +44,6 @@ if(world.map.upcomingPaths.getLast().y > 0){
 				}
 				catch(InterruptedException e){}
 			}
-			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
-	g.drawChars(data, 0, 6, 400, 400);
 		}
 	}
 
