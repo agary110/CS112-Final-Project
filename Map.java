@@ -180,7 +180,8 @@ public static Path generateNext(){
 		if(randNum == 0){
 			nextName = pathTypes.get(5).name;
 		}
-		else if(upcomingPaths.get(upcomingPaths.size() - 3).x < upcomingPaths.getLast().x){
+		else if(upcomingPaths.get(upcomingPaths.size() - 3).x < (upcomingPaths.get(upcomingPaths.size() - 2).x){
+//upcomingPaths.getLast().x){
 			nextName = pathTypes.get(3).name;
 		}
 		else{
