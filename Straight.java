@@ -23,6 +23,6 @@ public class Straight extends Path{
 	g.setColor(color);
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-	g.fill(new Rectangle2D.Double(this.x, this.y, this.WIDTH, this.HEIGHT));
+	g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
     }
 }

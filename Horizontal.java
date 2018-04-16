@@ -16,10 +16,10 @@ public class Horizontal extends Path{
 	super(exitX);
 	this.name="Horizontal";
 	if (direction) {
-	    this.x=exitX+2*WIDTH;
+	    this.x=exitX+HEIGHT;
 	}
 	else {
-	    this.x=exitX-2*WIDTH;
+	    this.x=exitX-HEIGHT;
 	}
     }
 
@@ -28,6 +28,6 @@ public class Horizontal extends Path{
 	    g.setColor(color);
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-	g.fill(new Rectangle2D.Double(super.x, super.y, super.HEIGHT, 2*super.WIDTH));
+	g.fill(new Rectangle2D.Double(x, y, HEIGHT, WIDTH));
     }
 }
