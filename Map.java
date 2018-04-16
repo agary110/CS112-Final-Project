@@ -16,13 +16,10 @@ class Map{
 		upcomingPaths = new LinkedList<Path>();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		upcomingPaths.get(0).y = Game.HEIGHT;
+		upcomingPaths.get(0).y = Game.HEIGHT / 2;
 
 		for(int i = 1; i < 6; i++){
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
-			if(i > 2){
-				upcomingPaths.get(upcomingPaths.size() - 2).y += Path.HEIGHT;
-			}
 		}
 
 		prototypePaths();

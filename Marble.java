@@ -126,7 +126,7 @@ public class Marble{
 
 	private static Path checkPath(){
 
-		Path [] visiblePaths = new Path [Game.HEIGHT / Path.HEIGHT + 1];
+		Path [] visiblePaths = new Path [10];
 		int j = 0;
 
 		for(int i = 0; i < Map.upcomingPaths.size(); i++){
@@ -136,14 +136,10 @@ public class Marble{
 			}
 		}
 
-		for(int i = 0; i < visiblePaths.length; i++){
+		for(int i = 0; i < visiblePaths.length - 1; i++){
 			if(World.marble.position.y >= visiblePaths [i].y && World.marble.position.y < visiblePaths [i].y + visiblePaths [i].HEIGHT){
-				System.out.println(visiblePaths[i].name);
 				return visiblePaths [i];
 			}
-System.out.println("This is the marble's position:" + World.marble.position.y);
-System.out.println("This is the minimum straight path value:" + visiblePaths[i].y);
-System.out.println("This is the maximum straight path value:" + (visiblePaths[i].y+visiblePaths[i].HEIGHT));
 		}
 
 		return new Path(0);
