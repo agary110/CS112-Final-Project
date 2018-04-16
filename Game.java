@@ -83,4 +83,13 @@ public class Game extends JPanel implements KeyListener{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
 	}
+<<<<<<< HEAD
+=======
+	/*public static void youLose(Graphics g) {
+		if (alive=false) {
+			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
+	g.drawChars(data, 0, 6, 400, 400);
+		}
+	}*/
+>>>>>>> a5789388c6f6afdf2ccb5898bec471ad1d04f14a
 }
