@@ -15,6 +15,13 @@ public class RightCorner extends Path {
 	this.name="rightCorner";
 	this.x=exitX+HEIGHT;
     }
+	public RightCorner(Path previous) {
+		super(previous);
+		name="rightCorner";
+		exitX=this.x;
+		y=previous.y-Path.HEIGHT;
+	}
+	
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
