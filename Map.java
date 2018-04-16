@@ -64,7 +64,6 @@ class Map{
 
 		for(int i = 0; i < upcomingPaths.size(); i++){
 			upcomingPaths.get(i).update();	
-			System.out.println("Trying to update");
 		}
 		if(upcomingPaths.getLast().y > 0){
 			//addNewPath();
@@ -104,7 +103,6 @@ class Map{
 					visible = new Horizontal(previousVisible.x, false);//false return values indicates that x < exitX
 				}
 			}
-			System.out.println("Path drawn");
 			g.setColor(new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
 			visible.draw(g);
 		}*/

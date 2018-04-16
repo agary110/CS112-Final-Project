@@ -31,7 +31,6 @@ public class Game extends JPanel implements KeyListener{
 
 			while(alive){
 				world.nextFrame(1.0 / (double)(FPS));
-				System.out.println("I’m alive");
 				repaint();
 				try{
 					Thread.sleep(1000 / FPS);
@@ -48,14 +47,11 @@ public class Game extends JPanel implements KeyListener{
     }
     public void keyReleased(KeyEvent e) {
         char c=e.getKeyChar();
-	System.out.println(c);
     }
 
     public void keyTyped(KeyEvent e) {
 	char c = e.getKeyChar();
-	world.moveMarble(c);	
-	System.out.println(c);
-	
+	world.moveMarble(c);		
     }
 
 	public static void main(String [] args){
@@ -72,6 +68,5 @@ public class Game extends JPanel implements KeyListener{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
-		System.out.println("Repaints");
 	}
 }
