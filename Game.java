@@ -71,9 +71,10 @@ if(world.map.upcomingPaths.getLast().y > 0){
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
-		if (alive=false) {
+		/*if (alive=false) {
+			System.out.println("hjkasd");
 			frame.dispose();
-		}
+		}*/
 	}
 
 	public void paintComponent(Graphics g){

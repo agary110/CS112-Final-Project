@@ -105,23 +105,25 @@ public class Marble{
 			}
 		}
 
-		/*if (position.x - radius < 0){
-			velocity.x = 0.0;
-			position.x = radius;
+		else if(path.name == "rightElbow”){
+			if(marb.y > path.y + path.WIDTH){
+				if(marb.x > path.exitX + path.HEIGHT){
+					Game.alive = false;
+				}
+				if(marb.y > path.y + path.HEIGHT){
+					Game.alive = false;
+				}
+				if(marb.x < path.x){
+					if(marb.y < path.y + path.WIDTH){
+						Game.alive = false;
+					}
+				}
+			}
+			else{
+
+			}
 		}
-		if (position.x + radius > w.WIDTH){
-			velocity.x = 0.0;
-			position.x = w.WIDTH - radius;
-	 
-		}
-		if (position.y - radius < 0){
-			velocity.y = 0.0;
-			position.y = radius;
-		}
-		if(position.y + radius >  w.HEIGHT){
-			velocity.y = 0.0;
-			position.y = w.HEIGHT - radius;
-		}*/
+
     }
 
 	private static Path checkPath(){
