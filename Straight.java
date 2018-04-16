@@ -17,6 +17,14 @@ public class Straight extends Path{
 	this.x=exitX;
     }
 
+	public Straight(Path previous){
+		super(previous);
+		name = "Straight";
+		x = previous.exitX;
+		exitX = this.x;
+		y = previous.y - Path.HEIGHT;
+	}
+
     public void draw(Graphics g0ri){
 	Random rand = new Random();
 	Graphics2D g = (Graphics2D) g0ri;
