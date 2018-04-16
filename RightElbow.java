@@ -20,7 +20,8 @@ public class RightElbow extends Path{
 		super(previous);
 		name = "rightElbow";
 		exitX = previous.x;
-		x = 
+		x = exitX + Path.WIDTH;
+		y = previous.y - Path.WIDTH;
 	}
 
     public void draw(Graphics g0ri){

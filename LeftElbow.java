@@ -15,6 +15,14 @@ public class LeftElbow extends Path{
 	this.x=exitX-HEIGHT;
     }
 
+	public LeftElbow(Path previous){
+		super(previous);
+		name = "leftElbow";
+		exitX = previous.x;
+		x = exitX - Path.WIDTH;
+		y = previous.y - Path.WIDTH;
+	}
+
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
 	    g.setColor(Color.GREEN);

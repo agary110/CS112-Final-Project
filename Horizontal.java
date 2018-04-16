@@ -23,6 +23,19 @@ public class Horizontal extends Path{
 	}
     }
 
+	public Horizontal(Path previous, boolean direction){
+		super(previous);
+		name = "Horizontal";
+		exitX = previous.x;
+		if(direction){
+			x = exitX + Path.HEIGHT;
+		}
+		else{
+			x = exitX - Path.HEIGHT;
+		}
+		y = previous.y;
+	}
+
     public void draw(Graphics g0ri){
 	Graphics2D g = (Graphics2D) g0ri;
 	    g.setColor(color);
