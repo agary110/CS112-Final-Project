@@ -75,6 +75,7 @@ public class Marble{
 
     public void moveUp(){
 		velocity.y -= speedIncrement;
+	    System.out.println("Inside moveUp");
     }
 
     public void moveDown(){
