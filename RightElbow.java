@@ -12,7 +12,7 @@ public class RightElbow extends Path{
     public RightElbow(int exitX){
 	super(exitX);
 	this.name="rightElbow";
-	this.x=exitX-WIDTH;
+	this.x=exitX+WIDTH;
 	
     }
 
