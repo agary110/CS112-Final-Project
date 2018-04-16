@@ -311,6 +311,7 @@ public static Path generateNext(){
 		if(proposedPath.name == "Horizontal"){//Horizontal
 			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
 				return true;
+			}
 			else return false;
 		}
 
