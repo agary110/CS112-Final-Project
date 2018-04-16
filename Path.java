@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Path {
     boolean bumpersOn=false;
-    final int bumperWidth; //need to decide what this is
+    final int bumperWidth = 5; //need to decide what this is
     static final int WIDTH = 100;
     static final int HEIGHT = 200;
     int x; //corresponds to path's upper left corner
@@ -16,7 +16,6 @@ public class Path {
 
     public Path(int exitX) {
 	name = "";
-	bumperWidth=10; //random for now
 	x=0;
 	y= - Path.HEIGHT;
 	this.exitX=exitX;

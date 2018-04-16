@@ -18,7 +18,8 @@ public class RightCorner extends Path {
 	public RightCorner(Path previous) {
 		super(previous);
 		name="rightCorner";
-		exitX=this.x;
+		exitX=previous.x;
+		x = exitX + Path.HEIGHT;
 		y=previous.y-Path.HEIGHT;
 	}
 	
