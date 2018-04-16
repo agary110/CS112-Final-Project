@@ -1,5 +1,7 @@
 import java.awt.Graphics;
 import java.util.Random;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 public class World{
     static double HEIGHT;
@@ -104,6 +106,4 @@ public class World{
 		    marble.moveRight();
 		}
 	}
-
-
 }

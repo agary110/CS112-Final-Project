@@ -41,13 +41,9 @@ public class Game extends JPanel implements KeyListener{
 			//Once outside of the while loop above, a message should appear on the screen to declare that the game is over.
 		}
 	}
-    public void keyPressed(KeyEvent e) {
-       char c = e.getKeyChar();
-    }
-    public void keyReleased(KeyEvent e) {
 
-		char c=e.getKeyChar();
-		System.out.println(c);
+	public void keyPressed(KeyEvent e) {
+       char c = e.getKeyChar();
     }
 
 	public void keyTyped(KeyEvent e) {
@@ -55,6 +51,12 @@ public class Game extends JPanel implements KeyListener{
 		world.moveMarble(c);	
 		System.out.println(c);
 	}
+
+	public void keyReleased(KeyEvent e) {
+		char c=e.getKeyChar();
+		System.out.println(c);
+    }
+
 
 	public static void main(String [] args){
 		JFrame frame = new JFrame("aMAZE-ing Maze");
