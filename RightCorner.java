@@ -20,7 +20,7 @@ public class RightCorner extends Path {
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   RenderingHints.VALUE_ANTIALIAS_ON);
  g.setColor(Color.GREEN);
-	g.fill (new Rectangle2D.Double(x, y, WIDTH, HEIGHT);
-	g.fill (new Rectangle2D.Double(x+WIDTH, y, WIDTH, WIDTH);
+	g.fill (new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
+	g.fill (new Rectangle2D.Double(x+WIDTH, y, WIDTH, WIDTH));
     }
 }
