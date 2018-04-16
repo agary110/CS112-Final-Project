@@ -19,7 +19,8 @@ public class LeftCorner extends Path {
 	public LeftCorner(Path previous) {
 		super(previous);
 		name="leftCorner";
-		exitX=this.x;
+		exitX=previous.x;
+		x = exitX - WIDTH;
 		y=previous.y-Path.HEIGHT;
 	}
 	
@@ -30,6 +31,6 @@ public class LeftCorner extends Path {
 			   RenderingHints.VALUE_ANTIALIAS_ON);
  
 	g.fill (new Rectangle2D.Double(x, y, WIDTH, WIDTH));
-	g.fill (new Rectangle2D.Double(x+WIDTH, y, WIDTH, HEIGHT));
+	g.fill (new Rectangle2D.Double(exitX, y, WIDTH, HEIGHT));
     }
 }

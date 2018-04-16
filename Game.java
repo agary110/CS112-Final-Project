@@ -34,13 +34,20 @@ public class Game extends JPanel implements KeyListener{
 			while(alive){
 
 				world.nextFrame(1.0 / (double)(FPS));
+if(world.map.upcomingPaths.getLast().y > 0){
+					alive = false;
+				}
+
 				repaint();
 				try{
 					Thread.sleep(1000 / FPS);
 				}
 				catch(InterruptedException e){}
+
+				if(world.map.upcomingPaths.getLast().y > 0){
+					alive = false;
+				}
 			}
-			//Once outside of the while loop above, a message should appear on the screen to declare that the game is over.
 		}
 	}
 
