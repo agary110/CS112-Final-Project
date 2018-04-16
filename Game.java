@@ -35,7 +35,7 @@ public class Game extends JPanel implements KeyListener{
 	class Runner implements Runnable{
 		public void run(){
 
-			while(alive){
+			while(true){
 
 				world.nextFrame(1.0 / (double)(FPS));
 				if (pressed){
@@ -88,10 +88,15 @@ public class Game extends JPanel implements KeyListener{
 	}
 
 	public void paintComponent(Graphics g){
+		if(alive){
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
+		}
+		else{
+			//draw You Lose here
+		}
 	}
 
 }
