@@ -105,7 +105,7 @@ public class Marble{
 			}
 		}
 
-		else if(path.name == "rightElbow”){
+		else if(path.name == "rightElbow"){
 			if(marb.y > path.y + path.WIDTH){
 				if(marb.x > path.exitX + path.HEIGHT){
 					Game.alive = false;
@@ -120,8 +120,14 @@ public class Marble{
 				}
 			}
 			else{
-
+				if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+					Game.alive = false;
+				}
 			}
+		}
+
+		else if(path.name == "leftElbow"){
+			if(marb.x > path.y
 		}
 
     }
