@@ -73,11 +73,13 @@ public class Marble{
     }
 
     public void moveUp(){
+
 		velocity.y -= speedIncrement;
 		if(position.y > Game.HEIGHT / 4){
 			position.y -= 5;
 		}
-    }
+
+    } 
 
     public void moveDown(){
 		velocity.y += speedIncrement;
@@ -86,13 +88,13 @@ public class Marble{
     public void moveRight(){
 		velocity.x += speedIncrement;
 	    position.x+=5.0;
-		position.y += 7;
+		position.y += 4;
     }
 
     public void moveLeft(){
 		velocity.x -= speedIncrement;
 	    position.x-=5.0;
-		position.y+=7;
+		position.y+=4;
     }
 
     public static void checkDead(World w){

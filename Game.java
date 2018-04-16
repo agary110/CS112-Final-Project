@@ -10,10 +10,12 @@ import java.util.Random;
 public class Game extends JPanel implements KeyListener{
 	public static final int WIDTH = 1400;
 	public static final int HEIGHT = 750;
-	public static final int FPS = 60;
+	public static final int FPS = 30;
 	public static World world;
 	public static boolean alive;
 	public static double points;
+	public static boolean pressed;
+	char c;
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
@@ -26,6 +28,8 @@ public class Game extends JPanel implements KeyListener{
 		Random rand = new Random();
 		alive = true;
 		points = 0;
+		pressed=false;
+		c = ' ';
 	}
 
 	class Runner implements Runnable{
@@ -34,6 +38,9 @@ public class Game extends JPanel implements KeyListener{
 			while(alive){
 
 				world.nextFrame(1.0 / (double)(FPS));
+				if (pressed){
+					world.moveMarble(c);
+				}
 				if(world.map.upcomingPaths.getLast().y > 0){
 					alive = false;
 				}
@@ -48,18 +55,21 @@ public class Game extends JPanel implements KeyListener{
 	}
 
 	public void keyPressed(KeyEvent e) {
-       char c = e.getKeyChar();
-		world.moveMarble(c);
+      		c = e.getKeyChar();
+		pressed=true;
+		
+		
     }
 
 	public void keyTyped(KeyEvent e) {
-		char c = e.getKeyChar();
+		c = e.getKeyChar();
 		System.out.println(c);
 	}
 
 	public void keyReleased(KeyEvent e) {
-		char c=e.getKeyChar();
+		c=e.getKeyChar();
 		System.out.println(c);
+		pressed=false;
 		
     }
 
@@ -83,13 +93,5 @@ public class Game extends JPanel implements KeyListener{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
 	}
-<<<<<<< HEAD
-=======
-	/*public static void youLose(Graphics g) {
-		if (alive=false) {
-			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
-	g.drawChars(data, 0, 6, 400, 400);
-		}
-	}*/
->>>>>>> a5789388c6f6afdf2ccb5898bec471ad1d04f14a
+
 }
