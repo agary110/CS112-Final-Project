@@ -91,7 +91,8 @@ public class World{
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
 
-    public void moveMarble(char c){
+    public void keyPressed(KeyEvent e){
+	    char c=e.getKeyChar();
 		if (c == 'i') {
 	    	marble.moveUp();
 			System.out.println("moved up");
