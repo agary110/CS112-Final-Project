@@ -30,8 +30,8 @@ public class Game extends JPanel implements KeyListener{
 		public void run(){
 
 			while(alive){
-				world.nextFrame(1.0 / (double)FPS);
-				System.out.println("I’m alive");
+
+				world.nextFrame(1.0 / (double)(FPS));
 				repaint();
 				try{
 					Thread.sleep(1000 / FPS);
@@ -45,6 +45,7 @@ public class Game extends JPanel implements KeyListener{
        char c = e.getKeyChar();
     }
     public void keyReleased(KeyEvent e) {
+
 		char c=e.getKeyChar();
 		System.out.println(c);
     }

@@ -29,7 +29,6 @@ public class Path {
 
     public void update (){
 	this.y++;
-	System.out.println(y + ":)");
     }
 
     public void setY(int toAdd){
