@@ -42,18 +42,18 @@ public class Marble{
 	Pair position;
 	Pair velocity;
 	Pair acceleration;
-	double radius;
+	int radius;
 	double dampening;
 	Color color;
 	double speedIncrement;
 	public Marble(){
 		Random rand = new Random(); 
-		position = new Pair(500.0, 500.0);
+		position = new Pair(Game.WIDTH / 2, 500.0);
 		velocity = new Pair(0.0, 0.0);
-		radius = 10;
+		radius = 6;
 		dampening = 1.3;
 		double speedIncrement = 25.0;
-		color = Color.RED;
+		color = Color.BLUE;
     }
     public void update(World w, double time){
 		position = position.add(velocity.times(time));
@@ -69,7 +69,7 @@ public class Marble{
     public void draw(Graphics g){
 		Color c = g.getColor();
 		g.setColor(color);
-		g.fillOval((int)this.position.x, (int)this.position.y, 100, 100);
+		g.fillOval((int)this.position.x, (int)this.position.y, radius, radius);
 		g.setColor(c);
     }
 

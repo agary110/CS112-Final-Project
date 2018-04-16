@@ -41,6 +41,11 @@ public class Horizontal extends Path{
 	    g.setColor(color);
 	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-	g.fill(new Rectangle2D.Double(x, y, HEIGHT, WIDTH));
+		if(direction){
+			g.fill(new Rectangle2D.Double(exitX, y, HEIGHT, WIDTH));
+		}
+		else{
+			g.fill(new Rectangle2D.Double(x, y, HEIGHT, WIDTH));
+		}
     }
 }

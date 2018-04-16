@@ -66,9 +66,7 @@ public class World{
 	}*/
 
 	private void updateMap(double time){
-		//if(marble.velocity.y != 0){
-			map.update(time);
-		//}
+		map.update(time);
 	}
 
 	/*private void updatePoints(double time){

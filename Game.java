@@ -43,42 +43,24 @@ if(world.map.upcomingPaths.getLast().y > 0){
 					Thread.sleep(1000 / FPS);
 				}
 				catch(InterruptedException e){}
-
-				if(world.map.upcomingPaths.getLast().y > 0){
-					alive = false;
-				}
 			}
 		}
 	}
 
 	public void keyPressed(KeyEvent e) {
        char c = e.getKeyChar();
+		world.moveMarble(c);
     }
 
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-		if (c == 'i') {
-	    	world.marble.moveUp();
-			System.out.println("moved up");
-		}
-		if (c == 'j') {
-		    world.marble.moveLeft();
-			System.out.println("moved left");
-		}
-		if (c == 'k') {
-		    world.marble.moveDown();
-			System.out.println("moved down");
-		}
-		if (c == 'l') {
-		    world.marble.moveRight();
-			System.out.println("moved right");
-		}
 		System.out.println(c);
 	}
 
 	public void keyReleased(KeyEvent e) {
 		char c=e.getKeyChar();
 		System.out.println(c);
+		
     }
 
 
