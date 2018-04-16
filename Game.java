@@ -17,7 +17,9 @@ public class Game extends JPanel implements KeyListener{
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
-		addKeyListener(this);
+		this.addKeyListener(this); 
+		this.setFocusable(true);
+		this.requestFocus();
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		Thread mainThread = new Thread(new Runner());
 		mainThread.start();

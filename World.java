@@ -82,6 +82,7 @@ public class World{
 		updateMap(time);
 		//updatePoints(time);
 		//this.drawToScreen(g);
+		System.out.println("Next Frame");
 	}
 //=======================================
 //Creates new random Item, given aliveItem = false & timeUntilNextItem = 0
@@ -94,15 +95,19 @@ public class World{
     public void moveMarble(char c){
 		if (c == 'i') {
 	    	marble.moveUp();
+			System.out.println("moved up");
 		}
 		if (c == 'j') {
 		    marble.moveLeft();
+			System.out.println("moved left");
 		}
 		if (c == 'k') {
 		    marble.moveDown();
+			System.out.println("moved down");
 		}
 		if (c == 'l') {
 		    marble.moveRight();
+			System.out.println("moved right");
 		}
 	}
 }
