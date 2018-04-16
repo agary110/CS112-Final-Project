@@ -127,7 +127,15 @@ public class Marble{
 		}
 
 		else if(path.name == "leftElbow"){
-			if(marb.x > path.y
+			if(marb.y > path.y + path.HEIGHT){
+				Game.alive = false;
+			}
+			if(marb.x < path.x){
+				Game.alive = false;
+			}
+			if(marb.y < path.y + path.WIDTH){
+
+			}
 		}
 
     }
