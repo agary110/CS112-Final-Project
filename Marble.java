@@ -85,12 +85,14 @@ public class Marble{
     public void moveRight(){
 		velocity.x += speedIncrement;
 	    position.x+=5.0;
+	    velocity.y=1/(double)FPS;
 	    System.out.println("Inside moveRight");
     }
 
     public void moveLeft(){
 		velocity.x -= speedIncrement;
 	    position.x-=5.0;
+	    velocity.y=1/(double)FPS;
     }
 
     private void hitwalls(World w){
