@@ -34,7 +34,7 @@ public class Game extends JPanel implements KeyListener{
 			while(alive){
 
 				world.nextFrame(1.0 / (double)(FPS));
-if(world.map.upcomingPaths.getLast().y > 0){
+				if(world.map.upcomingPaths.getLast().y > 0){
 					alive = false;
 				}
 
@@ -71,6 +71,10 @@ if(world.map.upcomingPaths.getLast().y > 0){
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
+		/*if (alive=false) {
+			System.out.println("hjkasd");
+			frame.dispose();
+		}*/
 	}
 
 	public void paintComponent(Graphics g){
@@ -78,11 +82,5 @@ if(world.map.upcomingPaths.getLast().y > 0){
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
-	}
-	public static void youLose(Graphics g) {
-		if (alive=false) {
-			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
-	g.drawChars(data, 0, 6, 400, 400);
-		}
 	}
 }

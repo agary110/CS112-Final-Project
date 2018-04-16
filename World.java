@@ -36,11 +36,6 @@ public class World{
 		drawMarble(g);
 		//drawPoints(g);
 		//drawAmmoCount(g);
-
-		/*if (Game.alive=false) {
-			char[] data={'u', 'r', 'd', 'e', 'a', 'd'};
-	g.drawChars(data, 0, 6, 400, 400);
-		}*/
 	}
 
 	public void drawMarble(Graphics g){
@@ -96,7 +91,7 @@ public class World{
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
 
     public void moveMarble(char c){
-		if (c == 'i' && marble.position.y > Game.HEIGHT / 4) {
+		if (c == 'i') {
 	    	marble.moveUp();
 		}
 		if (c == 'j') {
