@@ -49,7 +49,7 @@ public class Marble{
 	public Marble(){
 		Random rand = new Random(); 
 		position = new Pair(500.0, 500.0);
-		velocity = new Pair(-50.0, -50.0);
+		velocity = new Pair(0.0, 0.0);
 		radius = 25;
 		dampening = 1.3;
 		double speedIncrement = 25.0;
@@ -90,6 +90,7 @@ public class Marble{
 
     public void moveLeft(){
 		velocity.x -= speedIncrement;
+	    position.x-=5.0;
     }
 
     private void hitwalls(World w){
