@@ -84,7 +84,7 @@ public class Marble{
 
     public void moveRight(){
 		velocity.x += speedIncrement;
-	    position.x+5.0;
+	    position.x+=5.0;
 	    System.out.println("Inside moveRight");
     }
 
