@@ -12,44 +12,44 @@ class Pair{
     public double y;
     
     public Pair(double initX, double initY){
-	x = initX;
-	y = initY;
+		x = initX;
+		y = initY;
     }
 
     public Pair add(Pair toAdd){
-	return new Pair(x + toAdd.x, y + toAdd.y);
-    }
+		return new Pair(x + toAdd.x, y + toAdd.y);
+	}
 
-    public Pair divide(double denom){
-	return new Pair(x / denom, y / denom);
-    }
+	public Pair divide(double denom){
+		return new Pair(x / denom, y / denom);
+	}
 
-    public Pair times(double val){
-	return new Pair(x * val, y * val);
-    }
+	public Pair times(double val){
+		return new Pair(x * val, y * val);
+	}
 
     public void flipX(){
-	x = -x;
-    }
+		x = -x;
+	}
     
-    public void flipY(){
-	y = -y;
-    }
+	public void flipY(){
+		y = -y;
+	}
 }
 
 
 public class Marble{
-    Pair position;
-    Pair velocity;
-    Pair acceleration;
-    double radius;
-    double dampening;
-    Color color;
+	Pair position;
+	Pair velocity;
+	Pair acceleration;
+	double radius;
+	double dampening;
+	Color color;
 	double speedIncrement;
-    public Marble(){
+	public Marble(){
 		Random rand = new Random(); 
 		position = new Pair(500.0, 500.0);
-		velocity = new Pair(0.0, 0.0);
+		velocity = new Pair(-50.0, -50.0);
 		radius = 25;
 		dampening = 1.3;
 		double speedIncrement = 25.0;
@@ -57,7 +57,7 @@ public class Marble{
     }
     public void update(World w, double time){
 		position = position.add(velocity.times(time));
-		bounce(w);
+		hitwalls(w);
     }
     
     public void setPosition(Pair p){
@@ -68,9 +68,8 @@ public class Marble{
     }
     public void draw(Graphics g){
 		Color c = g.getColor();
-	
 		g.setColor(color);
-		g.fillOval(Game.WIDTH/2 - Path.WIDTH/2 ,100,100,100);
+		g.fillOval((int)this.position.x, (int)this.position.y, 100, 100);
 		g.setColor(c);
     }
 
@@ -90,21 +89,21 @@ public class Marble{
 		velocity.x -= speedIncrement;
     }
 
-    private void bounce(World w){
+    private void hitwalls(World w){
 		if (position.x - radius < 0){
 			velocity.x = 0.0;
 			position.x = radius;
-	}
-		else if (position.x + radius > w.WIDTH){
+		}
+		if (position.x + radius > w.WIDTH){
 			velocity.x = 0.0;
 			position.x = w.WIDTH - radius;
 	 
-	}
+		}
 		if (position.y - radius < 0){
 			velocity.y = 0.0;
 			position.y = radius;
-	}
-		else if(position.y + radius >  w.HEIGHT){
+		}
+		if(position.y + radius >  w.HEIGHT){
 			velocity.y = 0.0;
 			position.y = w.HEIGHT - radius;
 		}

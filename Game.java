@@ -30,7 +30,7 @@ public class Game extends JPanel implements KeyListener{
 		public void run(){
 
 			while(alive){
-				world.nextFrame(1.0 / (double)(FPS));
+				world.nextFrame(1.0 / (double)FPS);
 				System.out.println("I’m alive");
 				repaint();
 				try{
@@ -43,20 +43,17 @@ public class Game extends JPanel implements KeyListener{
 	}
     public void keyPressed(KeyEvent e) {
        char c = e.getKeyChar();
-			
-
     }
     public void keyReleased(KeyEvent e) {
-        char c=e.getKeyChar();
-	System.out.println(c);
+		char c=e.getKeyChar();
+		System.out.println(c);
     }
 
-    public void keyTyped(KeyEvent e) {
-	char c = e.getKeyChar();
-	world.moveMarble(c);	
-	System.out.println(c);
-	
-    }
+	public void keyTyped(KeyEvent e) {
+		char c = e.getKeyChar();
+		world.moveMarble(c);	
+		System.out.println(c);
+	}
 
 	public static void main(String [] args){
 		JFrame frame = new JFrame("aMAZE-ing Maze");
@@ -72,6 +69,5 @@ public class Game extends JPanel implements KeyListener{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		world.drawToScreen(g);
-		System.out.println("Repaints");
 	}
 }

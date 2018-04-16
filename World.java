@@ -91,19 +91,19 @@ public class World{
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
 
     public void moveMarble(char c){
-	if (c == 'i') {
-	    marble.moveUp();
+		if (c == 'i') {
+	    	marble.moveUp();
+		}
+		if (c == 'j') {
+		    marble.moveLeft();
+		}
+		if (c == 'k') {
+		    marble.moveDown();
+		}
+		if (c == 'l') {
+		    marble.moveRight();
+		}
 	}
-	if (c == 'j') {
-	    marble.moveLeft();
-	}
-	if (c == 'k') {
-	    marble.moveDown();
-	}
-	if (c == 'l') {
-	    marble.moveRight();
-	}
-    }
 
 
 }
