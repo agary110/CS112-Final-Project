@@ -260,9 +260,11 @@ public static Path generateNext(){
 	}
 	else if(nextName == "rightCorner"){
 		toReturn = new RightCorner(exitX);
+		toReturn.y += Path.WIDTH;
 	}
 	else if(nextName == "leftCorner"){
 		toReturn = new LeftCorner(exitX);
+		toReturn.y += Path.WIDTH;
 	}
 	else if(nextName == "rightElbow"){
 		toReturn = new RightElbow(exitX);
@@ -279,6 +281,7 @@ public static Path generateNext(){
 			direction = false;
 		}
 		toReturn = new Horizontal(exitX, direction);
+		toReturn.y += Path.WIDTH;
 	}
 
 	if(checkOnScreen(toReturn) == false){

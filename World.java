@@ -80,7 +80,6 @@ public class World{
 		updateMap(time);
 		//updatePoints(time);
 		//this.drawToScreen(g);
-		System.out.println("Next Frame");
 	}
 //=======================================
 //Creates new random Item, given aliveItem = false & timeUntilNextItem = 0
