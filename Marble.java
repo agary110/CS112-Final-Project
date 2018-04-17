@@ -88,13 +88,13 @@ public class Marble{
     public void moveRight(){
 		velocity.x += speedIncrement;
 	    position.x+=5.0;
-		position.y += 4;
+		position.y += 0.6;
     }
 
     public void moveLeft(){
 		velocity.x -= speedIncrement;
 	    position.x-=5.0;
-		position.y+=4;
+		position.y+= 0.6;
     }
 
     public static void checkDead(World w){
