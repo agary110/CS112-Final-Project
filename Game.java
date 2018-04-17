@@ -57,6 +57,9 @@ public class Game extends JPanel implements KeyListener{
 	public void keyPressed(KeyEvent e) {
       		c = e.getKeyChar();
 		pressed=true;
+		if (c=='c') {
+		System.exit(0);
+		}
 		
 		
     }
@@ -95,6 +98,8 @@ public class Game extends JPanel implements KeyListener{
 		world.drawToScreen(g);
 		}
 		else{
+			char[] data={'u', 'r', ' ', 'd', 'e', 'a', 'd', '!', ' ', 'p', 'r', 'e', 's', 's', ' ', 'C', ' ', 't', 'o', ' ', 'c', 'l', 'o', 's', 'e'};
+			g.drawChars(data, 0, data.length, 400, 400);
 			//draw You Lose here
 		}
 	}
