@@ -15,6 +15,7 @@ public class Game extends JPanel implements KeyListener{
 	public static boolean alive;
 	public static double points;
 	public static boolean pressed;
+	public static boolean hasGameStarted;
 	char c;
 
 	public Game(){
@@ -27,6 +28,7 @@ public class Game extends JPanel implements KeyListener{
 		mainThread.start();
 		Random rand = new Random();
 		alive = true;
+		hasGameStarted=false;
 		points = 0;
 		pressed=false;
 		c = ' ';
@@ -57,9 +59,21 @@ public class Game extends JPanel implements KeyListener{
 	public void keyPressed(KeyEvent e) {
       		c = e.getKeyChar();
 		pressed=true;
-		if (c=='c') {
+		if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
 		System.exit(0);
 		}
+		else if (c==' ') {
+		hasGameStarted=true;
+		}
+		else if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+		JFrame frame = new JFrame("aMAZE-ing Maze");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Game mainInstance = new Game();
+		frame.setContentPane(mainInstance);
+		frame.pack();
+		frame.setVisible(true);
+//could probably just call main() here but I'm not positive how to do that?
+}
 		
 		
     }
@@ -91,17 +105,22 @@ public class Game extends JPanel implements KeyListener{
 	}
 
 	public void paintComponent(Graphics g){
-		if(alive){
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		if (hasGameStarted) {
 		world.drawToScreen(g);
 		}
-		else{
-			char[] data={'u', 'r', ' ', 'd', 'e', 'a', 'd', '!', ' ', 'p', 'r', 'e', 's', 's', ' ', 'C', ' ', 't', 'o', ' ', 'c', 'l', 'o', 's', 'e'};
+		else {
+g.setColor(Color.GREEN);
+System.out.println("hasGameStarted=false");
+	char[] welcome={'h', 'e', 'l', 'l', 'o', '!', ' ', 't', 'o', ' ', 'b', 'e', 'g', 'i', 	'n', ' ', 'p', 'l', 'a', 'y', 'i', 'n', 'g', ',', ' ', 'p', 'r', 'e', 's', 	's', ' ', 't', 'h', 'e', ' ', 's', 'p', 'a', 'c', 'e', ' ', 'b', 'a', 'r', 	'.'};
+	g.drawChars(welcome, 0, welcome.length, 400, 400);
+}
+		if (!alive) {
+			char[] data={'u', 'r', ' ', 'd', 'e', 'a', 'd', '!', ' ', 'p', 'r', 'e', 's', 's', ' ', 'e', 's', 'c', 'a', 'p', 'e', ' ', 't', 'o', ' ', 'c', 'l', 'o', 's', 'e', ' ', 'o', 'r', ' ',  'e', 'n', 't', 'e', 'r', ' ', 't', 'o', ' ', 'r', 'e', 's', 't', 'a', 'r', 't', '.'};
 			g.drawChars(data, 0, data.length, 400, 400);
-			//draw You Lose here
-		}
+	}
 	}
 
 }
