@@ -8,12 +8,14 @@ public class World{
     static double WIDTH;
     static Marble marble;
     static Map map;
-    //Item item;
+    static Item item;
+	static Ammo ammo;
     boolean aliveItem;
-    double timeUntilNextItem;
-    final double originalTimeUntilNextItem;
+    static double timeUntilNextItem;
+    static final double originalTimeUntilNextItem = 7;
     static int points;
     static int ammoCount;
+	static boolean ammoReleased;
 //=======================================
 //Constructor
     public World(double initHeight, double initWidth){
@@ -21,10 +23,11 @@ public class World{
 	WIDTH = initWidth;
 	marble = new Marble();
    	aliveItem = false;
-	//item = newItem();
-	originalTimeUntilNextItem = 7;//random num - specified amount based on difficulty level
+	item = new Item();
+	timeUntilNextItem = 14;
 	ammoCount = 0;
 	points = 0;
+	ammoReleased = false;
 	map = new Map();
     }
 //=======================================
@@ -55,6 +58,7 @@ public class World{
 	}*/
 
    public void drawAmmoCount(Graphics g){
+		item.drawAmmoCounter(g);
    }
 
 //=======================================
@@ -63,9 +67,9 @@ public class World{
 		marble.update(this, time);
 	}
 
-	/*private void updateItem(){
+	private void updateItem(){
 		item.update();
-	}*/
+	}
 
 	private void updateMap(double time){
 		map.update(time);
@@ -78,7 +82,7 @@ public class World{
 //Updates Frame and values that change by frame
 	public void nextFrame(double time){
 		updateMarble(time);
-		//updateItem();
+		updateItem();
 		updateMap(time);
 		//updatePoints(time);
 		marble.checkDead(this);
@@ -106,6 +110,10 @@ public class World{
 		}
 		if (c == 'l') {
 		    marble.moveRight();
+		}
+		if (c == ' ') {
+			ammoReleased = true;
+			Ammo.releaseAmmo();
 		}
 	}
 }

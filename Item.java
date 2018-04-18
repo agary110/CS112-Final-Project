@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
+import java.lang.Integer;
 
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
@@ -8,63 +9,72 @@ import java.util.Random;
 class Item{
 	public int x;
 	public int y;
-	public final int width = (int)(path.WIDTH / 3 - 20);
+	public static final int width = (int)(Path.WIDTH / 3 - 20);
 	public boolean activated;
 	public boolean passed;
+	static Random rand;
 
 	public Item(int x, int y){
 		this.x = x;
 		this.y = y;
 		passed = false;
+		rand = new Random();
 	}
 
-	public void update(){
-		if(marble.velocity.y == 0);
-		else{
-			this.y = this.y + speed;
-		}
-		if(marble.position.y == y){
+	public void update(Graphics g){
+		this.y++;
+		if(World.marble.position.y == y){
 			this.passed = true;
 		}
-		if(this.x + this.width / 2 >= marble.position.x && this.x <= marble.position.x + this.width / 2){
+		if(this.x + this.width / 2 >= World.marble.position.x && this.x <= World.marble.position.x + this.width / 2){
 			activated = true;
 			this.activate();
 		}
-		if(this.passed == true && this.activated == false) timeUntilNextItem = timeUntilNextItem - (1 / (double)(FPS));
-		if(timeUntilNextItem == 0){
-			world.item = generateNewItem();
+		if(this.passed == true && this.activated == false){
+			World.timeUntilNextItem -= 1 / (double)(FPS);
+		}
+		if(World.timeUntilNextItem == 0){
+			World.item = generateNextItem();
 		}
 	}
 
 	public static Item generateNextItem(){
-		Path [] visiblePaths = getVisiblePaths();
-		int randNum = rand.nextInt(5);
-		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].width / 2 - width / 2;
+		Path [] visiblePaths = Map.getVisiblePaths();
+		int randNum = rand.nextInt(6);
+		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].WIDTH / 2 - width / 2;
 		int y = 0 - width;
 
 		//Bomb
 		if(randNum == 0){
-			Bomb bomb = new Bomb(x, y);
-		}
-
-		//Ammo
-		else if(randNum == 1){
-			Ammo ammo = new Ammo(x, y);
+			return new Bomb(x, y);
 		}
 
 		//Bumpers
-		else if(randNum == 2){
-			Bumpers bumpers = new Bumpers(x, y);
+		else if(randNum == 1){
+			return new Bumpers(x, y);
 		}
 
 		//ChangeSpeed
-		else if(randNum == 3){
-			ChangeSpeed changeSpeed = new ChangeSpeed(x, y);
+		else if(randNum == 2){
+			return new ChangeSpeed(x, y);
 		}
 
 		//ChangeSize
+		else if(randNum == 3){
+			return new ChangeSize(x, y);
+		}
+
+		//Alien
+		else if(randNum == 4){
+			return new Alien(x, y);
+		}
+
+		//Ammo
 		else{
-			ChangeSize changeSize = new ChangeSize(x, y);
+			if(World.ammoCount > 9999){
+				randNum = rand.nextInt(5);
+			}
+			else return new Ammo(x, y);
 		}
 	}
 
@@ -93,19 +103,27 @@ class Bomb extends Item{
 	}
 
 	public void activate(){
-		if(this.activated == true) alive = false;
+		if(this.activated == true){
+			Game.alive = false;
+		}
 	}
 }
 
 //=======================================
 //Class Ammo extends Item (increases ammoCount by 1-3)
+//This version of releasing ammo doesn't allow the user to release another ammo until the first one is off-screen.
+//This version does not yet kill any Aliens that it meets in the Path.
+//Maybe think about having a separate class for Ammo that are being released (?)
 
 class Ammo extends Item{
 	int increase;
+	final int counterHeight = 15;
+	final int counterWidth = 48;
+	final int offset = 2;
+	final int numberLength = counterWidth - 4;
 
 	public Ammo(int x, int y){
 		super(x, y);
-		Random rand = new Random();
 		increase = rand.nextInt(3) + 1;
 	}
 
@@ -116,13 +134,99 @@ class Ammo extends Item{
 		g.drawRect(this.x, this.y, width, width);
 		g.setColor(Color.GREY);
 		g.fillRect(this.x + width / 2 - width - 2, this.y + width / 10, width - 10, 5);
+
+		if(ammoReleased && World.ammo.y < -width - 10){
+			World.ammo.draw(g);
+			World.ammo.y -= 2;
+			if(World.ammo.y < -width - 10){
+				ammoReleased = false;
+			}
+		}
 	}
 
 	public void activate(){
-		ammoCount = ammoCount + increase;
+		World.ammoCount = World.ammoCount + increase;
 		this.activated = false;
-		timeUntilNextItem = originalTimeUntilNextItem;
+		World.timeUntilNextItem = World.originalTimeUntilNextItem;
 	}
+
+	public static void releaseAmmo(Graphics g){
+		if(World.ammoCount > 0){
+			ammo.x = World.marble.position.x;
+			ammo.y = World.marble.radius / 2;
+			World.ammoCount--;
+		}
+	}
+
+	public void drawAmmoCounter(Graphics g){
+		g.setColor(Color.WHITE);
+		g.fillRect(3, 3, counterHeight, counterWidth);
+		g.setColor(Color.BLACK);
+		g.drawRect(2, 2, counterHeight + 2, counterWidth + 2);
+		g.setColor(Color.WHITE);
+		g.drawRect(1, 1, counterHeight + 3, counterWidth + 3);
+		g.setColor(Color.BLACK);
+
+		//Determines how many place values are in ammoCount
+		int dataIndex = 0;
+		double i = World.ammoCount;
+		while(i >= 1){
+			dataIndex++;
+			i = i / 10;
+		}
+
+		//Fills data with chars that match ammoCount
+		char [] data = new char [4];
+		for(int i = 4; i > 0; i--){
+			if(dataIndex < i){
+				data [data.length - i] = "0";
+			}
+		}
+		if(dataIndex == 4){
+			data [0] = toString(World.ammoCount%1000);
+			dataIndex--;
+		}
+		if(dataIndex == 3){
+			data [1] = toString(World.ammoCount%100);
+			dataIndex--;
+		}
+		if(dataIndex == 2){
+			data [2] = toString(World.ammoCount%10);
+			dataIndex--;
+		}
+		if(dataIndex == 1){
+			data [3] = toString(World.ammoCount);
+		}
+
+		//Draws data
+		drawChars(data, offset, numberLength, 4, 4);
+
+	}
+}
+
+//=======================================
+//Class Alien extends Item
+
+class Alien extends Item{
+	
+	public Alien(int x, int y){
+		super(x, y);
+	}
+
+	public void draw(Graphics g){
+
+	}
+
+	pubic void activate(){
+		if(this.activated == true){
+			Game.alive = false;
+		}
+	}
+
+	public void kill(Graphics g){
+		//When hit with ammo, Alien dies
+	}
+
 }
 
 //=======================================
@@ -188,22 +292,16 @@ class ChangeSpeed extends Booster{
 
 	public ChangeSpeed(int x, int y){
 		super(x, y);
-		Random rand = new Random();
 		increase = rand.nextBoolean();
 	}
 
 	public void activate(){
-		if(increase){
-			map.speed = map.speed + map.boosterSpeedAlt;
-		}
-		else{
-			map.speed = map.speed - map.boosterSpeedAlt;
-		}
+		//How to actually change the speed
 	}
 
 	public void deactivate(){
 		this.activated = false;
-		map.speed = map.originalSpeed;
+		//How to actually make the speed normal again
 	}
 }
 
@@ -216,9 +314,8 @@ class ChangeSize extends Booster{
 
 	public ChangeSize(int x, int y){
 		super(x, y);
-		Random rand = new Random();
 		increase = rand.nextBoolean();
-		proportion = marble.radius * 0.5;
+		proportion = World.marble.radius * 0.5;
 	}
 
 	public void activate(){
