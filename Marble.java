@@ -50,7 +50,7 @@ public class Marble{
 		Random rand = new Random(); 
 		position = new Pair(Game.WIDTH / 2, 500.0);
 		velocity = new Pair(0.0, 0.0);
-		radius = 6;
+		radius = 15;
 		dampening = 1.3;
 		double speedIncrement = 25.0;
 		color = Color.BLUE;
