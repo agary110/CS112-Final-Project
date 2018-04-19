@@ -11,7 +11,7 @@ class Map{
 	public static Random rand;
 //=======================================
 //Constructor
-	public Map(){
+	public Map(int j){
 		rand = new Random();
 		upcomingPaths = new LinkedList<Path>();
 
@@ -22,30 +22,7 @@ class Map{
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
 		}
 
-		//prototypePaths();
-	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
-	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), true));
-	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
-	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
+		prototypePaths(j);
 
 		initializePathTypes();
 	}
@@ -139,7 +116,8 @@ class Map{
 //=======================================
 //Returns an instance of random subclass of Path
 
-public static void prototypePaths(){
+public static void prototypePaths(j){
+	if (j==0) {
 	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
@@ -163,6 +141,7 @@ public static void prototypePaths(){
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
 	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
+	}
 }
 
 public static Path generateNext(){
