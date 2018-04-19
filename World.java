@@ -31,7 +31,9 @@ public class World{
 	ammoCount = 0;
 	points = 0;
 	ammoReleased = false;
-	map = new Map();
+	Random rand = new Random(4);
+	map = new Map(0);
+	    //this will change soon
 	ammoActive = new LinkedList<AmmoReleased>();
     }
 //=======================================
