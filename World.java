@@ -38,11 +38,11 @@ public class World{
 //Draw Methods
 	public void drawToScreen(Graphics g){
 		drawPath(g);
-		//drawPoints(g);
-		//drawItem(g);
+		drawItem(g);
 		drawMarble(g);
 		//drawPoints(g);
-		//drawAmmoCount(g);
+		drawAmmoCount(g);
+		drawAmmoReleased(g);
 
 	}
 
@@ -50,9 +50,9 @@ public class World{
 		marble.draw(g);
 	}
 
-	/*public void drawItem(Graphics g){
+	public void drawItem(Graphics g){
 		item.draw(g);
-	}*/
+	}
 
 	public void drawPath(Graphics g){
 		map.draw(g);

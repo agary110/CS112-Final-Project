@@ -36,6 +36,10 @@ class Item{
 		if(World.timeUntilNextItem == 0){
 			World.item = generateNextItem();
 		}
+		if(World.ammoReleased){
+			AmmoReleased.update();
+			AmmoReleased.deactivate();	
+		}
 	}
 
 	public static Item generateNextItem(){
@@ -111,7 +115,6 @@ class Bomb extends Item{
 
 //=======================================
 //Class Ammo extends Item (increases ammoCount by 1-3)
-//This version of releasing ammo doesn't allow the user to release another ammo until the first one is off-screen.
 //This version does not yet kill any Aliens that it meets in the Path.
 //Maybe think about having a separate class for Ammo that are being released (?)
 
@@ -148,14 +151,6 @@ class Ammo extends Item{
 		World.ammoCount = World.ammoCount + increase;
 		this.activated = false;
 		World.timeUntilNextItem = World.originalTimeUntilNextItem;
-	}
-
-	public static void releaseAmmo(Graphics g){
-		if(World.ammoCount > 0){
-			ammo.x = World.marble.position.x;
-			ammo.y = World.marble.radius / 2;
-			World.ammoCount--;
-		}
 	}
 
 	public void drawAmmoCounter(Graphics g){
@@ -205,26 +200,85 @@ class Ammo extends Item{
 }
 
 //=======================================
-//Class Alien extends Item
+//Class AmmoReleased extends Item
 
-class Alien extends Item{
-	
-	public Alien(int x, int y){
+class AmmoReleased extends Item{
+	final int width = 2;
+	final int length = 4;
+
+	public AmmoReleased(int x, int y){
 		super(x, y);
 	}
 
 	public void draw(Graphics g){
-
+		g.setColor(Color.GRAY);
+		g.fillRect(x, y, width, length);
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, width, length);
 	}
 
-	/*pubic void activate(){					//Getting a weird error message saying that this line is missing an identifier/return type even though I have void in method signature
-		if(this.activated == true){
+	public static void update(){
+		for(int i = 0; i < World.ammoActive.size(); i++){
+			World.ammoActive.get(i).y--;
+		}
+		if(World.ammoActive.size() == 0){
+			World.ammoReleased = false;
+		}
+	}
+
+	public static void activate(){
+		World.ammoActive.add(new AmmoReleased(World.marble.position.x + World.marble.radius / 2, World.marble.position.y));
+		World.ammoCount--;
+	}
+
+	public static void deactivate(){
+		for(int i = 0; i < World.ammoActive.size(); i++){
+			if(World.ammoActive.get(i).y + length < 0){
+				World.ammoActive.remove(i);
+				break;
+			}
+		}
+	}
+
+}
+
+//=======================================
+//Class Alien extends Item
+
+class Alien extends Item{
+	boolean deadly;
+	
+	public Alien(int x, int y){
+		super(x, y);
+		deadly = true;
+	}
+
+	public void draw(Graphics g){
+		//Draw the normal, alive alien
+		if(deadly == false){
+			//Add ‘x’s over the aliens eyes or something to denote that he’s dead
+		}
+	}
+
+	public void update(){
+		if(ammoReleased){
+			this.deactivate();
+		}
+	}
+
+	pubic void activate(){
+		if(this.activated && deadly){
 			Game.alive = false;
 		}
-	}*/
+	}
 
-	public void kill(Graphics g){
+	public void deactivate(){
 		//When hit with ammo, Alien dies
+		for(int i = 0; i < World.ammoAlive.size(); i++){
+			if(World.ammoAlive.get(i).x < this.x + width && World.ammoAlive.get(i).x > this.x && World.ammoAlive.get(i).y < this.y + width){
+				deadly = false;
+			}
+		}
 	}
 
 }
