@@ -2,6 +2,8 @@ import java.awt.Graphics;
 import java.util.Random;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.LinkedList;
 
 public class World{
     static double HEIGHT;
@@ -16,6 +18,7 @@ public class World{
     static int points;
     static int ammoCount;
 	static boolean ammoReleased;
+	static LinkedList<AmmoReleased> ammoActive;
 //=======================================
 //Constructor
     public World(double initHeight, double initWidth){
@@ -29,6 +32,7 @@ public class World{
 	points = 0;
 	ammoReleased = false;
 	map = new Map();
+	ammoActive = new LinkedList<AmmoReleased>();
     }
 //=======================================
 //Draw Methods
@@ -60,6 +64,12 @@ public class World{
    public void drawAmmoCount(Graphics g){
 		item.drawAmmoCounter(g);
    }
+
+	public void drawAmmoReleased(Graphics g){
+		for(int i = 0; i < ammoActive.size(); i++){
+			ammoActive.get(i).draw(g);
+		}
+	}
 
 //=======================================
 //Update Methods
@@ -112,8 +122,10 @@ public class World{
 		    marble.moveRight();
 		}
 		if (c == ' ') {
-			ammoReleased = true;
-			Ammo.releaseAmmo();
+			if(ammoCount > 0){
+				ammoReleased = true;
+				AmmoReleased.activate();
+			}
 		}
 	}
 }

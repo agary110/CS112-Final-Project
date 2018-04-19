@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
-import java.lang.Integer;
+import java.lang.Number;
 
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
@@ -195,7 +195,7 @@ class Ammo extends Item{
 			dataIndex--;
 		}
 		if(dataIndex == 1){
-			data [3] = toString(World.ammoCount);
+			data [3] = Integer.toString(World.ammoCount);
 		}
 
 		//Draws data
@@ -217,11 +217,11 @@ class Alien extends Item{
 
 	}
 
-	pubic void activate(){
+	/*pubic void activate(){					//Getting a weird error message saying that this line is missing an identifier/return type even though I have void in method signature
 		if(this.activated == true){
 			Game.alive = false;
 		}
-	}
+	}*/
 
 	public void kill(Graphics g){
 		//When hit with ammo, Alien dies
