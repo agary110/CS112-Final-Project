@@ -26,7 +26,7 @@ public class World{
 	WIDTH = initWidth;
 	marble = new Marble();
    	aliveItem = false;
-	item = new Item();
+	item = new Item(0, 0);
 	timeUntilNextItem = 14;
 	ammoCount = 0;
 	points = 0;
@@ -64,7 +64,7 @@ public class World{
 	}*/
 
    public void drawAmmoCount(Graphics g){
-		item.drawAmmoCounter(g);
+		Ammo.drawAmmoCounter(g);
    }
 
 	public void drawAmmoReleased(Graphics g){

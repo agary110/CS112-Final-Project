@@ -116,7 +116,7 @@ class Map{
 //=======================================
 //Returns an instance of random subclass of Path
 
-public static void prototypePaths(j){
+public static void prototypePaths(int j){
 	if (j==0) {
 	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));

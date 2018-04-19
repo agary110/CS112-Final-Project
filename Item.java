@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
-import java.lang.Number;
+import java.lang.Character;
 
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
@@ -21,7 +21,7 @@ class Item{
 		rand = new Random();
 	}
 
-	public void update(Graphics g){
+	public void update(){
 		this.y++;
 		if(World.marble.position.y == y){
 			this.passed = true;
@@ -31,10 +31,10 @@ class Item{
 			this.activate();
 		}
 		if(this.passed == true && this.activated == false){
-			World.timeUntilNextItem -= 1 / (double)(FPS);
+			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
 		}
 		if(World.timeUntilNextItem == 0){
-			World.item = generateNextItem();
+			World.item = generateNextItem(rand.nextInt(6));
 		}
 		if(World.ammoReleased){
 			AmmoReleased.update();
@@ -42,9 +42,8 @@ class Item{
 		}
 	}
 
-	public static Item generateNextItem(){
+	public static Item generateNextItem(int randNum){
 		Path [] visiblePaths = Map.getVisiblePaths();
-		int randNum = rand.nextInt(6);
 		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].WIDTH / 2 - width / 2;
 		int y = 0 - width;
 
@@ -76,10 +75,11 @@ class Item{
 		//Ammo
 		else{
 			if(World.ammoCount > 9999){
-				randNum = rand.nextInt(5);
+				generateNextItem(rand.nextInt(5));
 			}
-			else return new Ammo(x, y);
 		}
+
+		return new Ammo(x, y);
 	}
 
 	public void draw(Graphics g){
@@ -120,10 +120,10 @@ class Bomb extends Item{
 
 class Ammo extends Item{
 	int increase;
-	final int counterHeight = 15;
-	final int counterWidth = 48;
-	final int offset = 2;
-	final int numberLength = counterWidth - 4;
+	static final int counterHeight = 15;
+	static final int counterWidth = 48;
+	static final int offset = 2;
+	static final int numberLength = counterWidth - 4;
 
 	public Ammo(int x, int y){
 		super(x, y);
@@ -135,14 +135,14 @@ class Ammo extends Item{
 		g.fillRect(this.x, this.y, width, width);
 		g.setColor(Color.BLACK);
 		g.drawRect(this.x, this.y, width, width);
-		g.setColor(Color.GREY);
+		g.setColor(Color.GRAY);
 		g.fillRect(this.x + width / 2 - width - 2, this.y + width / 10, width - 10, 5);
 
-		if(ammoReleased && World.ammo.y < -width - 10){
+		if(World.ammoReleased && World.ammo.y < -width - 10){
 			World.ammo.draw(g);
 			World.ammo.y -= 2;
 			if(World.ammo.y < -width - 10){
-				ammoReleased = false;
+				World.ammoReleased = false;
 			}
 		}
 	}
@@ -153,7 +153,7 @@ class Ammo extends Item{
 		World.timeUntilNextItem = World.originalTimeUntilNextItem;
 	}
 
-	public void drawAmmoCounter(Graphics g){
+	public static void drawAmmoCounter(Graphics g){
 		g.setColor(Color.WHITE);
 		g.fillRect(3, 3, counterHeight, counterWidth);
 		g.setColor(Color.BLACK);
@@ -172,9 +172,9 @@ class Ammo extends Item{
 
 		//Fills data with chars that match ammoCount
 		char [] data = new char [4];
-		for(int i = 4; i > 0; i--){
-			if(dataIndex < i){
-				data [data.length - i] = "0";
+		for(int j = 4; j > 0; j--){
+			if(dataIndex < j){
+				data [data.length - j] = '0';
 			}
 		}
 		if(dataIndex == 4){
@@ -190,7 +190,8 @@ class Ammo extends Item{
 			dataIndex--;
 		}
 		if(dataIndex == 1){
-			data [3] = Integer.toString(World.ammoCount);
+			data [3] = forDigit(World.ammoCount, 10);
+			//or maybe… data [3] = World.ammoCount.charValue();
 		}
 
 		//Draws data
@@ -203,8 +204,8 @@ class Ammo extends Item{
 //Class AmmoReleased extends Item
 
 class AmmoReleased extends Item{
-	final int width = 2;
-	final int length = 4;
+	static final int width = 2;
+	static final int length = 4;
 
 	public AmmoReleased(int x, int y){
 		super(x, y);
@@ -218,6 +219,7 @@ class AmmoReleased extends Item{
 	}
 
 	public static void update(){
+		super();
 		for(int i = 0; i < World.ammoActive.size(); i++){
 			World.ammoActive.get(i).y--;
 		}
@@ -227,7 +229,7 @@ class AmmoReleased extends Item{
 	}
 
 	public static void activate(){
-		World.ammoActive.add(new AmmoReleased(World.marble.position.x + World.marble.radius / 2, World.marble.position.y));
+		World.ammoActive.add(new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y)));
 		World.ammoCount--;
 	}
 
@@ -247,6 +249,9 @@ class AmmoReleased extends Item{
 
 class Alien extends Item{
 	boolean deadly;
+	final int eyeWidth = 3;
+	final int pupilWidth = 1;
+	final String string = "X";
 	
 	public Alien(int x, int y){
 		super(x, y);
@@ -254,28 +259,93 @@ class Alien extends Item{
 	}
 
 	public void draw(Graphics g){
-		//Draw the normal, alive alien
+		//Body
+		g.setColor(Color.GREEN);
+		g.fillOval(x, y, width, width);
+
+		//Eyes
+		g.setColor(Color.WHITE);
+		g.fillOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+		g.setColor(Color.BLACK);
+		g.drawOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+		g.drawOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 2 + 2, y + width / 2 - eyeWidth + 1, pupilWidth, pupilWidth);
+
+		//Mouth (unsure about which angles to use; set 45 and 45 as default)
+		g.drawArc(x + width / 4, y + width / 4 * 3, width / 2, 3, 45, 45);
+
+		//Nose
+		g.fillOval(x + width / 2, y + width / 2, 1, 1);
+
+		//Antennae
+		int [] xPoints = new int [4];
+		xPoints [0] = x + width / 3;
+		xPoints [1] = xPoints [0] - 1;
+		xPoints [2] = x;
+		xPoints [3] = x - width / 3;
+
+		int [] yPoints = new int [xPoints.length];
+		yPoints [0] = y;
+		yPoints [1] = y + 1;
+		yPoints [2] = y - width / 5 * 3;
+		yPoints [3] = y - width / 3;
+
+		g.fillPolygon(xPoints, yPoints, xPoints.length);
+
+		xPoints [0] = x + width / 3 * 2;
+		xPoints [1] = xPoints [0] - 1;
+		xPoints [2] = x + width;
+		xPoints [3] = x + width * 4 / 3;
+
+		//yPoints stays the same
+
+		g.fillPolygon(xPoints, yPoints, xPoints.length);
+
+		//Arms
+		g.setColor(Color.GREEN);
+		g.fillRect(x - width / 4, y + width / 2, width / 4, 2);
+		g.fillRect(x - width / 4, y + width / 2 - width / 8, 2, width / 8);
+		g.fillRect(x + width, y + width / 2, width / 4, 2);
+		g.fillRect(x + width, y + width / 2 - width / 8, 2, width / 8);
+
+		//Legs
+		g.fillRect(x + width / 3, y + width / 3, 2, width / 2);
+		g.fillRect(x + width / 3 * 2, y + width / 3, 2, width / 2);
+		g.fillRect(x + width / 6, y + width / 3 + width / 2, width / 4, 2);
+		g.fillRect(x + width / 3 * 2, y + width / 3 + width / 2, width / 4, 2);
+
 		if(deadly == false){
-			//Add ‘x’s over the aliens eyes or something to denote that he’s dead
+			g.fillOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+			g.fillOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+			g.fillRect(x + width / 4, y + width / 4 * 3, width / 2, 3);
+
+			g.setColor(Color.BLACK);
+			g.drawString(string, x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth);
+			g.drawString(string, x + width / 2 + 1, y + width / 2 - eyeWidth);
+			g.setColor(Color.PINK);
+			g.fillOval(x + width / 4 * 3 - 3, y + width / 4 * 3, 3, 3);
+			g.setColor(Color.BLACK);
+			g.drawLine(x + width / 4, y + width / 4 * 3, x + width / 4 * 3, y + width / 4 * 3);
 		}
 	}
 
 	public void update(){
-		if(ammoReleased){
+		if(World.ammoReleased){
 			this.deactivate();
 		}
 	}
 
-	pubic void activate(){
+	/*pubic void activate(){				//Receiving an <identifier> expected error message (???)
 		if(this.activated && deadly){
 			Game.alive = false;
 		}
-	}
+	}*/
 
 	public void deactivate(){
 		//When hit with ammo, Alien dies
-		for(int i = 0; i < World.ammoAlive.size(); i++){
-			if(World.ammoAlive.get(i).x < this.x + width && World.ammoAlive.get(i).x > this.x && World.ammoAlive.get(i).y < this.y + width){
+		for(int i = 0; i < World.ammoActive.size(); i++){
+			if(World.ammoActive.get(i).x < this.x + width && World.ammoActive.get(i).x > this.x && World.ammoActive.get(i).y < this.y + width){
 				deadly = false;
 			}
 		}
@@ -305,7 +375,7 @@ class Booster extends Item{
 
 	public void update(){
 		super();
-		if(this.activated == true) timeActive = timeActive - (1 / (double)(FPS));
+		if(this.activated == true) timeActive = timeActive - (1 / (double)(Game.FPS));
 		if(timeActive == 0){
 			this.deactivate();
 		}
