@@ -10,7 +10,7 @@ import java.util.Random;
 public class Game extends JPanel implements KeyListener{
 	public static final int WIDTH = 1400;
 	public static final int HEIGHT = 750;
-	public static final int FPS = 30;
+	public static final int FPS = 60;
 	public static World world;
 	public static boolean alive;
 	public static double points;
@@ -43,7 +43,7 @@ public class Game extends JPanel implements KeyListener{
 				if (pressed){
 					world.moveMarble(c);
 				}
-				if(world.map.upcomingPaths.getLast().y > 0){
+				if(world.map.upcomingPaths.getLast().y > 0){	//Do we still need this or was it just for the prototype?
 					alive = false;
 				}
 
@@ -57,7 +57,7 @@ public class Game extends JPanel implements KeyListener{
 	}
 
 	public void keyPressed(KeyEvent e) {
-      		c = e.getKeyChar();
+      	c = e.getKeyChar();
 		pressed=true;
 		if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
 		System.exit(0);
@@ -106,7 +106,7 @@ public class Game extends JPanel implements KeyListener{
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		if (hasGameStarted) {
 		world.drawToScreen(g);

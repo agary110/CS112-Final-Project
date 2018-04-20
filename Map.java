@@ -15,6 +15,8 @@ class Map{
 		rand = new Random();
 		upcomingPaths = new LinkedList<Path>();
 
+		
+
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
 		upcomingPaths.get(0).y = Game.HEIGHT;
 

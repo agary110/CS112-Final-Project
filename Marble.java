@@ -100,16 +100,7 @@ public class Marble{
     public static void checkDead(World w){
 
 		Path path = checkPath();
-
-		System.out.println("Name: " + path.name);
-		System.out.println("X: " + path.x);
-		System.out.println("exitX: " + path.exitX);
-
-
 		Pair marb = World.marble.position;
-
-		System.out.println("Marb: " + marb.x);
-		System.out.println("Path: " + path.x + " " + path.exitX);
 
 		if(path.name == "Straight"){
 			if(marb.x < path.x || marb.x > path.x + path.WIDTH){
@@ -119,19 +110,13 @@ public class Marble{
 
 		else if(path.name == "rightCorner"){
 			if(marb.y < path.y){
-	System.out.println("you died b/c you're on top");
-
 				Game.alive = false;
 			}
 			if(marb.x < path.exitX){
-System.out.println("you died b/c you're too far left");
-
 				Game.alive = false;
 			}
 
 			if(marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
-				System.out.println("you died b/c you're in the weird gap place");
-
 				Game.alive = false;
 			}
 
@@ -184,7 +169,7 @@ System.out.println("you died b/c you're too far left");
 			if(marb.x < path.x){
 				Game.alive = false;
 			}
-			if(marb.y < path.y + path.WIDTH){
+			if(marb.y < path.y){
 				Game.alive = false;
 			}
 			if(marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
@@ -197,9 +182,6 @@ System.out.println("you died b/c you're too far left");
 				Game.alive = false;
 			}
 		}
-
-		if(Game.alive == false) System.out.println("you dead");
-
     }
 
 	private static Path checkPath(){
@@ -214,25 +196,13 @@ System.out.println("you died b/c you're too far left");
 			}
 		}
 
-		/*for(int i = 1; i < visiblePaths.length - 1; i++){
-			if(visiblePaths[i] != null){
-				if(World.marble.position.y >= visiblePaths [i].y && World.marble.position.y < visiblePaths [i].y + visiblePaths [i].HEIGHT && World.marble.position.x>= visiblePaths[i].x && World.marble.position.x < visiblePaths[i].x+visiblePaths[i].WIDTH){
-					return visiblePaths [i];
-				}
-			}
-		}*/
-
 		for(int i = 0; i < Map.upcomingPaths.size(); i++){
-				if(World.marble.position.y >= Map.upcomingPaths.get(i).y && World.marble.position.y < Map.upcomingPaths.get(i).y + Map.upcomingPaths.get(i).HEIGHT 
-
-/*&& (World.marble.position.x>= Map.upcomingPaths.get(i).x || World.marble.position.x>= Map.upcomingPaths.get(i).exitX) && (World.marble.position.x < Map.upcomingPaths.get(i).exitX+Map.upcomingPaths.get(i).WIDTH || World.marble.position.x < Map.upcomingPaths.get(i).x+Map.upcomingPaths.get(i).WIDTH)*/
-
-){
+				if(World.marble.position.y >= Map.upcomingPaths.get(i).y && World.marble.position.y < Map.upcomingPaths.get(i).y + Map.upcomingPaths.get(i).HEIGHT){
 					return Map.upcomingPaths.get(i);
 				}
 		}
 
-		return new Path(0);
+		return null;
 
 	}
 

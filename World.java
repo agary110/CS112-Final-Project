@@ -26,8 +26,8 @@ public class World{
 	WIDTH = initWidth;
 	marble = new Marble();
    	aliveItem = false;
-	item = new Item(0, 0);
-	timeUntilNextItem = 14;
+	item = new Item(0, Game.HEIGHT);
+	timeUntilNextItem = 2;
 	ammoCount = 0;
 	points = 0;
 	ammoReleased = false;

@@ -1,7 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
-import java.lang.Character;
+import java.lang.Integer;
+import java.lang.String;
 
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
@@ -11,30 +12,35 @@ class Item{
 	public int y;
 	public static final int width = (int)(Path.WIDTH / 3 - 20);
 	public boolean activated;
-	public boolean passed;
+	public boolean deactivated;
+	//public boolean passed;
 	static Random rand;
 
 	public Item(int x, int y){
 		this.x = x;
 		this.y = y;
-		passed = false;
+		activated = false;
+		deactivated = false;
+		//passed = true;
 		rand = new Random();
 	}
 
 	public void update(){
 		this.y++;
-		if(World.marble.position.y == y){
+		/*if(World.marble.position.y == y){
 			this.passed = true;
-		}
+		}*/
 		if(this.x + this.width / 2 >= World.marble.position.x && this.x <= World.marble.position.x + this.width / 2){
 			activated = true;
 			this.activate();
 		}
-		if(this.passed == true && this.activated == false){
+		if(this.activated == false && this.y > Game.HEIGHT){
 			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
+			System.out.println(World.timeUntilNextItem);
 		}
-		if(World.timeUntilNextItem == 0){
+		if(World.timeUntilNextItem <= 0){
 			World.item = generateNextItem(rand.nextInt(6));
+			World.timeUntilNextItem = World.originalTimeUntilNextItem;
 		}
 		if(World.ammoReleased){
 			AmmoReleased.update();
@@ -115,13 +121,12 @@ class Bomb extends Item{
 
 //=======================================
 //Class Ammo extends Item (increases ammoCount by 1-3)
-//This version does not yet kill any Aliens that it meets in the Path.
-//Maybe think about having a separate class for Ammo that are being released (?)
+//Add something that says “Ammo Counter:” next to the counter
 
 class Ammo extends Item{
 	int increase;
-	static final int counterHeight = 15;
-	static final int counterWidth = 48;
+	static final int counterHeight = 40;
+	static final int counterWidth = 120;
 	static final int offset = 2;
 	static final int numberLength = counterWidth - 4;
 
@@ -155,11 +160,11 @@ class Ammo extends Item{
 
 	public static void drawAmmoCounter(Graphics g){
 		g.setColor(Color.WHITE);
-		g.fillRect(3, 3, counterHeight, counterWidth);
+		g.fillRect(3, 3, counterWidth, counterHeight);
 		g.setColor(Color.BLACK);
-		g.drawRect(2, 2, counterHeight + 2, counterWidth + 2);
+		g.drawRect(2, 2, counterWidth + 2, counterHeight + 2);
 		g.setColor(Color.WHITE);
-		g.drawRect(1, 1, counterHeight + 3, counterWidth + 3);
+		g.drawRect(1, 1, counterWidth + 3, counterHeight + 3);
 		g.setColor(Color.BLACK);
 
 		//Determines how many place values are in ammoCount
@@ -172,38 +177,25 @@ class Ammo extends Item{
 
 		//Fills data with chars that match ammoCount
 		char [] data = new char [4];
+		String countString = Integer.toString(World.ammoCount);
 		for(int j = 4; j > 0; j--){
 			if(dataIndex < j){
 				data [data.length - j] = '0';
 			}
 		}
-		if(dataIndex == 4){
-			data [0] = toString(World.ammoCount%1000);
-			dataIndex--;
-		}
-		if(dataIndex == 3){
-			data [1] = toString(World.ammoCount%100);
-			dataIndex--;
-		}
-		if(dataIndex == 2){
-			data [2] = toString(World.ammoCount%10);
-			dataIndex--;
-		}
-		if(dataIndex == 1){
-			data [3] = forDigit(World.ammoCount, 10);
-			//or maybe… data [3] = World.ammoCount.charValue();
+		for(int j = 0; j < dataIndex; j++){
+			data [data.length - dataIndex + j] = countString.charAt(j);
 		}
 
-		//Draws data
-		drawChars(data, offset, numberLength, 4, 4);
-
+//ArrayindexOutofBoundsException when this line is in (“sun.java2d.SunGraphics2D.drawChars(SunGraphics2D.java:3024))
+//		g.drawChars(data, offset, numberLength, 4, 4);
 	}
 }
 
 //=======================================
 //Class AmmoReleased extends Item
 
-class AmmoReleased extends Item{
+/*class AmmoReleased extends Item{
 	static final int width = 2;
 	static final int length = 4;
 
@@ -242,7 +234,7 @@ class AmmoReleased extends Item{
 		}
 	}
 
-}
+}*/
 
 //=======================================
 //Class Alien extends Item
@@ -374,7 +366,7 @@ class Booster extends Item{
 	}
 
 	public void update(){
-		super();
+//		super();
 		if(this.activated == true) timeActive = timeActive - (1 / (double)(Game.FPS));
 		if(timeActive == 0){
 			this.deactivate();
