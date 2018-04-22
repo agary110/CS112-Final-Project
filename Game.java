@@ -106,7 +106,7 @@ public class Game extends JPanel implements KeyListener{
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		if (hasGameStarted) {
 		world.drawToScreen(g);

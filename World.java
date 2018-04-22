@@ -26,7 +26,7 @@ public class World{
 	WIDTH = initWidth;
 	marble = new Marble();
    	aliveItem = false;
-	item = new Item(0, Game.HEIGHT);
+	item = new Item(Game.WIDTH / 2, Game.HEIGHT);
 	timeUntilNextItem = 2;
 	ammoCount = 0;
 	points = 0;
@@ -80,6 +80,9 @@ public class World{
 	}
 
 	private void updateItem(){
+
+		System.out.println("item.y: " + item.y);
+
 		item.update();
 	}
 
