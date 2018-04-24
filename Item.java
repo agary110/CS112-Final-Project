@@ -1,5 +1,3 @@
-//PROBLEM: In World, the program enters the updateItem() method, but does not enter the update() method within Item
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
@@ -12,47 +10,47 @@ import java.lang.String;
 class Item{
 	public int x;
 	public int y;
-	public static final int width = (int)(Path.WIDTH / 3 - 10);
+	public static final int width = (int)(Path.WIDTH / 3 - 20);
 	public boolean activated;
-	public boolean onScreen;
+	public boolean deactivated;
+	//public boolean passed;
 	static Random rand;
 
 	public Item(int x, int y){
 		this.x = x;
 		this.y = y;
 		activated = false;
-		onScreen = true;
+		deactivated = false;
+		//passed = true;
 		rand = new Random();
 	}
 
 	public void update(){
-
-		System.out.println("Y: " + this.y);
-		System.out.println("timeUntilNextItem: " + World.timeUntilNextItem);
-		System.out.println("activated: " + this.activated);
-		System.out.println("onScreen" + onScreen);
-
-		if(onScreen){
-			this.y += 2;
-			if(this.y == World.marble.position.y && this.x == World.marble.position.x){
-				this.activate();
-			}
-			if(this.y >= Game.HEIGHT){
-				onScreen = false;
-			}
+		this.y++;
+		/*if(World.marble.position.y == y){
+			this.passed = true;
+		}*/
+		if(this.x + this.width / 2 >= World.marble.position.x && this.x <= World.marble.position.x + this.width / 2){
+			activated = true;
+			this.activate();
 		}
-		else{
+		if(this.activated == false && this.y > Game.HEIGHT){
 			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
+			System.out.println(World.timeUntilNextItem);
 		}
-
+		if(World.timeUntilNextItem <= 0){
+			World.item = generateNextItem(rand.nextInt(6));
+			World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		}
+		if(World.ammoReleased){
+			AmmoReleased.update();
+			AmmoReleased.deactivate();	
+		}
 	}
 
 	public static Item generateNextItem(int randNum){
-
-		System.out.println("Generating new item.");
-
 		Path [] visiblePaths = Map.getVisiblePaths();
-		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].WIDTH / 2 - width / 2;		//Can make this just the center of the screen once the randomized maps are implemented
+		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].WIDTH / 2 - width / 2;
 		int y = 0 - width;
 
 		//Bomb
@@ -85,10 +83,9 @@ class Item{
 			if(World.ammoCount > 9999){
 				generateNextItem(rand.nextInt(5));
 			}
-
-		return new Ammo(x, y);
 		}
 
+		return new Ammo(x, y);
 	}
 
 	public void draw(Graphics g){
@@ -112,7 +109,7 @@ class Bomb extends Item{
 		g.setColor(Color.WHITE);
 		g.drawLine(this.x + width / 2, y, this.x + width, this.y - width / 3);
 		g.setColor(Color.ORANGE);
-		g.fillOval(this.x + width, this.y - width / 3, 3, 3);
+		g.drawOval(this.x + width, this.y - width / 3, 3, 3);
 	}
 
 	public void activate(){
@@ -145,6 +142,14 @@ class Ammo extends Item{
 		g.drawRect(this.x, this.y, width, width);
 		g.setColor(Color.GRAY);
 		g.fillRect(this.x + width / 2 - width - 2, this.y + width / 10, width - 10, 5);
+
+		if(World.ammoReleased && World.ammo.y < -width - 10){
+			World.ammo.draw(g);
+			World.ammo.y -= 2;
+			if(World.ammo.y < -width - 10){
+				World.ammoReleased = false;
+			}
+		}
 	}
 
 	public void activate(){
@@ -186,6 +191,50 @@ class Ammo extends Item{
 //		g.drawChars(data, offset, numberLength, 4, 4);
 	}
 }
+
+//=======================================
+//Class AmmoReleased extends Item
+
+/*class AmmoReleased extends Item{
+	static final int width = 2;
+	static final int length = 4;
+
+	public AmmoReleased(int x, int y){
+		super(x, y);
+	}
+
+	public void draw(Graphics g){
+		g.setColor(Color.GRAY);
+		g.fillRect(x, y, width, length);
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, width, length);
+	}
+
+	public static void update(){
+		super();
+		for(int i = 0; i < World.ammoActive.size(); i++){
+			World.ammoActive.get(i).y--;
+		}
+		if(World.ammoActive.size() == 0){
+			World.ammoReleased = false;
+		}
+	}
+
+	public static void activate(){
+		World.ammoActive.add(new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y)));
+		World.ammoCount--;
+	}
+
+	public static void deactivate(){
+		for(int i = 0; i < World.ammoActive.size(); i++){
+			if(World.ammoActive.get(i).y + length < 0){
+				World.ammoActive.remove(i);
+				break;
+			}
+		}
+	}
+
+}*/
 
 //=======================================
 //Class Alien extends Item
@@ -275,38 +324,15 @@ class Alien extends Item{
 
 	public void update(){
 		if(World.ammoReleased){
-			for(int i = 0; i < World.ammoActive.size(); i++){
-				if(World.ammoActive.get(i).x == this.x && World.ammoActive.get(i).y == this.y){
-					this.deactivate();
-				}
-			}
+			this.deactivate();
 		}
-
-		System.out.println("Y: " + this.y);
-		System.out.println("timeUntilNextItem: " + World.timeUntilNextItem);
-		System.out.println("activated: " + this.activated);
-		System.out.println("onScreen" + onScreen);
-
-		if(onScreen){
-			this.y += 2;
-			if(this.y == World.marble.position.y && this.x == World.marble.position.x){
-				this.activate();
-			}
-			if(this.y >= Game.HEIGHT){
-				onScreen = false;
-			}
-		}
-		else{
-			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
-		}
-
 	}
 
-	public void activate(){
+	/*pubic void activate(){				//Receiving an <identifier> expected error message (???)
 		if(this.activated && deadly){
 			Game.alive = false;
 		}
-	}
+	}*/
 
 	public void deactivate(){
 		//When hit with ammo, Alien dies
@@ -336,35 +362,15 @@ class Booster extends Item{
 		g.fillRect(this.x, this.y, width, width);
 		g.setColor(Color.RED);
 		g.drawRect(this.x, this.y, width, width);
-		g.drawString("?", this.x + width / 3, this.y + width / 3 * 2);
+		g.drawString("?", this.x + width / 3, this.y + width / 3);
 	}
 
 	public void update(){
-		if(this.activated == true){
-			timeActive = timeActive - (1 / (double)(Game.FPS));
-		}
+//		super();
+		if(this.activated == true) timeActive = timeActive - (1 / (double)(Game.FPS));
 		if(timeActive == 0){
 			this.deactivate();
 		}
-
-		System.out.println("Y: " + this.y);
-		System.out.println("timeUntilNextItem: " + World.timeUntilNextItem);
-		System.out.println("activated: " + this.activated);
-		System.out.println("onScreen" + onScreen);
-
-		if(onScreen){
-			this.y += 2;
-			if(this.y == World.marble.position.y && this.x == World.marble.position.x){
-				this.activate();
-			}
-			if(this.y >= Game.HEIGHT){
-				onScreen = false;
-			}
-		}
-		else{
-			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
-		}
-
 	}
 
 	public void activate(){
@@ -407,9 +413,20 @@ class ChangeSpeed extends Booster{
 
 	public void activate(){
 		//How to actually change the speed
+		//NOTE: when we do this we also have to change the y position increments — do the physics on this
+		if (increase) {
+			World.marble.speedIncrement += 10;
+		} else {
+			World.marble.speedIncrement -= 10;
+		}
 	}
 
 	public void deactivate(){
+		if (increase) {
+			World.marble.speedIncrement -= 10;
+		} else {
+			World.marble.speedIncrement += 10;
+		}
 		this.activated = false;
 		//How to actually make the speed normal again
 	}
@@ -429,11 +446,21 @@ class ChangeSize extends Booster{
 	}
 
 	public void activate(){
-		//How to actually change the size of the marble
+		if (increase){
+			World.marble.ratio += proportion;
+		} else {
+			World.marble.ratio -= proportion;
+		}
 	}
 
 	public void deactivate(){
+		if (increase){
+			World.marble.ratio -= proportion;
+		} else {
+			World.marble.ratio += proportion;
+		}
 		this.activated = false;
 		//How to actually make the size of the marble normal again
+		
 	}
 }
