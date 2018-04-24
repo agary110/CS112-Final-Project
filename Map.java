@@ -129,7 +129,7 @@ public static void prototypePaths(int j){
 	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), true));
+	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));

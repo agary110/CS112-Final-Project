@@ -19,6 +19,7 @@ public class World{
     static int ammoCount;
 	static boolean ammoReleased;
 	static LinkedList<AmmoReleased> ammoActive;
+	static Random rand;
 //=======================================
 //Constructor
     public World(double initHeight, double initWidth){
@@ -31,7 +32,7 @@ public class World{
 	ammoCount = 0;
 	points = 0;
 	ammoReleased = false;
-	Random rand = new Random(4);
+	rand = new Random(); //The seed was 4 before.
 	map = new Map(0);
 	    //this will change soon
 	ammoActive = new LinkedList<AmmoReleased>();
@@ -45,7 +46,6 @@ public class World{
 		//drawPoints(g);
 		drawAmmoCount(g);
 		drawAmmoReleased(g);
-
 	}
 
 	public void drawMarble(Graphics g){
@@ -80,9 +80,10 @@ public class World{
 	}
 
 	private void updateItem(){
-
-		System.out.println("item.y: " + item.y);
-
+		if(timeUntilNextItem <= 0){
+			item = Item.generateNextItem(rand.nextInt(6));
+			timeUntilNextItem = originalTimeUntilNextItem;
+		}
 		item.update();
 	}
 
@@ -93,6 +94,12 @@ public class World{
 	/*private void updatePoints(double time){
 		points = points + time;
 	}*/
+
+	private void updateAmmoReleased(){
+		for(int i = 0; i < ammoActive.size(); i++){
+			ammoActive.get(i).update();
+		}
+	}
 //=======================================
 //Updates Frame and values that change by frame
 	public void nextFrame(double time){
@@ -100,16 +107,9 @@ public class World{
 		updateItem();
 		updateMap(time);
 		//updatePoints(time);
+		updateAmmoReleased();
 		marble.checkDead(this);
-		//this.drawToScreen(g);
-		
-
 	}
-//=======================================
-//Creates new random Item, given aliveItem = false & timeUntilNextItem = 0
-    /*private void newItem(){
-	item = generateNextItem();
-    }*/
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
 

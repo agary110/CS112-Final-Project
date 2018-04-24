@@ -21,11 +21,14 @@ public class AmmoReleased{
 	}
 
 	public static void update(){
-		for(int i = 0; i < World.ammoActive.size(); i++){
-			World.ammoActive.get(i).y--;
-		}
-		if(World.ammoActive.size() == 0){
-			World.ammoReleased = false;
+		if(World.ammoReleased){
+			for(int i = 0; i < World.ammoActive.size(); i++){
+				World.ammoActive.get(i).y--;
+			}
+			if(World.ammoActive.size() == 0){
+				World.ammoReleased = false;
+			}
+			AmmoReleased.deactivate();
 		}
 	}
 

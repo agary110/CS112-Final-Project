@@ -20,7 +20,9 @@ public class Path {
 	y= - Path.HEIGHT;
 	this.exitX=exitX;
 	Random rand = new Random();
-	color = new Color(rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
+	color = Color.WHITE;
+
+//rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
     }
 
 	public Path(Path previous){
