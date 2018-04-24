@@ -392,11 +392,15 @@ class Bumpers extends Booster{
 
 	public void activate(){
 	//How to actually turn the bumpers on
+		this.activated = true;
+		World.bumpersOn = true;
 	}
 
 	public void deactivate(){
+		World.bumpersOn = false;
 		this.activated = false;
 		//How to actually turn the bumpers off
+		
 	}
 }
 
@@ -414,6 +418,8 @@ class ChangeSpeed extends Booster{
 	public void activate(){
 		//How to actually change the speed
 		//NOTE: when we do this we also have to change the y position increments — do the physics on this
+		this.activated = true;
+
 		if (increase) {
 			World.marble.speedIncrement += 10;
 		} else {
@@ -446,18 +452,19 @@ class ChangeSize extends Booster{
 	}
 
 	public void activate(){
+		this.activated = true;
 		if (increase){
-			World.marble.ratio += proportion;
+			World.marble.radius += proportion;
 		} else {
-			World.marble.ratio -= proportion;
+			World.marble.radius -= proportion;
 		}
 	}
 
 	public void deactivate(){
 		if (increase){
-			World.marble.ratio -= proportion;
+			World.marble.radius -= proportion;
 		} else {
-			World.marble.ratio += proportion;
+			World.marble.radius += proportion;
 		}
 		this.activated = false;
 		//How to actually make the size of the marble normal again

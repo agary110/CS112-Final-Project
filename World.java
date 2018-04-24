@@ -20,6 +20,7 @@ public class World{
 	static boolean ammoReleased;
 	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
+	static boolean bumpersOn;
 //=======================================
 //Constructor
     public World(double initHeight, double initWidth){
@@ -36,6 +37,7 @@ public class World{
 	map = new Map(0);
 	    //this will change soon
 	ammoActive = new LinkedList<AmmoReleased>();
+	bumpersOn = false;
     }
 //=======================================
 //Draw Methods

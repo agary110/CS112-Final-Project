@@ -46,6 +46,7 @@ public class Marble{
 	double dampening;
 	Color color;
 	double speedIncrement;
+	static boolean canMove;
 	public Marble(){
 		Random rand = new Random(); 
 		position = new Pair(Game.WIDTH / 2, 500.0);
@@ -54,6 +55,7 @@ public class Marble{
 		dampening = 1.3;
 		double speedIncrement = 25.0;
 		color = Color.BLUE;
+		canMove = true;
     }
     public void update(World w, double time){
 		position = position.add(velocity.times(time));
@@ -73,29 +75,123 @@ public class Marble{
     }
 
     public void moveUp(){
-
-		velocity.y -= speedIncrement;
-		if(position.y > Game.HEIGHT / 4){
-			position.y -= 5;
+		if (canMove){
+			velocity.y -= speedIncrement;
+			if(position.y > Game.HEIGHT / 4){
+				position.y -= 5;
+			}
 		}
 
     } 
 
     public void moveDown(){
-		velocity.y += speedIncrement;
+		if (canMove){
+			velocity.y += speedIncrement;
+		}
     }
 
     public void moveRight(){
-		velocity.x += speedIncrement;
-	    position.x+=5.0;
-		position.y += 0.6;
+		if (canMove){
+			velocity.x += speedIncrement;
+	   	 	position.x += 5.0;
+			position.y += 0.6;
+		}
     }
 
     public void moveLeft(){
-		velocity.x -= speedIncrement;
-	    position.x-=5.0;
-		position.y+= 0.6;
+		if (canMove){
+			velocity.x -= speedIncrement;
+	    	position.x -= 5.0;
+			position.y += 0.6;
+		}
     }
+
+	public static void checkForBumpers(World w){
+		Path path = checkPath();
+		Pair marb = World.marble.position;
+		
+		if (World.bumpersOn){
+			if(path.name == "Straight"){
+				if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+					canMove = false;
+				}
+			}
+			else if(path.name == "rightCorner"){
+				if(marb.y < path.y){
+					canMove = false;
+				}
+				if(marb.x < path.exitX){
+					canMove = false;
+				}
+
+				if(marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+					canMove = false;
+				}
+
+			}
+
+			else if(path.name == "leftCorner"){
+				if(marb.y < path.y){
+					canMove = false;
+				}
+
+				if(marb.x > path.exitX + path.WIDTH){
+					canMove = false;
+				}
+
+				if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
+					canMove = false;
+				}
+			}
+
+			else if(path.name == "rightElbow"){
+				if(marb.y > path.y + path.WIDTH){
+					if(marb.x > path.exitX + path.HEIGHT){
+						canMove = false;
+					}
+
+					if(marb.y > path.y + path.HEIGHT){
+						canMove = false;
+					}
+
+					if(marb.x < path.x){
+						if(marb.y < path.y + path.WIDTH){
+							canMove = false;
+						}
+					}
+				}
+
+				else{
+					if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+							canMove = false;
+					}
+				}
+			}
+
+
+			else if(path.name == "leftElbow"){
+				if(marb.y > path.y + path.HEIGHT){
+					canMove = false;
+				}
+
+				if(marb.x < path.x){
+					canMove = false;
+				}
+				if(marb.y < path.y){
+					canMove = false;
+				}
+				if(marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
+					canMove = false;
+				}
+			}
+
+			else{//Horizontal
+				if(marb.y < path.y || marb.y > path.y + path.WIDTH){
+					canMove = false;
+				}
+			}
+		}
+	}
 
     public static void checkDead(World w){
 
