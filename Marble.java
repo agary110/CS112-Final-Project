@@ -8,6 +8,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
 class Pair{
+
+/** NOTE: let's make sure to get rid of unnecessary methods **/
+
     public double x;
     public double y;
     
@@ -39,6 +42,10 @@ class Pair{
 
 
 public class Marble{
+
+//================================================
+/** Member variables **/
+
 	Pair position;
 	Pair velocity;
 	Pair acceleration;
@@ -47,6 +54,10 @@ public class Marble{
 	Color color;
 	double speedIncrement;
 	static boolean canMove;
+
+//================================================
+/** Constructor  **/
+
 	public Marble(){
 		Random rand = new Random(); 
 		position = new Pair(Game.WIDTH / 2, 500.0);
@@ -57,22 +68,34 @@ public class Marble{
 		color = Color.BLUE;
 		canMove = true;
     }
-    public void update(World w, double time){
+//================================================
+/** Update method; moves the marble's position based on its velocity and how much time has passed  **/
+
+    public void update(double time){
 		position = position.add(velocity.times(time));
     }
     
+//================================================
+//if we don't use these methods we should delete them
     public void setPosition(Pair p){
 		position = p;
     }
     public void setVelocity(Pair v){
 		velocity = v;
     }
+
+//================================================
+/** Draw method **/
+
     public void draw(Graphics g){
 		Color c = g.getColor();
 		g.setColor(color);
 		g.fillOval((int)this.position.x, (int)this.position.y, radius, radius);
 		g.setColor(c);
     }
+
+//================================================
+/** Takes the move commands from the KeyboardEvent in Game.java. If the marble is able to move (i.e. the bumpers are down, or the bumpers are down but the marble isn't hitting the sides), then it will move. **/
 
     public void moveUp(){
 		if (canMove){
@@ -84,6 +107,7 @@ public class Marble{
 
     } 
 
+	/** If we don't use moveDown, get rid of this method **/
     public void moveDown(){
 		if (canMove){
 			velocity.y += speedIncrement;
@@ -105,6 +129,10 @@ public class Marble{
 			position.y += 0.6;
 		}
     }
+//===================================================
+/** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/
+
+//NOTE: is there a way to combine this with checkDead to reduce code?
 
 	public static void checkForBumpers(World w){
 		Path path = checkPath();
@@ -192,6 +220,8 @@ public class Marble{
 			}
 		}
 	}
+//============================================
+/** This method checks to see if the marble has gone off the path. If it has, you die. **/
 
     public static void checkDead(World w){
 
@@ -279,6 +309,8 @@ public class Marble{
 			}
 		}
     }
+//============================================
+/** Get all the paths that currently exist, check which one the marble is currently on, and return it. **/
 
 	private static Path checkPath(){
 

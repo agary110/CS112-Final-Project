@@ -1,3 +1,5 @@
+//================================================
+/** Import necessary libraries **/
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.event.KeyListener;
@@ -8,6 +10,9 @@ import java.awt.Dimension;
 import java.util.Random;
 
 public class Game extends JPanel implements KeyListener{
+
+//================================================
+/** Member variables **/
 	public static final int WIDTH = 1400;
 	public static final int HEIGHT = 750;
 	public static final int FPS = 60;
@@ -34,6 +39,8 @@ public class Game extends JPanel implements KeyListener{
 		c = ' ';
 	}
 
+//================================================
+/** Run method; **/
 	class Runner implements Runnable{
 		public void run(){
 
@@ -60,22 +67,21 @@ public class Game extends JPanel implements KeyListener{
       	c = e.getKeyChar();
 		pressed=true;
 		if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-		System.exit(0);
+			System.exit(0);
 		}
 		else if (c==' ') {
-		hasGameStarted=true;
+			hasGameStarted=true;
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-		JFrame frame = new JFrame("aMAZE-ing Maze");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Game mainInstance = new Game();
-		frame.setContentPane(mainInstance);
-		frame.pack();
-		frame.setVisible(true);
+			JFrame frame = new JFrame("aMAZE-ing Maze");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			Game mainInstance = new Game();
+			frame.setContentPane(mainInstance);
+			frame.pack();
+			frame.setVisible(true);
 //could probably just call main() here but I'm not positive how to do that?
-}
-		
-		
+//we should modify this so the whole thing totally resets (we're getting the weird floaty thing)
+		}
     }
 
 	public void keyTyped(KeyEvent e) {
@@ -89,7 +95,6 @@ public class Game extends JPanel implements KeyListener{
 		pressed=false;
 		
     }
-
 
 	public static void main(String [] args){
 		JFrame frame = new JFrame("aMAZE-ing Maze");
@@ -109,18 +114,19 @@ public class Game extends JPanel implements KeyListener{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		if (hasGameStarted) {
-		world.drawToScreen(g);
+			world.drawToScreen(g);
 		}
 		else {
-g.setColor(Color.GREEN);
-System.out.println("hasGameStarted=false");
-	char[] welcome={'h', 'e', 'l', 'l', 'o', '!', ' ', 't', 'o', ' ', 'b', 'e', 'g', 'i', 	'n', ' ', 'p', 'l', 'a', 'y', 'i', 'n', 'g', ',', ' ', 'p', 'r', 'e', 's', 	's', ' ', 't', 'h', 'e', ' ', 's', 'p', 'a', 'c', 'e', ' ', 'b', 'a', 'r', 	'.'};
-	g.drawChars(welcome, 0, welcome.length, 400, 400);
+			g.setColor(Color.GREEN);
+			System.out.println("hasGameStarted=false");
+			char[] welcome={'h', 'e', 'l', 'l', 'o', '!', ' ', 't', 'o', ' ', 'b', 'e', 'g', 'i', 	'n', ' ', 'p', 'l', 'a', 'y', 'i', 'n', 'g', ',', ' ', 'p', 'r', 'e', 's', 	's', ' ', 't', 'h', 'e', ' ', 's', 'p', 'a', 'c', 'e', ' ', 'b', 'a', 'r', 	'.'};
+			g.drawChars(welcome, 0, welcome.length, 400, 400);
 }
 		if (!alive) {
+			g.setColor(Color.GREEN);
 			char[] data={'u', 'r', ' ', 'd', 'e', 'a', 'd', '!', ' ', 'p', 'r', 'e', 's', 's', ' ', 'e', 's', 'c', 'a', 'p', 'e', ' ', 't', 'o', ' ', 'c', 'l', 'o', 's', 'e', ' ', 'o', 'r', ' ',  'e', 'n', 't', 'e', 'r', ' ', 't', 'o', ' ', 'r', 'e', 's', 't', 'a', 'r', 't', '.'};
 			g.drawChars(data, 0, data.length, 400, 400);
-	}
+		}
 	}
 
 }
