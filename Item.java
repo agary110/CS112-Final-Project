@@ -34,12 +34,16 @@ class Item{
 		this.y++;
 
 		if(onScreen){
-			if(this.y == World.marble.position.y && this.x + this.width - 2 <= World.marble.position.x && this.x >= World.marble.position.x + World.marble.radius - 2){
-			//if(this.y == World.marble.position.y && 
+			if(this.y == World.marble.position.y){
+				System.out.println("y check");
+			if(this.x + this.width - 2 <= World.marble.position.x){
+				System.out.println("x min check");
+			if(this.x >= World.marble.position.x + World.marble.radius - 2){
+				System.out.println("x max check");
 				this.pickUp();
 				this.activated = true;
 				this.activate();
-			}
+			}}}
 			if(this.y >= Game.HEIGHT){
 				onScreen = false;
 			}
