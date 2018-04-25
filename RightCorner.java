@@ -11,9 +11,9 @@ import java.awt.RenderingHints;
 public class RightCorner extends Path {
 
     public RightCorner(int exitX) {
-	super(exitX);
-	this.name="rightCorner";
-	this.x=exitX+HEIGHT;
+		super(exitX);
+		this.name="rightCorner";
+		this.x=exitX+HEIGHT;
     }
 	public RightCorner(Path previous) {
 		super(previous);
@@ -24,11 +24,11 @@ public class RightCorner extends Path {
 	}
 	
     public void draw(Graphics g0ri){
-	Graphics2D g = (Graphics2D) g0ri;
-	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		Graphics2D g = (Graphics2D) g0ri;
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   RenderingHints.VALUE_ANTIALIAS_ON);
- g.setColor(Color.GREEN);
-	g.fill (new Rectangle2D.Double(x-WIDTH, y, WIDTH, WIDTH));
-	g.fill (new Rectangle2D.Double(x-HEIGHT, y, WIDTH, HEIGHT));
+	 	g.setColor(color);
+		g.fill (new Rectangle2D.Double(x-WIDTH, y, WIDTH, WIDTH));
+		g.fill (new Rectangle2D.Double(x-HEIGHT, y, WIDTH, HEIGHT));
     }
 }

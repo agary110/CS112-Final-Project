@@ -15,20 +15,19 @@ public class Path {
     Color color;
 
     public Path(int exitX) {
-	name = "";
-	x=0;
-	y= - Path.HEIGHT;
-	this.exitX=exitX;
-	Random rand = new Random();
-	color = Color.WHITE;
+		name = "";
+		x=0;
+		y= - Path.HEIGHT;
+		this.exitX=exitX;
+		Random rand = new Random();
+		color = Color.YELLOW;
 
-//rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
     }
 
 	public Path(Path previous){
 		name = "";
 		Random rand = new Random();
-		color = new Color(rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
+		//color = new Color(rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
 		x = 0;
 		y = 0;
 		exitX = 0;
@@ -37,11 +36,11 @@ public class Path {
     public void draw (Graphics g) {
     }
 
-    public void update (){
-	this.y++;
+    public void update(){
+		this.y++;
     }
 
     public void setY(int toAdd){
-	this.y += toAdd;
+		this.y += toAdd;
     }
 }
