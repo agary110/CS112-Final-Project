@@ -143,7 +143,7 @@ public class Marble{
 		
 		if (World.bumpersOn){
 			if(path.name == "Straight"){
-				if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+				if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 					canMove = false;
 				}
 			}
@@ -155,7 +155,7 @@ public class Marble{
 					canMove = false;
 				}
 
-				if(marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+				if(marb.y > path.y + path.WIDTH && marb.x + World.marble.radius > path.exitX + path.WIDTH){
 					canMove = false;
 				}
 
@@ -166,7 +166,7 @@ public class Marble{
 					canMove = false;
 				}
 
-				if(marb.x > path.exitX + path.WIDTH){
+				if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
 					canMove = false;
 				}
 
@@ -177,7 +177,7 @@ public class Marble{
 
 			else if(path.name == "rightElbow"){
 				if(marb.y > path.y + path.WIDTH){
-					if(marb.x > path.exitX + path.HEIGHT){
+					if(marb.x + World.marble.radius > path.exitX + path.HEIGHT){
 						canMove = false;
 					}
 
@@ -193,7 +193,7 @@ public class Marble{
 				}
 
 				else{
-					if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+					if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 							canMove = false;
 					}
 				}
@@ -211,7 +211,7 @@ public class Marble{
 				if(marb.y < path.y){
 					canMove = false;
 				}
-				if(marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
+				if(marb.x + World.marble.radius > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 					canMove = false;
 				}
 			}
@@ -232,7 +232,7 @@ public class Marble{
 		Pair marb = World.marble.position;
 
 		if(path.name == "Straight"){
-			if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+			if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 				Game.alive = false;
 			}
 		}
@@ -245,7 +245,7 @@ public class Marble{
 				Game.alive = false;
 			}
 
-			if(marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+			if(marb.y > path.y + path.WIDTH && marb.x + World.marble.radius > path.exitX + path.WIDTH){
 				Game.alive = false;
 			}
 
@@ -256,7 +256,7 @@ public class Marble{
 				Game.alive = false;
 			}
 
-			if(marb.x > path.exitX + path.WIDTH){
+			if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
 				Game.alive = false;
 			}
 
@@ -267,7 +267,7 @@ public class Marble{
 
 		else if(path.name == "rightElbow"){
 			if(marb.y > path.y + path.WIDTH){
-				if(marb.x > path.exitX + path.HEIGHT){
+				if(marb.x + World.marble.radius > path.exitX + path.HEIGHT){
 					Game.alive = false;
 				}
 
@@ -283,7 +283,7 @@ public class Marble{
 			}
 
 			else{
-				if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+				if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 					Game.alive = false;
 				}
 			}
@@ -301,7 +301,7 @@ public class Marble{
 			if(marb.y < path.y){
 				Game.alive = false;
 			}
-			if(marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
+			if(marb.x + World.marble.radius > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 				Game.alive = false;
 			}
 		}
