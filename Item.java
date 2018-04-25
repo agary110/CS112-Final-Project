@@ -206,6 +206,7 @@ class Alien extends Item{
 	public Alien(int x, int y){
 		super(x, y);
 		deadly = true;
+		width += 2;
 	}
 
 	public void draw(Graphics g){
