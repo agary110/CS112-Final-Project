@@ -222,12 +222,13 @@ public class Marble{
 				canMoveUp = true;
 				canMoveDown = false;
 			}
-			if (mark.x < path.x && marb.y < path.y + path.WIDTH){
-				canMoveRight = true;
+			if (marb.x < path.x && marb.y < path.y + path.WIDTH){
+				canMoveRight = false;
 				canMoveLeft = true;
 				canMoveUp = false;
 				canMoveDown = true;
 			}
+			
 		}
 
 
@@ -238,12 +239,12 @@ public class Marble{
 					canMoveUp = true;
 					canMoveDown = true;
 				}
-				/*if(marb.y > path.y + path.HEIGHT){
+				if(marb.y > path.y + path.HEIGHT){
 					canMoveRight = true;
 					canMoveLeft = true;
 					canMoveUp = true;
 					canMoveDown = false;
-				}*/
+				}
 				if(marb.x < path.x){
 					if(marb.y < path.y + path.WIDTH){
 						canMoveRight = true;
@@ -266,7 +267,7 @@ public class Marble{
 					canMoveUp = true;
 					canMoveDown = true;
 				}
-			}/*
+			}*/
 		//}
 
 		else if(path.name == "leftElbow"){
