@@ -31,5 +31,13 @@ public class LeftCorner extends Path {
 			   				RenderingHints.VALUE_ANTIALIAS_ON);
 		g.fill (new Rectangle2D.Double(x, y, WIDTH, WIDTH));
 		g.fill (new Rectangle2D.Double(exitX, y, WIDTH, HEIGHT));
+		if (World.bumpersOn){
+			g.setColor(Color.RED);
+			g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));
+			g.fill(new Rectangle2D.Double(x + HEIGHT, y - bumperWidth, bumperWidth, HEIGHT + bumperWidth));
+			g.fill(new Rectangle2D.Double(x, y + WIDTH, WIDTH, bumperWidth));
+			g.fill(new Rectangle2D.Double(x + WIDTH - bumperWidth, y + WIDTH, bumperWidth, WIDTH));
+		}
+		g.setColor(color);
     }
 }

@@ -30,5 +30,13 @@ public class LeftElbow extends Path{
         					RenderingHints.VALUE_ANTIALIAS_ON);
 		g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
 		g.fill(new Rectangle2D.Double(x+WIDTH, y+WIDTH, WIDTH, WIDTH));
+		if (World.bumpersOn){
+			g.setColor(Color.RED);
+			g.fill(new Rectangle2D.Double(x + WIDTH, y, bumperWidth, WIDTH)); // short vert side 
+			g.fill(new Rectangle2D.Double(x + WIDTH, y + WIDTH - bumperWidth, WIDTH, bumperWidth)); // short bottom side
+			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, HEIGHT)); //long vert side
+			g.fill(new Rectangle2D.Double(x - bumperWidth, y + HEIGHT, HEIGHT + bumperWidth, bumperWidth)); // long bottom side
+		}
+		g.setColor(color);
     }
 }

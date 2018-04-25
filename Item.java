@@ -61,7 +61,7 @@ class Item{
 
 		int y = 0 - width;
 
-		randNum = 2;
+		randNum = 1;
 
 		//Bomb
 		if(randNum == 0){

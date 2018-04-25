@@ -52,7 +52,8 @@ public class Horizontal extends Path{
 			g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));
 			g.fill(new Rectangle2D.Double(x, y + WIDTH, HEIGHT, bumperWidth));
 			
-		} g.setColor(color);
+		} 
+		g.setColor(color);
 		
     }
 }

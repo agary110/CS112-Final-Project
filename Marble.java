@@ -140,8 +140,6 @@ public class Marble{
 	public static void checkForBumpers(World w){
 		Path path = checkPath();
 		Pair marb = World.marble.position;
-		
-		if (World.bumpersOn){
 			if(path.name == "Straight"){
 				if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 					canMove = false;
@@ -220,7 +218,7 @@ public class Marble{
 				if(marb.y < path.y || marb.y > path.y + path.WIDTH){
 					canMove = false;
 				}
-			}
+			
 		}
 	}
 //============================================
@@ -231,7 +229,7 @@ public class Marble{
 		Path path = checkPath();
 		Pair marb = World.marble.position;
 		
-		if (!World.bumpersOn){
+		
 		if(path.name == "Straight"){
 			if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 				Game.alive = false;
@@ -311,7 +309,7 @@ public class Marble{
 			if(marb.y < path.y || marb.y > path.y + path.WIDTH){
 				Game.alive = false;
 			}
-		}}
+		}
     }
 //============================================
 /** Get all the paths that currently exist, check which one the marble is currently on, and return it. **/

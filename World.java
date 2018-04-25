@@ -81,8 +81,11 @@ public class World{
 //Update Methods
 	public void updateMarble(double time){
 		marble.update(time);
-		marble.checkDead(this);
-		marble.checkForBumpers(this);
+		if (bumpersOn){
+			marble.checkForBumpers(this);
+		} else {
+			marble.checkDead(this);
+		}
 		
 	}
 
