@@ -28,6 +28,7 @@ class Item{
 	}
 
 	public void update(){
+
 		this.y++;
 
 		if(onScreen){
@@ -54,6 +55,8 @@ class Item{
 		x = x + xPlus * (Path.WIDTH / 3 - 1);
 
 		int y = 0 - width;
+
+		randNum = 4;
 
 		//Bomb
 		if(randNum == 0){
@@ -88,6 +91,10 @@ class Item{
 		}
 
 		return new Ammo(x, y);
+	}
+
+	public void pickUp(){
+
 	}
 
 	public void draw(Graphics g){
@@ -282,32 +289,14 @@ class Alien extends Item{
 	}
 
 	public void update(){
+		super.update();
+
 		if(World.ammoReleased){
 			for(int i = 0; i < World.ammoActive.size(); i++){
 				if(World.ammoActive.get(i).x == this.x && World.ammoActive.get(i).y == this.y){
 					this.deactivate();
 				}
 			}
-		}
-
-		System.out.println("Y: " + this.y);
-		System.out.println("timeUntilNextItem: " + World.timeUntilNextItem);
-		System.out.println("activated: " + this.activated);
-		System.out.println("onScreen" + onScreen);
-
-		if(onScreen){
-			this.y += 2;
-			if(this.y == World.marble.position.y && (this.x + this.width - 2 <= World.marble.position.x || this.x >= World.marble.position.x + World.marble.radius - 2)){
-				this.activated = true;
-				this.activate();
-			}
-			if(this.y >= Game.HEIGHT){
-				onScreen = false;
-			}
-		}
-		else{
-			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
-
 		}
 	}
 
@@ -349,22 +338,11 @@ class Booster extends Item{
 	}
 
 	public void update(){
-		if(onScreen){
-			this.y += 2;
-			if(this.y == World.marble.position.y && (this.x + this.width - 2 <= World.marble.position.x || this.x >= World.marble.position.x + World.marble.radius - 2)){
-				this.activated = true;
-				this.activate();
-			}
-			if(this.y >= Game.HEIGHT){
-				onScreen = false;
-			}
-		}
-		else{
-			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
+		super.update();
 
+		if(this.activated == true){
+			timeActive -= (1 / (double)(Game.FPS));
 		}
-
-		if(this.activated == true) timeActive = timeActive - (1 / (double)(Game.FPS));
 		if(timeActive == 0){
 			this.deactivate();
 		}
