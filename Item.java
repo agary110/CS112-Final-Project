@@ -383,7 +383,6 @@ class Booster extends Item{
 
 		}
 
-
 		if(this.activated == true) timeActive = timeActive - (1 / (double)(Game.FPS));
 		if(timeActive == 0){
 			this.deactivate();
