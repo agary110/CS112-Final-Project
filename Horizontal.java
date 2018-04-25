@@ -16,10 +16,10 @@ public class Horizontal extends Path{
 		super(exitX);
 		this.name="Horizontal";
 		if (direction) {
-	 	   this.x=exitX+HEIGHT;
+	 		this.x=exitX+HEIGHT;
 		}
 		else {
-	   	 this.x=exitX-HEIGHT;
+	   		this.x=exitX-HEIGHT;
 		}
     }
 
@@ -47,5 +47,12 @@ public class Horizontal extends Path{
 		else{
 			g.fill(new Rectangle2D.Double(x, y, HEIGHT, WIDTH));
 		}
+		if (World.bumpersOn){
+			g.setColor(Color.RED);
+			g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));
+			g.fill(new Rectangle2D.Double(x, y + WIDTH, HEIGHT, bumperWidth));
+			
+		} g.setColor(color);
+		
     }
 }

@@ -12,7 +12,7 @@ public class Path {
     //  final int gapLength; //are we still doing this?
     String name;
     int exitX; //corresponds to path's bottom left corner
-    Color color;
+    final Color color;
 
     public Path(int exitX) {
 		name = "";
@@ -27,7 +27,7 @@ public class Path {
 	public Path(Path previous){
 		name = "";
 		Random rand = new Random();
-		//color = new Color(rand.nextInt(255), rand.nextInt(255),rand.nextInt(255)); 
+		color = Color.YELLOW; 
 		x = 0;
 		y = 0;
 		exitX = 0;

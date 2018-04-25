@@ -33,10 +33,12 @@ public class Straight extends Path{
         RenderingHints.VALUE_ANTIALIAS_ON);
 		g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
 
-	/**	if (World.bumpersOn){
+		if (World.bumpersOn){
 			g.setColor(Color.RED);
-			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, HEIGHT);
-			g.fill(new Rectangle2D.Double(x + WIDTH, y, bumperWidth, HEIGHT);
-		} **/ 
+			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, HEIGHT));
+			g.fill(new Rectangle2D.Double(x + WIDTH, y, bumperWidth, HEIGHT));
+			
+
+		} g.setColor(color);
     }
 }
