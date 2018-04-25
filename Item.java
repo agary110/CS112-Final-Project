@@ -12,7 +12,7 @@ import java.lang.String;
 class Item{
 	public int x;
 	public int y;
-	public static final int width = (int)(Path.WIDTH / 3 - 20);
+	public static int width = (int)(Path.WIDTH / 3 - 20);
 	public boolean activated;
 	public boolean deactivated;
 	public boolean onScreen;
