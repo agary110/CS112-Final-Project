@@ -83,6 +83,7 @@ public class World{
 		marble.update(time);
 		marble.checkDead(this);
 		marble.checkForBumpers(this);
+		
 	}
 
 	private void updateItem(){
