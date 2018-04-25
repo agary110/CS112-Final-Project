@@ -1,7 +1,7 @@
-//PROBLEM: In World, the program enters the updateItem() method, but does not enter the update() method within Item
-
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
+import java.util.LinkedList;
 import java.util.Random;
 import java.lang.Integer;
 import java.lang.String;
@@ -49,10 +49,18 @@ class Item{
 
 	public static Item generateNextItem(int randNum){
 
-		System.out.println("Generating new item.");
+		int x = Game.WIDTH / 2 + 1;
+		int xPlus = rand.nextInt(2);
+		x = x + xPlus * (Path.WIDTH / 3 - 1);
 
-		Path [] visiblePaths = Map.getVisiblePaths();
-		int x = visiblePaths[visiblePaths.length - 1].x + visiblePaths[visiblePaths.length - 1].WIDTH / 2 - width / 2;		//Can make this just the center of the screen once the randomized maps are implemented
+		//Determines 'x' based on Path at the top of screen
+		/*for(int i = 0; i < Map.upcomingPaths.size(); i++){
+			if(Map.upcomingPaths.get(i).y > -Path.HEIGHT && Map.upcomingPaths.get(i).y <= 0){
+				x = Map.upcomingPaths.get(i).x + Map.upcomingPaths.get(i).WIDTH / 2 - width / 2;
+				break;
+			}
+		}*/
+
 		int y = 0 - width;
 
 		//Bomb
@@ -289,7 +297,8 @@ class Alien extends Item{
 
 		if(onScreen){
 			this.y += 2;
-			if(this.y == World.marble.position.y && this.x == World.marble.position.x){
+			if(this.y == World.marble.position.y && (this.x + this.width - 2 <= World.marble.position.x || this.x >= World.marble.position.x + World.marble.radius - 2)){
+				this.activated = true;
 				this.activate();
 			}
 			if(this.y >= Game.HEIGHT){

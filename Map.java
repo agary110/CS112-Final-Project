@@ -78,39 +78,6 @@ class Map{
 //=======================================
 //Draws Map using draw methods from subclasses of Path
 	public void draw(Graphics g){
-		//Path [] visiblePaths = getVisiblePaths();
-		/*Path visible;
-		Path previousVisible;
-		for(int i = 0; i < visiblePaths.length; i++){
-			visible = upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i);
-			previousVisible = upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i - 1);
-			if(visible.name == "Straight"){
-				visible = new Straight(previousVisible.x);
-			}
-			else if(visible.name == "rightCorner"){
-				visible = new RightCorner(previousVisible.x);
-			}
-			else if(visible.name == "leftCorner"){
-				visible = new LeftCorner(previousVisible.x);
-			}
-			else if(visible.name == "rightElbow"){
-				visible = new RightElbow(previousVisible.x);
-			}
-			else if(visible.name == "leftElbow"){
-				visible = new LeftElbow(previousVisible.x);
-			}
-			else{
-				if(visiblePaths [visiblePaths.length - 2].x < visiblePaths [visiblePaths.length - 1].x){
-					visible = new Horizontal(previousVisible.x, true);//true return value indicates that exitX < x
-				}
-				else{
-					visible = new Horizontal(previousVisible.x, false);//false return values indicates that x < exitX
-				}
-			}
-			g.setColor(new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
-			visible.draw(g);
-		}*/
-
 		for(int i = 0; i < upcomingPaths.size(); i++){
 			upcomingPaths.get(i).draw(g);
 		}
