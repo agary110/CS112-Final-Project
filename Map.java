@@ -48,23 +48,6 @@ class Map{
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
 	public void update(double time){
-		/*Path [] visiblePaths = getVisiblePaths();
-		for (int i = 0; i < visiblePaths.length; i++){
-			//visiblePaths [i].y = visiblePaths [i].y + (int)(time);
-			upcomingPaths.get(upcomingPaths.size() - visiblePaths.length + i).y += (int)(time) * 25;
-		}
-		if (visiblePaths [visiblePaths.length - 1].y > Game.HEIGHT){
-			addNewPath();
-			this.update(time);
-		}
-
-		for(int i = 0; i < upcomingPaths.size(); i++){
-			upcomingPaths.get(i).setY(10);
-		}
-
-		if(upcomingPaths.getLast().y > 0){
-			addNewPath();
-		}*/
 
 		for(int i = 0; i < upcomingPaths.size(); i++){
 			upcomingPaths.get(i).update();	
