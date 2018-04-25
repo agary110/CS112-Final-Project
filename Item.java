@@ -385,8 +385,8 @@ class Bumpers extends Booster{
 
 	public void update(){
 		super.update();
-		World.marble.canMove = true;
-		Game.alive = true;
+		//World.marble.canMove = true;
+		//Game.alive = true;
 	}
 	//NEED: a draw method which will add some color to the edge of the path. It can do this by going through all the paths 
 }
