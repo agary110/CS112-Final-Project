@@ -16,6 +16,7 @@ class Item{
 	public boolean activated;
 	public boolean deactivated;
 	public boolean onScreen;
+	public boolean drawn;
 	static Random rand;
 
 	public Item(int x, int y){
@@ -24,6 +25,7 @@ class Item{
 		activated = false;
 		deactivated = false;
 		onScreen = true;
+		drawn = true;
 		rand = new Random();
 	}
 
@@ -32,8 +34,9 @@ class Item{
 		this.y++;
 
 		if(onScreen){
-			this.y += 2;
-			if(this.y == World.marble.position.y && (this.x + this.width - 2 <= World.marble.position.x || this.x >= World.marble.position.x + World.marble.radius - 2)){
+			if(this.y == World.marble.position.y && this.x + this.width - 2 <= World.marble.position.x && this.x >= World.marble.position.x + World.marble.radius - 2){
+			//if(this.y == World.marble.position.y && 
+				this.pickUp();
 				this.activated = true;
 				this.activate();
 			}
@@ -43,7 +46,6 @@ class Item{
 		}
 		else{
 			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
-
 		}
 
 	}
@@ -94,7 +96,7 @@ class Item{
 	}
 
 	public void pickUp(){
-
+		drawn = false;
 	}
 
 	public void draw(Graphics g){
