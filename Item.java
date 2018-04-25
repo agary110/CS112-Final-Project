@@ -12,7 +12,7 @@ import java.lang.String;
 class Item{
 	public int x;
 	public int y;
-	public static int width = (int)(Path.WIDTH / 3 - 20);
+	public static int width = (int)(Path.WIDTH / 3 - 10);
 	public boolean activated;
 	public boolean deactivated;
 	public boolean onScreen;
@@ -155,7 +155,7 @@ class Ammo extends Item{
 		g.setColor(Color.BLACK);
 		g.drawRect(this.x, this.y, width, width);
 		g.setColor(Color.GRAY);
-		g.fillRect(this.x + width / 2 - width - 2, this.y + width / 10, width - 10, 5);
+		g.fillRect(this.x + width / 2 - 3, this.y + width / 10, width - 10, 5);
 
 		if(World.ammoReleased && World.ammo.y < -width - 10){
 			World.ammo.draw(g);

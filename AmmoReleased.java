@@ -20,29 +20,70 @@ public class AmmoReleased{
 		g.drawRect(x, y, width, length);
 	}
 
-	public static void update(){
+	public void update(){
 		if(World.ammoReleased){
-			for(int i = 0; i < World.ammoActive.size(); i++){
-				World.ammoActive.get(i).y--;
+			for(int i = 0; i < World.ammoActiveCount; i++){
+				ammoActiveLast.get(i).y--;
 			}
-			if(World.ammoActive.size() == 0){
+		
+			for(int i = 0; i < World.ammoActiveCount; i++){
+				if(ammoActiveLast.get(i).y < -length){
+					ammoActiveLast.get(i).deactivate();
+				}
+			}
+	
+			if(World.ammoActiveCount == 0){
 				World.ammoReleased = false;
 			}
-			AmmoReleased.deactivate();
 		}
 	}
 
 	public static void activate(){
-		World.ammoActive.add(new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y)));
-		World.ammoCount--;
+		World.ammoActiveLast.append(new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y)));
+		World.ammoActiveCount--;
 	}
 
 	public static void deactivate(){
-		for(int i = 0; i < World.ammoActive.size(); i++){
-			if(World.ammoActive.get(i).y + length < 0){
-				World.ammoActive.remove(i);
-				break;
-			}
+		World.ammoActiveLast.remove(i);
+		World.ammoActiveCount--;
+	}
+
+}
+
+class Node{
+
+	AmmoReleased ammoReleased;
+	Node previous;
+
+	public Node(AmmoReleased ammoReleased){
+		this.ammoReleased = ammoReleased;
+	}
+
+	public void append(AmmoReleased ammoReleased){
+		Node toAppend = new Node(ammoReleased);
+		toAppend.previous = World.ammoActiveLast;
+		World.ammoActiveLast = toAppend;
+	}
+
+	public AmmoReleased get(int index){
+		int j;
+		Node toReturn = World.ammoActiveLast;
+		for(int i = World.ammoActiveCount; i > index; i--){
+			toReturn = toReturn.previous;
+		}
+
+		return toReturn;
+	}
+
+	public void remove(int index){
+		if(index == World.ammoActiveCount - 1){
+			World.ammoActiveLast = World.ammoActiveLast.previous;
+		}
+		else if(index == 0){
+			World.ammoActiveLast.get(1).previous = null;
+		}
+		else{
+			World.ammoActiveLast.get(index + 1).previous = World.ammoActiveLast.get(index - 1);
 		}
 	}
 

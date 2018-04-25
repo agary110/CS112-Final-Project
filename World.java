@@ -18,7 +18,8 @@ public class World{
 	static int points;
 	static int ammoCount;
 	static boolean ammoReleased;
-	static LinkedList<AmmoReleased> ammoActive;
+	static Node ammoActiveLast;
+	static int ammoActiveCount;
 	static Random rand;
 	static boolean bumpersOn;
 //=======================================
@@ -36,7 +37,8 @@ public class World{
 		rand = new Random();
 		map = new Map(0);
 	    //this will change soon
-		ammoActive = new LinkedList<AmmoReleased>();
+		ammoActiveLast = null;
+		ammoActiveCount = 0;
 		bumpersOn = false;
 	}
 //=======================================
@@ -72,8 +74,15 @@ public class World{
    }
 
 	public void drawAmmoReleased(Graphics g){
-		for(int i = 0; i < ammoActive.size(); i++){
-			ammoActive.get(i).draw(g);
+		int j;
+		Node index;
+		for(int i = 0; i < ammoActiveCount; i++){
+			j = i;
+			index = ammoActiveLast;
+			while(j > 0){
+				index = index.previous;
+			}
+			index.ammoReleased.draw(g);
 		}
 	}
 
@@ -107,8 +116,8 @@ public class World{
 	}*/
 
 	private void updateAmmoReleased(){
-		for(int i = 0; i < ammoActive.size(); i++){
-			ammoActive.get(i).update();
+		for(int i = 0; i < ammoActiveCount; i++){
+			ammoActiveLast.get(i).update();
 		}
 	}
 //=======================================

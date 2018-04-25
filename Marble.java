@@ -315,11 +315,10 @@ public class Marble{
 //============================================
 /** This method checks to see if the marble has gone off the path. If it has, you die. **/
 
-    public static void checkDead(World w){
+   public static void checkDead(World w){
 
 		Path path = checkPath();
 		Pair marb = World.marble.position;
-		
 		
 		if(path.name == "Straight"){
 			if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
