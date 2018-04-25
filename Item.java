@@ -15,6 +15,7 @@ class Item{
 	public static final int width = (int)(Path.WIDTH / 3 - 20);
 	public boolean activated;
 	public boolean deactivated;
+	public boolean onScreen;
 	static Random rand;
 
 	public Item(int x, int y){
@@ -22,6 +23,7 @@ class Item{
 		this.y = y;
 		activated = false;
 		deactivated = false;
+		onScreen = true;
 		rand = new Random();
 	}
 
@@ -196,50 +198,6 @@ class Ammo extends Item{
 }
 
 //=======================================
-//Class AmmoReleased extends Item
-
-/*class AmmoReleased extends Item{
-	static final int width = 2;
-	static final int length = 4;
-
-	public AmmoReleased(int x, int y){
-		super(x, y);
-	}
-
-	public void draw(Graphics g){
-		g.setColor(Color.GRAY);
-		g.fillRect(x, y, width, length);
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, width, length);
-	}
-
-	public static void update(){
-		super();
-		for(int i = 0; i < World.ammoActive.size(); i++){
-			World.ammoActive.get(i).y--;
-		}
-		if(World.ammoActive.size() == 0){
-			World.ammoReleased = false;
-		}
-	}
-
-	public static void activate(){
-		World.ammoActive.add(new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y)));
-		World.ammoCount--;
-	}
-
-	public static void deactivate(){
-		for(int i = 0; i < World.ammoActive.size(); i++){
-			if(World.ammoActive.get(i).y + length < 0){
-				World.ammoActive.remove(i);
-				break;
-			}
-		}
-	}
-
-}*/
-
-//=======================================
 //Class Alien extends Item
 
 class Alien extends Item{
@@ -393,7 +351,22 @@ class Booster extends Item{
 	}
 
 	public void update(){
-//		super();
+		if(onScreen){
+			this.y += 2;
+			if(this.y == World.marble.position.y && (this.x + this.width - 2 <= World.marble.position.x || this.x >= World.marble.position.x + World.marble.radius - 2)){
+				this.activated = true;
+				this.activate();
+			}
+			if(this.y >= Game.HEIGHT){
+				onScreen = false;
+			}
+		}
+		else{
+			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
+
+		}
+
+
 		if(this.activated == true) timeActive = timeActive - (1 / (double)(Game.FPS));
 		if(timeActive == 0){
 			this.deactivate();
