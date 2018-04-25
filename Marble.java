@@ -8,6 +8,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
 class Pair{
+
+/** NOTE: let's make sure to get rid of unnecessary methods **/
+
     public double x;
     public double y;
     
@@ -39,6 +42,10 @@ class Pair{
 
 
 public class Marble{
+
+//================================================
+/** Member variables **/
+
 	Pair position;
 	Pair velocity;
 	Pair acceleration;
@@ -46,6 +53,11 @@ public class Marble{
 	double dampening;
 	Color color;
 	double speedIncrement;
+	static boolean canMove;
+
+//================================================
+/** Constructor  **/
+
 	public Marble(){
 		Random rand = new Random(); 
 		position = new Pair(Game.WIDTH / 2, 500.0);
@@ -54,17 +66,27 @@ public class Marble{
 		dampening = 1.3;
 		double speedIncrement = 25.0;
 		color = Color.BLUE;
+		canMove = true;
     }
-    public void update(World w, double time){
+//================================================
+/** Update method; moves the marble's position based on its velocity and how much time has passed  **/
+
+    public void update(double time){
 		position = position.add(velocity.times(time));
     }
     
+//================================================
+//if we don't use these methods we should delete them
     public void setPosition(Pair p){
 		position = p;
     }
     public void setVelocity(Pair v){
 		velocity = v;
     }
+
+//================================================
+/** Draw method **/
+
     public void draw(Graphics g){
 		Color c = g.getColor();
 		g.setColor(color);
@@ -72,30 +94,134 @@ public class Marble{
 		g.setColor(c);
     }
 
-    public void moveUp(){
+//================================================
+/** Takes the move commands from the KeyboardEvent in Game.java. If the marble is able to move (i.e. the bumpers are down, or the bumpers are down but the marble isn't hitting the sides), then it will move. **/
 
-		velocity.y -= speedIncrement;
-		if(position.y > Game.HEIGHT / 4){
-			position.y -= 5;
+    public void moveUp(){
+		if (canMove){
+			velocity.y -= speedIncrement;
+			if(position.y > Game.HEIGHT / 4){
+				position.y -= 5;
+			}
 		}
 
     } 
 
+	/** If we don't use moveDown, get rid of this method **/
     public void moveDown(){
-		velocity.y += speedIncrement;
+		if (canMove){
+			velocity.y += speedIncrement;
+		}
     }
 
     public void moveRight(){
-		velocity.x += speedIncrement;
-	    position.x+=5.0;
-		position.y += 0.6;
+		if (canMove){
+			velocity.x += speedIncrement;
+	   	 	position.x += 5.0;
+			position.y += 0.6;
+		}
     }
 
     public void moveLeft(){
-		velocity.x -= speedIncrement;
-	    position.x-=5.0;
-		position.y+= 0.6;
+		if (canMove){
+			velocity.x -= speedIncrement;
+	    	position.x -= 5.0;
+			position.y += 0.6;
+		}
     }
+//===================================================
+/** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/
+
+//NOTE: is there a way to combine this with checkDead to reduce code?
+
+	public static void checkForBumpers(World w){
+		Path path = checkPath();
+		Pair marb = World.marble.position;
+		
+		if (World.bumpersOn){
+			if(path.name == "Straight"){
+				if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+					canMove = false;
+				}
+			}
+			else if(path.name == "rightCorner"){
+				if(marb.y < path.y){
+					canMove = false;
+				}
+				if(marb.x < path.exitX){
+					canMove = false;
+				}
+
+				if(marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+					canMove = false;
+				}
+
+			}
+
+			else if(path.name == "leftCorner"){
+				if(marb.y < path.y){
+					canMove = false;
+				}
+
+				if(marb.x > path.exitX + path.WIDTH){
+					canMove = false;
+				}
+
+				if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
+					canMove = false;
+				}
+			}
+
+			else if(path.name == "rightElbow"){
+				if(marb.y > path.y + path.WIDTH){
+					if(marb.x > path.exitX + path.HEIGHT){
+						canMove = false;
+					}
+
+					if(marb.y > path.y + path.HEIGHT){
+						canMove = false;
+					}
+
+					if(marb.x < path.x){
+						if(marb.y < path.y + path.WIDTH){
+							canMove = false;
+						}
+					}
+				}
+
+				else{
+					if(marb.x < path.x || marb.x > path.x + path.WIDTH){
+							canMove = false;
+					}
+				}
+			}
+
+
+			else if(path.name == "leftElbow"){
+				if(marb.y > path.y + path.HEIGHT){
+					canMove = false;
+				}
+
+				if(marb.x < path.x){
+					canMove = false;
+				}
+				if(marb.y < path.y){
+					canMove = false;
+				}
+				if(marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
+					canMove = false;
+				}
+			}
+
+			else{//Horizontal
+				if(marb.y < path.y || marb.y > path.y + path.WIDTH){
+					canMove = false;
+				}
+			}
+		}
+	}
+//============================================
+/** This method checks to see if the marble has gone off the path. If it has, you die. **/
 
     public static void checkDead(World w){
 
@@ -183,6 +309,8 @@ public class Marble{
 			}
 		}
     }
+//============================================
+/** Get all the paths that currently exist, check which one the marble is currently on, and return it. **/
 
 	private static Path checkPath(){
 

@@ -6,37 +6,39 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class World{
-    static double HEIGHT;
-    static double WIDTH;
-    static Marble marble;
-    static Map map;
-    static Item item;
+	static double HEIGHT;
+	static double WIDTH;
+	static Marble marble;
+	static Map map;
+	static Item item;
 	static Ammo ammo;
-    boolean aliveItem;
-    static double timeUntilNextItem;
-    static final double originalTimeUntilNextItem = 7;
-    static int points;
-    static int ammoCount;
+	boolean aliveItem;
+	static double timeUntilNextItem;
+	static final double originalTimeUntilNextItem = 7;
+	static int points;
+	static int ammoCount;
 	static boolean ammoReleased;
 	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
+	static boolean bumpersOn;
 //=======================================
 //Constructor
-    public World(double initHeight, double initWidth){
-	HEIGHT = initHeight;
-	WIDTH = initWidth;
-	marble = new Marble();
-   	aliveItem = false;
-	item = new Item(Game.WIDTH / 2, Game.HEIGHT);
-	timeUntilNextItem = 2;
-	ammoCount = 0;
-	points = 0;
-	ammoReleased = false;
-	rand = new Random(); //The seed was 4 before.
-	map = new Map(0);
+	public World(double initHeight, double initWidth){
+		HEIGHT = initHeight;
+		WIDTH = initWidth;
+		marble = new Marble();
+   		aliveItem = false;
+		item = new Item(Game.WIDTH / 2, Game.HEIGHT);
+		timeUntilNextItem = 2;
+		ammoCount = 0;
+		points = 0;
+		ammoReleased = false;
+		rand = new Random(); //The seed was 4 before.
+		map = new Map(0);
 	    //this will change soon
-	ammoActive = new LinkedList<AmmoReleased>();
-    }
+		ammoActive = new LinkedList<AmmoReleased>();
+		bumpersOn = false;
+	}
 //=======================================
 //Draw Methods
 	public void drawToScreen(Graphics g){
@@ -76,7 +78,7 @@ public class World{
 //=======================================
 //Update Methods
 	public void updateMarble(double time){
-		marble.update(this, time);
+		marble.update(time);
 	}
 
 	private void updateItem(){
