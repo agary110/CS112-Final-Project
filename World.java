@@ -37,7 +37,7 @@ public class World{
 		map = new Map(0);
 	    //this will change soon
 		ammoActive = new LinkedList<AmmoReleased>();
-		bumpersOn = false;
+		bumpersOn = true;
 	}
 //=======================================
 //Draw Methods
@@ -79,6 +79,8 @@ public class World{
 //Update Methods
 	public void updateMarble(double time){
 		marble.update(time);
+		marble.checkDead(this);
+		marble.checkForBumpers(this);
 	}
 
 	private void updateItem(){
@@ -110,7 +112,7 @@ public class World{
 		updateMap(time);
 		//updatePoints(time);
 		updateAmmoReleased();
-		marble.checkDead(this);
+		
 	}
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
