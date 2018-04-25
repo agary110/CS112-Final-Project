@@ -30,19 +30,6 @@ class Item{
 	public void update(){
 		this.y++;
 
-		/*if(this.x + this.width / 2 >= World.marble.position.x && this.x <= World.marble.position.x + this.width / 2){
-			activated = true;
-			this.activate();
-		}
-		if(this.activated == false && this.y > Game.HEIGHT){
-			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
-			System.out.println(World.timeUntilNextItem);
-		}
-		if(World.timeUntilNextItem <= 0){
-			World.item = generateNextItem(rand.nextInt(6));
-			World.timeUntilNextItem = World.originalTimeUntilNextItem;
-		}*/
-
 		if(onScreen){
 			this.y += 2;
 			if(this.y == World.marble.position.y && (this.x + this.width - 2 <= World.marble.position.x || this.x >= World.marble.position.x + World.marble.radius - 2)){
@@ -61,17 +48,10 @@ class Item{
 	}
 
 	public static Item generateNextItem(int randNum){
+
 		int x = Game.WIDTH / 2 + 1;
 		int xPlus = rand.nextInt(2);
 		x = x + xPlus * (Path.WIDTH / 3 - 1);
-
-		//Determines 'x' based on Path at the top of screen
-		/*for(int i = 0; i < Map.upcomingPaths.size(); i++){
-			if(Map.upcomingPaths.get(i).y > -Path.HEIGHT && Map.upcomingPaths.get(i).y <= 0){
-				x = Map.upcomingPaths.get(i).x + Map.upcomingPaths.get(i).WIDTH / 2 - width / 2;
-				break;
-			}
-		}*/
 
 		int y = 0 - width;
 
