@@ -37,7 +37,7 @@ public class World{
 		map = new Map(0);
 	    //this will change soon
 		ammoActive = new LinkedList<AmmoReleased>();
-		bumpersOn = true;
+		bumpersOn = false;
 	}
 //=======================================
 //Draw Methods
