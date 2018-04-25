@@ -111,6 +111,9 @@ public class Marble{
     public void moveDown(){
 		if (canMove){
 			velocity.y += speedIncrement;
+			if(position.y < Game.HEIGHT - (Game.HEIGHT / 4)){
+				position.y += 5;
+			}		
 		}
     }
 
