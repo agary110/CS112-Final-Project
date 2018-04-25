@@ -33,7 +33,7 @@ public class World{
 		ammoCount = 0;
 		points = 0;
 		ammoReleased = false;
-		rand = new Random(); //The seed was 4 before.
+		rand = new Random();
 		map = new Map(0);
 	    //this will change soon
 		ammoActive = new LinkedList<AmmoReleased>();
