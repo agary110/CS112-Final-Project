@@ -29,7 +29,8 @@ class Item{
 
 	public void update(){
 		this.y++;
-		if(this.x + this.width / 2 >= World.marble.position.x && this.x <= World.marble.position.x + this.width / 2){
+
+		/*if(this.x + this.width / 2 >= World.marble.position.x && this.x <= World.marble.position.x + this.width / 2){
 			activated = true;
 			this.activate();
 		}
@@ -40,7 +41,23 @@ class Item{
 		if(World.timeUntilNextItem <= 0){
 			World.item = generateNextItem(rand.nextInt(6));
 			World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		}*/
+
+		if(onScreen){
+			this.y += 2;
+			if(this.y == World.marble.position.y && (this.x + this.width - 2 <= World.marble.position.x || this.x >= World.marble.position.x + World.marble.radius - 2)){
+				this.activated = true;
+				this.activate();
+			}
+			if(this.y >= Game.HEIGHT){
+				onScreen = false;
+			}
 		}
+		else{
+			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
+
+		}
+
 	}
 
 	public static Item generateNextItem(int randNum){
