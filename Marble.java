@@ -167,15 +167,21 @@ public class Marble{
 				canMoveUp = false;
 				canMoveDown = true;
 			}
-			if(marb.x < path.exitX){
-				canMoveRight = false;
-				canMoveLeft = true;
+			if(marb.x < path.exitX && marb.y > path.y){
+				canMoveRight = true;
+				canMoveLeft = false;
 				canMoveUp = true;
 				canMoveDown = true;
 			}
 
 			if(marb.y > path.y + path.WIDTH && marb.x + World.marble.radius > path.exitX + path.WIDTH){
 				canMoveRight = false;
+				canMoveLeft = true;
+				canMoveUp = true;
+				canMoveDown = true;
+			}
+			if (marb.x > path.exitX + path.WIDTH && marb.y > path.y + path.WIDTH){
+				canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = true;
 				canMoveDown = false;
@@ -204,19 +210,40 @@ public class Marble{
 		}
 
 		else if(path.name == "rightElbow"){
-			if(marb.y > path.y + path.WIDTH){
+			if (marb.x + World.marble.radius > path.x + path.WIDTH){
+				canMoveRight = false;
+				canMoveLeft = true;
+				canMoveUp = true;
+				canMoveDown = true;
+			}
+			if (marb.y > path.y + path.HEIGHT){
+				canMoveRight = true;
+				canMoveLeft = true;
+				canMoveUp = true;
+				canMoveDown = false;
+			}
+			if (mark.x < path.x && marb.y < path.y + path.WIDTH){
+				canMoveRight = true;
+				canMoveLeft = true;
+				canMoveUp = false;
+				canMoveDown = true;
+			}
+		}
+
+
+			/*if(marb.y > path.y + path.WIDTH){
 				if(marb.x + World.marble.radius > path.exitX + path.HEIGHT){
 					canMoveRight = false;
 					canMoveLeft = true;
 					canMoveUp = true;
 					canMoveDown = true;
 				}
-				if(marb.y > path.y + path.HEIGHT){
+				/*if(marb.y > path.y + path.HEIGHT){
 					canMoveRight = true;
 					canMoveLeft = true;
 					canMoveUp = true;
 					canMoveDown = false;
-				}
+				}*/
 				if(marb.x < path.x){
 					if(marb.y < path.y + path.WIDTH){
 						canMoveRight = true;
@@ -239,8 +266,8 @@ public class Marble{
 					canMoveUp = true;
 					canMoveDown = true;
 				}
-			}
-		}
+			}/*
+		//}
 
 		else if(path.name == "leftElbow"){
 			if (marb.x < path.x){
