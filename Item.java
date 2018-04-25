@@ -15,7 +15,6 @@ class Item{
 	public static final int width = (int)(Path.WIDTH / 3 - 20);
 	public boolean activated;
 	public boolean deactivated;
-	//public boolean passed;
 	static Random rand;
 
 	public Item(int x, int y){
@@ -23,15 +22,11 @@ class Item{
 		this.y = y;
 		activated = false;
 		deactivated = false;
-		//passed = true;
 		rand = new Random();
 	}
 
 	public void update(){
 		this.y++;
-		/*if(World.marble.position.y == y){
-			this.passed = true;
-		}*/
 		if(this.x + this.width / 2 >= World.marble.position.x && this.x <= World.marble.position.x + this.width / 2){
 			activated = true;
 			this.activate();
@@ -43,10 +38,6 @@ class Item{
 		if(World.timeUntilNextItem <= 0){
 			World.item = generateNextItem(rand.nextInt(6));
 			World.timeUntilNextItem = World.originalTimeUntilNextItem;
-		}
-		if(World.ammoReleased){
-			AmmoReleased.update();
-			AmmoReleased.deactivate();	
 		}
 	}
 
