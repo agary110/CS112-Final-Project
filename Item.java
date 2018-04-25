@@ -61,17 +61,10 @@ class Item{
 	}
 
 	public static Item generateNextItem(int randNum){
+
 		int x = Game.WIDTH / 2 + 1;
 		int xPlus = rand.nextInt(2);
 		x = x + xPlus * (Path.WIDTH / 3 - 1);
-
-		//Determines 'x' based on Path at the top of screen
-		/*for(int i = 0; i < Map.upcomingPaths.size(); i++){
-			if(Map.upcomingPaths.get(i).y > -Path.HEIGHT && Map.upcomingPaths.get(i).y <= 0){
-				x = Map.upcomingPaths.get(i).x + Map.upcomingPaths.get(i).WIDTH / 2 - width / 2;
-				break;
-			}
-		}*/
 
 		int y = 0 - width;
 
