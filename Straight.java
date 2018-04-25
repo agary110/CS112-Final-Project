@@ -12,9 +12,9 @@ import java.awt.RenderingHints;
 public class Straight extends Path{
 
     public Straight(int exitX){
-	super(exitX);
-	this.name="Straight";
-	this.x=exitX;
+		super(exitX);
+		this.name="Straight";
+		this.x=exitX;
     }
 
 	public Straight(Path previous){
@@ -25,12 +25,18 @@ public class Straight extends Path{
 		y = previous.y - Path.HEIGHT;
 	}
 
-    public void draw(Graphics g0ri){
-	Random rand = new Random();
-	Graphics2D g = (Graphics2D) g0ri;
-	g.setColor(color);
-	g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	public void draw(Graphics g0ri){
+		Random rand = new Random();
+		Graphics2D g = (Graphics2D) g0ri;
+		g.setColor(color);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-	g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
+		g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
+
+	/**	if (World.bumpersOn){
+			g.setColor(Color.RED);
+			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, HEIGHT);
+			g.fill(new Rectangle2D.Double(x + WIDTH, y, bumperWidth, HEIGHT);
+		} **/ 
     }
 }
