@@ -224,10 +224,12 @@ public class Marble{
 			}
 			if (marb.x < path.x && marb.y < path.y + path.WIDTH){
 				canMoveRight = true;
+				canMoveRight = false;
 				canMoveLeft = true;
 				canMoveUp = false;
 				canMoveDown = true;
 			}
+			
 		}
 
 
@@ -266,7 +268,7 @@ public class Marble{
 					canMoveUp = true;
 					canMoveDown = true;
 				}
-			}/*
+			}*/
 		//}
 
 		else if(path.name == "leftElbow"){
