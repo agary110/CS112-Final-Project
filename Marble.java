@@ -222,7 +222,7 @@ public class Marble{
 				canMoveUp = true;
 				canMoveDown = false;
 			}
-			if (mark.x < path.x && marb.y < path.y + path.WIDTH){
+			if (marb.x < path.x && marb.y < path.y + path.WIDTH){
 				canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = false;
@@ -314,7 +314,7 @@ public class Marble{
 //============================================
 /** This method checks to see if the marble has gone off the path. If it has, you die. **/
 
-   public static void checkDead(World w){
+    public static void checkDead(World w){
 
 		Path path = checkPath();
 		Pair marb = World.marble.position;

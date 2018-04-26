@@ -23,12 +23,12 @@ public class AmmoReleased{
 	public void update(){
 		if(World.ammoReleased){
 			for(int i = 0; i < World.ammoActiveCount; i++){
-				ammoActiveLast.get(i).y--;
+				World.ammoActiveLast.get(i).y--;
 			}
 		
 			for(int i = 0; i < World.ammoActiveCount; i++){
-				if(ammoActiveLast.get(i).y < -length){
-					ammoActiveLast.get(i).deactivate();
+				if(World.ammoActiveLast.get(i).y < -length){
+					deactivate(i);
 				}
 			}
 	
@@ -43,8 +43,8 @@ public class AmmoReleased{
 		World.ammoActiveCount--;
 	}
 
-	public static void deactivate(){
-		World.ammoActiveLast.remove(i);
+	public static void deactivate(int index){
+		World.ammoActiveLast.remove(index);
 		World.ammoActiveCount--;
 	}
 
@@ -67,11 +67,12 @@ class Node{
 
 	public AmmoReleased get(int index){
 		int j;
-		Node toReturn = World.ammoActiveLast;
+		Node n = World.ammoActiveLast;
 		for(int i = World.ammoActiveCount; i > index; i--){
-			toReturn = toReturn.previous;
+			n = n.previous;
 		}
 
+		AmmoReleased toReturn = n.ammoReleased;
 		return toReturn;
 	}
 

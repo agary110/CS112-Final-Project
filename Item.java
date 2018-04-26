@@ -37,7 +37,6 @@ class Item{
 			if(this.y  - 2 < World.marble.position.y && this.y + this.width + 2 > World.marble.position.y){
 				if(this.x + this.width - 2 >= World.marble.position.x){
 					if(this.x <= World.marble.position.x + World.marble.radius - 2){
-						this.pickUp();
 						this.activated = true;
 						this.activate();
 					}
@@ -127,10 +126,11 @@ class Bomb extends Item{
 	}
 
 	public void activate(){
-		if(this.activated == true){
+		if(this.activated){
 			Game.alive = false;
 		}
 	}
+
 }
 
 //=======================================
@@ -163,6 +163,13 @@ class Ammo extends Item{
 			if(World.ammo.y < -width - 10){
 				World.ammoReleased = false;
 			}
+		}
+	}
+
+	public void update(){
+		super.update();
+		if(this.activated){
+			this.pickUp();
 		}
 	}
 
@@ -297,9 +304,13 @@ class Alien extends Item{
 		super.update();
 
 		if(World.ammoReleased){
-			for(int i = 0; i < World.ammoActive.size(); i++){
-				if(World.ammoActive.get(i).x == this.x && World.ammoActive.get(i).y == this.y){
-					this.deactivate();
+			for(int i = 0; i < World.ammoActiveCount; i++){
+				if(World.ammoActiveLast.get(i).y == this.y){
+					if(this.x + this.width - 2 >= World.ammoActiveLast.get(i).x){
+						if(this.x <= World.ammoActiveLast.get(i).x + AmmoReleased.width - 2){
+							this.deactivate();
+						}
+					}
 				}
 			}
 		}
@@ -313,9 +324,10 @@ class Alien extends Item{
 
 	public void deactivate(){
 		//When hit with ammo, Alien dies
-		for(int i = 0; i < World.ammoActive.size(); i++){
-			if(World.ammoActive.get(i).x < this.x + width && World.ammoActive.get(i).x > this.x && World.ammoActive.get(i).y < this.y + width){
+		for(int i = 0; i < World.ammoActiveCount; i++){
+			if(World.ammoActiveLast.get(i).x < this.x + width && World.ammoActiveLast.get(i).x > this.x && World.ammoActiveLast.get(i).y < this.y + width){
 				deadly = false;
+				AmmoReleased.deactivate(i);
 			}
 		}
 	}
@@ -345,7 +357,8 @@ class Booster extends Item{
 	public void update(){
 		super.update();
 
-		if(this.activated == true){
+		if(this.activated){
+			this.pickUp();
 			timeActive -= (1 / (double)(Game.FPS));
 		}
 		if(timeActive == 0){
