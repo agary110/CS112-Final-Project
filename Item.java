@@ -60,8 +60,6 @@ class Item{
 
 		int y = 0 - width;
 
-		randNum = 1;
-
 		//Bomb
 		if(randNum == 0){
 			return new Bomb(x, y);
@@ -361,7 +359,7 @@ class Booster extends Item{
 			this.pickUp();
 			timeActive -= (1 / (double)(Game.FPS));
 		}
-		if(timeActive == 0){
+		if(timeActive <= 0){
 			this.deactivate();
 		}
 	}
