@@ -35,7 +35,7 @@ public class World{
 		points = 0;
 		ammoReleased = false;
 		rand = new Random();
-		map = new Map(0);
+		map = new Map();
 	    //this will change soon
 		ammoActiveLast = null;
 		ammoActiveCount = 0;
