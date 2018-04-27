@@ -31,7 +31,7 @@ public class World{
    		aliveItem = false;
 		item = new Item(Game.WIDTH / 2, Game.HEIGHT);
 		timeUntilNextItem = 2;
-		ammoCount = 0;
+		ammoCount = 100;
 		points = 0;
 		ammoReleased = false;
 		rand = new Random();
@@ -116,8 +116,10 @@ public class World{
 	}*/
 
 	private void updateAmmoReleased(){
-		for(int i = 0; i < ammoActiveCount; i++){
-			ammoActiveLast.get(i).update();
+		if(ammoReleased){
+			for(int i = 0; i < ammoActiveCount; i++){
+				ammoActiveLast.get(i).update(ammoActiveLast.getNode(i));
+			}
 		}
 	}
 //=======================================
@@ -145,7 +147,7 @@ public class World{
 		if (c == 'l') {
 		    marble.moveRight();
 		}
-		if (c == ' ') {
+		if (c == 'a') {
 			if(ammoCount > 0){
 				ammoReleased = true;
 				AmmoReleased.activate();

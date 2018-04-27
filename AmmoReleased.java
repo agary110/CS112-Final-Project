@@ -20,27 +20,29 @@ public class AmmoReleased{
 		g.drawRect(x, y, width, length);
 	}
 
-	public void update(){
-		if(World.ammoReleased){
-			for(int i = 0; i < World.ammoActiveCount; i++){
-				World.ammoActiveLast.get(i).y--;
-			}
-		
-			for(int i = 0; i < World.ammoActiveCount; i++){
-				if(World.ammoActiveLast.get(i).y < -length){
-					deactivate(i);
-				}
-			}
-	
-			if(World.ammoActiveCount == 0){
-				World.ammoReleased = false;
-			}
+	public void update(Node node){
+		this.y--;
+
+		if(this.y < -length){
+			this.deactivate(node.index);
+		}
+
+		if(World.ammoActiveCount == 0){
+			World.ammoReleased = false;
 		}
 	}
 
 	public static void activate(){
-		World.ammoActiveLast.append(new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y)));
-		World.ammoActiveCount--;
+		AmmoReleased newAmmoReleased = new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y));
+		if(World.ammoActiveCount == 0){
+			Node n = new Node(newAmmoReleased);
+			World.ammoActiveLast = n;
+		}
+		else{
+			World.ammoActiveLast.append(newAmmoReleased);
+		}
+		World.ammoCount--;
+		World.ammoActiveCount++;
 	}
 
 	public static void deactivate(int index){
@@ -54,9 +56,11 @@ class Node{
 
 	AmmoReleased ammoReleased;
 	Node previous;
+	int index;
 
 	public Node(AmmoReleased ammoReleased){
 		this.ammoReleased = ammoReleased;
+		this.index = World.ammoActiveCount;
 	}
 
 	public void append(AmmoReleased ammoReleased){
