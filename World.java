@@ -39,7 +39,7 @@ public class World{
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
-		mapsOnScreen.add(Map.generateNext());
+		mapsOnScreen.add(Map.Map1);
 	    //this will change soon
 		ammoActiveLast = null;
 		ammoActiveCount = 0;

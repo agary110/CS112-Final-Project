@@ -48,8 +48,7 @@ class Map{
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j<World.mapsOnScreen.get(i).size(); j++){
 				World.mapsOnScreen.get(i).get(j).y++;
-				//System.out.println("Map " + i + "Path " + j + ": " + World.mapsOnScreen.get(i).get(j).y);
-				System.out.println(allMaps.size() + "and " + World.mapsOnScreen.size());
+			
 			}
 		}
 
@@ -62,11 +61,18 @@ class Map{
 //=======================================
 //Draws Map using draw methods from subclasses of Path
 	public void draw(Graphics g){
-		for(int i = 0; i < World.mapsOnScreen.size(); i++){
+/*		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for (int j=0; j<World.mapsOnScreen.get(i).size(); j++) {
 				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
+*/
+
+	for (int i = 0; i<Map1.size(); i++) {
+		Map1.get(i).draw(g);
+		System.out.println(Map1.get(i).x + " " + Map1.get(i).y);
+		}
+
 	}
 //=======================================
 //Returns an instance of random subclass of Path
@@ -144,6 +150,7 @@ public static LinkedList<Path> generateNext(){
 			toAppend.get(i).y = toAppend.get(i - 1).y - toAppend.get(i).HEIGHT;
 		}
 	}
+
 	return toAppend;
 }
 //=======================================
