@@ -78,18 +78,9 @@ public class Marble{
 /** Update method; moves the marble's position based on its velocity and how much time has passed  **/
 
     public void update(double time){
-		position = position.add(velocity.times(time));
+		position = position;
     }
     
-//================================================
-//if we don't use these methods we should delete them
-    public void setPosition(Pair p){
-		position = p;
-    }
-    public void setVelocity(Pair v){
-		velocity = v;
-    }
-
 //================================================
 /** Draw method **/
 
@@ -104,27 +95,27 @@ public class Marble{
 /** Takes the move commands from the KeyboardEvent in Game.java. If the marble is able to move (i.e. the bumpers are down, or the bumpers are down but the marble isn't hitting the sides), then it will move. **/
 
     public void moveUp(){
-		if (canMoveUp){
-			velocity.y -= speedIncrement;
-			if(position.y > Game.HEIGHT / 4){
+		//if(position.y > Game.HEIGHT / 4){
+			if (canMoveUp){
 				position.y -= 5;
-			}
+		//	}
+		} else {
+			position.y += 0.6;
 		}
 
     } 
 
     public void moveDown(){
+		
 		if (canMoveDown){
-			velocity.y += speedIncrement;
-			if(position.y < Game.HEIGHT - (Game.HEIGHT / 4)){
+				if(position.y < Game.HEIGHT - (Game.HEIGHT / 4)){
 				position.y += 5;
-			}		
+			
 		}
     }
 
     public void moveRight(){
 		if (canMoveRight){
-			velocity.x += speedIncrement;
 	   	 	position.x += 5.0;
 			position.y += 0.6;
 		}
@@ -132,7 +123,6 @@ public class Marble{
 
     public void moveLeft(){
 		if (canMoveLeft){
-			velocity.x -= speedIncrement;
 	    	position.x -= 5.0;
 			position.y += 0.6;
 		}
@@ -141,17 +131,26 @@ public class Marble{
 /** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/
 
 
-	public static void checkForBumpers(World w){
+	public static void checkForBumpers(World w, char c){
 		Path path = checkPath();
 		Pair marb = World.marble.position;
 		if(path.name == "Straight"){
 			if(marb.x < path.x){
+				/*if (c == 'j'){
+					World.marble.moveRight();
+					//World.marble.moveUp();
+				}*/
+			
 				canMoveRight = true;
 				canMoveLeft = false;
 				canMoveUp = true;
 				canMoveDown = true;
 			}
 			if (marb.x + World.marble.radius > path.x + path.WIDTH){
+				/*if (c == 'l'){
+					World.marble.moveLeft();
+					World.marble.moveUp();
+				}*/
 				canMoveRight = false;
 				canMoveLeft = true;
 				canMoveUp = true;

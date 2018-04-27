@@ -21,9 +21,9 @@ public class AmmoReleased{
 	}
 
 	public void update(Node node){
-		this.y--;
+		this.y-= 2;
 
-		if(this.y < -length){
+		if(this.y < -length){ //when bottom of ammo goes offscreen
 			this.deactivate(node.index);
 		}
 
@@ -54,29 +54,32 @@ public class AmmoReleased{
 
 class Node{
 
-	AmmoReleased ammoReleased;
+	AmmoReleased ammoR;
 	Node previous;
 	int index;
 
-	public Node(AmmoReleased ammoReleased){
-		this.ammoReleased = ammoReleased;
+	public Node(AmmoReleased ammoR){
+		this.ammoR = ammoR;
 		this.index = World.ammoActiveCount;
+		previous = null;
 	}
 
-	public void append(AmmoReleased ammoReleased){
-		Node toAppend = new Node(ammoReleased);
+	public void append(AmmoReleased ammoR){
+		Node toAppend = new Node(ammoR);
 		toAppend.previous = World.ammoActiveLast;
 		World.ammoActiveLast = toAppend;
+
+		//does World.activeAmmoCount have to change here?
 	}
 
 	public AmmoReleased get(int index){
-		int j;
+		int j; // why is this here, and why do we have an index variable if we don't use it here
 		Node n = World.ammoActiveLast;
 		for(int i = World.ammoActiveCount; i > index; i--){
 			n = n.previous;
 		}
 
-		AmmoReleased toReturn = n.ammoReleased;
+		AmmoReleased toReturn = n.ammoR;
 		return toReturn;
 	}
 

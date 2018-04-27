@@ -39,7 +39,7 @@ public class World{
 	    //this will change soon
 		ammoActiveLast = null;
 		ammoActiveCount = 0;
-		bumpersOn = false;
+		bumpersOn = true;
 	}
 //=======================================
 //Draw Methods
@@ -73,6 +73,8 @@ public class World{
 		Ammo.drawAmmoCounter(g);
    }
 
+//we should move this into AmmoReleased class
+
 	public void drawAmmoReleased(Graphics g){
 		int j;
 		Node index;
@@ -82,7 +84,7 @@ public class World{
 			while(j > 0){
 				index = index.previous;
 			}
-			index.ammoReleased.draw(g);
+			index.ammoR.draw(g);
 		}
 	}
 
@@ -90,9 +92,9 @@ public class World{
 //Update Methods
 	public void updateMarble(double time){
 		marble.update(time);
-		if (bumpersOn){
-			marble.checkForBumpers(this);
-		} else {
+		if (!bumpersOn){
+			//marble.checkForBumpers(this);
+		//} else {
 			marble.checkDead(this);
 		}
 		
@@ -118,7 +120,10 @@ public class World{
 	private void updateAmmoReleased(){
 		if(ammoReleased){
 			for(int i = 0; i < ammoActiveCount; i++){
-				ammoActiveLast.get(i).update(ammoActiveLast.getNode(i));
+				if (ammoActiveLast.getNode(i).ammoR != null){
+					AmmoReleased a = ammoActiveLast.getNode(i).ammoR;
+					a.update(ammoActiveLast.getNode(i));
+				}
 			}
 		}
 	}
@@ -153,5 +158,7 @@ public class World{
 				AmmoReleased.activate();
 			}
 		}
+		if (bumpersOn)
+			marble.checkForBumpers(this, c);
 	}
 }
