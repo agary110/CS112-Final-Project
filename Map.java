@@ -9,6 +9,7 @@ class Map{
 	public static LinkedList<Path> upcomingPaths;
 	public static LinkedList<Path> Map1;
 	public static LinkedList<Path> Map2;
+	public static LinkedList<Path> Map3;
 	public static List<Path> pathTypes;
 	public static LinkedList<LinkedList<Path>> allMaps;
 	public static Random rand;
@@ -19,6 +20,7 @@ class Map{
 		upcomingPaths = new LinkedList<Path>();
 		Map1 = new LinkedList<Path>();
 		Map2 = new LinkedList<Path>();
+		Map3 = new LinkedList<Path>();
 		addMaps();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
@@ -109,6 +111,18 @@ public static void prototypePaths1(){
 	Map2.add(new Straight(upcomingPaths.getLast()));
 	Map2.add(new LeftCorner(upcomingPaths.getLast()));
 	Map2.add(new LeftElbow(upcomingPaths.getLast()));
+//option 3
+	Map3.add(new RightCorner(upcomingPaths.getLast()));
+	Map3.add(new RightElbow(upcomingPaths.getLast()));
+	Map3.add(new RightCorner(upcomingPaths.getLast()));
+	Map3.add(new RightElbow(upcomingPaths.getLast()));
+	Map3.add(new Straight(upcomingPaths.getLast()));
+	Map3.add(new Straight(upcomingPaths.getLast()));
+	Map3.add(new LeftCorner(upcomingPaths.getLast()));
+	Map3.add(new LeftElbow(upcomingPaths.getLast()));
+	Map3.add(new Straight(upcomingPaths.getLast()));
+	Map3.add(new LeftCorner(upcomingPaths.getLast()));
+	Map3.add(new LeftElbow(upcomingPaths.getLast()));
 /*
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
