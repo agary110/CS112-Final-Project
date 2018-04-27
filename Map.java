@@ -40,6 +40,7 @@ class Map{
 	allMaps.add(upcomingPaths);
 	allMaps.add(Map1);
 	allMaps.add(Map2);
+	}
 //=======================================
 //Fills pathTypes with instances of each subclass of Path
 	private void initializePathTypes(){

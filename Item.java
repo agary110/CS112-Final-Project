@@ -60,6 +60,8 @@ class Item{
 
 		int y = 0 - width;
 
+		randNum = 5;
+
 		//Bomb
 		if(randNum == 0){
 			return new Bomb(x, y);
@@ -164,17 +166,11 @@ class Ammo extends Item{
 		}
 	}
 
-	public void update(){
-		super.update();
-		if(this.activated){
-			this.pickUp();
-		}
-	}
-
 	public void activate(){
 		World.ammoCount = World.ammoCount + increase;
 		this.activated = false;
 		World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		pickUp();
 	}
 
 	public static void drawAmmoCounter(Graphics g){
