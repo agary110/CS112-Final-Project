@@ -60,17 +60,18 @@ class Map{
 //=======================================
 //Draws Map using draw methods from subclasses of Path
 	public void draw(Graphics g){
-/*		for(int i = 0; i < World.mapsOnScreen.size(); i++){
+		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for (int j=0; j<World.mapsOnScreen.get(i).size(); j++) {
 				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
-*/
+/*
 
 	for (int i = 0; i<Map1.size(); i++) {
 		Map1.get(i).draw(g);
 		System.out.println(Map1.get(i).x + " " + Map1.get(i).y);
 		}
+*/
 
 	}
 //=======================================
@@ -152,6 +153,11 @@ public static LinkedList<Path> generateNext(){
 
 	return toAppend;*/
 	
+	for(int i = 0; i < allMaps.get(randNum).size(); i++){
+		allMaps.get(randNum).get(i).y = World.mapsOnScreen.get(0).getLast().y - (i + 1) * Path.HEIGHT;
+	}
+	System.out.println(randNum);
+
 	return allMaps.get(randNum);
 }
 //=======================================
