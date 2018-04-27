@@ -76,15 +76,25 @@ class Node{
 		return toReturn;
 	}
 
+	public Node getNode(int index){
+		int j;
+		Node toReturn = World.ammoActiveLast;
+		for(int i = World.ammoActiveCount; i > index; i--){
+			toReturn = toReturn.previous;
+		}
+
+		return toReturn;
+	}
+
 	public void remove(int index){
 		if(index == World.ammoActiveCount - 1){
 			World.ammoActiveLast = World.ammoActiveLast.previous;
 		}
 		else if(index == 0){
-			World.ammoActiveLast.get(1).previous = null;
+			World.ammoActiveLast.getNode(1).previous = null;
 		}
 		else{
-			World.ammoActiveLast.get(index + 1).previous = World.ammoActiveLast.get(index - 1);
+			World.ammoActiveLast.getNode(index + 1).previous = World.ammoActiveLast.getNode(index - 1);
 		}
 	}
 
