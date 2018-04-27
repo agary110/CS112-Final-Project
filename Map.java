@@ -140,7 +140,7 @@ public static void prototypePaths1(){
 //=======================================
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allMaps.size());
-	LinkedList<Path> toAppend = allMaps.get(randNum);
+	/*LinkedList<Path> toAppend = allMaps.get(randNum);
 	for(int i = 0; i < toAppend.size(); i++){
 		if(i == 0){
 			toAppend.get(0).y = -Path.HEIGHT;
@@ -150,7 +150,9 @@ public static LinkedList<Path> generateNext(){
 		}
 	}
 
-	return toAppend;
+	return toAppend;*/
+	
+	return allMaps.get(randNum);
 }
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
