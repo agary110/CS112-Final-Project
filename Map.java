@@ -25,14 +25,13 @@ class Map{
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
 		upcomingPaths.get(0).y = Game.HEIGHT;
-
 		for(int i = 1; i < 6; i++){
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
 		}
-		addMaps();
+
 		prototypePaths1();
+		addMaps();
 		
-		initializePathTypes();
 	}
 //=======================================
 //add maps to linked list allMaps
@@ -40,42 +39,33 @@ class Map{
 	allMaps.add(upcomingPaths);
 	allMaps.add(Map1);
 	allMaps.add(Map2);
-	}
-//=======================================
-//Fills pathTypes with instances of each subclass of Path
-	private void initializePathTypes(){
-		pathTypes = new LinkedList<Path>();
-		Straight straight = new Straight(0);
-		RightCorner rightC = new RightCorner(0);
-		LeftCorner leftC = new LeftCorner(0);
-		RightElbow rightE = new RightElbow(0);
-		LeftElbow leftE = new LeftElbow(0);
-		Horizontal horizontal = new Horizontal(0, true);
-		pathTypes.add(straight);//Index 0
-		pathTypes.add(rightC);//Index 1
-		pathTypes.add(leftC);//Index 2
-		pathTypes.add(rightE);//Index 3
-		pathTypes.add(leftE);//Index 4
-		pathTypes.add(horizontal);//Index 5
+	allMaps.add(Map3);
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
 	public void update(double time){
 
-		for(int i = 0; i < upcomingPaths.size(); i++){
-			upcomingPaths.get(i).update();	
+		for(int i = 0; i < World.mapsOnScreen.size(); i++){
+			for(int j = 0; j<World.mapsOnScreen.get(i).size(); j++){
+				World.mapsOnScreen.get(i).get(j).y++;
+				//System.out.println("Map " + i + "Path " + j + ": " + World.mapsOnScreen.get(i).get(j).y);
+				System.out.println(allMaps.size() + "and " + World.mapsOnScreen.size());
+			}
 		}
-		if(upcomingPaths.getLast().y > 0){
-			//addNewPath();
-			upcomingPaths.add(generateNext());
+
+		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
+			World.mapsOnScreen.remove(0);
+			World.mapsOnScreen.add(generateNext());
 		}
 
 	}
 //=======================================
 //Draws Map using draw methods from subclasses of Path
 	public void draw(Graphics g){
-		for(int i = 0; i < upcomingPaths.size(); i++){
-			upcomingPaths.get(i).draw(g);
+		for(int i = 0; i < World.mapsOnScreen.size(); i++){
+			for (int j=0; j<World.mapsOnScreen.get(i).size(); j++) {
+			World.mapsOnScreen.get(i).get(j).draw(g);
+			}
 		}
 	}
 //=======================================
@@ -84,20 +74,20 @@ class Map{
 public static void prototypePaths1(){
 	//option 1
 
-	Map1.add(new RightCorner(upcomingPaths.getLast()));
-	Map1.add(new RightElbow(upcomingPaths.getLast()));
-	Map1.add(new Straight(upcomingPaths.getLast()));
-	Map1.add(new LeftCorner(upcomingPaths.getLast()));
-	Map1.add(new Horizontal(upcomingPaths.getLast(), false));
-	Map1.add(new Horizontal(upcomingPaths.getLast(), false));
-	Map1.add(new LeftElbow(upcomingPaths.getLast()));
-	Map1.add(new Straight(upcomingPaths.getLast()));
-	Map1.add(new RightCorner(upcomingPaths.getLast()));
-	Map1.add(new Horizontal(upcomingPaths.getLast(), true));
-	Map1.add(new Horizontal(upcomingPaths.getLast(), true));
-	Map1.add(new RightElbow(upcomingPaths.getLast()));
-	Map1.add(new LeftCorner(upcomingPaths.getLast()));
-	Map1.add(new LeftElbow(upcomingPaths.getLast()));
+	Map1.add(new RightCorner(650);
+	Map1.add(new RightElbow(Map1.getLast()));
+	Map1.add(new Straight(Map1.getLast()));
+	Map1.add(new LeftCorner(Map1.getLast()));
+	Map1.add(new Horizontal(Map1.getLast(), false));
+	Map1.add(new Horizontal(Map1.getLast(), false));
+	Map1.add(new LeftElbow(Map1.getLast()));
+	Map1.add(new Straight(Map1.getLast()));
+	Map1.add(new RightCorner(Map1.getLast()));
+	Map1.add(new Horizontal(Map1.getLast(), true));
+	Map1.add(new Horizontal(Map1.getLast(), true));
+	Map1.add(new RightElbow(Map1.getLast()));
+	Map1.add(new LeftCorner(Map1.getLast()));
+	Map1.add(new LeftElbow(Map1.getLast()));
 
 //option 2
 	Map2.add(new LeftCorner(upcomingPaths.getLast()));
@@ -142,107 +132,20 @@ public static void prototypePaths1(){
 
 }
 
-public static Path generateNext(){
-	int randNum;
-	String lastName = upcomingPaths.getLast().name;
-	String nextName;
-
-	if(lastName != "Horizontal"){
-		
-		if(lastName == "Straight"){//Straight
-			randNum = rand.nextInt(3);
-			nextName = pathTypes.get(randNum).name;
-		}
-
-		else if(lastName == "rightCorner"){//rightCorner
-			randNum = rand.nextInt(2);
-			if(randNum == 0){
-				nextName = pathTypes.get(3).name;
-			}
-			else{
-				nextName = pathTypes.get(5).name;
-			}
-		}
-
-		else if(lastName == "leftCorner"){//leftCorner
-			randNum = rand.nextInt(2) + 4;
-			nextName = pathTypes.get(randNum).name;
-		}
-
-		else{//rightElbow and leftElbow
-			randNum = rand.nextInt(3);
-			nextName = pathTypes.get(randNum).name;
-		}
-	}
-
-	else{//Horizontal
-		randNum = rand.nextInt(2);
-		if(randNum == 0){
-			nextName = pathTypes.get(5).name;
-		}
-		else if(upcomingPaths.get(upcomingPaths.size() - 3).x < (upcomingPaths.get(upcomingPaths.size() - 2).x)){
-//upcomingPaths.getLast().x){
-			nextName = pathTypes.get(3).name;
+public static LinkedList<Path> generateNext(){
+	int randNum = rand.nextInt(allMaps.size());
+	LinkedList<Path> toAppend = allMaps.get(randNum);
+	//FOR loop that adjusts all y values as follows:
+	for(int i = 0; i < toAppend.size(); i++){
+		if(i == 0){
+			toAppend.get(0).y = -Path.HEIGHT;
 		}
 		else{
-			nextName = pathTypes.get(4).name;
+			toAppend.get(i).y = toAppend.get(i - 1).y - toAppend.get(i).HEIGHT;
 		}
 	}
-
-	Path toReturn;
-	int exitX = upcomingPaths.getLast().x;
-
-	if(nextName == "Straight"){
-		toReturn = new Straight(exitX);
-	}
-	else if(nextName == "rightCorner"){
-		toReturn = new RightCorner(exitX);
-		toReturn.y += Path.WIDTH;
-	}
-	else if(nextName == "leftCorner"){
-		toReturn = new LeftCorner(exitX);
-		toReturn.y += Path.WIDTH;
-	}
-	else if(nextName == "rightElbow"){
-		toReturn = new RightElbow(exitX);
-	}
-	else if(nextName == "leftElbow"){
-		toReturn = new LeftElbow(exitX);
-	}
-	else{
-		boolean direction;
-		if(upcomingPaths.getLast().x > upcomingPaths.get(upcomingPaths.size() - 2).x){
-			direction = true;
-		}
-		else{
-			direction = false;
-		}
-		toReturn = new Horizontal(exitX, direction);
-		toReturn.y += Path.WIDTH;
-	}
-
-	if(checkOnScreen(toReturn) == false){
-		if(nextName == "Straight" || nextName == "rightElbow" || nextName == "leftElbow"){
-			toReturn = new Straight(exitX);
-		}
-		else{
-			boolean direction;
-			if(upcomingPaths.getLast().x > upcomingPaths.get(upcomingPaths.size() - 2).x){
-				direction = true;
-			}
-			else{
-				direction = false;
-			}
-			toReturn = new Horizontal(exitX, direction);
-		}
-	}
-	
-	return toReturn;
-
+	return toAppend;
 }
-
-
-
 //=======================================
 //Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
 

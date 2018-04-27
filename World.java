@@ -12,6 +12,7 @@ public class World{
 	static Map map;
 	static Item item;
 	static Ammo ammo;
+	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	boolean aliveItem;
 	static double timeUntilNextItem;
 	static final double originalTimeUntilNextItem = 7;
@@ -36,6 +37,9 @@ public class World{
 		ammoReleased = false;
 		rand = new Random();
 		map = new Map();
+		mapsOnScreen = new LinkedList<LinkedList<Path>>();
+		mapsOnScreen.add(Map.upcomingPaths);
+		mapsOnScreen.add(Map.generateNext());
 	    //this will change soon
 		ammoActiveLast = null;
 		ammoActiveCount = 0;
