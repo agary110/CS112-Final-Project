@@ -35,7 +35,7 @@ public class World{
 		ammoCount = 100;
 		points = 0;
 		ammoReleased = false;
-		rand = new Random();
+		rand = new Random(1);
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
