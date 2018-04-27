@@ -65,6 +65,8 @@ class Map{
 				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
+	System.out.println("previous.last: " + World.mapsOnScreen.get(0).getLast().y);
+	System.out.println("next.first: " + World.mapsOnScreen.get(1).get(0).y);
 /*
 
 	for (int i = 0; i<Map1.size(); i++) {
@@ -80,7 +82,7 @@ class Map{
 public static void prototypePaths1(){
 	//option 1
 
-	Map1.add(new RightCorner(650));
+	Map1.add(new RightCorner(upcomingPaths.getLast()));
 	Map1.add(new RightElbow(Map1.getLast()));
 	Map1.add(new Straight(Map1.getLast()));
 	Map1.add(new LeftCorner(Map1.getLast()));
@@ -96,7 +98,7 @@ public static void prototypePaths1(){
 	Map1.add(new LeftElbow(Map1.getLast()));
 
 //option 2
-	Map2.add(new LeftCorner(650));
+	Map2.add(new LeftCorner(upcomingPaths.getLast()));
 	Map2.add(new Horizontal(Map2.getLast(), false));
 	Map2.add(new LeftElbow(Map2.getLast()));
 	Map2.add(new RightCorner(Map2.getLast()));
@@ -108,8 +110,9 @@ public static void prototypePaths1(){
 	Map2.add(new Straight(Map2.getLast()));
 	Map2.add(new LeftCorner(Map2.getLast()));
 	Map2.add(new LeftElbow(Map2.getLast()));
+	
 //option 3
-	Map3.add(new RightCorner(650));
+	Map3.add(new RightCorner(upcomingPaths.getLast()));
 	Map3.add(new RightElbow(Map3.getLast()));
 	Map3.add(new RightCorner(Map3.getLast()));
 	Map3.add(new RightElbow(Map3.getLast()));
@@ -140,75 +143,10 @@ public static void prototypePaths1(){
 
 //=======================================
 public static LinkedList<Path> generateNext(){
-	int randNum = rand.nextInt(allMaps.size());
-	/*LinkedList<Path> toAppend = allMaps.get(randNum);
-	for(int i = 0; i < toAppend.size(); i++){
-		if(i == 0){
-			toAppend.get(0).y = -Path.HEIGHT;
-		}
-		else{
-			toAppend.get(i).y = toAppend.get(i - 1).y - Path.HEIGHT;
-		}
-	}
-
-	return toAppend;*/
-	
-	for(int i = 0; i < allMaps.get(randNum).size(); i++){
-		allMaps.get(randNum).get(i).y = World.mapsOnScreen.get(0).getLast().y - (i + 1) * Path.HEIGHT;
-	}
-	System.out.println(randNum);
-
-	return allMaps.get(randNum);
+	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
+	LinkedList<Path> toAppend = allMaps.get(randNum);
+	return toAppend;
 }
-//=======================================
-//Ensures that the created Path in generateNext() does not go off-screen; Returns true if proposed new Path will stay on-screen
-
-	public static boolean checkOnScreen(Path proposedPath){
-		/*if(proposedPath.x > proposedPath.exitX){
-			if(proposedPath.exitX > 0 && proposedPath.x  + proposedPath.WIDTH < Game.WIDTH){
-				return true;
-			}
-			else {
-				return false;
-			}
-	    }
-		else {
-			if(proposedPath.x > 0 && proposedPath.exitX + proposedPath.WIDTH < Game.WIDTH){
-				return true;
-			}
-			else {
-				return false;
-			}
-		}*/
-
-		if(proposedPath.name == "Horizontal"){//Horizontal
-			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
-				return true;
-			}
-			else {
-				return false;
-			}
-
-		}
-
-		else if(proposedPath.name == "Straight" || proposedPath.name == "rightElbow" || proposedPath.name == "leftElbow"){//Straight, RightElbow, LeftElbow
-			if(proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.x > Path.WIDTH * 2){
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-
-		else{//RightCorner, LeftCorner
-			if(proposedPath.x > Path.WIDTH * 2 && proposedPath.exitX > Path.WIDTH * 2 && proposedPath.x + Path.WIDTH * 2 < Game.WIDTH && proposedPath.exitX + Path.WIDTH * 2 < Game.WIDTH){
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-	}
 //=======================================
 //Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen
 	public static Path[] getVisiblePaths(){

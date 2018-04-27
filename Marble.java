@@ -407,7 +407,7 @@ public class Marble{
 
 	private static Path checkPath(){
 
-		Path [] visiblePaths = new Path [10];
+		Path [] visiblePaths = new Path [100];
 		int n = 0;
 
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
