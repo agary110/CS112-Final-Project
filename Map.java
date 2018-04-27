@@ -90,30 +90,30 @@ public static void prototypePaths1(){
 	Map1.add(new LeftElbow(Map1.getLast()));
 
 //option 2
-	Map2.add(new LeftCorner(upcomingPaths.getLast()));
-	Map2.add(new Horizontal(upcomingPaths.getLast(), false));
-	Map2.add(new LeftElbow(upcomingPaths.getLast()));
-	Map2.add(new RightCorner(upcomingPaths.getLast()));
-	Map2.add(new RightElbow(upcomingPaths.getLast()));
-	Map2.add(new Straight(upcomingPaths.getLast()));
-	Map2.add(new RightCorner(upcomingPaths.getLast()));
-	Map2.add(new Horizontal(upcomingPaths.getLast(), true));
-	Map2.add(new RightElbow(upcomingPaths.getLast()));
-	Map2.add(new Straight(upcomingPaths.getLast()));
-	Map2.add(new LeftCorner(upcomingPaths.getLast()));
-	Map2.add(new LeftElbow(upcomingPaths.getLast()));
+	Map2.add(new LeftCorner(650);
+	Map2.add(new Horizontal(Map2.getLast(), false));
+	Map2.add(new LeftElbow(Map2.getLast()));
+	Map2.add(new RightCorner(Map2.getLast()));
+	Map2.add(new RightElbow(Map2.getLast()));
+	Map2.add(new Straight(Map2.getLast()));
+	Map2.add(new RightCorner(Map2.getLast()));
+	Map2.add(new Horizontal(Map2.getLast(), true));
+	Map2.add(new RightElbow(Map2.getLast()));
+	Map2.add(new Straight(Map2.getLast()));
+	Map2.add(new LeftCorner(Map2.getLast()));
+	Map2.add(new LeftElbow(Map2.getLast()));
 //option 3
-	Map3.add(new RightCorner(upcomingPaths.getLast()));
-	Map3.add(new RightElbow(upcomingPaths.getLast()));
-	Map3.add(new RightCorner(upcomingPaths.getLast()));
-	Map3.add(new RightElbow(upcomingPaths.getLast()));
-	Map3.add(new Straight(upcomingPaths.getLast()));
-	Map3.add(new Straight(upcomingPaths.getLast()));
-	Map3.add(new LeftCorner(upcomingPaths.getLast()));
-	Map3.add(new LeftElbow(upcomingPaths.getLast()));
-	Map3.add(new Straight(upcomingPaths.getLast()));
-	Map3.add(new LeftCorner(upcomingPaths.getLast()));
-	Map3.add(new LeftElbow(upcomingPaths.getLast()));
+	Map3.add(new RightCorner(650);
+	Map3.add(new RightElbow(Map3.getLast()));
+	Map3.add(new RightCorner(Map3.getLast()));
+	Map3.add(new RightElbow(Map3.getLast()));
+	Map3.add(new Straight(Map3.getLast()));
+	Map3.add(new Straight(Map3.getLast()));
+	Map3.add(new LeftCorner(Map3.getLast()));
+	Map3.add(new LeftElbow(Map3.getLast()));
+	Map3.add(new Straight(Map3.getLast()));
+	Map3.add(new LeftCorner(Map3.getLast()));
+	Map3.add(new LeftElbow(Map3.getLast()));
 /*
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
