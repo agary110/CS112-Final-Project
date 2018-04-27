@@ -34,12 +34,12 @@ class Map{
 		
 	}
 //=======================================
-//add maps to linked list allMaps
+//Add maps to linked list allMaps
 	public void addMaps() {
-	allMaps.add(upcomingPaths);
-	allMaps.add(Map1);
-	allMaps.add(Map2);
-	allMaps.add(Map3);
+		allMaps.add(upcomingPaths);
+		allMaps.add(Map1);
+		allMaps.add(Map2);
+		allMaps.add(Map3);
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
@@ -48,8 +48,6 @@ class Map{
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j<World.mapsOnScreen.get(i).size(); j++){
 				World.mapsOnScreen.get(i).get(j).y++;
-				//System.out.println("Map " + i + "Path " + j + ": " + World.mapsOnScreen.get(i).get(j).y);
-				System.out.println(allMaps.size() + "and " + World.mapsOnScreen.size());
 			}
 		}
 
@@ -132,16 +130,16 @@ public static void prototypePaths1(){
 
 }
 
+//=======================================
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allMaps.size());
 	LinkedList<Path> toAppend = allMaps.get(randNum);
-	//FOR loop that adjusts all y values as follows:
 	for(int i = 0; i < toAppend.size(); i++){
 		if(i == 0){
 			toAppend.get(0).y = -Path.HEIGHT;
 		}
 		else{
-			toAppend.get(i).y = toAppend.get(i - 1).y - toAppend.get(i).HEIGHT;
+			toAppend.get(i).y = toAppend.get(i - 1).y - Path.HEIGHT;
 		}
 	}
 	return toAppend;
