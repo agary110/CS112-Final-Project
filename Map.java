@@ -64,7 +64,7 @@ class Map{
 	public void draw(Graphics g){
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for (int j=0; j<World.mapsOnScreen.get(i).size(); j++) {
-			World.mapsOnScreen.get(i).get(j).draw(g);
+				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
 	}
@@ -90,7 +90,7 @@ public static void prototypePaths1(){
 	Map1.add(new LeftElbow(Map1.getLast()));
 
 //option 2
-	Map2.add(new LeftCorner(650);
+	Map2.add(new LeftCorner(650));
 	Map2.add(new Horizontal(Map2.getLast(), false));
 	Map2.add(new LeftElbow(Map2.getLast()));
 	Map2.add(new RightCorner(Map2.getLast()));
@@ -103,7 +103,7 @@ public static void prototypePaths1(){
 	Map2.add(new LeftCorner(Map2.getLast()));
 	Map2.add(new LeftElbow(Map2.getLast()));
 //option 3
-	Map3.add(new RightCorner(650);
+	Map3.add(new RightCorner(650));
 	Map3.add(new RightElbow(Map3.getLast()));
 	Map3.add(new RightCorner(Map3.getLast()));
 	Map3.add(new RightElbow(Map3.getLast()));
@@ -201,16 +201,20 @@ public static LinkedList<Path> generateNext(){
 		int cumPathHeight = 0;
 		int index = 0;
 		while(cumPathHeight <= Game.HEIGHT){
-			cumPathHeight += upcomingPaths.get(upcomingPaths.size() - 1 - index).HEIGHT;
+			for (int i=0; i<World.mapsOnScreen.size(); i++) {
+			cumPathHeight += World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(i).size() - 1 - index).HEIGHT;
 			index++;
 		}
+	}
 		if(cumPathHeight < Game.HEIGHT){
 			index++;
 		}
 		Path [] visiblePaths = new Path [index];
 		for(int i = visiblePaths.length - 1; i >= 0; i--){
-			visiblePaths [i] = upcomingPaths.get(upcomingPaths.size() - 1 - i);
+			for (int j=0; i<World.mapsOnScreen.size(); j++){
+			visiblePaths [i] = World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(j).size() - 1 - 1);
 		}
+	}
 		return visiblePaths;
 	}
 }
