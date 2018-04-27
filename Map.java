@@ -7,13 +7,19 @@ import java.lang.Math;
 
 class Map{
 	public static LinkedList<Path> upcomingPaths;
+	public static LinkedList<Path> Map1;
+	public static LinkedList<Path> Map2;
 	public static List<Path> pathTypes;
+	public static LinkedList<LinkedList<Path>> allMaps;
 	public static Random rand;
 //=======================================
 //Constructor
-	public Map(int j){
+	public Map(){
 		rand = new Random();
 		upcomingPaths = new LinkedList<Path>();
+		Map1 = new LinkedList<Path>();
+		Map2 = new LinkedList<Path>();
+		addMaps();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
 		upcomingPaths.get(0).y = Game.HEIGHT;
@@ -22,10 +28,16 @@ class Map{
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
 		}
 
-		prototypePaths(j);
+		prototypePaths1();
 
 		initializePathTypes();
 	}
+//=======================================
+//add maps to linked list allMaps
+	public void addMaps() {
+	allMaps.add(upcomingPaths);
+	allMaps.add(Map1);
+	allMaps.add(Map2);
 //=======================================
 //Fills pathTypes with instances of each subclass of Path
 	private void initializePathTypes(){
@@ -66,32 +78,53 @@ class Map{
 //=======================================
 //Returns an instance of random subclass of Path
 
-public static void prototypePaths(int j){
-	if (j==0) {
-	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
+public static void prototypePaths1(){
+	//option 1
+
+	Map1.add(new RightCorner(upcomingPaths.getLast()));
+	Map1.add(new RightElbow(upcomingPaths.getLast()));
+	Map1.add(new Straight(upcomingPaths.getLast()));
+	Map1.add(new LeftCorner(upcomingPaths.getLast()));
+	Map1.add(new Horizontal(upcomingPaths.getLast(), false));
+	Map1.add(new Horizontal(upcomingPaths.getLast(), false));
+	Map1.add(new LeftElbow(upcomingPaths.getLast()));
+	Map1.add(new Straight(upcomingPaths.getLast()));
+	Map1.add(new RightCorner(upcomingPaths.getLast()));
+	Map1.add(new Horizontal(upcomingPaths.getLast(), true));
+	Map1.add(new Horizontal(upcomingPaths.getLast(), true));
+	Map1.add(new RightElbow(upcomingPaths.getLast()));
+	Map1.add(new LeftCorner(upcomingPaths.getLast()));
+	Map1.add(new LeftElbow(upcomingPaths.getLast()));
+
+//option 2
+	Map2.add(new LeftCorner(upcomingPaths.getLast()));
+	Map2.add(new Horizontal(upcomingPaths.getLast(), false));
+	Map2.add(new LeftElbow(upcomingPaths.getLast()));
+	Map2.add(new RightCorner(upcomingPaths.getLast()));
+	Map2.add(new RightElbow(upcomingPaths.getLast()));
+	Map2.add(new Straight(upcomingPaths.getLast()));
+	Map2.add(new RightCorner(upcomingPaths.getLast()));
+	Map2.add(new Horizontal(upcomingPaths.getLast(), true));
+	Map2.add(new RightElbow(upcomingPaths.getLast()));
+	Map2.add(new Straight(upcomingPaths.getLast()));
+	Map2.add(new LeftCorner(upcomingPaths.getLast()));
+	Map2.add(new LeftElbow(upcomingPaths.getLast()));
+/*
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
+	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
 	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
 	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
 	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
-	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
-	}
+*/
+
 }
 
 public static Path generateNext(){
