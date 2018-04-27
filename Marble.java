@@ -95,10 +95,10 @@ public class Marble{
 /** Takes the move commands from the KeyboardEvent in Game.java. If the marble is able to move (i.e. the bumpers are down, or the bumpers are down but the marble isn't hitting the sides), then it will move. **/
 
     public void moveUp(){
-		//if(position.y > Game.HEIGHT / 4){
-			if (canMoveUp){
+		if (canMoveUp){
+			if(position.y > Game.HEIGHT / 4){
 				position.y -= 5;
-		//	}
+			}
 		} else {
 			position.y += 0.6;
 		}
@@ -106,26 +106,21 @@ public class Marble{
     } 
 
     public void moveDown(){
-		
-		if (canMoveDown){
-				if(position.y < Game.HEIGHT - (Game.HEIGHT / 4)){
-				position.y += 5;
-			
+		if(position.y < Game.HEIGHT - (Game.HEIGHT / 4)){
+			position.y += 5;
 		}
+		canMoveUp = true;
     }
 
     public void moveRight(){
-		if (canMoveRight){
-	   	 	position.x += 5.0;
-			position.y += 0.6;
-		}
+	   	position.x += 5.0;
+		position.y += 0.6;
     }
 
     public void moveLeft(){
-		if (canMoveLeft){
-	    	position.x -= 5.0;
-			position.y += 0.6;
-		}
+	    position.x -= 5.0;
+		position.y += 0.6;
+		
     }
 //===================================================
 /** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/
@@ -136,97 +131,123 @@ public class Marble{
 		Pair marb = World.marble.position;
 		if(path.name == "Straight"){
 			if(marb.x < path.x){
-				/*if (c == 'j'){
+				if (c == 'j'){
 					World.marble.moveRight();
 					//World.marble.moveUp();
-				}*/
+				}
 			
-				canMoveRight = true;
+				/*canMoveRight = true;
 				canMoveLeft = false;
 				canMoveUp = true;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
 			if (marb.x + World.marble.radius > path.x + path.WIDTH){
-				/*if (c == 'l'){
+				if (c == 'l'){
 					World.marble.moveLeft();
-					World.marble.moveUp();
-				}*/
-				canMoveRight = false;
+					//World.marble.moveUp();
+				}
+				/*canMoveRight = false;
 				canMoveLeft = true;
 				canMoveUp = true;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
 	
 		}
 		
 		else if(path.name == "rightCorner"){
 			if(marb.y < path.y){
-				canMoveRight = true;
+				if (c == 'i'){
+					World.marble.moveDown();
+					canMoveUp = false;
+				}
+				/*canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = false;
-				canMoveDown = true;
-			}
-			if(marb.x < path.exitX && marb.y > path.y){
-				canMoveRight = true;
-				canMoveLeft = false;
-				canMoveUp = true;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
 
-			if(marb.y > path.y + path.WIDTH && marb.x + World.marble.radius > path.exitX + path.WIDTH){
-				canMoveRight = false;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = true;
+			if(marb.x < path.exitX){
+				if (c == 'j'){
+					World.marble.moveLeft();
+				}
 			}
-			if (marb.x > path.exitX + path.WIDTH && marb.y > path.y + path.WIDTH){
-				canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = false;
+
+			if (marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+				if (c == 'k'){
+					World.marble.moveUp();
+				}
+				if (c == 'l'){
+					World.marble.moveLeft();
+				}
 			}
 		}
 
 		else if(path.name == "leftCorner"){
 			if(marb.y < path.y){
-				canMoveRight = true;
+				if (c == 'i'){
+					World.marble.moveDown();
+					canMoveUp = false;
+				}
+				/*canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = false;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
 			if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
-				canMoveRight = false;
+				if (c == 'l'){
+					World.marble.moveLeft();
+				}
+				/*canMoveRight = false;
 				canMoveLeft = true;
 				canMoveUp = true;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
 			if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
-				canMoveRight = true;
+				if (c == 'k'){
+					World.marble.moveUp();
+				}
+				if (c == 'j'){
+					World.marble.moveRight();
+				}
+				/*canMoveRight = true;
 				canMoveLeft = false;
 				canMoveUp = true;
-				canMoveDown = false;
+				canMoveDown = false;*/
 			}
 		}
 
 		else if(path.name == "rightElbow"){
-			if (marb.x + World.marble.radius > path.x + path.WIDTH){
-				canMoveRight = false;
+			if (marb.x + World.marble.radius > path.x + path.WIDTH){ // going out of right side
+				if (c == 'l'){
+					World.marble.moveLeft();
+				}
+				/*canMoveRight = false;
 				canMoveLeft = true;
 				canMoveUp = true;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
-			if (marb.y > path.y + path.HEIGHT){
-				canMoveRight = true;
+			if (marb.y > path.y + path.HEIGHT){ // going out of bottom
+				if (c == 'k'){
+					World.marble.moveUp();
+				}
+				/*canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = true;
-				canMoveDown = false;
+				canMoveDown = false;*/
 			}
-			if (marb.x < path.x && marb.y < path.y + path.WIDTH){
-				canMoveRight = true;
+			if (marb.x < path.x && marb.y < path.y + path.WIDTH){ // going into empty space
+				if (c == 'i'){
+					World.marble.moveDown();
+					canMoveUp = false;
+				}
+				if (c == 'j'){
+					World.marble.moveRight();
+				}
+				/*canMoveRight = true;
 				canMoveRight = false;
 				canMoveLeft = true;
 				canMoveUp = false;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
 			
 		}
@@ -272,43 +293,58 @@ public class Marble{
 
 		else if(path.name == "leftElbow"){
 			if (marb.x < path.x){
-				canMoveRight = true;
+				if (c == 'j'){
+					World.marble.moveRight();
+				}
+				/*canMoveRight = true;
 				canMoveLeft = false;
 				canMoveUp = true;
-				canMoveDown = true;
-			}
-			if (marb.y < path.y + path.HEIGHT && marb.x > path.x + path.WIDTH){
-				canMoveRight = true;
-				canMoveLeft = false;
-				canMoveUp = true;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
 			if (marb.y > path.y + path.HEIGHT){
-				canMoveRight = true;
+				if (c == 'k'){
+					World.marble.moveUp();
+				}
+				/*canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = true;
-				canMoveDown = false;
+				canMoveDown = false;*/
 			}
 			if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
-				canMoveRight = true;
+				if (c == 'i'){
+					World.marble.moveDown();
+					canMoveUp = false;
+				}
+				if (c == 'l'){
+					World.marble.moveLeft();
+				}
+				/*canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = false;
-				canMoveDown = true; 
+				canMoveDown = true; */
 			}
 		}
 
 		else{ //Horizontal
 			if(marb.y < path.y){
-				canMoveRight = true;
+				if (c == 'i'){
+					World.marble.moveDown();
+					canMoveUp = false;
+
+				}
+				/*canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = false;
-				canMoveDown = true;
+				canMoveDown = true;*/
 			}
  			if (marb.y > path.y + path.WIDTH){
-				canMoveRight = true;
+				if (c == 'k'){
+					World.marble.moveUp();
+				}
+				/*canMoveRight = true;
 				canMoveLeft = true;
 				canMoveUp = true;
-				canMoveDown = false;
+				canMoveDown = false;*/
 			}			
 		}
 	}
