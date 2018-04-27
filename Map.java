@@ -74,7 +74,7 @@ class Map{
 public static void prototypePaths1(){
 	//option 1
 
-	Map1.add(new RightCorner(650);
+	Map1.add(new RightCorner(650));
 	Map1.add(new RightElbow(Map1.getLast()));
 	Map1.add(new Straight(Map1.getLast()));
 	Map1.add(new LeftCorner(Map1.getLast()));

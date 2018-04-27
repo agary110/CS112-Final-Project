@@ -50,9 +50,9 @@ public class Game extends JPanel implements KeyListener{
 				if (pressed){
 					world.moveMarble(c);
 				}
-				if(world.map.upcomingPaths.getLast().y > 0){	//Do we still need this or was it just for the prototype?
+				/*if(world.map.upcomingPaths.getLast().y > 0){	//Do we still need this or was it just for the prototype?
 					alive = false;
-				}
+				}*/
 
 				repaint();
 				try{

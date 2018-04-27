@@ -408,9 +408,26 @@ public class Marble{
 	private static Path checkPath(){
 
 		Path [] visiblePaths = new Path [10];
-		int j = 0;
+		int n = 0;
 
-		for(int i = 0; i < Map.upcomingPaths.size(); i++){
+		for(int i = 0; i < World.mapsOnScreen.size(); i++){
+			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
+				if(World.mapsOnScreen.get(i).get(j).y > 0 && World.mapsOnScreen.get(i).get(j).y < Game.HEIGHT){
+					visiblePaths [n] = World.mapsOnScreen.get(i).get(j);
+					n++;
+				}
+			}
+		}
+
+		for(int i = 0; i < World.mapsOnScreen.size(); i++){
+			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
+				if(World.marble.position.y >= World.mapsOnScreen.get(i).get(j).y && World.marble.position.y < World.mapsOnScreen.get(i).get(j).y + World.mapsOnScreen.get(i).get(j).HEIGHT){
+					return World.mapsOnScreen.get(i).get(j);
+				}
+			}
+		}
+
+		/*for(int i = 0; i < Map.upcomingPaths.size(); i++){
 			if(Map.upcomingPaths.get(i).y > 0 && Map.upcomingPaths.get(i).y < Game.HEIGHT){
 				visiblePaths [j] = Map.upcomingPaths.get(i);
 				j++;
@@ -421,7 +438,7 @@ public class Marble{
 				if(World.marble.position.y >= Map.upcomingPaths.get(i).y && World.marble.position.y < Map.upcomingPaths.get(i).y + Map.upcomingPaths.get(i).HEIGHT){
 					return Map.upcomingPaths.get(i);
 				}
-		}
+		}*/
 
 		return null;
 
