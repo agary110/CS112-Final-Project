@@ -50,9 +50,9 @@ public class Game extends JPanel implements KeyListener{
 				if (pressed){
 					world.moveMarble(c);
 				}
-				if(world.map.upcomingPaths.getLast().y > 0){	//Do we still need this or was it just for the prototype?
+				/*if(world.map.upcomingPaths.getLast().y > 0){	//Do we still need this or was it just for the prototype?
 					alive = false;
-				}
+				}*/
 
 				repaint();
 				try{
@@ -101,10 +101,7 @@ public class Game extends JPanel implements KeyListener{
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
-		/*if (alive=false) {
-			System.out.println("hjkasd");
-			frame.dispose();
-		}*/
+		
 	}
 
 	public void paintComponent(Graphics g){
@@ -116,7 +113,6 @@ public class Game extends JPanel implements KeyListener{
 		}
 		else {
 			g.setColor(Color.GREEN);
-			System.out.println("hasGameStarted=false");
 			char[] welcome={'h', 'e', 'l', 'l', 'o', '!', ' ', 't', 'o', ' ', 'b', 'e', 'g', 'i', 	'n', ' ', 'p', 'l', 'a', 'y', 'i', 'n', 'g', ',', ' ', 'p', 'r', 'e', 's', 	's', ' ', 't', 'h', 'e', ' ', 's', 'p', 'a', 'c', 'e', ' ', 'b', 'a', 'r', 	'.'};
 			g.drawChars(welcome, 0, welcome.length, 400, 400);
 }

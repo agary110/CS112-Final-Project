@@ -19,6 +19,7 @@ class Item{
 	public boolean drawn;
 	static Random rand;
 
+//Item Constructor
 	public Item(int x, int y){
 		this.x = x;
 		this.y = y;
@@ -29,6 +30,7 @@ class Item{
 		rand = new Random();
 	}
 
+//Item update()
 	public void update(){
 
 		this.y++;
@@ -52,6 +54,7 @@ class Item{
 
 	}
 
+//Item generateNextItem()
 	public static Item generateNextItem(int randNum){
 
 		int x = Game.WIDTH / 2 + 1;
@@ -97,13 +100,16 @@ class Item{
 		return new Ammo(x, y);
 	}
 
+//Item pickUp()
 	public void pickUp(){
 		drawn = false;
 	}
 
+//Item draw(Graphics g)
 	public void draw(Graphics g){
 	}
 
+//Item activate()
 	public void activate(){
 	}
 }
@@ -136,6 +142,7 @@ class Bomb extends Item{
 //=======================================
 //Class Ammo extends Item (increases ammoCount by 1-3)
 //Add something that says “Ammo Counter:” next to the counter
+//Fix draw(g)
 
 class Ammo extends Item{
 	int increase;
