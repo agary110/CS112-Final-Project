@@ -65,16 +65,6 @@ class Map{
 				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
-	System.out.println("previous.last: " + World.mapsOnScreen.get(0).getLast().y);
-	System.out.println("next.first: " + World.mapsOnScreen.get(1).get(0).y);
-/*
-
-	for (int i = 0; i<Map1.size(); i++) {
-		Map1.get(i).draw(g);
-		System.out.println(Map1.get(i).x + " " + Map1.get(i).y);
-		}
-*/
-
 	}
 //=======================================
 //Returns an instance of random subclass of Path
