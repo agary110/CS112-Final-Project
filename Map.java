@@ -65,8 +65,7 @@ class Map{
 				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
-	System.out.println("previous.last: " + World.mapsOnScreen.get(0).getLast().y);
-	System.out.println("next.first: " + World.mapsOnScreen.get(1).get(0).y);
+
 /*
 
 	for (int i = 0; i<Map1.size(); i++) {

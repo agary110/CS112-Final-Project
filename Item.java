@@ -399,10 +399,32 @@ class Bumpers extends Booster{
 
 	public void update(){
 		super.update();
-		//World.marble.canMove = true;
-		//Game.alive = true;
+		//World.marble.checkForBumpers(Game.world, KEYPRESSED); //How do we get keypressed?
+		checkTopEdge();
 	}
-	//NEED: a draw method which will add some color to the edge of the path. It can do this by going through all the paths 
+
+	public void checkTopEdge(){
+		Path path = Marble.checkPath();
+		Pair marb = World.marble.position;
+
+		if(path.name != "Straight"){
+			if(path.name == "leftCorner" || path.name == "rightCorner" || path.name == "Horizontal"){
+				if(marb.y < path.y){
+					marb.y++;
+				}
+			}
+			if (path.name == "rightElbow"){
+				if (marb.x < path.x && marb.y < path.y + path.WIDTH){
+					marb.y++;
+				}
+			}
+			if (path.name == "leftElbow"){
+				if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
+					marb.y++;
+				}
+			}
+		}
+	}
 }
 
 //=======================================

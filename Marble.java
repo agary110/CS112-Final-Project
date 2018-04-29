@@ -135,21 +135,12 @@ public class Marble{
 					World.marble.moveRight();
 					//World.marble.moveUp();
 				}
-			
-				/*canMoveRight = true;
-				canMoveLeft = false;
-				canMoveUp = true;
-				canMoveDown = true;*/
 			}
 			if (marb.x + World.marble.radius > path.x + path.WIDTH){
 				if (c == 'l'){
 					World.marble.moveLeft();
 					//World.marble.moveUp();
 				}
-				/*canMoveRight = false;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = true;*/
 			}
 	
 		}
@@ -160,10 +151,6 @@ public class Marble{
 					World.marble.moveDown();
 					canMoveUp = false;
 				}
-				/*canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = false;
-				canMoveDown = true;*/
 			}
 
 			if(marb.x < path.exitX){
@@ -188,19 +175,11 @@ public class Marble{
 					World.marble.moveDown();
 					canMoveUp = false;
 				}
-				/*canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = false;
-				canMoveDown = true;*/
 			}
 			if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
 				if (c == 'l'){
 					World.marble.moveLeft();
 				}
-				/*canMoveRight = false;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = true;*/
 			}
 			if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
 				if (c == 'k'){
@@ -209,10 +188,6 @@ public class Marble{
 				if (c == 'j'){
 					World.marble.moveRight();
 				}
-				/*canMoveRight = true;
-				canMoveLeft = false;
-				canMoveUp = true;
-				canMoveDown = false;*/
 			}
 		}
 
@@ -221,19 +196,11 @@ public class Marble{
 				if (c == 'l'){
 					World.marble.moveLeft();
 				}
-				/*canMoveRight = false;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = true;*/
 			}
 			if (marb.y > path.y + path.HEIGHT){ // going out of bottom
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
-				/*canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = false;*/
 			}
 			if (marb.x < path.x && marb.y < path.y + path.WIDTH){ // going into empty space
 				if (c == 'i'){
@@ -243,72 +210,21 @@ public class Marble{
 				if (c == 'j'){
 					World.marble.moveRight();
 				}
-				/*canMoveRight = true;
-				canMoveRight = false;
-				canMoveLeft = true;
-				canMoveUp = false;
-				canMoveDown = true;*/
 			}
 			
 		}
 
-
-			/*if(marb.y > path.y + path.WIDTH){
-				if(marb.x + World.marble.radius > path.exitX + path.HEIGHT){
-					canMoveRight = false;
-					canMoveLeft = true;
-					canMoveUp = true;
-					canMoveDown = true;
-				}
-				if(marb.y > path.y + path.HEIGHT){
-					canMoveRight = true;
-					canMoveLeft = true;
-					canMoveUp = true;
-					canMoveDown = false;
-				}
-				if(marb.x < path.x){
-					if(marb.y < path.y + path.WIDTH){
-						canMoveRight = true;
-						canMoveLeft = true;
-						canMoveUp = false;
-						canMoveDown = true;
-					}
-				}
-			}
-			else{
-				if(marb.x < path.x){
-					canMoveRight = true;
-					canMoveLeft = false;
-					canMoveUp = true;
-					canMoveDown = true;
-				}
-				if (marb.x + World.marble.radius > path.x + path.WIDTH){
-					canMoveRight = false;
-					canMoveLeft = true;
-					canMoveUp = true;
-					canMoveDown = true;
-				}
-			}*/
-		//}
 
 		else if(path.name == "leftElbow"){
 			if (marb.x < path.x){
 				if (c == 'j'){
 					World.marble.moveRight();
 				}
-				/*canMoveRight = true;
-				canMoveLeft = false;
-				canMoveUp = true;
-				canMoveDown = true;*/
 			}
 			if (marb.y > path.y + path.HEIGHT){
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
-				/*canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = false;*/
 			}
 			if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 				if (c == 'i'){
@@ -318,10 +234,6 @@ public class Marble{
 				if (c == 'l'){
 					World.marble.moveLeft();
 				}
-				/*canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = false;
-				canMoveDown = true; */
 			}
 		}
 
@@ -332,19 +244,11 @@ public class Marble{
 					canMoveUp = false;
 
 				}
-				/*canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = false;
-				canMoveDown = true;*/
 			}
  			if (marb.y > path.y + path.WIDTH){
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
-				/*canMoveRight = true;
-				canMoveLeft = true;
-				canMoveUp = true;
-				canMoveDown = false;*/
 			}			
 		}
 	}
@@ -440,7 +344,7 @@ public class Marble{
 //============================================
 /** Get all the paths that currently exist, check which one the marble is currently on, and return it. **/
 
-	private static Path checkPath(){
+	public static Path checkPath(){
 
 		Path [] visiblePaths = new Path [100];
 		int n = 0;
