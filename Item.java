@@ -57,9 +57,23 @@ class Item{
 //Item generateNextItem()
 	public static Item generateNextItem(int randNum){
 
-		int x = Game.WIDTH / 2 + 1;
-		int xPlus = rand.nextInt(2);
-		x = x + xPlus * (Path.WIDTH / 3 - 1);
+		int pathX = Game.WIDTH / 2 + Path.WIDTH / 2;
+		for(int i = World.mapsOnScreen.size() - 1; i >= 0; i--){
+			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
+				if(World.mapsOnScreen.get(i).get(j).name == "Horizontal"){
+					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.WIDTH >= 0){
+						pathX = World.mapsOnScreen.get(i).get(j).x;
+						break;
+					}
+				}
+				else if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.HEIGHT >= 0){
+					pathX = World.mapsOnScreen.get(i).get(j).x;
+					break;
+				}
+			}
+		}
+
+		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 
 		int y = 0 - width;
 
@@ -399,7 +413,6 @@ class Bumpers extends Booster{
 
 	public void update(){
 		super.update();
-		//World.marble.checkForBumpers(Game.world, KEYPRESSED); //How do we get keypressed?
 		checkTopEdge();
 	}
 
