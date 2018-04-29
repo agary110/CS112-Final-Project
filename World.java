@@ -115,7 +115,7 @@ public class World{
 		map.update(time);
 	}
 
-	/*private void updatePoints(double time){
+	/*private void updatePoints(){
 		points = points + time;
 	}*/
 
