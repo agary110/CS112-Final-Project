@@ -42,9 +42,7 @@ public class Horizontal extends Path{
 		g.setColor(color);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		RenderingHints.VALUE_ANTIALIAS_ON);
-		System.out.println(direction);
 		if(direction){
-			System.out.println("got in");
 			g.fill(new Rectangle2D.Double(exitX, y, HEIGHT, WIDTH));
 		}
 		else{

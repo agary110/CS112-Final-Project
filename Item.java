@@ -343,6 +343,7 @@ class Alien extends Item{
 			if(World.ammoActiveLast.get(i).x < this.x + width && World.ammoActiveLast.get(i).x > this.x && World.ammoActiveLast.get(i).y < this.y + width){
 				deadly = false;
 				AmmoReleased.deactivate(i);
+				World.points += 10;
 			}
 		}
 	}
