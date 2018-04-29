@@ -52,9 +52,14 @@ public class Horizontal extends Path{
 		}
 		if (World.bumpersOn){
 			g.setColor(Color.RED);
-			g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));
-			g.fill(new Rectangle2D.Double(x, y + WIDTH, HEIGHT, bumperWidth));
-			
+			if(direction){
+				g.fill(new Rectangle2D.Double(exitX, y - bumperWidth, HEIGHT, bumperWidth));
+				g.fill(new Rectangle2D.Double(exitX, y + WIDTH, HEIGHT, bumperWidth));
+			}
+			else{
+				g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));
+				g.fill(new Rectangle2D.Double(x, y + WIDTH, HEIGHT, bumperWidth));
+			}
 		} 
 		g.setColor(color);
 		

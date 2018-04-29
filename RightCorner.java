@@ -28,15 +28,15 @@ public class RightCorner extends Path {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   RenderingHints.VALUE_ANTIALIAS_ON);
 	 	g.setColor(color);
-		g.fill (new Rectangle2D.Double(x-WIDTH, y, WIDTH, WIDTH)); // top left square
-		g.fill (new Rectangle2D.Double(x-HEIGHT, y, WIDTH, HEIGHT)); // tall vertical rect
+		g.fill (new Rectangle2D.Double(x-WIDTH, y, WIDTH, WIDTH)); 
+		g.fill (new Rectangle2D.Double(x-HEIGHT, y, WIDTH, HEIGHT)); 
 		if (World.bumpersOn){
 			g.setColor(Color.RED);
 			
-			g.fill(new Rectangle2D.Double(x - HEIGHT, y - bumperWidth, HEIGHT, bumperWidth)); // long horizontal top
-			g.fill(new Rectangle2D.Double(x - HEIGHT - bumperWidth, y - bumperWidth, bumperWidth, HEIGHT + bumperWidth)); // long right vertical side
-			g.fill(new Rectangle2D.Double(x - WIDTH, y + WIDTH, WIDTH, bumperWidth)); // short horizontal underside
-			g.fill(new Rectangle2D.Double(x - WIDTH, y + WIDTH, bumperWidth, WIDTH)); // short vertical left side
+			g.fill(new Rectangle2D.Double(x - HEIGHT, y - bumperWidth, HEIGHT, bumperWidth));
+			g.fill(new Rectangle2D.Double(x - HEIGHT - bumperWidth, y - bumperWidth, bumperWidth, HEIGHT + bumperWidth)); 
+			g.fill(new Rectangle2D.Double(x - WIDTH, y + WIDTH, WIDTH, bumperWidth)); 
+			g.fill(new Rectangle2D.Double(x - WIDTH, y + WIDTH, bumperWidth, WIDTH));
 		}
 		g.setColor(color);
     }	

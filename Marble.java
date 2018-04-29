@@ -120,6 +120,7 @@ public class Marble{
     public void moveLeft(){
 	    position.x -= 5.0;
 		position.y += 0.6;
+		System.out.println("move left");
 		
     }
 //===================================================
@@ -133,13 +134,11 @@ public class Marble{
 			if(marb.x < path.x){
 				if (c == 'j'){
 					World.marble.moveRight();
-					//World.marble.moveUp();
 				}
 			}
 			if (marb.x + World.marble.radius > path.x + path.WIDTH){
 				if (c == 'l'){
 					World.marble.moveLeft();
-					//World.marble.moveUp();
 				}
 			}
 	
@@ -149,17 +148,16 @@ public class Marble{
 			if(marb.y < path.y){
 				if (c == 'i'){
 					World.marble.moveDown();
-					canMoveUp = false;
+					//canMoveUp = false;
 				}
 			}
-
-			if(marb.x < path.exitX){
+			if(marb.x < path.x - path.HEIGHT){
 				if (c == 'j'){
-					World.marble.moveLeft();
+					World.marble.moveRight();
 				}
 			}
 
-			if (marb.y > path.y + path.WIDTH && marb.x > path.exitX + path.WIDTH){
+			if (marb.y + World.marble.radius > path.y + path.WIDTH && marb.x + World.marble.radius > path.x - path.WIDTH){
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
@@ -173,7 +171,7 @@ public class Marble{
 			if(marb.y < path.y){
 				if (c == 'i'){
 					World.marble.moveDown();
-					canMoveUp = false;
+					//canMoveUp = false;
 				}
 			}
 			if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
@@ -181,7 +179,7 @@ public class Marble{
 					World.marble.moveLeft();
 				}
 			}
-			if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
+			if(marb.x < path.exitX && marb.y + World.marble.radius > path.y + path.WIDTH){
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
@@ -192,12 +190,13 @@ public class Marble{
 		}
 
 		else if(path.name == "rightElbow"){
-			if (marb.x + World.marble.radius > path.x + path.WIDTH){ // going out of right side
+			if (marb.x + World.marble.radius >= path.exitX + path.WIDTH){ // going out of right side
 				if (c == 'l'){
 					World.marble.moveLeft();
+					System.out.println("rightElbow right side");
 				}
 			}
-			if (marb.y > path.y + path.HEIGHT){ // going out of bottom
+			if (marb.y + World.marble.radius > path.y + path.HEIGHT){ // going out of bottom
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
@@ -205,7 +204,7 @@ public class Marble{
 			if (marb.x < path.x && marb.y < path.y + path.WIDTH){ // going into empty space
 				if (c == 'i'){
 					World.marble.moveDown();
-					canMoveUp = false;
+					//canMoveUp = false;
 				}
 				if (c == 'j'){
 					World.marble.moveRight();
@@ -221,7 +220,7 @@ public class Marble{
 					World.marble.moveRight();
 				}
 			}
-			if (marb.y > path.y + path.HEIGHT){
+			if (marb.y + World.marble.radius > path.y + path.HEIGHT){
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
@@ -229,7 +228,7 @@ public class Marble{
 			if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 				if (c == 'i'){
 					World.marble.moveDown();
-					canMoveUp = false;
+					//canMoveUp = false;
 				}
 				if (c == 'l'){
 					World.marble.moveLeft();
@@ -241,11 +240,11 @@ public class Marble{
 			if(marb.y < path.y){
 				if (c == 'i'){
 					World.marble.moveDown();
-					canMoveUp = false;
+					//canMoveUp = false;
 
 				}
 			}
- 			if (marb.y > path.y + path.WIDTH){
+ 			if (marb.y + World.marble.radius > path.y + path.WIDTH){
 				if (c == 'k'){
 					World.marble.moveUp();
 				}
