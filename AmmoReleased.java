@@ -14,45 +14,39 @@ public class AmmoReleased{
 	}
 
 	public void draw(Graphics g){
-		g.setColor(Color.GRAY);
-		g.fillRect(x, y, width, length);
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, width, length);
+		for(int i = 0; i < World.ammoActive.size(); i++){
+			g.setColor(Color.GRAY);
+			g.fillRect(World.ammoActive.get(i).x, World.ammoActive.get(i).y, width, length);
+			g.setColor(Color.BLACK);
+			g.drawRect(World.ammoActive.get(i).x, World.ammoActive.get(i).y, width, length);
+		}
 	}
 
-	public void update(Node node){
+	public void update(){
 		this.y-= 2;
 
 		if(this.y < -length){ //when bottom of ammo goes offscreen
-			this.deactivate(node.index);
+			this.deactivate();
 		}
 
-		if(World.ammoActiveCount == 0){
+		if(World.ammoActive.size() == 0){
 			World.ammoReleased = false;
 		}
 	}
 
 	public static void activate(){
 		AmmoReleased newAmmoReleased = new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y));
-		if(World.ammoActiveCount == 0){
-			Node n = new Node(newAmmoReleased);
-			World.ammoActiveLast = n;
-		}
-		else{
-			World.ammoActiveLast.append(newAmmoReleased);
-		}
+		World.ammoActive.add(newAmmoReleased);
 		World.ammoCount--;
-		World.ammoActiveCount++;
 	}
 
-	public static void deactivate(int index){
-		World.ammoActiveLast.remove(index);
-		World.ammoActiveCount--;
+	public static void deactivate(){
+		World.ammoActive.remove();
 	}
 
 }
 
-class Node{
+/*class Node{
 
 	AmmoReleased ammoR;
 	Node previous;
@@ -68,12 +62,9 @@ class Node{
 		Node toAppend = new Node(ammoR);
 		toAppend.previous = World.ammoActiveLast;
 		World.ammoActiveLast = toAppend;
-
-		//does World.activeAmmoCount have to change here?
 	}
 
 	public AmmoReleased get(int index){
-		int j; // why is this here, and why do we have an index variable if we don't use it here
 		Node n = World.ammoActiveLast;
 		for(int i = World.ammoActiveCount; i > index; i--){
 			n = n.previous;
@@ -84,7 +75,6 @@ class Node{
 	}
 
 	public Node getNode(int index){
-		int j;
 		Node toReturn = World.ammoActiveLast;
 		for(int i = World.ammoActiveCount; i > index; i--){
 			toReturn = toReturn.previous;
@@ -105,4 +95,4 @@ class Node{
 		}
 	}
 
-}
+}*/

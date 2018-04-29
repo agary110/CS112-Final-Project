@@ -19,8 +19,7 @@ public class World{
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
-	static Node ammoActiveLast;
-	static int ammoActiveCount;
+	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
 	static boolean bumpersOn;
 //=======================================
@@ -32,7 +31,7 @@ public class World{
    		aliveItem = false;
 		item = new Item(Game.WIDTH / 2, Game.HEIGHT);
 		timeUntilNextItem = 2;
-		ammoCount = 100;
+		ammoCount = 0;
 		points = 0;
 		ammoReleased = false;
 		rand = new Random(1);
@@ -40,10 +39,8 @@ public class World{
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
 		mapsOnScreen.add(Map.Map1);
-	    //this will change soon
-		ammoActiveLast = null;
-		ammoActiveCount = 0;
-		bumpersOn = true;
+		ammoActive = new LinkedList<AmmoReleased>();
+		bumpersOn = false;
 	}
 //=======================================
 //Draw Methods
@@ -77,18 +74,9 @@ public class World{
 		Ammo.drawAmmoCounter(g);
    }
 
-//we should move this into AmmoReleased class
-
 	public void drawAmmoReleased(Graphics g){
-		int j;
-		Node index;
-		for(int i = 0; i < ammoActiveCount; i++){
-			j = i;
-			index = ammoActiveLast;
-			while(j > 0){
-				index = index.previous;
-			}
-			index.ammoR.draw(g);
+		for(int i = 0; i < ammoActive.size(); i++){
+			ammoActive.get(i).draw(g);
 		}
 	}
 
@@ -125,11 +113,8 @@ public class World{
 
 	private void updateAmmoReleased(){
 		if(ammoReleased){
-			for(int i = 0; i < ammoActiveCount; i++){
-				if (ammoActiveLast.getNode(i).ammoR != null){
-					AmmoReleased a = ammoActiveLast.getNode(i).ammoR;
-					a.update(ammoActiveLast.getNode(i));
-				}
+			for(int i = 0; i < ammoActive.size(); i++){
+				ammoActive.get(i).update();
 			}
 		}
 	}

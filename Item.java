@@ -74,10 +74,9 @@ class Item{
 		}
 
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
-
 		int y = 0 - width;
 
-		randNum = 1;
+		randNum = 5;
 
 		//Bomb
 		if(randNum == 0){
@@ -319,10 +318,10 @@ class Alien extends Item{
 		super.update();
 
 		if(World.ammoReleased){
-			for(int i = 0; i < World.ammoActiveCount; i++){
-				if(World.ammoActiveLast.get(i).y == this.y){
-					if(this.x + this.width - 2 >= World.ammoActiveLast.get(i).x){
-						if(this.x <= World.ammoActiveLast.get(i).x + AmmoReleased.width - 2){
+			for(int i = 0; i < World.ammoActive.size(); i++){
+				if(World.ammoActive.get(i).y == this.y){
+					if(this.x + this.width - 2 >= World.ammoActive.get(i).x){
+						if(this.x <= World.ammoActive.get(i).x + AmmoReleased.width - 2){
 							this.deactivate();
 						}
 					}
@@ -339,10 +338,10 @@ class Alien extends Item{
 
 	public void deactivate(){
 		//When hit with ammo, Alien dies
-		for(int i = 0; i < World.ammoActiveCount; i++){
-			if(World.ammoActiveLast.get(i).x < this.x + width && World.ammoActiveLast.get(i).x > this.x && World.ammoActiveLast.get(i).y < this.y + width){
+		for(int i = 0; i < World.ammoActive.size(); i++){
+			if(World.ammoActive.get(i).x < this.x + width && World.ammoActive.get(i).x > this.x && World.ammoActive.get(i).y < this.y + width){
 				deadly = false;
-				AmmoReleased.deactivate(i);
+				AmmoReleased.deactivate();
 				World.points += 10;
 			}
 		}
