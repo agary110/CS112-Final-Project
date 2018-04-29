@@ -16,7 +16,7 @@ public class World{
 	boolean aliveItem;
 	static double timeUntilNextItem;
 	static final double originalTimeUntilNextItem = 7;
-	static int points;
+	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
 	static Node ammoActiveLast;
@@ -117,9 +117,11 @@ public class World{
 		map.update(time);
 	}
 
-	/*private void updatePoints(){
-		points = points + time;
-	}*/
+	private void updatePoints(){
+		if(Game.hasGameStarted){
+			points += 1 / (double)(Game.FPS);
+		}
+	}
 
 	private void updateAmmoReleased(){
 		if(ammoReleased){
@@ -137,7 +139,7 @@ public class World{
 		updateMarble(time);
 		updateItem();
 		updateMap(time);
-		//updatePoints(time);
+		updatePoints();
 		updateAmmoReleased();
 	}
 //=======================================
