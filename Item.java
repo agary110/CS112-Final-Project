@@ -63,7 +63,11 @@ class Item{
 
 		int y = 0 - width;
 
+<<<<<<< HEAD
 		randNum = 2;
+=======
+		randNum = 4;
+>>>>>>> 09c2206c37bab25f25f32f2fea70179f127ee4b1
 
 		//Bomb
 		if(randNum == 0){

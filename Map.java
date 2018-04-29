@@ -16,7 +16,7 @@ class Map{
 //=======================================
 //Constructor
 	public Map(){
-		rand = new Random();
+		rand = new Random(1);
 		upcomingPaths = new LinkedList<Path>();
 		Map1 = new LinkedList<Path>();
 		Map2 = new LinkedList<Path>();
@@ -143,7 +143,7 @@ public static void prototypePaths1(){
 //=======================================
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
-	LinkedList<Path> toAppend = allMaps.get(randNum);
+	LinkedList<Path> toAppend = new LinkedList<Path>(allMaps.get(randNum));
 	return toAppend;
 }
 //=======================================
