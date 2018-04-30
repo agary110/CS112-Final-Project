@@ -260,7 +260,7 @@ public class Marble{
 
 		/*** Null pointer exception occurs here because checkPath() returns a null ***/
 		if(path.name == "Straight"){
-			if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
+			if(marb.x + World.marble.radius / 3 < path.x || marb.x + World.marble.radius / 3 * 2 > path.x + path.WIDTH){
 				Game.alive = false;
 			}
 		}
@@ -345,10 +345,10 @@ public class Marble{
 
 	public static Path checkPath(){
 
-		//Is the commented off code necessary? Does the stuff below it just replace it?
 		Path [] visiblePaths = new Path [100];
 		int n = 0;
 
+		//Puts all paths that are currently visible into visiblePaths
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
 				if(World.mapsOnScreen.get(i).get(j).y > 0 && World.mapsOnScreen.get(i).get(j).y < Game.HEIGHT){
@@ -365,6 +365,21 @@ public class Marble{
 				}
 			}
 		}
+
+		//Attempt to rewrite
+		/*for(int i = 0; i < visiblePaths.length; i++){
+			if(visiblePaths[i] == null){
+				break;
+			}
+			if(World.marble.position.y >= visiblePaths[i].y){
+				if(visiblePaths [i].name == "Horizontal" && World.marble.position.y <= visiblePaths [i].y + Path.WIDTH){
+					return visiblePaths [i];
+				}
+				else if(World.marble.position.y <= visiblePaths [i].y + Path.HEIGHT){
+					return visiblePaths [i];
+				}
+			}
+		}*/
 
 		System.out.println("checkPath() is returning a null");
 		return null;

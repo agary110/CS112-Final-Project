@@ -5,12 +5,14 @@ public class AmmoReleased{
 
 	int x;
 	int y;
+	int direction; //[1] up; [2] right; [3] down; [4] left;
 	static final int width = 2;
 	static final int length = 8;
 
-	public AmmoReleased(int x, int y){
+	public AmmoReleased(int x, int y, int direction){
 		this.x = x;
 		this.y = y;
+		this.direction = direction;
 	}
 
 	public void draw(Graphics g){
@@ -23,20 +25,53 @@ public class AmmoReleased{
 	}
 
 	public void update(){
-		this.y-= 2;
-
-		if(this.y < -length){ //when bottom of ammo goes offscreen
-			this.deactivate();
-		}
-
 		if(World.ammoActive.size() == 0){
 			World.ammoReleased = false;
 		}
+
+		if(direction == 1){
+			this.y -= 2;
+			if(this.y < -length){
+				this.deactivate();
+			}
+		}
+
+		else if(direction == 2){
+			this.x += 4;
+			if(this.x > Game.WIDTH){
+				this.deactivate();
+			}
+		}
+
+		else if(direction == 3){
+			this.y += 4;
+			if(this.y > Game.HEIGHT){
+				this.deactivate();
+			}
+		}
+
+		else if(direction == 4){
+			this.x -= 4;
+			if(this.x < -length){
+				this.deactivate();
+			}
+		}
 	}
 
-	public static void activate(){
-		AmmoReleased newAmmoReleased = new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y));
-		World.ammoActive.add(newAmmoReleased);
+	public static void activate(char c){
+		int direction = 1;
+		if(c == 'l'){
+			direction = 2;
+		}
+		else if(c == 'k'){
+			direction = 3;
+		}
+		else if(c == 'j'){
+			direction = 4;
+		}
+
+		AmmoReleased toAppend = new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y), direction);
+		World.ammoActive.add(toAppend);
 		World.ammoCount--;
 	}
 
@@ -49,54 +84,3 @@ public class AmmoReleased{
 	}
 
 }
-
-/*class Node{
-
-	AmmoReleased ammoR;
-	Node previous;
-	int index;
-
-	public Node(AmmoReleased ammoR){
-		this.ammoR = ammoR;
-		this.index = World.ammoActiveCount;
-		previous = null;
-	}
-
-	public void append(AmmoReleased ammoR){
-		Node toAppend = new Node(ammoR);
-		toAppend.previous = World.ammoActiveLast;
-		World.ammoActiveLast = toAppend;
-	}
-
-	public AmmoReleased get(int index){
-		Node n = World.ammoActiveLast;
-		for(int i = World.ammoActiveCount; i > index; i--){
-			n = n.previous;
-		}
-
-		AmmoReleased toReturn = n.ammoR;
-		return toReturn;
-	}
-
-	public Node getNode(int index){
-		Node toReturn = World.ammoActiveLast;
-		for(int i = World.ammoActiveCount; i > index; i--){
-			toReturn = toReturn.previous;
-		}
-
-		return toReturn;
-	}
-
-	public void remove(int index){
-		if(index == World.ammoActiveCount - 1){
-			World.ammoActiveLast = World.ammoActiveLast.previous;
-		}
-		else if(index == 0){
-			World.ammoActiveLast.getNode(1).previous = null;
-		}
-		else{
-			World.ammoActiveLast.getNode(index + 1).previous = World.ammoActiveLast.getNode(index - 1);
-		}
-	}
-
-}*/
