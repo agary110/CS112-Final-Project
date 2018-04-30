@@ -23,6 +23,8 @@ public class Game extends JPanel implements KeyListener{
 	public static boolean hasGameStarted;
 	char c;
 
+	public static double tempHighScore;
+
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
 		this.addKeyListener(this); 
@@ -37,6 +39,7 @@ public class Game extends JPanel implements KeyListener{
 		points = 0;
 		pressed=false;
 		c = ' ';
+		tempHighScore = 100;
 	}
 
 //================================================
@@ -44,7 +47,7 @@ public class Game extends JPanel implements KeyListener{
 	class Runner implements Runnable{
 		public void run(){
 
-			while(true){	//this should actually be while(alive) (while(true) is for debugging purposes)
+			while(alive){	//this should actually be while(alive) (while(true) is for debugging purposes)
 
 				world.nextFrame(1.0 / (double)(FPS));
 				if (pressed){
@@ -57,7 +60,7 @@ public class Game extends JPanel implements KeyListener{
 				catch(InterruptedException e){}
 			}
 			
-			//FILE OUTPUT GOES HERE
+			Logger.writeHighScore(tempHighScore, "highscore.txt");
 
 		}
 	}
