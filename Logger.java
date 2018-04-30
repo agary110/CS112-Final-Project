@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.Scanner;
 
-public class Logger{
+class Logger{
 	public static void writeHighScore(double points, String outFileName){
 		try {
 			double currentHighScore = readHighScore(outFileName);
@@ -38,12 +38,6 @@ public class Logger{
 	   		System.err.println(e);
 		}
 		return 0.0;
-	}
-
-	public static void main (String args[]){
-		writeHighScore(3, "highscore.txt");
-	//	double a = readHighScore("highscore.txt");
-		//System.out.println(a);
 	}
 
 }

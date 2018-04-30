@@ -10,6 +10,7 @@ class Map{
 	public static LinkedList<Path> Map1;
 	public static LinkedList<Path> Map2;
 	public static LinkedList<Path> Map3;
+	public static LinkedList<Path> Map4;
 	public static List<Path> pathTypes;
 	public static LinkedList<LinkedList<Path>> allMaps;
 	public static Random rand;
@@ -21,6 +22,7 @@ class Map{
 		Map1 = new LinkedList<Path>();
 		Map2 = new LinkedList<Path>();
 		Map3 = new LinkedList<Path>();
+		Map4 = new LinkedList<Path>();
 		allMaps = new LinkedList<LinkedList<Path>>();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
@@ -35,11 +37,12 @@ class Map{
 	}
 //=======================================
 //Add maps to linked list allMaps
-	public void addMaps() {
+	public static void addMaps() {
 		allMaps.add(upcomingPaths);
-		//allMaps.add(Map1);
-		//allMaps.add(Map2);
+		allMaps.add(Map1);
+		allMaps.add(Map2);
 		allMaps.add(Map3);
+		allMaps.add(Map4);
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
@@ -60,24 +63,25 @@ class Map{
 			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
 				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
 			}
+		System.out.println("we updating");
 		}
 
-		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
-			World.mapsOnScreen.remove(0);
-			for(int i = 0; i < World.mapsOnScreen.get(1).size(); i++){
-				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
-			}
-		}
+	
+			
+		
 
 	}
 //=======================================
 //Draws Map using draw methods from subclasses of Path
 	public void draw(Graphics g){
+		System.out.println("are we drawing??");
+		System.out.println("World.mapsOnScreen.get(1).get(1).x: " + World.mapsOnScreen.get(1).get(1).x +" World.mapsOnScreen.get(1).get(1).y: " + World.mapsOnScreen.get(1).get(1).y);
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for (int j=0; j<World.mapsOnScreen.get(i).size(); j++) {
 				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
+		
 	}
 //=======================================
 //Returns an instance of random subclass of Path
@@ -97,6 +101,10 @@ public static void prototypePaths1(){
 	Map1.add(new Horizontal(Map1.getLast(), true));
 	Map1.add(new Horizontal(Map1.getLast(), true));
 	Map1.add(new RightElbow(Map1.getLast()));
+	Map1.add(new Straight(Map1.getLast()));
+	Map1.add(new LeftCorner(Map1.getLast()));
+	Map1.add(new LeftElbow(Map1.getLast()));
+	Map1.add(new Straight(Map1.getLast()));
 	Map1.add(new LeftCorner(Map1.getLast()));
 	Map1.add(new LeftElbow(Map1.getLast()));
 
@@ -113,6 +121,8 @@ public static void prototypePaths1(){
 	Map2.add(new Straight(Map2.getLast()));
 	Map2.add(new LeftCorner(Map2.getLast()));
 	Map2.add(new LeftElbow(Map2.getLast()));
+	Map2.add(new LeftCorner(Map2.getLast()));
+	Map2.add(new LeftElbow(Map2.getLast()));
 	
 //option 3
 	Map3.add(new RightCorner(upcomingPaths.getLast()));
@@ -127,6 +137,15 @@ public static void prototypePaths1(){
 	Map3.add(new LeftCorner(Map3.getLast()));
 	//Left corner does not work— need to fix
 	Map3.add(new LeftElbow(Map3.getLast()));
+	Map3.add(new LeftCorner(Map3.getLast()));
+//straight option, just for debugging
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
 /*
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
@@ -149,7 +168,7 @@ public static void prototypePaths1(){
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
 	LinkedList<Path> toAppend = new LinkedList<Path>(allMaps.get(randNum));
-	System.out.println("in generate next");
+	System.out.println("in generate next and number of allMaps is: " + allMaps.size());
 	return toAppend;
 }
 //=======================================
