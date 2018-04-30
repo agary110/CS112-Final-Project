@@ -76,7 +76,7 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
-		randNum = 4;
+		randNum = 2;
 
 		//Bomb
 		if(randNum == 0){
@@ -431,30 +431,28 @@ class Bumpers extends Booster{
 
 class ChangeSpeed extends Booster{
 	boolean increase;
+	double increment;
+	double originalIncrement;
 
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
+		increment = 3.0;
+		originalIncrement = World.marble.XposIncrement;
 	}
 
 	public void activate(){
-		//How to actually change the speed
-		//NOTE: when we do this we also have to change the y position increments — do the physics on this
 		this.activated = true;
-
 		if (increase) {
-			World.marble.speedIncrement += 10;
+			World.marble.XposIncrement += increment;
 		} else {
-			World.marble.speedIncrement -= 10;
+			World.marble.XposIncrement -= increment;
 		}
+		increment = 0;
 	}
 
 	public void deactivate(){
-		if (increase) {
-			World.marble.speedIncrement -= 10;
-		} else {
-			World.marble.speedIncrement += 10;
-		}
+		World.marble.XposIncrement = originalIncrement;
 		this.activated = false;
 		//How to actually make the speed normal again
 	}
