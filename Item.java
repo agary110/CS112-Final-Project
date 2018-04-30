@@ -497,7 +497,6 @@ class ChangeSpeed extends Booster{
 //=======================================
 //ChangeSize extends Booster (changes the size of the marble by a constant - positive or negative change is based on a Random)
 
-/** Makes the marble too big (bigger than Path.WIDTH) when size is increased. Makes the marble too small (non-visible) when size is reduced. **/
 
 class ChangeSize extends Booster{
 	boolean increase;
