@@ -35,10 +35,10 @@ class Map{
 	}
 //=======================================
 //Add maps to linked list allMaps
-	public void addMaps() {
+	public static void addMaps() {
 		allMaps.add(upcomingPaths);
-		//allMaps.add(Map1);
-		//allMaps.add(Map2);
+		allMaps.add(Map1);
+		allMaps.add(Map2);
 		allMaps.add(Map3);
 	}
 //=======================================
@@ -60,14 +60,12 @@ class Map{
 			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
 				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
 			}
+		//try printing here and seeing if it's the problem
 		}
 
-		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
-			World.mapsOnScreen.remove(0);
-			for(int i = 0; i < World.mapsOnScreen.get(1).size(); i++){
-				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
-			}
-		}
+	
+			
+		
 
 	}
 //=======================================
@@ -97,6 +95,10 @@ public static void prototypePaths1(){
 	Map1.add(new Horizontal(Map1.getLast(), true));
 	Map1.add(new Horizontal(Map1.getLast(), true));
 	Map1.add(new RightElbow(Map1.getLast()));
+	Map1.add(new Straight(Map1.getLast()));
+	Map1.add(new LeftCorner(Map1.getLast()));
+	Map1.add(new LeftElbow(Map1.getLast()));
+	Map1.add(new Straight(Map1.getLast()));
 	Map1.add(new LeftCorner(Map1.getLast()));
 	Map1.add(new LeftElbow(Map1.getLast()));
 
@@ -111,6 +113,8 @@ public static void prototypePaths1(){
 	Map2.add(new Horizontal(Map2.getLast(), true));
 	Map2.add(new RightElbow(Map2.getLast()));
 	Map2.add(new Straight(Map2.getLast()));
+	Map2.add(new LeftCorner(Map2.getLast()));
+	Map2.add(new LeftElbow(Map2.getLast()));
 	Map2.add(new LeftCorner(Map2.getLast()));
 	Map2.add(new LeftElbow(Map2.getLast()));
 	
@@ -150,7 +154,7 @@ public static void prototypePaths1(){
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
 	LinkedList<Path> toAppend = new LinkedList<Path>(allMaps.get(randNum));
-	System.out.println("in generate next");
+	System.out.println("in generate next and number of allMaps is: " + allMaps.size());
 	return toAppend;
 }
 //=======================================
