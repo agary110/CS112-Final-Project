@@ -12,7 +12,7 @@ import java.lang.String;
 class Item{
 	public int x;
 	public int y;
-	public static int width = (int)(Path.WIDTH / 3 - 10);
+	public static int width = (int)(Path.WIDTH / 3 - 10) + 2;
 	public boolean activated;
 	public boolean deactivated;
 	public boolean onScreen;
@@ -76,7 +76,7 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
-		randNum = 5;
+		randNum = 4;
 
 		//Bomb
 		if(randNum == 0){
@@ -232,14 +232,13 @@ class Ammo extends Item{
 
 class Alien extends Item{
 	boolean deadly;
-	final int eyeWidth = 3;
-	final int pupilWidth = 1;
+	final int eyeWidth = width / 3;
+	final int pupilWidth = eyeWidth / 3 * 2;
 	final String string = "X";
 	
 	public Alien(int x, int y){
 		super(x, y);
-		deadly = true;
-		width += 2;
+		deadly = false;
 	}
 
 	public void draw(Graphics g){
@@ -249,15 +248,16 @@ class Alien extends Item{
 
 		//Eyes
 		g.setColor(Color.WHITE);
-		g.fillOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-		g.fillOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 6, y + width / 6, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 2, y + width / 6, eyeWidth, eyeWidth);
 		g.setColor(Color.BLACK);
-		g.drawOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-		g.drawOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-		g.fillOval(x + width / 2 + 2, y + width / 2 - eyeWidth + 1, pupilWidth, pupilWidth);
+		g.drawOval(x + width / 6, y + width / 6, eyeWidth, eyeWidth);
+		g.drawOval(x + width / 2, y + width / 6, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 6 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
+		g.fillOval(x + width / 2 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
 
 		//Mouth (unsure about which angles to use; set 45 and 45 as default)
-		g.drawArc(x + width / 4, y + width / 4 * 3, width / 2, 3, 45, 45);
+		g.drawArc(x + width / 6, y + width / 4 * 3, width / 2, 3, 45, 45);
 
 		//Nose
 		g.fillOval(x + width / 2, y + width / 2, 1, 1);
@@ -291,24 +291,22 @@ class Alien extends Item{
 		g.fillRect(x - width / 4, y + width / 2, width / 4, 2);
 		g.fillRect(x - width / 4, y + width / 2 - width / 8, 2, width / 8);
 		g.fillRect(x + width, y + width / 2, width / 4, 2);
-		g.fillRect(x + width, y + width / 2 - width / 8, 2, width / 8);
+		g.fillRect(x + width + width / 4, y + width / 2 - width / 8, 2, width / 8);
 
 		//Legs
-		g.fillRect(x + width / 3, y + width / 3, 2, width / 2);
-		g.fillRect(x + width / 3 * 2, y + width / 3, 2, width / 2);
-		g.fillRect(x + width / 6, y + width / 3 + width / 2, width / 4, 2);
-		g.fillRect(x + width / 3 * 2, y + width / 3 + width / 2, width / 4, 2);
+		g.fillRect(x + width / 3, y + width, 2, width / 2);
+		g.fillRect(x + width / 3 * 2, y + width, 2, width / 2);
+		g.fillRect(x + width / 6, y + width + width / 2, width / 4, 2);
+		g.fillRect(x + width / 3 * 2, y + width + width / 2, width / 4, 2);
 
 		if(deadly == false){
-			g.fillOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-			g.fillOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-			g.fillRect(x + width / 4, y + width / 4 * 3, width / 2, 3);
+			g.fillOval(x, y, width, width);
 
 			g.setColor(Color.BLACK);
-			g.drawString(string, x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth);
-			g.drawString(string, x + width / 2 + 1, y + width / 2 - eyeWidth);
+			g.drawString(string, x + width / 2 - eyeWidth - 1, y + width / 2);
+			g.drawString(string, x + width / 2 + 1, y + width / 2);
 			g.setColor(Color.PINK);
-			g.fillOval(x + width / 4 * 3 - 3, y + width / 4 * 3, 3, 3);
+			g.fillOval(x + width / 4 * 3 - 3, y + width / 4 * 3, 4, 4);
 			g.setColor(Color.BLACK);
 			g.drawLine(x + width / 4, y + width / 4 * 3, x + width / 4 * 3, y + width / 4 * 3);
 		}

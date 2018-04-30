@@ -51,8 +51,8 @@ class Map{
 			}
 		}
 
-		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
-			World.mapsOnScreen.remove(0);
+		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){	//There's something wrong with this if statement. When remove(0) is commented out, it generates a new map too much. If it's not commented out, then you only get upcomingPaths and one more map.
+			//World.mapsOnScreen.remove(0);
 			World.mapsOnScreen.add(generateNext());
 		}
 
@@ -133,6 +133,7 @@ public static void prototypePaths1(){
 
 //=======================================
 public static LinkedList<Path> generateNext(){
+	System.out.println("I'm in generateNext()");
 	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
 	LinkedList<Path> toAppend = new LinkedList<Path>(allMaps.get(randNum));
 	return toAppend;
