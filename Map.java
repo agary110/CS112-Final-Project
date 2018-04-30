@@ -10,6 +10,7 @@ class Map{
 	public static LinkedList<Path> Map1;
 	public static LinkedList<Path> Map2;
 	public static LinkedList<Path> Map3;
+	public static LinkedList<Path> Map4;
 	public static List<Path> pathTypes;
 	public static LinkedList<LinkedList<Path>> allMaps;
 	public static Random rand;
@@ -21,6 +22,7 @@ class Map{
 		Map1 = new LinkedList<Path>();
 		Map2 = new LinkedList<Path>();
 		Map3 = new LinkedList<Path>();
+		Map4 = new LinkedList<Path>();
 		allMaps = new LinkedList<LinkedList<Path>>();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
@@ -39,7 +41,8 @@ class Map{
 		allMaps.add(upcomingPaths);
 		allMaps.add(Map1);
 		allMaps.add(Map2);
-		allMaps.add(Map3);
+		//allMaps.add(Map3);
+		allMaps.add(Map4);
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
@@ -60,7 +63,7 @@ class Map{
 			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
 				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
 			}
-		//try printing here and seeing if it's the problem
+		System.out.println("we updating");
 		}
 
 	
@@ -132,6 +135,14 @@ public static void prototypePaths1(){
 	//Left corner does not work— need to fix
 	Map3.add(new LeftElbow(Map3.getLast()));
 	Map3.add(new LeftCorner(Map3.getLast()));
+//straight option, just for debugging
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
+	Map4.add(new Straight(upcomingPaths.getLast()));
 /*
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
