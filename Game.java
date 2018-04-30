@@ -85,12 +85,12 @@ public class Game extends JPanel implements KeyListener{
 
 	public void keyTyped(KeyEvent e) {
 		c = e.getKeyChar();
+		world.shootAmmo(c);
 	}
 
 	public void keyReleased(KeyEvent e) {
 		c=e.getKeyChar();
 		pressed=false;
-		
     }
 
 	public static void main(String [] args){

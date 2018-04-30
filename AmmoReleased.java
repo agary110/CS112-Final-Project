@@ -6,7 +6,7 @@ public class AmmoReleased{
 	int x;
 	int y;
 	static final int width = 2;
-	static final int length = 4;
+	static final int length = 8;
 
 	public AmmoReleased(int x, int y){
 		this.x = x;
@@ -42,6 +42,10 @@ public class AmmoReleased{
 
 	public static void deactivate(){
 		World.ammoActive.remove();
+	}
+
+	public static void deactivate(int index){
+		World.ammoActive.remove(index);
 	}
 
 }

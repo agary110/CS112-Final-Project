@@ -119,9 +119,7 @@ public class Marble{
 
     public void moveLeft(){
 	    position.x -= 5.0;
-		position.y += 0.6;
-		System.out.println("move left");
-		
+		position.y += 0.6;		
     }
 //===================================================
 /** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/

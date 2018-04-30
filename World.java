@@ -30,8 +30,8 @@ public class World{
 		marble = new Marble();
    		aliveItem = false;
 		item = new Item(Game.WIDTH / 2, Game.HEIGHT);
-		timeUntilNextItem = 2;
-		ammoCount = 0;
+		timeUntilNextItem = 1;
+		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
 		rand = new Random(1);
@@ -143,13 +143,18 @@ public class World{
 		if (c == 'l') {
 		    marble.moveRight();
 		}
+		if (bumpersOn)
+			marble.checkForBumpers(this, c);
+	}
+//=======================================
+//When the key “a” is pressed and ammoCount > 0, the marble shoots ammo.
+
+	public void shootAmmo(char c){
 		if (c == 'a') {
 			if(ammoCount > 0){
 				ammoReleased = true;
 				AmmoReleased.activate();
 			}
 		}
-		if (bumpersOn)
-			marble.checkForBumpers(this, c);
 	}
 }

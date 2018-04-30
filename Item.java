@@ -3,8 +3,8 @@ import java.awt.Graphics;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
-import java.lang.Integer;
 import java.lang.String;
+import java.lang.StringBuilder;
 
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
@@ -12,7 +12,7 @@ import java.lang.String;
 class Item{
 	public int x;
 	public int y;
-	public static int width = (int)(Path.WIDTH / 3 - 10);
+	public static int width = (int)(Path.WIDTH / 3 - 10) + 2;
 	public boolean activated;
 	public boolean deactivated;
 	public boolean onScreen;
@@ -76,7 +76,7 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
-		randNum = 5;
+		randNum = 4;
 
 		//Bomb
 		if(randNum == 0){
@@ -160,9 +160,7 @@ class Bomb extends Item{
 class Ammo extends Item{
 	int increase;
 	static final int counterHeight = 40;
-	static final int counterWidth = 120;
-	static final int offset = 2;
-	static final int numberLength = counterWidth - 4;
+	static final int counterWidth = 60;
 
 	public Ammo(int x, int y){
 		super(x, y);
@@ -195,11 +193,13 @@ class Ammo extends Item{
 
 	public static void drawAmmoCounter(Graphics g){
 		g.setColor(Color.WHITE);
-		g.fillRect(3, 3, counterWidth, counterHeight);
+		g.drawString("Ammo:", 5, 25);
+
+		g.fillRect(3, 33, counterWidth, counterHeight);
 		g.setColor(Color.BLACK);
-		g.drawRect(2, 2, counterWidth + 2, counterHeight + 2);
+		g.drawRect(2, 32, counterWidth + 2, counterHeight + 2);
 		g.setColor(Color.WHITE);
-		g.drawRect(1, 1, counterWidth + 3, counterHeight + 3);
+		g.drawRect(1, 31, counterWidth + 3, counterHeight + 3);
 		g.setColor(Color.BLACK);
 
 		//Determines how many place values are in ammoCount
@@ -210,20 +210,14 @@ class Ammo extends Item{
 			i = i / 10;
 		}
 
-		//Fills data with chars that match ammoCount
-		char [] data = new char [4];
-		String countString = Integer.toString(World.ammoCount);
-		for(int j = 4; j > 0; j--){
-			if(dataIndex < j){
-				data [data.length - j] = '0';
-			}
-		}
+		StringBuilder stringBuilder = new StringBuilder();
 		for(int j = 0; j < dataIndex; j++){
-			data [data.length - dataIndex + j] = countString.charAt(j);
+			stringBuilder.append("0");
 		}
+		stringBuilder.append(World.ammoCount);
+		String stringAmmoCount = stringBuilder.toString();
 
-//ArrayindexOutofBoundsException when this line is in (“sun.java2d.SunGraphics2D.drawChars(SunGraphics2D.java:3024))
-//		g.drawChars(data, offset, numberLength, 4, 4);
+		g.drawString(stringAmmoCount, 15, 58);
 	}
 }
 
@@ -232,14 +226,12 @@ class Ammo extends Item{
 
 class Alien extends Item{
 	boolean deadly;
-	final int eyeWidth = 3;
-	final int pupilWidth = 1;
-	final String string = "X";
+	final int eyeWidth = width / 3;
+	final int pupilWidth = eyeWidth / 3 * 2;
 	
 	public Alien(int x, int y){
 		super(x, y);
 		deadly = true;
-		width += 2;
 	}
 
 	public void draw(Graphics g){
@@ -249,15 +241,16 @@ class Alien extends Item{
 
 		//Eyes
 		g.setColor(Color.WHITE);
-		g.fillOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-		g.fillOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 6, y + width / 6, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 2, y + width / 6, eyeWidth, eyeWidth);
 		g.setColor(Color.BLACK);
-		g.drawOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-		g.drawOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-		g.fillOval(x + width / 2 + 2, y + width / 2 - eyeWidth + 1, pupilWidth, pupilWidth);
+		g.drawOval(x + width / 6, y + width / 6, eyeWidth, eyeWidth);
+		g.drawOval(x + width / 2, y + width / 6, eyeWidth, eyeWidth);
+		g.fillOval(x + width / 6 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
+		g.fillOval(x + width / 2 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
 
 		//Mouth (unsure about which angles to use; set 45 and 45 as default)
-		g.drawArc(x + width / 4, y + width / 4 * 3, width / 2, 3, 45, 45);
+		g.drawArc(x + width / 6, y + width / 4 * 3, width / 2, 3, 45, 45);
 
 		//Nose
 		g.fillOval(x + width / 2, y + width / 2, 1, 1);
@@ -291,24 +284,22 @@ class Alien extends Item{
 		g.fillRect(x - width / 4, y + width / 2, width / 4, 2);
 		g.fillRect(x - width / 4, y + width / 2 - width / 8, 2, width / 8);
 		g.fillRect(x + width, y + width / 2, width / 4, 2);
-		g.fillRect(x + width, y + width / 2 - width / 8, 2, width / 8);
+		g.fillRect(x + width + width / 4, y + width / 2 - width / 8, 2, width / 8);
 
 		//Legs
-		g.fillRect(x + width / 3, y + width / 3, 2, width / 2);
-		g.fillRect(x + width / 3 * 2, y + width / 3, 2, width / 2);
-		g.fillRect(x + width / 6, y + width / 3 + width / 2, width / 4, 2);
-		g.fillRect(x + width / 3 * 2, y + width / 3 + width / 2, width / 4, 2);
+		g.fillRect(x + width / 3, y + width, 2, width / 2);
+		g.fillRect(x + width / 3 * 2, y + width, 2, width / 2);
+		g.fillRect(x + width / 6, y + width + width / 2, width / 4, 2);
+		g.fillRect(x + width / 3 * 2, y + width + width / 2, width / 4, 2);
 
 		if(deadly == false){
-			g.fillOval(x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-			g.fillOval(x + width / 2 + 1, y + width / 2 - eyeWidth, eyeWidth, eyeWidth);
-			g.fillRect(x + width / 4, y + width / 4 * 3, width / 2, 3);
+			g.fillOval(x, y, width, width);
 
 			g.setColor(Color.BLACK);
-			g.drawString(string, x + width / 2 - eyeWidth - 1, y + width / 2 - eyeWidth);
-			g.drawString(string, x + width / 2 + 1, y + width / 2 - eyeWidth);
+			g.drawString("X", x + width / 2 - eyeWidth - 1, y + width / 2);
+			g.drawString("X", x + width / 2 + 1, y + width / 2);
 			g.setColor(Color.PINK);
-			g.fillOval(x + width / 4 * 3 - 3, y + width / 4 * 3, 3, 3);
+			g.fillOval(x + width / 4 * 3 - 3, y + width / 4 * 3, 4, 4);
 			g.setColor(Color.BLACK);
 			g.drawLine(x + width / 4, y + width / 4 * 3, x + width / 4 * 3, y + width / 4 * 3);
 		}
@@ -319,10 +310,10 @@ class Alien extends Item{
 
 		if(World.ammoReleased){
 			for(int i = 0; i < World.ammoActive.size(); i++){
-				if(World.ammoActive.get(i).y == this.y){
+				if(World.ammoActive.get(i).y >= this.y && World.ammoActive.get(i).y <= this.y + width){
 					if(this.x + this.width - 2 >= World.ammoActive.get(i).x){
 						if(this.x <= World.ammoActive.get(i).x + AmmoReleased.width - 2){
-							this.deactivate();
+							this.deactivate(i);
 						}
 					}
 				}
@@ -336,15 +327,10 @@ class Alien extends Item{
 		}
 	}
 
-	public void deactivate(){
-		//When hit with ammo, Alien dies
-		for(int i = 0; i < World.ammoActive.size(); i++){
-			if(World.ammoActive.get(i).x < this.x + width && World.ammoActive.get(i).x > this.x && World.ammoActive.get(i).y < this.y + width){
-				deadly = false;
-				AmmoReleased.deactivate();
-				World.points += 10;
-			}
-		}
+	public void deactivate(int ammoActiveIndex){
+		deadly = false;
+		AmmoReleased.deactivate(ammoActiveIndex);
+		World.points += 10;
 	}
 
 }

@@ -50,6 +50,11 @@ class Map{
 				World.mapsOnScreen.get(i).get(j).y++;
 			}
 		}
+
+		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
+			World.mapsOnScreen.remove(0);
+		}
+
 		if(World.mapsOnScreen.get(0).getLast().y==0) {
 			World.mapsOnScreen.add(generateNext());
 			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
@@ -60,6 +65,8 @@ System.out.println("yo");
 		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
 			World.mapsOnScreen.remove(0);
 			System.out.println("hi");
+				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
+			}
 		}
 
 	}
@@ -152,19 +159,20 @@ public static LinkedList<Path> generateNext(){
 		int index = 0;
 		while(cumPathHeight <= Game.HEIGHT){
 			for (int i=0; i<World.mapsOnScreen.size(); i++) {
-			cumPathHeight += World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(i).size() - 1 - index).HEIGHT;
-			index++;
+				cumPathHeight += World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(i).size() - 1 - index).HEIGHT;
+				index++;
+			}
 		}
-	}
+
 		if(cumPathHeight < Game.HEIGHT){
 			index++;
 		}
 		Path [] visiblePaths = new Path [index];
 		for(int i = visiblePaths.length - 1; i >= 0; i--){
 			for (int j=0; i<World.mapsOnScreen.size(); j++){
-			visiblePaths [i] = World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(j).size() - 1 - 1);
+				visiblePaths [i] = World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(j).size() - 1 - 1);
+			}
 		}
-	}
 		return visiblePaths;
 	}
 }
