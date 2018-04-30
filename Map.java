@@ -54,9 +54,9 @@ class Map{
 			}
 		}
 
-		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
+		if (World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
 			World.mapsOnScreen.remove(0);
-		}
+		} 
 
 		if(World.mapsOnScreen.get(0).getLast().y==0) {
 			World.mapsOnScreen.add(generateNext());
