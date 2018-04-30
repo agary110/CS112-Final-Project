@@ -17,7 +17,7 @@ public class World{
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	boolean aliveItem;
 	static double timeUntilNextItem;
-	static final double originalTimeUntilNextItem = 7;
+	static final double originalTimeUntilNextItem = 2;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
@@ -36,7 +36,7 @@ public class World{
 		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
-		rand = new Random(1);
+		rand = new Random();
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
