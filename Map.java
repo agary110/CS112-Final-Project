@@ -181,8 +181,8 @@ public static void prototypePaths1(){
 		toR.add(new LeftCorner(toR.getLast()));
 		toR.add(new LeftElbow(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
-		toR.add(new LeftElbow(toR.getLast()));		
+		//toR.add(new LeftCorner(toR.getLast()));
+		//toR.add(new LeftElbow(toR.getLast()));		
 		return toR;
 	}
 
@@ -200,8 +200,9 @@ public static void prototypePaths1(){
 		toR.add(new Straight(toR.getLast()));
 		toR.add(new LeftCorner(toR.getLast()));
 		toR.add(new LeftElbow(toR.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
-		toR.add(new LeftElbow(toR.getLast()));
+		toR.add(new Straight(toR.getLast()));
+		//toR.add(new LeftCorner(toR.getLast()));
+		//toR.add(new LeftElbow(toR.getLast()));
 		return toR;
 
 	}
@@ -220,8 +221,8 @@ public static void prototypePaths1(){
 		toR.add(new LeftCorner(toR.getLast()));
 		//Left corner does not work— need to fix
 		toR.add(new LeftElbow(toR.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
-		toR.add(new LeftElbow(toR.getLast()));
+		//toR.add(new LeftCorner(toR.getLast()));
+		//toR.add(new LeftElbow(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
 		return toR;
 
