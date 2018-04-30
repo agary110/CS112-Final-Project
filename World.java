@@ -1,9 +1,11 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.LinkedList;
+import java.lang.String;
 
 public class World{
 	static double HEIGHT;
@@ -15,7 +17,7 @@ public class World{
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	boolean aliveItem;
 	static double timeUntilNextItem;
-	static final double originalTimeUntilNextItem = 7;
+	static final double originalTimeUntilNextItem = 3.5;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
@@ -29,16 +31,15 @@ public class World{
 		WIDTH = initWidth;
 		marble = new Marble();
    		aliveItem = false;
-		item = new Item(Game.WIDTH / 2, Game.HEIGHT);
 		timeUntilNextItem = 1;
+		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
 		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
-		rand = new Random(1);
+		rand = new Random();
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
-		//mapsOnScreen.add(Map.generateNext());
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
 	}
@@ -48,7 +49,7 @@ public class World{
 		drawPath(g);
 		drawItem(g);
 		drawMarble(g);
-		//drawPoints(g);
+		drawPoints(g);
 		drawAmmoCount(g);
 		drawAmmoReleased(g);
 	}
@@ -67,8 +68,18 @@ public class World{
 		map.draw(g);
 	}
 
-	/*public void drawPoints(Graphics g){
-	}*/
+	public void drawPoints(Graphics g){
+		g.setColor(Color.WHITE);
+		g.drawString("Points:", 5, 96);
+		g.fillRect(3, 108, Ammo.counterWidth, Ammo.counterHeight);
+		g.setColor(Color.BLACK);
+		g.drawRect(2, 107, Ammo.counterWidth + 2, Ammo.counterHeight + 2);
+		g.setColor(Color.WHITE);
+		g.drawRect(1, 106, Ammo.counterWidth + 3, Ammo.counterHeight + 3);
+		g.setColor(Color.BLACK);
+		String stringPoints = String.valueOf((int)(points));
+		g.drawString(stringPoints, 15, 133);
+	}
 
    public void drawAmmoCount(Graphics g){
 		Ammo.drawAmmoCounter(g);
@@ -94,11 +105,11 @@ public class World{
 
 	private void updateItem(){
 		if(timeUntilNextItem <= 0){
-			item = Item.generateNextItem(rand.nextInt(6));
+			item = Item.generateNextItem(rand.nextInt(7));
 			timeUntilNextItem = originalTimeUntilNextItem;
 		}
+
 		item.update();
-		
 	}
 
 	private void updateMap(double time){
@@ -153,7 +164,7 @@ public class World{
 		if (c == 'a') {
 			if(ammoCount > 0){
 				ammoReleased = true;
-				AmmoReleased.activate();
+				AmmoReleased.activate(c);
 			}
 		}
 	}

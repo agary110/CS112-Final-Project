@@ -20,17 +20,16 @@ public class LeftCorner extends Path {
 		super(previous);
 		name="leftCorner";
 		exitX=previous.x;
-		x = exitX - WIDTH;
+		x = exitX - Path.WIDTH;	//was originally “x = exitX - Path.WIDTH;”
 		y=previous.y-Path.HEIGHT;
 	}
 	
     public void draw(Graphics g0ri){
 		Graphics2D g = (Graphics2D) g0ri;
 	    g.setColor(color);
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-			   				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.fill (new Rectangle2D.Double(x, y, WIDTH, WIDTH));
-		g.fill (new Rectangle2D.Double(x, y+WIDTH, WIDTH, HEIGHT));
+		g.fill (new Rectangle2D.Double(x + WIDTH, y, WIDTH, HEIGHT));
 		if (World.bumpersOn){
 			g.setColor(Color.RED);
 			g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));

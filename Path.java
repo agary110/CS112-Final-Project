@@ -20,14 +20,14 @@ public class Path {
 		y= - Path.HEIGHT;
 		this.exitX=exitX;
 		Random rand = new Random();
-		color = Color.YELLOW;
+		color = Color.LIGHT_GRAY;
 
     }
 
 	public Path(Path previous){
 		name = "";
 		Random rand = new Random();
-		color = Color.YELLOW; 
+		color = Color.LIGHT_GRAY; 
 		x = 0;
 		y = 0;
 		exitX = 0;
