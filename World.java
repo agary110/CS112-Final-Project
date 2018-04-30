@@ -17,7 +17,6 @@ public class World{
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	boolean aliveItem;
 	static double timeUntilNextItem;
-	static final double originalTimeUntilNextItem = 3.5;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
@@ -106,7 +105,7 @@ public class World{
 	private void updateItem(){
 		if(timeUntilNextItem <= 0){
 			item = Item.generateNextItem(rand.nextInt(7));
-			timeUntilNextItem = originalTimeUntilNextItem;
+			timeUntilNextItem = rand.nextInt(4) + 2;
 		}
 
 		item.update();

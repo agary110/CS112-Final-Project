@@ -76,12 +76,6 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
-<<<<<<< HEAD
-=======
-		randNum = 3;
-
-
->>>>>>> 923441654655652b7932ba36f61464b3aa569bd6
 		//Bomb
 		if(randNum == 0){
 			return new Bomb(x, y);
@@ -184,7 +178,7 @@ class Coin extends Item{
 	public void activate(){
 		World.points += increase;
 		this.activated = false;
-		World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		World.timeUntilNextItem = rand.nextInt(4) + 2;
 		pickUp();
 		deactivate();
 	}
@@ -217,7 +211,7 @@ class Ammo extends Item{
 		g.setColor(Color.GRAY);
 		g.fillRect(this.x + width / 2 - 3, this.y + width / 10, width - 10, 5);
 
-		if(World.ammoReleased && World.ammo.y < -width - 10){
+		if(World.ammoReleased && World.ammo.y < -width){
 			World.ammo.draw(g);
 			World.ammo.y -= 2;
 			if(World.ammo.y < -width - 10){
@@ -229,8 +223,12 @@ class Ammo extends Item{
 	public void activate(){
 		World.ammoCount = World.ammoCount + increase;
 		this.activated = false;
-		World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		World.timeUntilNextItem = rand.nextInt(4) + 2;
 		pickUp();
+	}
+
+	public void deactivate(){
+		increase = 0;
 	}
 
 	public static void drawAmmoCounter(Graphics g){
