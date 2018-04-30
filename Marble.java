@@ -52,11 +52,16 @@ public class Marble{
 	int radius;
 	double dampening;
 	Color color;
-	double speedIncrement;
+	double XposIncrement;
+	double YposIncrement;
+	double speedIncrement = 0;
+
+//should delete these if don't use them
 	static boolean canMoveUp;
 	static boolean canMoveRight;
 	static boolean canMoveLeft;
 	static boolean canMoveDown;
+
 
 //================================================
 /** Constructor  **/
@@ -66,8 +71,8 @@ public class Marble{
 		position = new Pair(Game.WIDTH / 2, 500.0);
 		velocity = new Pair(0.0, 0.0);
 		radius = 25;
-		dampening = 1.3;
-		double speedIncrement = 25.0;
+		XposIncrement = 5.0;
+		YposIncrement = 0.6;
 		color = Color.BLUE;
 		canMoveUp = true;
 		canMoveRight = true;
@@ -79,6 +84,8 @@ public class Marble{
 
     public void update(double time){
 		position = position;
+		System.out.println("x pos inc" + XposIncrement);
+		System.out.println("y pos inc" + YposIncrement);
     }
     
 //================================================
@@ -97,29 +104,29 @@ public class Marble{
     public void moveUp(){
 		if (canMoveUp){
 			if(position.y > Game.HEIGHT / 4){
-				position.y -= 5;
+				position.y -= XposIncrement;
 			}
 		} else {
-			position.y += 0.6;
+			position.y += YposIncrement;
 		}
 
     } 
 
     public void moveDown(){
 		if(position.y < Game.HEIGHT - (Game.HEIGHT / 4)){
-			position.y += 5;
+			position.y += XposIncrement;
 		}
 		canMoveUp = true;
     }
 
     public void moveRight(){
-	   	position.x += 5.0;
-		position.y += 0.6;
+	   	position.x += XposIncrement;
+		position.y += YposIncrement;
     }
 
     public void moveLeft(){
-	    position.x -= 5.0;
-		position.y += 0.6;		
+	    position.x -= XposIncrement;
+		position.y += YposIncrement;		
     }
 //===================================================
 /** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/
