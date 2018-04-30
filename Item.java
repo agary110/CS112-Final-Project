@@ -76,16 +76,8 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
-<<<<<<< HEAD
 		randNum = 3;
-=======
-<<<<<<< HEAD
-		randNum = 1;
-=======
-		randNum = 2;
->>>>>>> f3e94efa9d6eb5fd9bd4fccf7495d9bd7912f290
 
->>>>>>> 116059b79ee91ce17f27a98df274d367bc310966
 
 		//Bomb
 		if(randNum == 0){
@@ -513,11 +505,13 @@ class ChangeSpeed extends Booster{
 class ChangeSize extends Booster{
 	boolean increase;
 	double proportion;
+	int originalSize;
 
 	public ChangeSize(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
-		proportion = World.marble.radius * 0.5;
+		proportion = World.marble.radius * 0.3;
+		originalSize = World.marble.radius;
 	}
 
 	public void activate(){
@@ -527,14 +521,11 @@ class ChangeSize extends Booster{
 		} else {
 			World.marble.radius -= proportion;
 		}
+		proportion = 0;
 	}
 
 	public void deactivate(){
-		if (increase){
-			World.marble.radius -= proportion;
-		} else {
-			World.marble.radius += proportion;
-		}
+		World.marble.radius = originalSize;
 		this.activated = false;		
 	}
 }

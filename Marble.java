@@ -84,8 +84,6 @@ public class Marble{
 
     public void update(double time){
 		position = position;
-		System.out.println("x pos inc" + XposIncrement);
-		System.out.println("y pos inc" + YposIncrement);
     }
     
 //================================================
@@ -269,39 +267,32 @@ public class Marble{
 		if(path.name == "Straight"){
 			if(marb.x + World.marble.radius / 3 < path.x || marb.x + World.marble.radius / 3 * 2 > path.x + path.WIDTH){
 				Game.alive = false;
-System.out.println("dead because of straight");
 			}
 		}
 
 		else if(path.name == "rightCorner"){
 			if(marb.y < path.y){
 				Game.alive = false;
-System.out.println("dead because of rightCorner1");
 			}
 			if(marb.x < path.exitX){
 				Game.alive = false;
-System.out.println("dead because of rightCorner2");
 			}
 
 			if(marb.y > path.y + path.WIDTH && marb.x + World.marble.radius > path.exitX + path.WIDTH){
 				Game.alive = false;
-System.out.println("dead because of rightCorner3");
 			}
 
 		}
 
 		else if(path.name == "leftCorner"){
 			if(marb.y < path.y){
-				Game.alive = false;
-System.out.println("dead because of leftCorner1");				
+				Game.alive = false;				
 			}
 			if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
 				Game.alive = false;
-System.out.println("dead because of leftCorner2");
 			}
 			if(marb.x < path.exitX && marb.y + World.marble.radius > path.y + path.WIDTH){
 				Game.alive = false;
-System.out.println("dead because of leftcorner3");
 			}
 		}
 
@@ -309,18 +300,15 @@ System.out.println("dead because of leftcorner3");
 			if(marb.y > path.y + path.WIDTH){
 				if(marb.x + World.marble.radius > path.exitX + path.HEIGHT){
 					Game.alive = false;
-System.out.println("dead because of rightelbow1");
 				}
 
 				if(marb.y > path.y + path.HEIGHT){
 					Game.alive = false;
-System.out.println("dead because of rightelbow2");
 				}
 
 				if(marb.x < path.x){
 					if(marb.y < path.y + path.WIDTH){
 						Game.alive = false;
-System.out.println("dead because of rightelbow3");
 					}
 				}
 			}
@@ -328,7 +316,6 @@ System.out.println("dead because of rightelbow3");
 			else{
 				if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 					Game.alive = false;
-System.out.println("dead because of rightelbow4");
 				}
 			}
 		}
@@ -350,22 +337,18 @@ System.out.println("dead because of rightelbow4");
 		else if(path.name == "leftElbow"){
 			if (marb.x < path.x){
 				Game.alive = false;
-System.out.println("dead because of leftelbow1");
 			}
 			if (marb.y + World.marble.radius > path.y + path.HEIGHT){
 				Game.alive = false;
-System.out.println("dead because of leftelbow2");
 			}
 			if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 				Game.alive = false;
-System.out.println("dead because of leftelbow3");
 			}
 		}
 
 		else{//Horizontal
 			if(marb.y < path.y || marb.y > path.y + path.WIDTH){
 				Game.alive = false;
-System.out.println("dead because of horizontal");
 			}
 		}
     }
