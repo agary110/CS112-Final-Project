@@ -61,7 +61,8 @@ class Map{
 		if(World.mapsOnScreen.get(0).getLast().y==0) {
 			World.mapsOnScreen.add(generateNext());
 			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
-				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
+				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT;
+//+World.mapsOnScreen.get(0).getLast().WIDTH/2;
 			}
 		System.out.println("we updating");
 		}
@@ -132,6 +133,8 @@ public static void prototypePaths1(){
 		//Left corner does not work— need to fix
 	Map3.add(new LeftElbow(Map3.getLast()));
 	Map3.add(new LeftCorner(Map3.getLast()));
+	Map3.add(new LeftElbow(Map3.getLast()));
+	Map3.add(new Straight(Map3.getLast()));
 
 //straight option, just for debugging
 	Map4.add(new Straight(upcomingPaths.getLast()));
@@ -218,6 +221,8 @@ public static void prototypePaths1(){
 		//Left corner does not work— need to fix
 		toR.add(new LeftElbow(toR.getLast()));
 		toR.add(new LeftCorner(toR.getLast()));
+		toR.add(new LeftElbow(toR.getLast()));
+		toR.add(new Straight(toR.getLast()));
 		return toR;
 
 	}
