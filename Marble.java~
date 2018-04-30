@@ -360,8 +360,6 @@ public class Marble{
 		Path [] visiblePaths = new Path [100];
 		int n = 0;
 
-
-		/*
 		//Puts all paths that are currently visible into visiblePaths
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
@@ -371,7 +369,7 @@ public class Marble{
 				}
 			}
 		}
-		*/
+
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
 				if(World.marble.position.y >= World.mapsOnScreen.get(i).get(j).y && World.marble.position.y < World.mapsOnScreen.get(i).get(j).y + World.mapsOnScreen.get(i).get(j).HEIGHT){
@@ -396,7 +394,6 @@ public class Marble{
 		}*/
 
 		System.out.println("checkPath() is returning a null");
-		System.out.println("World.mapsOnScreen: " +  World.mapsOnScreen.size());
 		return null;
 
 	}

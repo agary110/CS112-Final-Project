@@ -76,12 +76,7 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
-<<<<<<< HEAD
-=======
-		randNum = 3;
 
-
->>>>>>> 923441654655652b7932ba36f61464b3aa569bd6
 		//Bomb
 		if(randNum == 0){
 			return new Bomb(x, y);
