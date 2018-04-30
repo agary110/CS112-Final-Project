@@ -281,19 +281,17 @@ public class Marble{
 
 		else if(path.name == "leftCorner"){
 			if(marb.y < path.y){
-				Game.alive = false;
+				Game.alive = false;				
 			}
-
 			if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
 				Game.alive = false;
 			}
-
-			if(marb.x < path.exitX && marb.y > path.y + path.WIDTH){
+			if(marb.x < path.exitX && marb.y + World.marble.radius > path.y + path.WIDTH){
 				Game.alive = false;
 			}
 		}
 
-		else if(path.name == "rightElbow"){
+		else if(path.name == "rightElbow"){ // DOESN'T DIE WHEN YOU GO OUT THE RIGHT SIDE
 			if(marb.y > path.y + path.WIDTH){
 				if(marb.x + World.marble.radius > path.exitX + path.HEIGHT){
 					Game.alive = false;
@@ -316,20 +314,29 @@ public class Marble{
 				}
 			}
 		}
+	/*	else if(path.name == "rightElbow"){
+			if (marb.x + World.marble.radius >= path.exitX + path.WIDTH){ // going out of right side
+				Game.alive = false;
+			}
+			if (marb.y + World.marble.radius > path.y + path.HEIGHT){ // going out of bottom
+				Game.alive = false;
+			}
+			if (marb.x < path.x && marb.y < path.y + path.WIDTH){ // going into empty space
+				Game.alive = false;
+			}
+			
+		}*/
+
 
 
 		else if(path.name == "leftElbow"){
-			if(marb.y > path.y + path.HEIGHT){
+			if (marb.x < path.x){
 				Game.alive = false;
 			}
-
-			if(marb.x < path.x){
+			if (marb.y + World.marble.radius > path.y + path.HEIGHT){
 				Game.alive = false;
 			}
-			if(marb.y < path.y){
-				Game.alive = false;
-			}
-			if(marb.x + World.marble.radius > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
+			if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 				Game.alive = false;
 			}
 		}
