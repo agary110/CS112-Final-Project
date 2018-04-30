@@ -73,7 +73,8 @@ class Item{
 			}
 		}
 
-		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
+		Random newRand = new Random();
+		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
 		int y = 0 - width;
 
 		//Bomb
@@ -178,7 +179,7 @@ class Coin extends Item{
 	public void activate(){
 		World.points += increase;
 		this.activated = false;
-		World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		World.timeUntilNextItem = rand.nextInt(4) + 2;
 		pickUp();
 		deactivate();
 	}
@@ -211,7 +212,7 @@ class Ammo extends Item{
 		g.setColor(Color.GRAY);
 		g.fillRect(this.x + width / 2 - 3, this.y + width / 10, width - 10, 5);
 
-		if(World.ammoReleased && World.ammo.y < -width - 10){
+		if(World.ammoReleased && World.ammo.y < -width){
 			World.ammo.draw(g);
 			World.ammo.y -= 2;
 			if(World.ammo.y < -width - 10){
@@ -223,8 +224,12 @@ class Ammo extends Item{
 	public void activate(){
 		World.ammoCount = World.ammoCount + increase;
 		this.activated = false;
-		World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		World.timeUntilNextItem = rand.nextInt(4) + 2;
 		pickUp();
+	}
+
+	public void deactivate(){
+		increase = 0;
 	}
 
 	public static void drawAmmoCounter(Graphics g){
@@ -399,7 +404,7 @@ class Booster extends Item{
 			timeActive -= (1 / (double)(Game.FPS));
 		}
 		if(timeActive <= 0){
-			//this.deactivate();
+			this.deactivate();
 		}
 	}
 
@@ -427,10 +432,8 @@ class Bumpers extends Booster{
 	}
 
 	public void deactivate(){
+		super.deactivate();
 		World.bumpersOn = false;
-		this.activated = false;
-		//How to actually turn the bumpers off
-		
 	}
 
 	public void update(){

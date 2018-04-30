@@ -15,25 +15,24 @@ public class World{
 	static Item item;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
-	boolean aliveItem;
 	static double timeUntilNextItem;
-	static final double originalTimeUntilNextItem = 3.5;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
 	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
 	static boolean bumpersOn;
+
+	//static Node itemsActive;
 //=======================================
 //Constructor
 	public World(double initHeight, double initWidth){
 		HEIGHT = initHeight;
 		WIDTH = initWidth;
 		marble = new Marble();
-   		aliveItem = false;
-		timeUntilNextItem = 1;
+		timeUntilNextItem = 0;
 		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
-		ammoCount = 10;
+		ammoCount = 0;
 		points = 0;
 		ammoReleased = false;
 		rand = new Random();
@@ -42,6 +41,8 @@ public class World{
 		mapsOnScreen.add(Map.upcomingPaths);
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
+
+		//itemsActive = new Node();
 	}
 //=======================================
 //Draw Methods
@@ -62,6 +63,11 @@ public class World{
 		if(item.drawn){
 			item.draw(g);
 		}
+
+		/*while(itemsActive.isNull == false){
+			itemsActive.item.draw(g);
+			itemsActive = itemsActive.previous;
+		}*/
 	}
 
 	public void drawPath(Graphics g){
@@ -106,10 +112,24 @@ public class World{
 	private void updateItem(){
 		if(timeUntilNextItem <= 0){
 			item = Item.generateNextItem(rand.nextInt(7));
-			timeUntilNextItem = originalTimeUntilNextItem;
+			timeUntilNextItem = rand.nextInt(4) + 2;
 		}
 
 		item.update();
+
+		/*if(timeUntilNextItem <= 0){
+			itemsActive = itemsActive.append(Item.generateNextItem(rand.nextInt(7)));
+			timeUntilNextItem = rand.nextInt(4) + 2;
+		}
+
+		Node n = itemsActive;
+		while(n.isNull == false){
+			n.item.update();
+			n = n.previous;
+			if(n.prevNull){
+				break;
+			}
+		}*/
 	}
 
 	private void updateMap(double time){

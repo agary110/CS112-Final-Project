@@ -47,21 +47,21 @@ public class Game extends JPanel implements KeyListener{
 
 		    while(true){//alive){
 				if(hasGameStarted){
-					world.nextFrame(1.0 / (double)(FPS));
-					if (pressed){
-						world.moveMarble(c);
-					}
-					repaint();
-					try{
-						Thread.sleep(1000 / FPS);
-					}
-					catch(InterruptedException e){}
+				world.nextFrame(1.0 / (double)(FPS));
+				if (pressed){
+					world.moveMarble(c);
 				}
-
-				Logger.writeHighScore(World.points, "highscore.txt");
+				repaint();
+				try{
+					Thread.sleep(1000 / FPS);
+				}
+				catch(InterruptedException e){}
 			}
+
+			Logger.writeHighScore(World.points, "highscore.txt");
+
 		
-		}
+		}}
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -112,7 +112,7 @@ public class Game extends JPanel implements KeyListener{
 		if (hasGameStarted) {
 			world.drawToScreen(g);
 		}
-		/*else {
+		else {
 			g.setColor(Color.GREEN);
 			char[] welcome={'h', 'e', 'l', 'l', 'o', '!', ' ', 't', 'o', ' ', 'b', 'e', 'g', 'i', 	'n', ' ', 'p', 'l', 'a', 'y', 'i', 'n', 'g', ',', ' ', 'p', 'r', 'e', 's', 	's', ' ', 't', 'h', 'e', ' ', 's', 'p', 'a', 'c', 'e', ' ', 'b', 'a', 'r', 	'.'};
 			g.drawChars(welcome, 0, welcome.length, 400, 400);
@@ -121,15 +121,6 @@ public class Game extends JPanel implements KeyListener{
 			g.setColor(Color.GREEN);
 			char[] data={'u', 'r', ' ', 'd', 'e', 'a', 'd', '!', ' ', 'p', 'r', 'e', 's', 's', ' ', 'e', 's', 'c', 'a', 'p', 'e', ' ', 't', 'o', ' ', 'c', 'l', 'o', 's', 'e', ' ', 'o', 'r', ' ',  'e', 'n', 't', 'e', 'r', ' ', 't', 'o', ' ', 'r', 'e', 's', 't', 'a', 'r', 't', '.'};
 			g.drawChars(data, 0, data.length, 400, 400);
-		}*/
-
-		else{
-			g.setColor(Color.GREEN);
-			g.drawString("Hello! To begin playing, press the space bar. Press 'h' for help.", WIDTH / 3, HEIGHT / 2);
-		}
-		if(!alive){
-			g.setColor(Color.GREEN);
-			g.drawString("ur dead! Press escape to close or enter to restart.", WIDTH / 3, HEIGHT / 2);
 		}
 	}
 
