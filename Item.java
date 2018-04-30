@@ -73,7 +73,7 @@ class Item{
 			}
 		}
 
-		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
+		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
 		int y = 0 - width;
 
 		//Bomb

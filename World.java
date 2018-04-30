@@ -12,10 +12,9 @@ public class World{
 	static double WIDTH;
 	static Marble marble;
 	static Map map;
-	static Item item;
+	//static Item item;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
-	boolean aliveItem;
 	static double timeUntilNextItem;
 	static double points;
 	static int ammoCount;
@@ -23,15 +22,16 @@ public class World{
 	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
 	static boolean bumpersOn;
+
+	static Node itemsActive;
 //=======================================
 //Constructor
 	public World(double initHeight, double initWidth){
 		HEIGHT = initHeight;
 		WIDTH = initWidth;
 		marble = new Marble();
-   		aliveItem = false;
-		timeUntilNextItem = 1;
-		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
+		timeUntilNextItem = 0;
+		//item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
 		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
@@ -41,6 +41,8 @@ public class World{
 		mapsOnScreen.add(Map.upcomingPaths);
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
+
+		itemsActive = new Node();
 	}
 //=======================================
 //Draw Methods
@@ -58,8 +60,15 @@ public class World{
 	}
 
 	public void drawItem(Graphics g){
-		if(item.drawn){
+		/*if(item.drawn){
 			item.draw(g);
+		}*/
+
+		if(itemsActive.item != null){
+			while(itemsActive.item != null){
+				itemsActive.item.draw(g);
+				itemsActive = itemsActive.previous;
+			}
 		}
 	}
 
@@ -103,12 +112,24 @@ public class World{
 	}
 
 	private void updateItem(){
-		if(timeUntilNextItem <= 0){
+		/*if(timeUntilNextItem <= 0){
 			item = Item.generateNextItem(rand.nextInt(7));
 			timeUntilNextItem = rand.nextInt(4) + 2;
 		}
 
-		item.update();
+		item.update();*/
+
+		if(timeUntilNextItem <= 0){
+			itemsActive = itemsActive.append(Item.generateNextItem(rand.nextInt(7)));
+			timeUntilNextItem = rand.nextInt(4) + 2;
+		}
+
+		if(itemsActive.item != null){
+			while(itemsActive.item != null){
+				itemsActive.item.update();
+				itemsActive = itemsActive.previous;
+			}
+		}
 	}
 
 	private void updateMap(double time){
