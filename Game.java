@@ -18,7 +18,6 @@ public class Game extends JPanel implements KeyListener{
 	public static final int FPS = 60;
 	public static World world;
 	public static boolean alive;
-	public static double points;
 	public static boolean pressed;
 	public static boolean hasGameStarted;
 	char c;
@@ -36,7 +35,6 @@ public class Game extends JPanel implements KeyListener{
 		Random rand = new Random();
 		alive = true;
 		hasGameStarted=false;
-		points = 0;
 		pressed=false;
 		c = ' ';
 		tempHighScore = 100;
@@ -59,8 +57,10 @@ public class Game extends JPanel implements KeyListener{
 				}
 				catch(InterruptedException e){}
 			}
+
+			Logger.writeHighScore(World.points, "highscore.txt");
+
 		
-			Logger.writeHighScore(tempHighScore, "highscore.txt");
 		}}
 	}
 
