@@ -1,9 +1,11 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.LinkedList;
+import java.lang.String;
 
 public class World{
 	static double HEIGHT;
@@ -48,7 +50,7 @@ public class World{
 		drawPath(g);
 		drawItem(g);
 		drawMarble(g);
-		//drawPoints(g);
+		drawPoints(g);
 		drawAmmoCount(g);
 		drawAmmoReleased(g);
 	}
@@ -67,8 +69,18 @@ public class World{
 		map.draw(g);
 	}
 
-	/*public void drawPoints(Graphics g){
-	}*/
+	public void drawPoints(Graphics g){
+		g.setColor(Color.WHITE);
+		g.drawString("Points:", 5, 96);
+		g.fillRect(3, 108, Ammo.counterWidth, Ammo.counterHeight);
+		g.setColor(Color.BLACK);
+		g.drawRect(2, 107, Ammo.counterWidth + 2, Ammo.counterHeight + 2);
+		g.setColor(Color.WHITE);
+		g.drawRect(1, 106, Ammo.counterWidth + 3, Ammo.counterHeight + 3);
+		g.setColor(Color.BLACK);
+		String stringPoints = String.valueOf((int)(points));
+		g.drawString(stringPoints, 15, 133);
+	}
 
    public void drawAmmoCount(Graphics g){
 		Ammo.drawAmmoCounter(g);
@@ -153,7 +165,7 @@ public class World{
 		if (c == 'a') {
 			if(ammoCount > 0){
 				ammoReleased = true;
-				AmmoReleased.activate();
+				AmmoReleased.activate(c);
 			}
 		}
 	}

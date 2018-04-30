@@ -58,7 +58,7 @@ class Item{
 	public static Item generateNextItem(int randNum){
 
 		int pathX = Game.WIDTH / 2 + Path.WIDTH / 2;
-		for(int i = World.mapsOnScreen.size() - 1; i >= 0; i--){
+		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
 				if(World.mapsOnScreen.get(i).get(j).name == "Horizontal"){
 					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.WIDTH >= 0){
@@ -76,7 +76,11 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
+<<<<<<< HEAD
 		randNum = 2;
+=======
+		randNum = 5;
+>>>>>>> 6dd516dd20c46a42fcd6eb612573e5098d24e038
 
 		//Bomb
 		if(randNum == 0){
@@ -101,6 +105,11 @@ class Item{
 		//Alien
 		else if(randNum == 4){
 			return new Alien(x, y);
+		}
+
+		//Coin
+		else if(randNum == 5){
+			return new Coin(x, y);
 		}
 
 		//Ammo
@@ -150,6 +159,38 @@ class Bomb extends Item{
 		}
 	}
 
+}
+
+//=======================================
+//Class Coin extends Item (increased points by 3-5)
+
+class Coin extends Item{
+	int increase;
+
+	public Coin(int x, int y){
+		super(x, y);
+		increase = rand.nextInt(3) + 3;
+	}
+
+	public void draw(Graphics g){
+		g.setColor(Color.YELLOW.brighter());
+		g.fillOval(x, y, width / 2, width);
+		g.setColor(Color.ORANGE);
+		g.drawOval(x, y, width / 2, width);
+		g.fillOval(x + width / 6, y + width / 4, width / 6, width / 2);
+	}
+
+	public void activate(){
+		World.points += increase;
+		this.activated = false;
+		World.timeUntilNextItem = World.originalTimeUntilNextItem;
+		pickUp();
+		deactivate();
+	}
+
+	public void deactivate(){
+		increase = 0;
+	}
 }
 
 //=======================================
@@ -352,7 +393,7 @@ class Booster extends Item{
 		g.fillRect(this.x, this.y, width, width);
 		g.setColor(Color.RED);
 		g.drawRect(this.x, this.y, width, width);
-		g.drawString("?", this.x + width / 3, this.y + width / 3);
+		g.drawString("?", this.x + width / 12 * 5, this.y + width / 4 * 3);
 	}
 
 	public void update(){
@@ -461,6 +502,8 @@ class ChangeSpeed extends Booster{
 //=======================================
 //ChangeSize extends Booster (changes the size of the marble by a constant - positive or negative change is based on a Random)
 
+/** Makes the marble too big (bigger than Path.WIDTH) when size is increased. Makes the marble too small (non-visible) when size is reduced. **/
+
 class ChangeSize extends Booster{
 	boolean increase;
 	double proportion;
@@ -486,8 +529,6 @@ class ChangeSize extends Booster{
 		} else {
 			World.marble.radius += proportion;
 		}
-		this.activated = false;
-		//How to actually make the size of the marble normal again
-		
+		this.activated = false;		
 	}
 }

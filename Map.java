@@ -41,7 +41,7 @@ class Map{
 		allMaps.add(upcomingPaths);
 		allMaps.add(Map1);
 		allMaps.add(Map2);
-		//allMaps.add(Map3);
+		allMaps.add(Map3);
 		allMaps.add(Map4);
 	}
 //=======================================
@@ -74,11 +74,14 @@ class Map{
 //=======================================
 //Draws Map using draw methods from subclasses of Path
 	public void draw(Graphics g){
+		System.out.println("are we drawing??");
+		System.out.println("World.mapsOnScreen.get(1).get(1).x: " + World.mapsOnScreen.get(1).get(1).x +" World.mapsOnScreen.get(1).get(1).y: " + World.mapsOnScreen.get(1).get(1).y);
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for (int j=0; j<World.mapsOnScreen.get(i).size(); j++) {
 				World.mapsOnScreen.get(i).get(j).draw(g);
 			}
 		}
+		
 	}
 //=======================================
 //Returns an instance of random subclass of Path
