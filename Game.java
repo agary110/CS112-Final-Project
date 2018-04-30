@@ -47,13 +47,8 @@ public class Game extends JPanel implements KeyListener{
 	class Runner implements Runnable{
 		public void run(){
 
-<<<<<<< HEAD
-			while(true){	//this should actually be while(alive) (while(true) is for debugging purposes)
-
-=======
 			while(alive){
 				if(hasGameStarted){
->>>>>>> 6530f1aa3a9b9bddf03e4bc474805635fb0ae5ae
 				world.nextFrame(1.0 / (double)(FPS));
 				if (pressed){
 					world.moveMarble(c);
