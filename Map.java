@@ -50,10 +50,17 @@ class Map{
 				World.mapsOnScreen.get(i).get(j).y++;
 			}
 		}
-
+		if(World.mapsOnScreen.get(0).getLast().y==0) {
+			World.mapsOnScreen.add(generateNext());
+			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
+			World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
+	}
+System.out.println(World.mapsOnScreen.get(0).getLast().y + " and " + World.mapsOnScreen.get(1).get(0).y);
+		}
 		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
 			World.mapsOnScreen.remove(0);
-			World.mapsOnScreen.add(generateNext());
+			//World.mapsOnScreen.add(generateNext());
+			System.out.println("hi");
 		}
 
 	}

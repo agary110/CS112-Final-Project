@@ -38,7 +38,7 @@ public class World{
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
-		mapsOnScreen.add(Map.Map1);
+		//mapsOnScreen.add(Map.generateNext());
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
 	}
