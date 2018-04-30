@@ -3,8 +3,8 @@ import java.awt.Graphics;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
-import java.lang.Integer;
 import java.lang.String;
+import java.lang.StringBuilder;
 
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
@@ -160,9 +160,7 @@ class Bomb extends Item{
 class Ammo extends Item{
 	int increase;
 	static final int counterHeight = 40;
-	static final int counterWidth = 120;
-	static final int offset = 2;
-	static final int numberLength = counterWidth - 4;
+	static final int counterWidth = 60;
 
 	public Ammo(int x, int y){
 		super(x, y);
@@ -195,11 +193,13 @@ class Ammo extends Item{
 
 	public static void drawAmmoCounter(Graphics g){
 		g.setColor(Color.WHITE);
-		g.fillRect(3, 3, counterWidth, counterHeight);
+		g.drawString("Ammo:", 5, 25);
+
+		g.fillRect(3, 33, counterWidth, counterHeight);
 		g.setColor(Color.BLACK);
-		g.drawRect(2, 2, counterWidth + 2, counterHeight + 2);
+		g.drawRect(2, 32, counterWidth + 2, counterHeight + 2);
 		g.setColor(Color.WHITE);
-		g.drawRect(1, 1, counterWidth + 3, counterHeight + 3);
+		g.drawRect(1, 31, counterWidth + 3, counterHeight + 3);
 		g.setColor(Color.BLACK);
 
 		//Determines how many place values are in ammoCount
@@ -210,20 +210,14 @@ class Ammo extends Item{
 			i = i / 10;
 		}
 
-		//Fills data with chars that match ammoCount
-		char [] data = new char [4];
-		String countString = Integer.toString(World.ammoCount);
-		for(int j = 4; j > 0; j--){
-			if(dataIndex < j){
-				data [data.length - j] = '0';
-			}
-		}
+		StringBuilder stringBuilder = new StringBuilder();
 		for(int j = 0; j < dataIndex; j++){
-			data [data.length - dataIndex + j] = countString.charAt(j);
+			stringBuilder.append("0");
 		}
+		stringBuilder.append(World.ammoCount);
+		String stringAmmoCount = stringBuilder.toString();
 
-//ArrayindexOutofBoundsException when this line is in (“sun.java2d.SunGraphics2D.drawChars(SunGraphics2D.java:3024))
-//		g.drawChars(data, offset, numberLength, 4, 4);
+		g.drawString(stringAmmoCount, 15, 58);
 	}
 }
 
@@ -234,11 +228,10 @@ class Alien extends Item{
 	boolean deadly;
 	final int eyeWidth = width / 3;
 	final int pupilWidth = eyeWidth / 3 * 2;
-	final String string = "X";
 	
 	public Alien(int x, int y){
 		super(x, y);
-		deadly = false;
+		deadly = true;
 	}
 
 	public void draw(Graphics g){
@@ -303,8 +296,8 @@ class Alien extends Item{
 			g.fillOval(x, y, width, width);
 
 			g.setColor(Color.BLACK);
-			g.drawString(string, x + width / 2 - eyeWidth - 1, y + width / 2);
-			g.drawString(string, x + width / 2 + 1, y + width / 2);
+			g.drawString("X", x + width / 2 - eyeWidth - 1, y + width / 2);
+			g.drawString("X", x + width / 2 + 1, y + width / 2);
 			g.setColor(Color.PINK);
 			g.fillOval(x + width / 4 * 3 - 3, y + width / 4 * 3, 4, 4);
 			g.setColor(Color.BLACK);
@@ -317,10 +310,10 @@ class Alien extends Item{
 
 		if(World.ammoReleased){
 			for(int i = 0; i < World.ammoActive.size(); i++){
-				if(World.ammoActive.get(i).y == this.y){
+				if(World.ammoActive.get(i).y >= this.y && World.ammoActive.get(i).y <= this.y + width){
 					if(this.x + this.width - 2 >= World.ammoActive.get(i).x){
 						if(this.x <= World.ammoActive.get(i).x + AmmoReleased.width - 2){
-							this.deactivate();
+							this.deactivate(i);
 						}
 					}
 				}
@@ -334,15 +327,10 @@ class Alien extends Item{
 		}
 	}
 
-	public void deactivate(){
-		//When hit with ammo, Alien dies
-		for(int i = 0; i < World.ammoActive.size(); i++){
-			if(World.ammoActive.get(i).x < this.x + width && World.ammoActive.get(i).x > this.x && World.ammoActive.get(i).y < this.y + width){
-				deadly = false;
-				AmmoReleased.deactivate();
-				World.points += 10;
-			}
-		}
+	public void deactivate(int ammoActiveIndex){
+		deadly = false;
+		AmmoReleased.deactivate(ammoActiveIndex);
+		World.points += 10;
 	}
 
 }

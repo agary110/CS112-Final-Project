@@ -49,7 +49,6 @@ public class Game extends JPanel implements KeyListener{
 				world.nextFrame(1.0 / (double)(FPS));
 				if (pressed){
 					world.moveMarble(c);
-					world.shootAmmo(c);
 				}
 				repaint();
 				try{
@@ -86,6 +85,7 @@ public class Game extends JPanel implements KeyListener{
 
 	public void keyTyped(KeyEvent e) {
 		c = e.getKeyChar();
+		world.shootAmmo(c);
 	}
 
 	public void keyReleased(KeyEvent e) {

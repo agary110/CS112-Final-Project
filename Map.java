@@ -51,21 +51,15 @@ class Map{
 			}
 		}
 
-		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){	//There's something wrong with this if statement. When remove(0) is commented out, it generates a new map too much. If it's not commented out, then you only get upcomingPaths and one more map.
-			//World.mapsOnScreen.remove(0);
-			World.mapsOnScreen.add(generateNext());
+		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
+			World.mapsOnScreen.remove(0);
+		}
 
 		if(World.mapsOnScreen.get(0).getLast().y==0) {
 			World.mapsOnScreen.add(generateNext());
 			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
-			World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
-	}
-System.out.println(World.mapsOnScreen.get(0).getLast().y + " and " + World.mapsOnScreen.get(1).get(0).y);
-		}
-		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
-			World.mapsOnScreen.remove(0);
-			//World.mapsOnScreen.add(generateNext());
-			System.out.println("hi");
+				World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
+			}
 		}
 
 	}
@@ -145,7 +139,6 @@ public static void prototypePaths1(){
 
 //=======================================
 public static LinkedList<Path> generateNext(){
-	System.out.println("I'm in generateNext()");
 	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
 	LinkedList<Path> toAppend = new LinkedList<Path>(allMaps.get(randNum));
 	return toAppend;
@@ -157,19 +150,20 @@ public static LinkedList<Path> generateNext(){
 		int index = 0;
 		while(cumPathHeight <= Game.HEIGHT){
 			for (int i=0; i<World.mapsOnScreen.size(); i++) {
-			cumPathHeight += World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(i).size() - 1 - index).HEIGHT;
-			index++;
+				cumPathHeight += World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(i).size() - 1 - index).HEIGHT;
+				index++;
+			}
 		}
-	}
+
 		if(cumPathHeight < Game.HEIGHT){
 			index++;
 		}
 		Path [] visiblePaths = new Path [index];
 		for(int i = visiblePaths.length - 1; i >= 0; i--){
 			for (int j=0; i<World.mapsOnScreen.size(); j++){
-			visiblePaths [i] = World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(j).size() - 1 - 1);
+				visiblePaths [i] = World.mapsOnScreen.get(0).get(World.mapsOnScreen.get(j).size() - 1 - 1);
+			}
 		}
-	}
 		return visiblePaths;
 	}
 }
