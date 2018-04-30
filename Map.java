@@ -254,7 +254,6 @@ public static LinkedList<Path> generateNext(){
 	System.out.flush();
 	if (randNum == 5) System.out.println("BAD");
 	System.out.println("in generate next and number of allMaps is: " + allMaps.size());
-	System.out.println("generateNext() first path name: " + toAppend.size());
 	return toAppend;
 }
 //=======================================

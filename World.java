@@ -12,7 +12,7 @@ public class World{
 	static double WIDTH;
 	static Marble marble;
 	static Map map;
-	//static Item item;
+	static Item item;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	static double timeUntilNextItem;
@@ -23,7 +23,7 @@ public class World{
 	static Random rand;
 	static boolean bumpersOn;
 
-	static Node itemsActive;
+	//static Node itemsActive;
 //=======================================
 //Constructor
 	public World(double initHeight, double initWidth){
@@ -31,8 +31,8 @@ public class World{
 		WIDTH = initWidth;
 		marble = new Marble();
 		timeUntilNextItem = 0;
-		//item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
-		ammoCount = 10;
+		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
+		ammoCount = 0;
 		points = 0;
 		ammoReleased = false;
 		rand = new Random();
@@ -42,7 +42,7 @@ public class World{
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
 
-		itemsActive = new Node();
+		//itemsActive = new Node();
 	}
 //=======================================
 //Draw Methods
@@ -60,16 +60,14 @@ public class World{
 	}
 
 	public void drawItem(Graphics g){
-		/*if(item.drawn){
+		if(item.drawn){
 			item.draw(g);
-		}*/
-
-		if(itemsActive.item != null){
-			while(itemsActive.item != null){
-				itemsActive.item.draw(g);
-				itemsActive = itemsActive.previous;
-			}
 		}
+
+		/*while(itemsActive.isNull == false){
+			itemsActive.item.draw(g);
+			itemsActive = itemsActive.previous;
+		}*/
 	}
 
 	public void drawPath(Graphics g){
@@ -112,22 +110,26 @@ public class World{
 	}
 
 	private void updateItem(){
-		/*if(timeUntilNextItem <= 0){
+		if(timeUntilNextItem <= 0){
 			item = Item.generateNextItem(rand.nextInt(7));
 			timeUntilNextItem = rand.nextInt(4) + 2;
 		}
 
-		item.update();*/
+		item.update();
 
-		if(timeUntilNextItem <= 0){
+		/*if(timeUntilNextItem <= 0){
 			itemsActive = itemsActive.append(Item.generateNextItem(rand.nextInt(7)));
 			timeUntilNextItem = rand.nextInt(4) + 2;
 		}
 
-		while(itemsActive.isNull == false){
-			itemsActive.item.update();
-			itemsActive = itemsActive.previous;
-		}
+		Node n = itemsActive;
+		while(n.isNull == false){
+			n.item.update();
+			n = n.previous;
+			if(n.prevNull){
+				break;
+			}
+		}*/
 	}
 
 	private void updateMap(double time){
