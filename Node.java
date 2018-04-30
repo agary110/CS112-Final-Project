@@ -1,6 +1,7 @@
 public class Node{
 	Item item;
 	Node previous;
+	boolean isNull;
 
 	public Node(){
 		item = null;

@@ -73,7 +73,8 @@ class Item{
 			}
 		}
 
-		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
+		Random newRand = new Random();
+		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
 		int y = 0 - width;
 
 		//Bomb
@@ -403,7 +404,7 @@ class Booster extends Item{
 			timeActive -= (1 / (double)(Game.FPS));
 		}
 		if(timeActive <= 0){
-			//this.deactivate();
+			this.deactivate();
 		}
 	}
 
@@ -431,10 +432,8 @@ class Bumpers extends Booster{
 	}
 
 	public void deactivate(){
+		super.deactivate();
 		World.bumpersOn = false;
-		this.activated = false;
-		//How to actually turn the bumpers off
-		
 	}
 
 	public void update(){

@@ -124,11 +124,9 @@ public class World{
 			timeUntilNextItem = rand.nextInt(4) + 2;
 		}
 
-		if(itemsActive.item != null){
-			while(itemsActive.item != null){
-				itemsActive.item.update();
-				itemsActive = itemsActive.previous;
-			}
+		while(itemsActive.isNull == false){
+			itemsActive.item.update();
+			itemsActive = itemsActive.previous;
 		}
 	}
 
