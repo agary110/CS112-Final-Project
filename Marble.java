@@ -257,6 +257,8 @@ public class Marble{
 		Path path = checkPath();
 		Pair marb = World.marble.position;
 		
+
+		/*** Null pointer exception occurs here because checkPath() returns a null ***/
 		if(path.name == "Straight"){
 			if(marb.x < path.x || marb.x + World.marble.radius > path.x + path.WIDTH){
 				Game.alive = false;
@@ -343,6 +345,7 @@ public class Marble{
 
 	public static Path checkPath(){
 
+		//Is the commented off code necessary? Does the stuff below it just replace it?
 		Path [] visiblePaths = new Path [100];
 		int n = 0;
 
@@ -363,19 +366,7 @@ public class Marble{
 			}
 		}
 
-		/*for(int i = 0; i < Map.upcomingPaths.size(); i++){
-			if(Map.upcomingPaths.get(i).y > 0 && Map.upcomingPaths.get(i).y < Game.HEIGHT){
-				visiblePaths [j] = Map.upcomingPaths.get(i);
-				j++;
-			}
-		}
-
-		for(int i = 0; i < Map.upcomingPaths.size(); i++){
-				if(World.marble.position.y >= Map.upcomingPaths.get(i).y && World.marble.position.y < Map.upcomingPaths.get(i).y + Map.upcomingPaths.get(i).HEIGHT){
-					return Map.upcomingPaths.get(i);
-				}
-		}*/
-
+		System.out.println("checkPath() is returning a null");
 		return null;
 
 	}
