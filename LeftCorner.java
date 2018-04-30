@@ -30,7 +30,7 @@ public class LeftCorner extends Path {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   				RenderingHints.VALUE_ANTIALIAS_ON);
 		g.fill (new Rectangle2D.Double(x, y, WIDTH, WIDTH));
-		g.fill (new Rectangle2D.Double(exitX, y, WIDTH, HEIGHT));
+		g.fill (new Rectangle2D.Double(x, y+WIDTH, WIDTH, HEIGHT));
 		if (World.bumpersOn){
 			g.setColor(Color.RED);
 			g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));

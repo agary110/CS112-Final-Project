@@ -127,6 +127,7 @@ public static void prototypePaths1(){
 	Map3.add(new LeftCorner(Map3.getLast()));
 	//Left corner does not work— need to fix
 	Map3.add(new LeftElbow(Map3.getLast()));
+	Map3.add(new LeftCorner(Map3.getLast()));
 /*
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
 	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
