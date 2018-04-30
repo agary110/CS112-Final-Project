@@ -17,7 +17,7 @@ public class World{
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	boolean aliveItem;
 	static double timeUntilNextItem;
-	static final double originalTimeUntilNextItem = 2;
+	static final double originalTimeUntilNextItem = 3.5;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
@@ -31,8 +31,8 @@ public class World{
 		WIDTH = initWidth;
 		marble = new Marble();
    		aliveItem = false;
-		item = new Item(Game.WIDTH / 2, Game.HEIGHT);
 		timeUntilNextItem = 1;
+		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
 		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
@@ -40,7 +40,6 @@ public class World{
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
-		//mapsOnScreen.add(Map.generateNext());
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
 	}
@@ -106,11 +105,11 @@ public class World{
 
 	private void updateItem(){
 		if(timeUntilNextItem <= 0){
-			item = Item.generateNextItem(rand.nextInt(6));
+			item = Item.generateNextItem(rand.nextInt(7));
 			timeUntilNextItem = originalTimeUntilNextItem;
 		}
+
 		item.update();
-		
 	}
 
 	private void updateMap(double time){
