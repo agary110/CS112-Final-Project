@@ -133,6 +133,8 @@ public static void prototypePaths1(){
 		//Left corner does not work— need to fix
 	Map3.add(new LeftElbow(Map3.getLast()));
 	Map3.add(new LeftCorner(Map3.getLast()));
+	Map3.add(new LeftElbow(Map3.getLast()));
+	Map3.add(new Straight(Map3.getLast()));
 
 //straight option, just for debugging
 	Map4.add(new Straight(upcomingPaths.getLast()));
@@ -219,6 +221,8 @@ public static void prototypePaths1(){
 		//Left corner does not work— need to fix
 		toR.add(new LeftElbow(toR.getLast()));
 		toR.add(new LeftCorner(toR.getLast()));
+		toR.add(new LeftElbow(toR.getLast()));
+		toR.add(new Straight(toR.getLast()));
 		return toR;
 
 	}
