@@ -188,4 +188,13 @@ public class World{
 			}
 		}
 	}
+//=======================================
+//When the key “h” is pressed, the help menu pops up on the screen.
+
+	public void helpMenu(boolean paused, Graphics g){
+		if(paused){
+			
+		}
+	}
+
 }
