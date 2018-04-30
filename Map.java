@@ -37,8 +37,8 @@ class Map{
 //Add maps to linked list allMaps
 	public void addMaps() {
 		allMaps.add(upcomingPaths);
-		allMaps.add(Map1);
-		allMaps.add(Map2);
+		//allMaps.add(Map1);
+		//allMaps.add(Map2);
 		allMaps.add(Map3);
 	}
 //=======================================
@@ -55,11 +55,10 @@ class Map{
 			for (int i = 0; i<World.mapsOnScreen.get(1).size(); i++) {
 			World.mapsOnScreen.get(1).get(i).y += World.mapsOnScreen.get(0).getLast().HEIGHT +World.mapsOnScreen.get(0).getLast().WIDTH/2;
 	}
-System.out.println(World.mapsOnScreen.get(0).getLast().y + " and " + World.mapsOnScreen.get(1).get(0).y);
+System.out.println("yo");
 		}
 		if(World.mapsOnScreen.get(0).getLast().y >= Game.HEIGHT){
 			World.mapsOnScreen.remove(0);
-			//World.mapsOnScreen.add(generateNext());
 			System.out.println("hi");
 		}
 
@@ -111,14 +110,15 @@ public static void prototypePaths1(){
 //option 3
 	Map3.add(new RightCorner(upcomingPaths.getLast()));
 	Map3.add(new RightElbow(Map3.getLast()));
-	Map3.add(new RightCorner(Map3.getLast()));
-	Map3.add(new RightElbow(Map3.getLast()));
+	//Map3.add(new RightCorner(Map3.getLast()));
+	//Map3.add(new RightElbow(Map3.getLast()));
 	Map3.add(new Straight(Map3.getLast()));
+	Map3.add(new Straight(Map3.getLast()));
+	//Map3.add(new LeftCorner(Map3.getLast()));
+	//Map3.add(new LeftElbow(Map3.getLast()));
 	Map3.add(new Straight(Map3.getLast()));
 	Map3.add(new LeftCorner(Map3.getLast()));
-	Map3.add(new LeftElbow(Map3.getLast()));
-	Map3.add(new Straight(Map3.getLast()));
-	Map3.add(new LeftCorner(Map3.getLast()));
+	//Left corner does not work— need to fix
 	Map3.add(new LeftElbow(Map3.getLast()));
 /*
 	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
@@ -142,6 +142,7 @@ public static void prototypePaths1(){
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
 	LinkedList<Path> toAppend = new LinkedList<Path>(allMaps.get(randNum));
+	System.out.println("in generate next");
 	return toAppend;
 }
 //=======================================
