@@ -47,8 +47,8 @@ public class Game extends JPanel implements KeyListener{
 	class Runner implements Runnable{
 		public void run(){
 
-			while(alive){	//this should actually be while(alive) (while(true) is for debugging purposes)
-
+			while(alive){
+				if(hasGameStarted){
 				world.nextFrame(1.0 / (double)(FPS));
 				if (pressed){
 					world.moveMarble(c);
@@ -59,10 +59,9 @@ public class Game extends JPanel implements KeyListener{
 				}
 				catch(InterruptedException e){}
 			}
-			
+		
 			Logger.writeHighScore(tempHighScore, "highscore.txt");
-
-		}
+		}}
 	}
 
 	public void keyPressed(KeyEvent e) {
