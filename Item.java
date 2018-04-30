@@ -15,7 +15,7 @@ class Item{
 	public static int width = (int)(Path.WIDTH / 3 - 10) + 2;
 	public boolean activated;
 	public boolean deactivated;
-	public boolean onScreen;
+	public boolean passed;
 	public boolean drawn;
 	static Random rand;
 
@@ -25,7 +25,7 @@ class Item{
 		this.y = y;
 		activated = false;
 		deactivated = false;
-		onScreen = true;
+		passed = true;
 		drawn = true;
 		rand = new Random();
 	}
@@ -35,7 +35,7 @@ class Item{
 
 		this.y++;
 
-		if(onScreen){
+		if(passed){
 			if(this.y  - 2 < World.marble.position.y && this.y + this.width + 2 > World.marble.position.y){
 				if(this.x + this.width - 2 >= World.marble.position.x){
 					if(this.x <= World.marble.position.x + World.marble.radius - 2){
@@ -44,8 +44,8 @@ class Item{
 					}
 				}
 			}
-			if(this.y >= Game.HEIGHT){
-				onScreen = false;
+			if(this.y >= World.marble.position.y){
+				passed = false;
 			}
 		}
 		else{
@@ -76,7 +76,7 @@ class Item{
 		int x = pathX + 2 + rand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = 0 - width;
 
-		randNum = 5;
+		randNum = 1;
 
 		//Bomb
 		if(randNum == 0){
@@ -166,14 +166,15 @@ class Coin extends Item{
 	public Coin(int x, int y){
 		super(x, y);
 		increase = rand.nextInt(3) + 3;
+		width -= 2;
 	}
 
 	public void draw(Graphics g){
 		g.setColor(Color.YELLOW.brighter());
-		g.fillOval(x, y, width / 2, width);
+		g.fillOval(x, y, width, width);
 		g.setColor(Color.ORANGE);
-		g.drawOval(x, y, width / 2, width);
-		g.fillOval(x + width / 6, y + width / 4, width / 6, width / 2);
+		g.drawOval(x, y, width, width);
+		g.fillOval(x + width / 3 - 1, y + width / 3 - 1, width / 2, width / 2);
 	}
 
 	public void activate(){
