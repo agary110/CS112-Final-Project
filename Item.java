@@ -462,6 +462,8 @@ class Bumpers extends Booster implements Deactivatable{
 		checkTopEdge();
 	}
 
+//HI AMY
+
 	public void checkTopEdge(){
 		Path path = Marble.checkPath();
 		Pair marb = World.marble.position;
