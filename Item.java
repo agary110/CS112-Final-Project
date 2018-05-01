@@ -86,15 +86,15 @@ class Item{
 		int y = pathY;
 	
 		randNum = 0;
-		
-		//Bomb
-		if(randNum == 0){
-			return new Bomb(x, y);
-		}
 
 		//Bumpers
-		else if(randNum == 1){
+		if(randNum == 0){
 			return new Bumpers(x, y);
+		}
+		
+		//Bomb
+		else if(randNum == 1){
+			return new Bomb(x, y);
 		}
 
 		//ChangeSpeed

@@ -423,10 +423,12 @@ public class Marble{
 			}
 		}
 
-		else{//Trapezoid
-			System.out.println("In trapezoid");
-			int xCord
-			int yCord = (Game.HEIGHT - path. y) / (Game.WIDTH - path.exitX) * marb.y + path.y;
+		else{//BigRect
+			if(marb.x + World.marble.radius / 2 < World.mapsOnScreen.get(0).get(1).x || marb.x - World.marble.radius / 2 > World.mapsOnScreen.get(0).get(1).x + Path.WIDTH){
+				if(marb.y - World.marble.radius / 3 < path.y){
+					Game.alive = false;
+				}
+			}
 		}
     }
 //============================================

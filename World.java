@@ -31,17 +31,19 @@ public class World{
 		WIDTH = initWidth;
 		marble = new Marble();
 		timeUntilNextItem = 0;
-		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
 		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
-		rand = new Random();
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
 		ammoActive = new LinkedList<AmmoReleased>();
-		bumpersOn = false;
+		bumpersOn = true;
 		currentHighScore = Logger.readHighScore("highscore.txt");
+		rand = new Random();	
+		//item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
+
+		item = Item.generateNextItem(rand.nextInt(6) + 1);
 
 		//itemsActive = new Node();
 	}

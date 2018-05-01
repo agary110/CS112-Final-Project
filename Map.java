@@ -26,7 +26,7 @@ class Map{
 		allMaps = new LinkedList<LinkedList<Path>>();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		upcomingPaths.add(new Trapezoid(Game.HEIGHT / 2));
+		upcomingPaths.add(new BigRect(Game.HEIGHT / 2));
 		upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 		upcomingPaths.get(0).y = Game.HEIGHT;
 		for(int i = 1; i < 6; i++){
@@ -53,9 +53,9 @@ class Map{
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
 				World.mapsOnScreen.get(i).get(j).y++;
-				if(World.mapsOnScreen.get(i).get(j).name == "Trapezoid"){
+				/*if(World.mapsOnScreen.get(i).get(j).name == "Trapezoid"){
 					World.mapsOnScreen.get(i).get(j).update();
-				}
+				}*/
 			}
 		}
 
