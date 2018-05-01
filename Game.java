@@ -180,7 +180,7 @@ g.setColor(Color.WHITE);
 			g.drawString("YOU DIED!", Game.WIDTH / 2 - 55, Game.HEIGHT / 4 + 130);
 			g.drawString("Your score: " + (int)World.points, Game.WIDTH/2 - 55, Game.HEIGHT/4 + 160);
 			if ((int)World.points>(int)currentHighScore) {
-			g.drawString("Congrats! You beat the high score.", Game.WIDTH / 4 + 200, Game.HEIGHT / 4 + 190);
+			g.drawString("Congrats! You beat the high score.", Game.WIDTH / 4 + 150, Game.HEIGHT / 4 + 190);
 			g.drawString("New high score: " + (int)World.points, Game.WIDTH/2-55, Game.HEIGHT/4 + 220);
 			}
 			else if ((int)World.points==(int)currentHighScore) {
