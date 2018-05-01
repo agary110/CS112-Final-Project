@@ -11,7 +11,7 @@ public class World{
 	static double HEIGHT;
 	static double WIDTH;
 	static Marble marble;
-	static Map map;
+	static Map<E extends pathType> map;
 	static Item item;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
