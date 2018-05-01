@@ -32,7 +32,7 @@ public class World{
 		marble = new Marble();
 		timeUntilNextItem = 0;
 		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
-		ammoCount = 0;
+		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
 		rand = new Random();
