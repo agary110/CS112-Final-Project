@@ -2,8 +2,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
+//import javax.swing.JPanel;
+//import javax.swing.JFrame;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
@@ -12,7 +12,7 @@ import java.awt.RenderingHints;
 public class Horizontal extends Path{
     boolean direction;
 
-    public Horizontal(int enterX, boolean direction){
+    /*public Horizontal(int enterX, boolean direction){
 		super(enterX);
 		this.name="Horizontal";
 		if (direction) {
@@ -21,7 +21,7 @@ public class Horizontal extends Path{
 		else {
 	   		this.x=enterX-HEIGHT;
 		}
-    }
+    }*/
 
 	public Horizontal(Path previous, boolean direction){
 		super(previous);
@@ -59,7 +59,6 @@ public class Horizontal extends Path{
 				g.fill(new Rectangle2D.Double(x, y + WIDTH, HEIGHT, bumperWidth));
 			}
 		} 
-		g.setColor(color);
 		
     }
 }

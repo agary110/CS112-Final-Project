@@ -58,7 +58,7 @@ public class Marble{
 //================================================
 /** Update method; moves the marble's position based on its velocity and how much time has passed  **/
 
-    public void update(double time){
+    public void update(){
 		position = position;
     }
     
