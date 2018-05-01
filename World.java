@@ -106,9 +106,6 @@ public class World{
 			g.drawString("to store for later. You will find some mystery boosters along the way as well. These include speed ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 80);
 			g.drawString("boosters, size boosters, and bumpers. But watch out! There are also some bombs to avoid and aliens ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 100);
 			g.drawString("to kill (10 bonus points for each alien hit).", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
-
-			g.drawString("The high score to beat is" + Game.currentHighScore, Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
-
 			g.drawString("Good luck!", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 140);
 
 			//Draws coin
@@ -141,12 +138,16 @@ public class World{
 			g.setColor(Color.BLACK);
 			g.drawString("Alien", Game.WIDTH / 4 + 445, Game.HEIGHT / 2 + alien.width + 20);
 
-			g.drawString("'i' = up			'h' = help menu", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 70);
+			g.drawString("'i' = up		'h' = help menu", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 70);
 			g.drawString("'k' = down		'a' = shoot ammo", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 90);
 			g.drawString("'l' = right		'enter' = restart", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 110);
 			g.drawString("'j' = left		'esc' = quit", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 130);
 
-			g.drawString("Press 'h' to start/resume game.", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 150);
+
+			g.setColor(Color.RED);
+			g.drawString("The high score to beat is " + (int)(Game.currentHighScore), Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 150);
+			g.setColor(Color.BLACK);
+			g.drawString("Press 'h' to start/resume game.", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 170);
 
 			Game.paused = true;
 		}
