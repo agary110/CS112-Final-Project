@@ -16,7 +16,7 @@ public class Game extends JPanel implements KeyListener{
 /** Member variables **/
 	public static final int WIDTH = 1400;
 	public static final int HEIGHT = 750;
-	public static final int FPS = 60;
+	public static int FPS = 90;
 	public static World world;
 	public static boolean alive;
 	public static boolean helpDrawn;
@@ -92,6 +92,19 @@ public class Game extends JPanel implements KeyListener{
 			hasGameStarted=true;
 		}
 
+		if (c == 'i'){
+			ipressed = true;
+		}
+		if (c == 'j'){
+			jpressed = true;
+		}
+		if (c == 'k'){
+			kpressed = true;
+		}
+		if (c == 'l'){
+			lpressed = true;
+		}
+
 		else if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 			JFrame frame = new JFrame("aMAZE-ing Maze");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,7 +123,7 @@ public class Game extends JPanel implements KeyListener{
 		if (c == 'a'){
 			world.shootAmmo();
 		}
-		if (c == 'i'){
+		/*if (c == 'i'){
 			ipressed = true;
 		}
 		if (c == 'j'){
@@ -121,7 +134,7 @@ public class Game extends JPanel implements KeyListener{
 		}
 		if (c == 'l'){
 			lpressed = true;
-		}
+		}*/
 		if(c == 'h'){
 			if(paused == false){
 				helpDrawn = true;
