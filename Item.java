@@ -201,8 +201,6 @@ class Coin extends Item implements Deactivatable{
 
 //=======================================
 //Class Ammo extends Item (increases ammoCount by 1-3)
-//Add something that says “Ammo Counter:” next to the counter
-//Fix draw(g)
 
 class Ammo extends Item implements Deactivatable{
 	int increase;
@@ -236,6 +234,7 @@ class Ammo extends Item implements Deactivatable{
 		this.activated = false;
 		World.timeUntilNextItem = rand.nextInt(4) + 2;
 		pickUp();
+		deactivate();
 	}
 
 	public void deactivate(){
@@ -402,7 +401,7 @@ class Booster extends Item{
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);
 		g.fillRect(this.x, this.y, width, width);
-		g.setColor(Color.RED);
+		g.setColor(Color.GREEN);
 		g.drawRect(this.x, this.y, width, width);
 		g.drawString("?", this.x + width / 2, this.y + width / 5 * 4);
 	}
