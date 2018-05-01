@@ -12,27 +12,27 @@ import java.awt.RenderingHints;
 public class Horizontal extends Path{
     boolean direction;
 
-    public Horizontal(int exitX, boolean direction){
-		super(exitX);
+    public Horizontal(int enterX, boolean direction){
+		super(enterX);
 		this.name="Horizontal";
 		if (direction) {
-	 		this.x=exitX+HEIGHT;
+	 		this.x=enterX+HEIGHT;
 		}
 		else {
-	   		this.x=exitX-HEIGHT;
+	   		this.x=enterX-HEIGHT;
 		}
     }
 
 	public Horizontal(Path previous, boolean direction){
 		super(previous);
 		name = "Horizontal";
-		exitX = previous.x;
+		enterX = previous.x;
 		this.direction = direction;
 		if(direction){
-			x = exitX + Path.HEIGHT;
+			x = enterX + Path.HEIGHT;
 		}
 		else{
-			x = exitX - Path.HEIGHT;
+			x = enterX - Path.HEIGHT;
 		}
 		y = previous.y;
 	}
@@ -43,7 +43,7 @@ public class Horizontal extends Path{
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		RenderingHints.VALUE_ANTIALIAS_ON);
 		if(direction){
-			g.fill(new Rectangle2D.Double(exitX, y, HEIGHT, WIDTH));
+			g.fill(new Rectangle2D.Double(enterX, y, HEIGHT, WIDTH));
 		}
 		else{
 			g.fill(new Rectangle2D.Double(x, y, HEIGHT, WIDTH));
@@ -51,8 +51,8 @@ public class Horizontal extends Path{
 		if (World.bumpersOn){
 			g.setColor(Color.RED);
 			if(direction){
-				g.fill(new Rectangle2D.Double(exitX, y - bumperWidth, HEIGHT, bumperWidth));
-				g.fill(new Rectangle2D.Double(exitX, y + WIDTH, HEIGHT, bumperWidth));
+				g.fill(new Rectangle2D.Double(enterX, y - bumperWidth, HEIGHT, bumperWidth));
+				g.fill(new Rectangle2D.Double(enterX, y + WIDTH, HEIGHT, bumperWidth));
 			}
 			else{
 				g.fill(new Rectangle2D.Double(x, y - bumperWidth, HEIGHT, bumperWidth));

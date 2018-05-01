@@ -48,7 +48,7 @@ public class Game extends JPanel implements KeyListener{
 		pressed=false;
 		c = ' ';
 		tempHighScore = 100;
-		currentHighScore = Logger.readHighScore("highscore.txt”);
+		currentHighScore = Logger.readHighScore("highscore.txt");
 	}
 
 //================================================

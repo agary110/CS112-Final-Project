@@ -9,14 +9,14 @@ public class Path{
     int x; //corresponds to path's upper left corner
     int y; //corresponds to path's upper left corner
     String name;
-    int exitX; //corresponds to path's bottom left corner
+    int enterX; //corresponds to path's bottom left corner
     final Color color;
 
-    public Path(int exitX) {
+    public Path(int enterX) {
 		name = "";
 		x=0;
 		y= - Path.HEIGHT;
-		this.exitX=exitX;
+		this.enterX=enterX;
 		Random rand = new Random();
 		color = Color.LIGHT_GRAY;
 
@@ -28,7 +28,7 @@ public class Path{
 		color = Color.LIGHT_GRAY; 
 		x = 0;
 		y = 0;
-		exitX = 0;
+		enterX = 0;
 	}
 
     public void draw (Graphics g) {

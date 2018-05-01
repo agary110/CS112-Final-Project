@@ -11,16 +11,16 @@ import java.awt.RenderingHints;
 
 public class LeftCorner extends Path {
 
-    public LeftCorner(int exitX) {
-		super(exitX);
+    public LeftCorner(int enterX) {
+		super(enterX);
 		this.name="leftCorner";
-		this.x=exitX-WIDTH;
+		this.x=enterX-WIDTH;
     }
 	public LeftCorner(Path previous) {
 		super(previous);
 		name="leftCorner";
-		exitX=previous.x;
-		x = exitX - Path.WIDTH;	//was originally “x = exitX - Path.WIDTH;”
+		enterX=previous.x;
+		x = enterX - Path.WIDTH;	//was originally “x = enterX - Path.WIDTH;”
 		y=previous.y-Path.HEIGHT;
 	}
 	
