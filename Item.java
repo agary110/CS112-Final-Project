@@ -17,6 +17,8 @@ class Item{
 	public int x;
 	public int y;
 	public static int width = (int)(Path.WIDTH / 3 - 10) + 2;
+	public static final double originalTimeUntilNextItem = 4;
+	public double timeUntilNextItem;
 	public boolean activated;
 	public boolean deactivated;
 	public boolean passed;
@@ -27,11 +29,12 @@ class Item{
 	public Item(int x, int y){
 		this.x = x;
 		this.y = y;
+		rand = new Random();
+		timeUntilNextItem = originalTimeUntilNextItem + rand.nextInt(3);;
 		activated = false;
 		deactivated = false;
 		passed = true;
 		drawn = true;
-		rand = new Random();
 	}
 
 //Item update()
@@ -53,7 +56,9 @@ class Item{
 			}
 		}
 		else{
-			World.timeUntilNextItem -= 1 / (double)(Game.FPS);
+			if(this.timeUntilNextItem > 0){
+				this.timeUntilNextItem -= 1 / (double)(Game.FPS);
+			}
 		}
 
 	}
@@ -85,16 +90,14 @@ class Item{
 		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
 		int y = pathY;
 	
-		randNum = 0;
+		//Bumpers
+		if(randNum == 0){
+			return new Bumpers(x, y);
+		}
 		
 		//Bomb
-		if(randNum == 0){
-			return new Bomb(x, y);
-		}
-
-		//Bumpers
 		else if(randNum == 1){
-			return new Bumpers(x, y);
+			return new Bomb(x, y);
 		}
 
 		//ChangeSpeed
@@ -212,7 +215,7 @@ class Coin extends Item implements Deactivatable{
 	public void activate(){
 		World.points += increase;
 		this.activated = false;
-		World.timeUntilNextItem = rand.nextInt(4) + 2;
+		this.timeUntilNextItem = 0;
 		pickUp();
 		deactivate();
 	}
@@ -255,7 +258,7 @@ class Ammo extends Item implements Deactivatable{
 	public void activate(){
 		World.ammoCount = World.ammoCount + increase;
 		this.activated = false;
-		World.timeUntilNextItem = rand.nextInt(4) + 2;
+		this.timeUntilNextItem = 0;
 		pickUp();
 		deactivate();
 	}
@@ -381,12 +384,14 @@ class Alien extends Item{
 	public void update(){
 		super.update();
 
-		if(World.ammoReleased){
-			for(int i = 0; i < World.ammoActive.size(); i++){
-				if(World.ammoActive.get(i).y >= this.y && World.ammoActive.get(i).y <= this.y + width){
-					if(this.x + this.width - 2 >= World.ammoActive.get(i).x){
-						if(this.x <= World.ammoActive.get(i).x + World.ammoActive.get(i).width - 2){
-							this.deactivate(i);
+		if(deadly){
+			if(World.ammoReleased){
+				for(int i = 0; i < World.ammoActive.size(); i++){
+					if(World.ammoActive.get(i).y >= this.y && World.ammoActive.get(i).y <= this.y + width){
+						if(this.x + this.width - 2 >= World.ammoActive.get(i).x){
+							if(this.x <= World.ammoActive.get(i).x + World.ammoActive.get(i).width - 2){
+								this.deactivate(i);
+							}
 						}
 					}
 				}
@@ -397,7 +402,6 @@ class Alien extends Item{
 	public void activate(){				
 		if(this.activated && deadly){
 			Game.alive = false;
-			System.out.println("died because of an alien");
 		}
 	}
 
@@ -413,12 +417,12 @@ class Alien extends Item{
 //Class Booster extends Item (includes all time-sensitive Items)
 
 class Booster extends Item{
-	public double timeActive;
+	public double deactivateTime;
 
 	public Booster(int x, int y){
 		super(x, y);
 		activated = false;
-		timeActive = 5;
+		deactivateTime = 5;
 	}
 
 	public void draw(Graphics g){
@@ -429,15 +433,15 @@ class Booster extends Item{
 		g.drawString("?", this.x + width / 2, this.y + width / 5 * 4);
 	}
 
-	public void update(double time){
+	public void update(){
 		super.update();
 
 		if(this.activated){
 			this.pickUp();
-			timeActive = time;
-			timeActive -= (1 / (double)(Game.FPS));
+			this.deactivateTime -= 1 / (double)(Game.FPS);
 		}
-		if(timeActive <= 0){
+
+		if(this.deactivateTime <= 0){
 			this.deactivate();
 		}
 	}
@@ -463,7 +467,6 @@ class Bumpers extends Booster implements Deactivatable{
 	}
 
 	public void activate(){
-	//How to actually turn the bumpers on
 		super.activate();
 		World.bumpersOn = true;
 	}
@@ -481,11 +484,9 @@ class Bumpers extends Booster implements Deactivatable{
 		if(deactivateTime <= 0){
 			this.deactivate();
 		}*/
-		super.update(deactivateTime);
+		super.update();
 		checkTopEdge();
 	}
-
-//HI AMY
 
 	public void checkTopEdge(){
 		Path path = Marble.checkPath();
@@ -557,7 +558,7 @@ class ChangeSpeed extends Booster implements Deactivatable{
 		//How to actually make the speed normal again
 	}
 	public void update(){
-		super.update(deactivateTime);
+		super.update();
 	}
 }
 
@@ -594,6 +595,6 @@ class ChangeSize extends Booster implements Deactivatable{
 		World.marble.radius = originalSize;		
 	}
 	public void update(){
-		super.update(deactivateTime);
+		super.update();
 	}
 }

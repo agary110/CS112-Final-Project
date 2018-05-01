@@ -415,11 +415,19 @@ public class Marble{
 
 
 
-		else{//Horizontal
+		else if(path.name == "Horizontal"){
 			if(marb.y + World.marble.radius / 3 < path.y || marb.y - World.marble.radius / 3 > path.y + path.WIDTH){
 				Game.alive = false;
 				System.out.println("died bc horizontal");
 
+			}
+		}
+
+		else{//BigRect
+			if(marb.x + World.marble.radius / 2 < World.mapsOnScreen.get(0).get(1).x || marb.x - World.marble.radius / 2 > World.mapsOnScreen.get(0).get(1).x + Path.WIDTH){
+				if(marb.y - World.marble.radius / 3 < path.y){
+					Game.alive = false;
+				}
 			}
 		}
     }

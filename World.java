@@ -12,17 +12,15 @@ public class World{
 	static double WIDTH;
 	static Marble marble;
 	static Map map;
-	static Item item;
+	static LinkedList<Item> itemsActive;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
-	static double timeUntilNextItem;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
 	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
 	static boolean bumpersOn;
-	double currentHighScore;
 
 //=======================================
 //Constructor
@@ -30,20 +28,17 @@ public class World{
 		HEIGHT = initHeight;
 		WIDTH = initWidth;
 		marble = new Marble();
-		timeUntilNextItem = 0;
-		item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
 		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
-		rand = new Random();
 		map = new Map();
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
-		currentHighScore = Logger.readHighScore("highscore.txt");
-
-		//itemsActive = new Node();
+		rand = new Random();	
+		itemsActive = new LinkedList<Item>();
+		itemsActive.add(Item.generateNextItem(rand.nextInt(6) + 1));
 	}
 //=======================================
 //Draw Methods
@@ -62,14 +57,11 @@ public class World{
 	}
 
 	public void drawItem(Graphics g){
-		if(item.drawn){
-			item.draw(g);
+		for(int i = 0; i < itemsActive.size(); i++){
+			if(itemsActive.get(i).drawn){
+				itemsActive.get(i).draw(g);
+			}
 		}
-
-		/*while(itemsActive.isNull == false){
-			itemsActive.item.draw(g);
-			itemsActive = itemsActive.previous;
-		}*/
 	}
 
 	public void drawPath(Graphics g){
@@ -115,7 +107,7 @@ public class World{
 			g.drawString("boosters, size boosters, and bumpers. But watch out! There are also some bombs to avoid and aliens ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 100);
 			g.drawString("to kill (10 bonus points for each alien hit).", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
 
-			g.drawString("The high score to beat is" + currentHighScore, Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
+			g.drawString("The high score to beat is" + Game.currentHighScore, Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
 
 			g.drawString("Good luck!", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 140);
 
@@ -173,26 +165,13 @@ public class World{
 	}
 
 	private void updateItem(){
-		if(timeUntilNextItem <= 0){
-			item = Item.generateNextItem(rand.nextInt(7));
-			timeUntilNextItem = rand.nextInt(4) + 2;
+		if(itemsActive.getLast().timeUntilNextItem <= 0){
+			itemsActive.add(Item.generateNextItem(rand.nextInt(7)));
 		}
 
-		item.update();
-
-		/*if(timeUntilNextItem <= 0){
-			itemsActive = itemsActive.append(Item.generateNextItem(rand.nextInt(7)));
-			timeUntilNextItem = rand.nextInt(4) + 2;
+		for(int i = 0; i < itemsActive.size(); i++){
+			itemsActive.get(i).update();
 		}
-
-		Node n = itemsActive;
-		while(n.isNull == false){
-			n.item.update();
-			n = n.previous;
-			if(n.prevNull){
-				break;
-			}
-		}*/
 	}
 
 	private void updateMap(double time){
@@ -212,6 +191,15 @@ public class World{
 			}
 		}
 	}
+
+	private void updateTriggerEvents(){
+		if((int)(points) % 25 == 0 && (int)(points) != 0){
+			System.out.println("trigE");
+			TriggerEvent trigEvent = new TriggerEvent(rand.nextInt(3));
+			points++;
+		}
+	}
+
 //=======================================
 //Updates Frame and values that change by frame
 	public void nextFrame(double time){
@@ -220,6 +208,7 @@ public class World{
 		updateMap(time);
 		updatePoints();
 		updateAmmoReleased();
+		updateTriggerEvents();
 	}
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
