@@ -436,46 +436,33 @@ public class Marble{
 
 	public static Path checkPath(){
 
-		Path [] visiblePaths = new Path [100];
-		int n = 0;
-
-
-		/*
-		//Puts all paths that are currently visible into visiblePaths
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
-				if(World.mapsOnScreen.get(i).get(j).y > 0 && World.mapsOnScreen.get(i).get(j).y < Game.HEIGHT){
-					visiblePaths [n] = World.mapsOnScreen.get(i).get(j);
-					n++;
+
+				Path path = World.mapsOnScreen.get(i).get(j);
+
+				if(path.name == "BigRect"){
+					return path;
+				}
+
+				if(World.marble.position.y >= path.y && World.marble.position.y < path.y + path.HEIGHT){
+					int minX;
+					int maxX;
+					if(path.x < path.exitX){
+						minX = path.x;
+						maxX = path.exitX;
+					}
+					else{
+						minX = path.exitX;
+						maxX = path.x;
+					}
+					if(World.marble.position.x >= minX && World.marble.position.x + World.marble.radius <= maxX){
+						return path;
+					}
 				}
 			}
 		}
-		*/
-		for(int i = 0; i < World.mapsOnScreen.size(); i++){
-			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
-				if(World.marble.position.y >= World.mapsOnScreen.get(i).get(j).y && World.marble.position.y < World.mapsOnScreen.get(i).get(j).y + World.mapsOnScreen.get(i).get(j).HEIGHT){
-					return World.mapsOnScreen.get(i).get(j);
-				}
-			}
-		}
 
-		//Attempt to rewrite
-		/*for(int i = 0; i < visiblePaths.length; i++){
-			if(visiblePaths[i] == null){
-				break;
-			}
-			if(World.marble.position.y >= visiblePaths[i].y){
-				if(visiblePaths [i].name == "Horizontal" && World.marble.position.y <= visiblePaths [i].y + Path.WIDTH){
-					return visiblePaths [i];
-				}
-				else if(World.marble.position.y <= visiblePaths [i].y + Path.HEIGHT){
-					return visiblePaths [i];
-				}
-			}
-		}*/
-
-		System.out.println("checkPath() is returning a null");
-		System.out.println("World.mapsOnScreen: " +  World.mapsOnScreen.size());
 		return null;
 
 	}

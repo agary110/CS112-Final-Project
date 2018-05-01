@@ -246,13 +246,13 @@ class Ammo extends Item implements Deactivatable{
 		g.setColor(Color.GRAY);
 		g.fillRect(this.x + width / 2 - 3, this.y + width / 2, width - 10, 5);
 
-		if(World.ammoReleased && World.ammo.y < -width){
+		/*if(World.ammoReleased && World.ammo.y < -width){
 			World.ammo.draw(g);
 			World.ammo.y -= 2;
 			if(World.ammo.y < -width - 10){
 				World.ammoReleased = false;
 			}
-		}
+		}*/
 	}
 
 	public void activate(){

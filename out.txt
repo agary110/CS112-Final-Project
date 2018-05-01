@@ -1,0 +1,4 @@
+[RightCorner@12f8763d, RightElbow@291371b5, Straight@6a401680, Straight@786eb0f6, Straight@29f67858, LeftCorner@1b5a3a0a, LeftElbow@7144dbf7, Straight@7c202c29]
+randNum: 3
+in generate next and number of allMaps is: 5
+we updating
