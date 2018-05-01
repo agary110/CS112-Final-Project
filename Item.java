@@ -215,7 +215,7 @@ class Ammo extends Item{
 		g.setColor(Color.BLACK);
 		g.drawRect(this.x, this.y, width, width);
 		g.setColor(Color.GRAY);
-		g.fillRect(this.x + width / 2 - 3, this.y + width / 10, width - 10, 5);
+		g.fillRect(this.x + width / 2 - 3, this.y + width / 2, width - 10, 5);
 
 		if(World.ammoReleased && World.ammo.y < -width){
 			World.ammo.draw(g);
@@ -398,7 +398,7 @@ class Booster extends Item{
 		g.fillRect(this.x, this.y, width, width);
 		g.setColor(Color.RED);
 		g.drawRect(this.x, this.y, width, width);
-		g.drawString("?", this.x + width / 12 * 5, this.y + width / 4 * 3);
+		g.drawString("?", this.x + width / 2, this.y + width / 5 * 4);
 	}
 
 	public void update(){

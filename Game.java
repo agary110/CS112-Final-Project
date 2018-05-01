@@ -19,6 +19,7 @@ public class Game extends JPanel implements KeyListener{
 	public static final int FPS = 60;
 	public static World world;
 	public static boolean alive;
+	public static boolean helpDrawn;
 	public static boolean ipressed;
 	public static boolean jpressed;
 	public static boolean kpressed;
@@ -42,6 +43,7 @@ public class Game extends JPanel implements KeyListener{
 		mainThread.start();
 		Random rand = new Random();
 		alive = true;
+		helpDrawn = true;
 		hasGameStarted=false;
 		paused = false;
 		pressed=false;
@@ -98,14 +100,6 @@ public class Game extends JPanel implements KeyListener{
 //we should modify this so the whole thing totally resets (we're getting the weird floaty thing)
 		}
 
-		if(c == 'h'){
-			if(paused == false){
-				paused = true;
-			}
-			else{
-				paused = false;
-			}
-		}
     }
 
 	public void keyTyped(KeyEvent e) {
@@ -124,6 +118,15 @@ public class Game extends JPanel implements KeyListener{
 		}
 		if (c == 'l'){
 			lpressed = true;
+		}
+		if(c == 'h'){
+			if(paused == false){
+				helpDrawn = true;
+			}
+			else{
+				paused = false;
+				helpDrawn = false;
+			}
 		}
 	}
 
@@ -162,7 +165,7 @@ public class Game extends JPanel implements KeyListener{
 		}
 		else{
 			g.setColor(Color.GREEN);
-			g.drawString("Hello! To begin playing, press the space bar. Press 'h' for help.", WIDTH / 3, HEIGHT / 2);
+			g.drawString("Hello! To begin playing, press the space bar.", WIDTH / 3, HEIGHT / 2);
 		}
 		if(!alive){
 			g.setColor(Color.GREEN);
