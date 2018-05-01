@@ -498,24 +498,31 @@ class ChangeSpeed extends Booster implements Deactivatable{
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
-		increment = World.marble.XposIncrement * 0.5;
-		originalIncrement = World.marble.XposIncrement;
+		xincrement = World.marble.XposIncrement * 0.5;
+		yincrement = World.marble.YposIncrement * 0.5;
+
+		originalXIncrement = World.marble.XposIncrement;
+		originalYIncrement = World.marble.YposIncrement;
+
 		deactivateTime = 10;
 	}
 
 	public void activate(){
 		super.activate();
 		if (increase) {
-			World.marble.XposIncrement += increment;
+			World.marble.XposIncrement += xincrement;
+			World.marble.YposIncrement += yincrement;
 		} else {
-			World.marble.XposIncrement -= increment;
+			World.marble.XposIncrement -= xincrement;
+			World.marble.YposIncrement -= yincrement;
 		}
 		increment = 0;
 	}
 
 	public void deactivate(){
 		super.deactivate();
-		World.marble.XposIncrement = originalIncrement;
+		World.marble.XposIncrement = originalXIncrement;
+		World.marble.YposIncrement = originalYIncrement;
 		//How to actually make the speed normal again
 	}
 	public void update(){
