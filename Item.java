@@ -84,7 +84,8 @@ class Item{
 		Random newRand = new Random();
 		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
 		int y = pathY;
-
+	
+		randNum = 0;
 		
 		//Bomb
 		if(randNum == 0){
@@ -144,22 +145,33 @@ class Item{
 //Class Bomb extends Item (if bomb is ever activated, the player automatically loses)
 
 class Bomb extends Item{
+	boolean exploded;
 	public Bomb(int x, int y){
 		super(x, y);
+		exploded = false;
 	}
 
 	public void draw(Graphics g){
-		g.setColor(Color.BLACK);
-		g.fillOval(this.x, this.y, width, width);
-		g.setColor(Color.WHITE);
-		g.drawLine(this.x + width / 2, y, this.x + width, this.y - width / 3);
-		g.setColor(Color.ORANGE);
-		g.drawOval(this.x + width, this.y - width / 3, 3, 3);
+		if (!exploded){
+			g.setColor(Color.BLACK);
+			g.fillOval(this.x, this.y, width, width);
+			g.setColor(Color.WHITE);
+			g.drawLine(this.x + width / 2, y, this.x + width, this.y - width / 3);
+			g.setColor(Color.ORANGE);
+			g.drawOval(this.x + width, this.y - width / 3, 3, 3);
+		} else {
+			int npoints = 12;
+			int[] xpoints = {this.x - width/5, this.x, this.x - width/3, this.x + width/4, this.x + width/4, this.x + 2* width/3, this.x + width + width/5, this.x + width, this.x + 2*width - width/4, this.x + 2*width/3, this.x + 3*width/4, this.x + width/3};
+			int[] ypoints = {this.y - width/2, this.y, this.y + width/2, this.y + width/3, this.y + 2*width - width/2, this.y + 2*width/3, this.y + width - width/5, this.y + width/2, this.y, this.y + width/6, this.y - width/4, this.y};
+			g.setColor(Color.ORANGE);
+			g.fillPolygon(xpoints, ypoints, npoints);
+		}
 	}
 
 	public void activate(){
 		if(this.activated){
 			Game.alive = false;
+			exploded = true;
 			System.out.println("dying because an item has been activated");
 		}
 	}
