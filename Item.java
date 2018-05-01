@@ -493,7 +493,11 @@ class Bumpers extends Booster implements Deactivatable{
 
 class ChangeSpeed extends Booster implements Deactivatable{
 	boolean increase;
-	double increment;
+	double xincrement;
+	double yincrement;
+	double originalXIncrement;
+	double originalYIncrement;
+
 	double originalIncrement;
 	double deactivateTime;
 
@@ -518,7 +522,9 @@ class ChangeSpeed extends Booster implements Deactivatable{
 			World.marble.XposIncrement -= xincrement;
 			World.marble.YposIncrement -= yincrement;
 		}
-		increment = 0;
+		xincrement = 0;
+		yincrement = 0;
+
 	}
 
 	public void deactivate(){
