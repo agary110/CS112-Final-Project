@@ -32,6 +32,8 @@ public class Game extends JPanel implements KeyListener{
 	char c;
 
 	public static double tempHighScore;
+	public static double currentHighScore;
+
 
 	public Game(){
 		world = new World(WIDTH, HEIGHT);
@@ -49,6 +51,7 @@ public class Game extends JPanel implements KeyListener{
 		pressed=false;
 		c = ' ';
 		tempHighScore = 100;
+		currentHighScore = Logger.readHighScore("highscore.txt");
 	}
 
 //================================================
@@ -56,7 +59,7 @@ public class Game extends JPanel implements KeyListener{
 	class Runner implements Runnable{
 		public void run(){
 
-		    while(true){//alive){
+		    while(alive){//alive){
 				if(hasGameStarted){
 					if(paused == false){
 
@@ -169,7 +172,22 @@ public class Game extends JPanel implements KeyListener{
 		}
 		if(!alive){
 			g.setColor(Color.GREEN);
-			g.drawString("ur dead! Press escape to close or enter to restart.", WIDTH / 3, HEIGHT / 2);
+			//g.drawString("ur dead! Press escape to close or enter to restart.", WIDTH / 3, HEIGHT / 2);
+g.setColor(Color.WHITE);
+			g.fillRect(Game.WIDTH / 2 - (Game.WIDTH/4)/2, Game.HEIGHT / 2 - (Game.HEIGHT/4)/2, Game.WIDTH / 4, Game.HEIGHT / 4);
+			g.setColor(Color.BLACK);
+			g.drawRect(Game.WIDTH / 2 - (Game.WIDTH/4)/2 + 2, Game.HEIGHT / 2 - (Game.HEIGHT/4)/2 + 2, Game.WIDTH / 4 - 4, Game.HEIGHT / 4 - 4);
+			g.drawString("YOU DIED!", Game.WIDTH / 2 - 55, Game.HEIGHT / 4 + 130);
+			g.drawString("Your score: " + (int)World.points, Game.WIDTH/2 - 55, Game.HEIGHT/4 + 160);
+			if (World.points>currentHighScore) {
+			g.drawString("Congrats! You beat the high score.", Game.WIDTH / 4 + 200, Game.HEIGHT / 4 + 190);
+			g.drawString("New high score: " + (int)World.points, Game.WIDTH/2-55, Game.HEIGHT/4 + 220);
+			}
+			else {
+			g.drawString("You did not beat the high score. Try again!", Game.WIDTH / 4 + 200, Game.HEIGHT / 4 + 190);
+			g.drawString("Current high score: " + (int)World.points, Game.WIDTH/2 - 70, Game.HEIGHT/4+220);
+			}
+
 		}
 	}
 
