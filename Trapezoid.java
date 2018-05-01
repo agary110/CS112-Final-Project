@@ -1,3 +1,4 @@
-public class Trapezoid extends Path{
-
+public class Trapezoid{
+public Trapezoid(int x, int y){
+}
 }
