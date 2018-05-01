@@ -160,12 +160,23 @@ class Bomb extends Item{
 			g.setColor(Color.ORANGE);
 			g.drawOval(this.x + width, this.y - width / 3, 3, 3);
 		} else {
-			int npoints = 12;
-			int[] xpoints = {this.x - width/5, this.x, this.x - width/3, this.x + width/4, this.x + width/4, this.x + 2* width/3, this.x + width + width/5, this.x + width, this.x + 2*width - width/4, this.x + 2*width/3, this.x + 3*width/4, this.x + width/3};
-			int[] ypoints = {this.y - width/2, this.y, this.y + width/2, this.y + width/3, this.y + 2*width - width/2, this.y + 2*width/3, this.y + width - width/5, this.y + width/2, this.y, this.y + width/6, this.y - width/4, this.y};
+			int orangenpoints = 12;
+			int[] orangexpoints = {this.x - width/5, this.x, this.x - width/3, this.x + width/4, this.x + width/4, this.x + 2* width/3, this.x + width + width/5, this.x + width, this.x + 2*width - width/4, this.x + 2*width/3, this.x + 3*width/4, this.x + width/3};
+			int[] orangeypoints = {this.y - width/2, this.y, this.y + width/2, this.y + width/3, this.y + 2*width - width/2, this.y + 2*width/3, this.y + width - width/5, this.y + width/2, this.y, this.y + width/6, this.y - width/4, this.y};
 			g.setColor(Color.ORANGE);
-			g.fillPolygon(xpoints, ypoints, npoints);
-		}
+			g.fillPolygon(orangexpoints, orangeypoints, orangenpoints);
+
+			int smallw = width/3;
+			int smallx = this.x + width/3;
+			int smally = this.y + width/3;
+			int rednpoints = 12;
+			
+			int[] redxpoints = {smallx - smallw/5, smallx, smallx - smallw/3, smallx + smallw/4, smallx + smallw/4, smallx + 2* smallw/3, smallx + smallw + smallw/5, smallx + smallw, smallx + 2*smallw - smallw/4, smallx + 2*smallw/3, smallx + 3*smallw/4, smallx + smallw/3};
+			int[] redypoints = {smally - smallw/2, smally, smally + smallw/2, smally + smallw/3, smally + 2*smallw - smallw/2, smally + 2*smallw/3, smally + smallw - smallw/5, smally + smallw/2, smally, smally + smallw/6, smally - smallw/4, smally};
+
+			g.setColor(Color.RED);
+			g.fillPolygon(redxpoints, redypoints, rednpoints);
+		}	
 	}
 
 	public void activate(){
