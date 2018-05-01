@@ -1,0 +1,251 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Random;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.LinkedList;
+import java.lang.String;
+
+public class World{
+	static double HEIGHT;
+	static double WIDTH;
+	static Marble marble;
+	static Map map;
+	static LinkedList<Item> itemsActive;
+	static Ammo ammo;
+	static LinkedList<LinkedList<Path>> mapsOnScreen;
+	static double points;
+	static int ammoCount;
+	static boolean ammoReleased;
+	static LinkedList<AmmoReleased> ammoActive;
+	static Random rand;
+	static boolean bumpersOn;
+
+//=======================================
+//Constructor
+	public World(double initHeight, double initWidth){
+		HEIGHT = initHeight;
+		WIDTH = initWidth;
+		marble = new Marble();
+		ammoCount = 10;
+		points = 0;
+		ammoReleased = false;
+		map = new Map();
+		mapsOnScreen = new LinkedList<LinkedList<Path>>();
+		mapsOnScreen.add(Map.upcomingPaths);
+		ammoActive = new LinkedList<AmmoReleased>();
+		bumpersOn = true;
+		rand = new Random();	
+		itemsActive = new LinkedList<Item>();
+		itemsActive.add(Item.generateNextItem(rand.nextInt(6) + 1));
+	}
+//=======================================
+//Draw Methods
+	public void drawToScreen(Graphics g){
+		drawPath(g);
+		drawItem(g);
+		drawMarble(g);
+		drawPoints(g);
+		drawAmmoCount(g);
+		drawAmmoReleased(g);
+		drawHelpMenu(g);
+	}
+
+	public void drawMarble(Graphics g){
+		marble.draw(g);
+	}
+
+	public void drawItem(Graphics g){
+		for(int i = 0; i < itemsActive.size(); i++){
+			if(itemsActive.get(i).drawn){
+				itemsActive.get(i).draw(g);
+			}
+		}
+	}
+
+	public void drawPath(Graphics g){
+		map.draw(g);
+	}
+
+	public void drawPoints(Graphics g){
+		g.setColor(Color.WHITE);
+		g.drawString("Points:", 5, 96);
+		g.fillRect(3, 108, Ammo.counterWidth, Ammo.counterHeight);
+		g.setColor(Color.BLACK);
+		g.drawRect(2, 107, Ammo.counterWidth + 2, Ammo.counterHeight + 2);
+		g.setColor(Color.WHITE);
+		g.drawRect(1, 106, Ammo.counterWidth + 3, Ammo.counterHeight + 3);
+		g.setColor(Color.BLACK);
+		String stringPoints = String.valueOf((int)(points));
+		g.drawString(stringPoints, 15, 133);
+	}
+
+   public void drawAmmoCount(Graphics g){
+		Ammo.drawAmmoCounter(g);
+   }
+
+	public void drawAmmoReleased(Graphics g){
+		for(int i = 0; i < ammoActive.size(); i++){
+			ammoActive.get(i).draw(g);
+		}
+	}
+
+	public void drawHelpMenu(Graphics g){
+		if(Game.helpDrawn){
+			g.setColor(Color.WHITE);
+			g.fillRect(Game.WIDTH / 4, Game.HEIGHT / 4, Game.WIDTH / 2, Game.HEIGHT / 2);
+			g.setColor(Color.BLACK);
+			g.drawRect(Game.WIDTH / 4 + 2, Game.HEIGHT / 4 + 2, Game.WIDTH / 2 - 4, Game.HEIGHT / 2 - 4);
+
+
+			//Draws general instructions
+			g.drawString("Help Menu", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 20);
+			g.drawString("Objective: Navigate the marble through the maze. Be careful not to fall off the edge! There are some ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 40);
+			g.drawString("helpful boosters along the way. For example, pick up coins to increase your points and pick up ammo ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 60);
+			g.drawString("to store for later. You will find some mystery boosters along the way as well. These include speed ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 80);
+			g.drawString("boosters, size boosters, and bumpers. But watch out! There are also some bombs to avoid and aliens ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 100);
+			g.drawString("to kill (10 bonus points for each alien hit).", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
+
+			g.drawString("The high score to beat is" + Game.currentHighScore, Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
+
+			g.drawString("Good luck!", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 140);
+
+			//Draws coin
+			Coin coin = new Coin(Game.WIDTH / 4 + 175, Game.HEIGHT / 2);
+			coin.draw(g);
+			g.setColor(Color.BLACK);
+			g.drawString("Coin", Game.WIDTH / 4 + 170, Game.HEIGHT / 2 + coin.width + 20);
+
+			//Draws ammo
+			Ammo ammo = new Ammo(Game.WIDTH / 4 + 225, Game.HEIGHT / 2);
+			ammo.draw(g);
+			g.setColor(Color.BLACK);
+			g.drawString("Ammo", Game.WIDTH / 4 + 220, Game.HEIGHT / 2 + ammo.width + 20);
+
+			//Draws mystery booster
+			Booster booster = new Booster(Game.WIDTH / 4 + 305, Game.HEIGHT / 2);
+			booster.draw(g);
+			g.setColor(Color.BLACK);
+			g.drawString("Mystery Booster", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + booster.width + 20);
+
+			//Draws bomb
+			Bomb bomb = new Bomb(Game.WIDTH / 4 + 395, Game.HEIGHT / 2);
+			bomb.draw(g);
+			g.setColor(Color.BLACK);
+			g.drawString("Bomb", Game.WIDTH / 4 + 390, Game.HEIGHT / 2 + bomb.width + 20);
+
+			//Draws alien
+			Alien alien = new Alien(Game.WIDTH / 4 + 450, Game.HEIGHT / 2);
+			alien.draw(g);
+			g.setColor(Color.BLACK);
+			g.drawString("Alien", Game.WIDTH / 4 + 445, Game.HEIGHT / 2 + alien.width + 20);
+
+			g.drawString("'i' = up			'h' = help menu", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 70);
+			g.drawString("'k' = down		'a' = shoot ammo", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 90);
+			g.drawString("'l' = right		'enter' = restart", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 110);
+			g.drawString("'j' = left		'esc' = quit", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 130);
+
+			g.drawString("Press 'h' to start/resume game.", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 150);
+
+			Game.paused = true;
+		}
+	}
+
+//=======================================
+//Update Methods
+	public void updateMarble(double time){
+		marble.update(time);
+		if (!bumpersOn){
+			//marble.checkForBumpers(this);
+		//} else {
+			marble.checkDead(this);
+		}
+		
+	}
+
+	private void updateItem(){
+		if(itemsActive.getLast().timeUntilNextItem <= 0){
+			itemsActive.add(Item.generateNextItem(rand.nextInt(7)));
+		}
+
+		for(int i = 0; i < itemsActive.size(); i++){
+			itemsActive.get(i).update();
+		}
+	}
+
+	private void updateMap(double time){
+		map.update(time);
+	}
+
+	private void updatePoints(){
+		if(Game.hasGameStarted){
+			points += 1 / (double)(Game.FPS);
+		}
+	}
+
+	private void updateAmmoReleased(){
+		if(ammoReleased){
+			for(int i = 0; i < ammoActive.size(); i++){
+				ammoActive.get(i).update();
+			}
+		}
+	}
+
+	private void updateTriggerEvents(){
+		if((int)(points) % 25 == 0 && (int)(points) != 0){
+			System.out.println("trigE");
+			TriggerEvent trigEvent = new TriggerEvent(rand.nextInt(3));
+			points++;
+		}
+	}
+
+//=======================================
+//Updates Frame and values that change by frame
+	public void nextFrame(double time){
+		updateMarble(time);
+		updateItem();
+		updateMap(time);
+		updatePoints();
+		updateAmmoReleased();
+		updateTriggerEvents();
+	}
+//=======================================
+// When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
+
+    public void moveMarble(){
+		if (Game.ipressed) {
+	    	marble.moveUp();
+		}
+		if (Game.jpressed) {
+		    marble.moveLeft();
+		}
+		if (Game.kpressed) {
+		    marble.moveDown();
+		}
+		if (Game.lpressed) {
+		    marble.moveRight();
+		}
+		if (bumpersOn)
+			marble.checkForBumpers(this);
+	}
+//=======================================
+//When the key “a” is pressed and ammoCount > 0, the marble shoots ammo.
+
+	public void shootAmmo(){
+		if(ammoCount > 0){
+			ammoReleased = true;
+			AmmoReleased.activate();
+		}
+		
+	}
+//=======================================
+//When the key “h” is pressed, the help menu pops up on the screen.
+//Is this being used at all?
+/*	public void helpMenu(boolean paused, Graphics g){
+		if(paused){
+			
+		}
+	}*/
+
+}
