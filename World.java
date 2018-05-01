@@ -24,7 +24,6 @@ public class World{
 	static boolean bumpersOn;
 	double currentHighScore;
 
-	//static Node itemsActive;
 //=======================================
 //Constructor
 	public World(double initHeight, double initWidth){
@@ -106,8 +105,7 @@ public class World{
 			g.fillRect(Game.WIDTH / 4, Game.HEIGHT / 4, Game.WIDTH / 2, Game.HEIGHT / 2);
 			g.setColor(Color.BLACK);
 			g.drawRect(Game.WIDTH / 4 + 2, Game.HEIGHT / 4 + 2, Game.WIDTH / 2 - 4, Game.HEIGHT / 2 - 4);
-<<<<<<< HEAD
-=======
+
 
 			//Draws general instructions
 			g.drawString("Help Menu", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 20);
@@ -159,7 +157,6 @@ public class World{
 			g.drawString("Press 'h' to start/resume game.", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 150);
 
 			Game.paused = true;
->>>>>>> 9b207873fd9ed314b61f2debc874e58e13099072
 		}
 	}
 
