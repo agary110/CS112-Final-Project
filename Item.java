@@ -58,24 +58,28 @@ class Item{
 	public static Item generateNextItem(int randNum){
 
 		int pathX = Game.WIDTH / 2 + Path.WIDTH / 2;
+		int pathY = 0;
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
-				if(World.mapsOnScreen.get(i).get(j).name == "Horizontal"){
+				if (World.mapsOnScreen.get(i).get(j).name == "Horizontal"){
 					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.WIDTH >= 0){
 						pathX = World.mapsOnScreen.get(i).get(j).x;
+						pathY = World.mapsOnScreen.get(i).get(j).y;
 						break;
 					}
-				}
-				else if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.HEIGHT >= 0){
-					pathX = World.mapsOnScreen.get(i).get(j).x;
-					break;
-				}
+				} else {
+					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.HEIGHT >= 0){
+						pathX = World.mapsOnScreen.get(i).get(j).x;
+						pathY = World.mapsOnScreen.get(i).get(j).y;
+						break;
+					}
+				} 
 			}
 		}
 
 		Random newRand = new Random();
 		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
-		int y = 0 - width;
+		int y = pathY;
 
 		//Bomb
 		if(randNum == 0){
