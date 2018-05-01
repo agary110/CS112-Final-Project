@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
-import java.util.Random;
 
 public class Game extends JPanel implements KeyListener{
 
@@ -43,7 +42,6 @@ public class Game extends JPanel implements KeyListener{
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		Thread mainThread = new Thread(new Runner());
 		mainThread.start();
-		Random rand = new Random();
 		alive = true;
 		helpDrawn = true;
 		hasGameStarted=false;
@@ -92,19 +90,6 @@ public class Game extends JPanel implements KeyListener{
 			hasGameStarted=true;
 		}
 
-		if (c == 'i'){
-			ipressed = true;
-		}
-		if (c == 'j'){
-			jpressed = true;
-		}
-		if (c == 'k'){
-			kpressed = true;
-		}
-		if (c == 'l'){
-			lpressed = true;
-		}
-
 		else if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 			JFrame frame = new JFrame("aMAZE-ing Maze");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -120,22 +105,22 @@ public class Game extends JPanel implements KeyListener{
 
 	public void keyTyped(KeyEvent e) {
 		c = e.getKeyChar();
-		if (c == 'a'){
+		if (c == 'a' || c == 'A'){
 			world.shootAmmo();
 		}
-		/*if (c == 'i'){
+		if (c == 'i' || c == 'I'){
 			ipressed = true;
 		}
-		if (c == 'j'){
+		if (c == 'j'|| c == 'J'){
 			jpressed = true;
 		}
-		if (c == 'k'){
+		if (c == 'k' || c == 'K'){
 			kpressed = true;
 		}
-		if (c == 'l'){
+		if (c == 'l' || c == 'L'){
 			lpressed = true;
-		}*/
-		if(c == 'h'){
+		}
+		if(c == 'h' || c == 'H'){
 			if(paused == false){
 				helpDrawn = true;
 			}
@@ -148,17 +133,16 @@ public class Game extends JPanel implements KeyListener{
 
 	public void keyReleased(KeyEvent e) {
 		c=e.getKeyChar();
-		pressed=false;
-		if (c == 'i'){
+		if (c == 'i' || c == 'I'){
 			ipressed = false;
 		}
-		if (c == 'j'){
+		if (c == 'j' || c == 'J'){
 			jpressed = false;
 		}
-		if (c == 'k'){
+		if (c == 'k' || c == 'K'){
 			kpressed = false;
 		}
-		if (c == 'l'){
+		if (c == 'l' || c == 'L'){
 			lpressed = false;
 		}
     }
