@@ -1,19 +1,26 @@
-Compile: javac *.java
+CS112 S18
+Final Project
 
-Run: java Game
+Team: Sylvia Frank, Annabelle Gary, Amy Pass
+Project Name: a-MAZE-ing Maze!!
 
-Use: Use the ‘j’ key to move the marble left. Use the ‘l’ key to move the marble right. Use the ‘i’ key to move the marble forward.
+Overview:
+	This project is a user-controlled game, where you act a a ball rolling down a path. You encounter obstacles along the way that you have to avoid or interact with. If you go off the path, you die!
 
-Things to do:
--finish start menu and end menu (Sylvia)
--when you die, make the screen stop moving (Sylvia)
--point system (Sylvia)
--boosters (Annabelle)
--ammo (says how much you have) (Amy)
--aliens (Amy)
--bombs (Annabelle)
--make many maps that loop through; i.e. randomization (Sylvia)
--make beginning wide
-
-
-This is annabelle i am testing to see if this is a new branch
+Instructions:
+- To Compile:
+	- run <javac *.java> or <!javac>
+- To Run:
+	- run <java Game>
+- To Play:
+	- space bar to begin
+	- 'h' to pause the game and see the help menu
+	- 'i' to move up
+	- 'j' to move left
+	- 'k' to move down
+	- 'l' to move right
+	- 'a' to shoot ammo, which shoots in whatever direction you're moving in
+	- 'esc' to close the window
+	- 'enter' to restart
+	
+Have fun, and good luck!
