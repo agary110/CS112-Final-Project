@@ -53,6 +53,7 @@ public class World{
 		drawPoints(g);
 		drawAmmoCount(g);
 		drawAmmoReleased(g);
+		drawHelpMenu(g);
 	}
 
 	public void drawMarble(Graphics g){
@@ -94,6 +95,15 @@ public class World{
 	public void drawAmmoReleased(Graphics g){
 		for(int i = 0; i < ammoActive.size(); i++){
 			ammoActive.get(i).draw(g);
+		}
+	}
+
+	public void drawHelpMenu(Graphics g){
+		if(Game.paused){
+			g.setColor(Color.WHITE);
+			g.fillRect(Game.WIDTH / 4, Game.HEIGHT / 4, Game.WIDTH / 2, Game.HEIGHT / 2);
+			g.setColor(Color.BLACK);
+			g.drawRect(Game.WIDTH / 4 + 2, Game.HEIGHT / 4 + 2, Game.WIDTH / 2 - 4, Game.HEIGHT / 2 - 4);
 		}
 	}
 
@@ -187,4 +197,13 @@ public class World{
 		}
 		
 	}
+//=======================================
+//When the key “h” is pressed, the help menu pops up on the screen.
+
+	public void helpMenu(boolean paused, Graphics g){
+		if(paused){
+			
+		}
+	}
+
 }

@@ -2,6 +2,7 @@
 /** Import necessary libraries **/
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.BoxLayout;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
@@ -26,6 +27,7 @@ public class Game extends JPanel implements KeyListener{
 
 
 	public static boolean hasGameStarted;
+	public static boolean paused;
 	char c;
 
 	public static double tempHighScore;
@@ -41,6 +43,7 @@ public class Game extends JPanel implements KeyListener{
 		Random rand = new Random();
 		alive = true;
 		hasGameStarted=false;
+		paused = false;
 		pressed=false;
 		c = ' ';
 		tempHighScore = 100;
@@ -53,32 +56,37 @@ public class Game extends JPanel implements KeyListener{
 
 		    while(true){//alive){
 				if(hasGameStarted){
-					world.nextFrame(1.0 / (double)(FPS));
-					if (pressed){
-						world.moveMarble();
+					if(paused == false){
+
+						world.nextFrame(1.0 / (double)(FPS));
+						if (pressed){
+							world.moveMarble();
+						}
+						repaint();
 					}
-					repaint();
 					try{
 						Thread.sleep(1000 / FPS);
 					}
 					catch(InterruptedException e){}
-				}
 
+				}
 				Logger.writeHighScore(World.points, "highscore.txt");
 			}
-		
 		}
 	}
 
 	public void keyPressed(KeyEvent e) {
       	c = e.getKeyChar();
 		pressed=true;
+
 		if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
 			System.exit(0);
 		}
+
 		else if (c==' ') {
 			hasGameStarted=true;
 		}
+
 		else if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 			JFrame frame = new JFrame("aMAZE-ing Maze");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,6 +96,15 @@ public class Game extends JPanel implements KeyListener{
 			frame.setVisible(true);
 //could probably just call main() here but I'm not positive how to do that?
 //we should modify this so the whole thing totally resets (we're getting the weird floaty thing)
+		}
+
+		if(c == 'h'){
+			if(paused == false){
+				paused = true;
+			}
+			else{
+				paused = false;
+			}
 		}
     }
 
@@ -134,7 +151,6 @@ public class Game extends JPanel implements KeyListener{
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
-		
 	}
 
 	public void paintComponent(Graphics g){
@@ -144,17 +160,6 @@ public class Game extends JPanel implements KeyListener{
 		if (hasGameStarted) {
 			world.drawToScreen(g);
 		}
-		/*else {
-			g.setColor(Color.GREEN);
-			char[] welcome={'h', 'e', 'l', 'l', 'o', '!', ' ', 't', 'o', ' ', 'b', 'e', 'g', 'i', 	'n', ' ', 'p', 'l', 'a', 'y', 'i', 'n', 'g', ',', ' ', 'p', 'r', 'e', 's', 	's', ' ', 't', 'h', 'e', ' ', 's', 'p', 'a', 'c', 'e', ' ', 'b', 'a', 'r', 	'.'};
-			g.drawChars(welcome, 0, welcome.length, 400, 400);
-}
-		if (!alive) {
-			g.setColor(Color.GREEN);
-			char[] data={'u', 'r', ' ', 'd', 'e', 'a', 'd', '!', ' ', 'p', 'r', 'e', 's', 's', ' ', 'e', 's', 'c', 'a', 'p', 'e', ' ', 't', 'o', ' ', 'c', 'l', 'o', 's', 'e', ' ', 'o', 'r', ' ',  'e', 'n', 't', 'e', 'r', ' ', 't', 'o', ' ', 'r', 'e', 's', 't', 'a', 'r', 't', '.'};
-			g.drawChars(data, 0, data.length, 400, 400);
-		}*/
-
 		else{
 			g.setColor(Color.GREEN);
 			g.drawString("Hello! To begin playing, press the space bar. Press 'h' for help.", WIDTH / 3, HEIGHT / 2);
