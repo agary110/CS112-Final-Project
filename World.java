@@ -12,10 +12,10 @@ public class World{
 	static double WIDTH;
 	static Marble marble;
 	static Map map;
-	static Item item;
+	static LinkedList<Item> itemsActive;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
-	static double timeUntilNextItem;
+	//static double timeUntilNextItem;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
@@ -30,7 +30,6 @@ public class World{
 		HEIGHT = initHeight;
 		WIDTH = initWidth;
 		marble = new Marble();
-		timeUntilNextItem = 0;
 		ammoCount = 10;
 		points = 0;
 		ammoReleased = false;
@@ -38,14 +37,11 @@ public class World{
 		mapsOnScreen = new LinkedList<LinkedList<Path>>();
 		mapsOnScreen.add(Map.upcomingPaths);
 		ammoActive = new LinkedList<AmmoReleased>();
-		bumpersOn = true;
+		bumpersOn = false;
 		currentHighScore = Logger.readHighScore("highscore.txt");
 		rand = new Random();	
-		//item = new Item(Game.WIDTH / 2, Game.HEIGHT / 2);
-
-		item = Item.generateNextItem(rand.nextInt(6) + 1);
-
-		//itemsActive = new Node();
+		itemsActive = new LinkedList<Item>();
+		itemsActive.add(Item.generateNextItem(rand.nextInt(6) + 1));
 	}
 //=======================================
 //Draw Methods
@@ -64,14 +60,11 @@ public class World{
 	}
 
 	public void drawItem(Graphics g){
-		if(item.drawn){
-			item.draw(g);
+		for(int i = 0; i < itemsActive.size(); i++){
+			if(itemsActive.get(i).drawn){
+				itemsActive.get(i).draw(g);
+			}
 		}
-
-		/*while(itemsActive.isNull == false){
-			itemsActive.item.draw(g);
-			itemsActive = itemsActive.previous;
-		}*/
 	}
 
 	public void drawPath(Graphics g){
@@ -175,26 +168,13 @@ public class World{
 	}
 
 	private void updateItem(){
-		if(timeUntilNextItem <= 0){
-			item = Item.generateNextItem(rand.nextInt(7));
-			timeUntilNextItem = rand.nextInt(4) + 2;
+		if(itemsActive.getLast().timeUntilNextItem <= 0){
+			itemsActive.add(Item.generateNextItem(rand.nextInt(7)));
 		}
 
-		item.update();
-
-		/*if(timeUntilNextItem <= 0){
-			itemsActive = itemsActive.append(Item.generateNextItem(rand.nextInt(7)));
-			timeUntilNextItem = rand.nextInt(4) + 2;
+		for(int i = 0; i < itemsActive.size(); i++){
+			itemsActive.get(i).update();
 		}
-
-		Node n = itemsActive;
-		while(n.isNull == false){
-			n.item.update();
-			n = n.previous;
-			if(n.prevNull){
-				break;
-			}
-		}*/
 	}
 
 	private void updateMap(double time){
@@ -214,6 +194,15 @@ public class World{
 			}
 		}
 	}
+
+	private void updateTriggerEvents(){
+		if((int)(points) % 25 == 0 && (int)(points) != 0){
+			System.out.println("trigE");
+			TriggerEvent trigEvent = new TriggerEvent(rand.nextInt(3));
+			points++;
+		}
+	}
+
 //=======================================
 //Updates Frame and values that change by frame
 	public void nextFrame(double time){
@@ -222,6 +211,7 @@ public class World{
 		updateMap(time);
 		updatePoints();
 		updateAmmoReleased();
+		updateTriggerEvents();
 	}
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
