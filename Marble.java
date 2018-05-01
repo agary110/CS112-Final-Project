@@ -453,7 +453,10 @@ public class Marble{
 		*/
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
-				if(World.marble.position.y >= World.mapsOnScreen.get(i).get(j).y && World.marble.position.y < World.mapsOnScreen.get(i).get(j).y + World.mapsOnScreen.get(i).get(j).HEIGHT){
+				if (i==0 && j==0) {
+				j++;
+				}
+				else if(World.marble.position.y >= World.mapsOnScreen.get(i).get(j).y && World.marble.position.y < World.mapsOnScreen.get(i).get(j).y + World.mapsOnScreen.get(i).get(j).HEIGHT){
 					return World.mapsOnScreen.get(i).get(j);
 				}
 			}
