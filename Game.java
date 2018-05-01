@@ -2,7 +2,6 @@
 /** Import necessary libraries **/
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.BoxLayout;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
