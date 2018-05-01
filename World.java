@@ -100,7 +100,7 @@ public class World{
 	}
 
 	public void drawHelpMenu(Graphics g){
-		if(Game.paused){
+		if(Game.helpDrawn){
 			g.setColor(Color.WHITE);
 			g.fillRect(Game.WIDTH / 4, Game.HEIGHT / 4, Game.WIDTH / 2, Game.HEIGHT / 2);
 			g.setColor(Color.BLACK);
