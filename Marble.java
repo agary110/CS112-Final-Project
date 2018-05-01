@@ -163,7 +163,13 @@ public class Marble{
 		}
 
 		else if(path.name == "rightElbow"){
-			if (marb.x + World.marble.radius >= path.exitX + path.WIDTH){ // going out of right side
+			if (marb.x + World.marble.radius >= path.exitX + path.HEIGHT){ // going out of right side
+				if (Game.lpressed){
+					World.marble.moveLeft();
+					//System.out.println("rightElbow right side");
+				}
+			}
+			if (marb.x + World.marble.radius > path.x + path.HEIGHT && marb.y > path.y + path.WIDTH){
 				if (Game.lpressed){
 					World.marble.moveLeft();
 					//System.out.println("rightElbow right side");
