@@ -6,6 +6,10 @@ import java.util.Random;
 import java.lang.String;
 import java.lang.StringBuilder;
 
+interface Deactivatable{
+	public void deactivate();
+}
+
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
 
@@ -165,7 +169,7 @@ class Bomb extends Item{
 //=======================================
 //Class Coin extends Item (increased points by 3-5)
 
-class Coin extends Item{
+class Coin extends Item implements Deactivatable{
 	int increase;
 
 	public Coin(int x, int y){
@@ -197,10 +201,8 @@ class Coin extends Item{
 
 //=======================================
 //Class Ammo extends Item (increases ammoCount by 1-3)
-//Add something that says “Ammo Counter:” next to the counter
-//Fix draw(g)
 
-class Ammo extends Item{
+class Ammo extends Item implements Deactivatable{
 	int increase;
 	static final int counterHeight = 40;
 	static final int counterWidth = 60;
@@ -216,7 +218,7 @@ class Ammo extends Item{
 		g.setColor(Color.BLACK);
 		g.drawRect(this.x, this.y, width, width);
 		g.setColor(Color.GRAY);
-		g.fillRect(this.x + width / 2 - 3, this.y + width / 10, width - 10, 5);
+		g.fillRect(this.x + width / 2 - 3, this.y + width / 2, width - 10, 5);
 
 		if(World.ammoReleased && World.ammo.y < -width){
 			World.ammo.draw(g);
@@ -232,6 +234,7 @@ class Ammo extends Item{
 		this.activated = false;
 		World.timeUntilNextItem = rand.nextInt(4) + 2;
 		pickUp();
+		deactivate();
 	}
 
 	public void deactivate(){
@@ -398,16 +401,17 @@ class Booster extends Item{
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);
 		g.fillRect(this.x, this.y, width, width);
-		g.setColor(Color.RED);
+		g.setColor(Color.GREEN);
 		g.drawRect(this.x, this.y, width, width);
-		g.drawString("?", this.x + width / 12 * 5, this.y + width / 4 * 3);
+		g.drawString("?", this.x + width / 2, this.y + width / 5 * 4);
 	}
 
-	public void update(){
+	public void update(double time){
 		super.update();
 
 		if(this.activated){
 			this.pickUp();
+			timeActive = time;
 			timeActive -= (1 / (double)(Game.FPS));
 		}
 		if(timeActive <= 0){
@@ -426,10 +430,12 @@ class Booster extends Item{
 //=======================================
 //Class Bumpers extends Booster (activates bumpers that prevent the marble from falling off the path)
 
-class Bumpers extends Booster{
+class Bumpers extends Booster implements Deactivatable{
+	double deactivateTime;
 	
 	public Bumpers(int x, int y){
 		super(x, y);
+		deactivateTime = 15;
 	}
 
 	public void activate(){
@@ -444,7 +450,7 @@ class Bumpers extends Booster{
 	}
 
 	public void update(){
-		super.update();
+		super.update(deactivateTime);
 		checkTopEdge();
 	}
 
@@ -475,16 +481,18 @@ class Bumpers extends Booster{
 //=======================================
 //Class ChangeSpeed extends Booster (changes the speed of the path by a constant - positive or negative change is based on a Random)
 
-class ChangeSpeed extends Booster{
+class ChangeSpeed extends Booster implements Deactivatable{
 	boolean increase;
 	double increment;
 	double originalIncrement;
+	double deactivateTime;
 
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
 		increment = World.marble.XposIncrement * 0.8;
 		originalIncrement = World.marble.XposIncrement;
+		deactivateTime = 10;
 	}
 
 	public void activate(){
@@ -502,22 +510,27 @@ class ChangeSpeed extends Booster{
 		this.activated = false;
 		//How to actually make the speed normal again
 	}
+	public void update(){
+		super.update(deactivateTime);
+	}
 }
 
 //=======================================
 //ChangeSize extends Booster (changes the size of the marble by a constant - positive or negative change is based on a Random)
 
 
-class ChangeSize extends Booster{
+class ChangeSize extends Booster implements Deactivatable{
 	boolean increase;
 	double proportion;
 	int originalSize;
+	double deactivateTime;
 
 	public ChangeSize(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
 		proportion = World.marble.radius * 0.3;
 		originalSize = World.marble.radius;
+		deactivateTime = 10;
 	}
 
 	public void activate(){
@@ -533,5 +546,8 @@ class ChangeSize extends Booster{
 	public void deactivate(){
 		World.marble.radius = originalSize;
 		this.activated = false;		
+	}
+	public void update(){
+		super.update(deactivateTime);
 	}
 }

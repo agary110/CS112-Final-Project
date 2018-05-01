@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.util.Random;
 import java.awt.Color;
 
-public class Path {
+public class Path implements pathType{
    // boolean bumpersOn=false;
     final int bumperWidth = 5; //need to decide what this is
     static final int WIDTH = 100;
