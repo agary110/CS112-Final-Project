@@ -25,11 +25,11 @@ class Map{
 		Map4 = new LinkedList<Path>();
 		allMaps = new LinkedList<LinkedList<Path>>();
 
-		//upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		upcomingPaths.add(new BigRect(100));
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
+		//upcomingPaths.add(new BigRect(100));
+		//upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
 		//upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-		//upcomingPaths.get(0).y = Game.HEIGHT;
+		upcomingPaths.get(0).y = Game.HEIGHT;
 		for(int i = 1; i < 6; i++){
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
 		}
@@ -89,7 +89,7 @@ class Map{
 
 	public static LinkedList<Path> getMap1(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
-		toR.add(new Straight(curr.getLast()));
+		//toR.add(new Straight(curr.getLast()));
 		toR.add(new RightCorner(toR.getLast()));
 		toR.add(new RightElbow(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));

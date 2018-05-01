@@ -291,6 +291,10 @@ public class Marble{
 			if(marb.x + World.marble.radius / 3 < path.x || marb.x + World.marble.radius / 3 * 2 > path.x + path.WIDTH){
 				Game.alive = false;
 				System.out.println("died bc straight");
+				System.out.println("path.x: " + path.x);
+				System.out.println("path.y: " + path.y);
+				System.out.println("path.enterX: " + path.enterX);
+				System.out.println(path.name);
 			}
 		}
 
@@ -404,13 +408,13 @@ public class Marble{
 				Game.alive=false;
 				System.out.println("died bc leftElbow");
 
-			}
-		    }
+				}
+		   	 }
 			else if (marb.x<path.x || marb.y>path.y+path.HEIGHT || marb.y<path.y) {
 				Game.alive=false;
 				System.out.println("died bc leftElbow");
 
-}
+			}
 		}
 
 
@@ -427,6 +431,8 @@ public class Marble{
 			if(marb.x + World.marble.radius / 2 < World.mapsOnScreen.get(0).get(1).x || marb.x - World.marble.radius / 2 > World.mapsOnScreen.get(0).get(1).x + Path.WIDTH){
 				if(marb.y - World.marble.radius / 3 < path.y){
 					Game.alive = false;
+					System.out.println("died bc of bigrect");
+					System.out.println(path.name);
 				}
 			}
 		}
@@ -441,24 +447,33 @@ public class Marble{
 
 				Path path = World.mapsOnScreen.get(i).get(j);
 
-				if(path.name == "BigRect"){
+				/*if(World.mapsOnScreen.get(i) == Map.upcomingPaths && j==0){
 					return path;
-				}
+				}*/
 
 				if(World.marble.position.y >= path.y && World.marble.position.y < path.y + path.HEIGHT){
-					int minX;
-					int maxX;
-					if(path.x < path.enterX){
-						minX = path.x;
-						maxX = path.enterX;
+
+		//return path;
+
+						int minX;
+						int maxX;
+						if(path.x < path.enterX){
+							minX = path.x;
+							maxX = path.enterX;
+						}
+						else{
+							minX = path.enterX;
+							maxX = path.x;
+						}
+						if(World.marble.position.x >= minX && World.marble.position.x + World.marble.radius <= maxX){
+System.out.println("i: " + i);
+System.out.println("j: " + j);
+System.out.println(path.name);
+							return path;
+						}
 					}
 					else{
-						minX = path.enterX;
-						maxX = path.x;
-					}
-					if(World.marble.position.x >= minX && World.marble.position.x + World.marble.radius <= maxX){
 						return path;
-					}
 				}
 			}
 		}
