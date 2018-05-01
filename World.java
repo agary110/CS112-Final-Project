@@ -15,14 +15,12 @@ public class World{
 	static LinkedList<Item> itemsActive;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
-	//static double timeUntilNextItem;
 	static double points;
 	static int ammoCount;
 	static boolean ammoReleased;
 	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
 	static boolean bumpersOn;
-	double currentHighScore;
 
 //=======================================
 //Constructor
@@ -38,7 +36,6 @@ public class World{
 		mapsOnScreen.add(Map.upcomingPaths);
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
-		currentHighScore = Logger.readHighScore("highscore.txt");
 		rand = new Random();	
 		itemsActive = new LinkedList<Item>();
 		itemsActive.add(Item.generateNextItem(rand.nextInt(6) + 1));
@@ -110,7 +107,7 @@ public class World{
 			g.drawString("boosters, size boosters, and bumpers. But watch out! There are also some bombs to avoid and aliens ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 100);
 			g.drawString("to kill (10 bonus points for each alien hit).", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
 
-			g.drawString("The high score to beat is" + currentHighScore, Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
+			g.drawString("The high score to beat is" + Game.currentHighScore, Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
 
 			g.drawString("Good luck!", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 140);
 
