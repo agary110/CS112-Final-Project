@@ -6,21 +6,29 @@ public class AmmoReleased{
 	int x;
 	int y;
 	int direction; //[1] up; [2] right; [3] down; [4] left;
-	static final int width = 2;
-	static final int length = 8;
+	int width;
+	int length;
 
 	public AmmoReleased(int x, int y, int direction){
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
+		if(direction == 1 || direction == 3){
+			width = 2;
+			length = 8;
+		}
+		else{
+			width = 8;
+			length = 2;
+		}
 	}
 
 	public void draw(Graphics g){
 		for(int i = 0; i < World.ammoActive.size(); i++){
 			g.setColor(Color.GRAY);
-			g.fillRect(World.ammoActive.get(i).x, World.ammoActive.get(i).y, width, length);
+			g.fillRect(World.ammoActive.get(i).x, World.ammoActive.get(i).y, World.ammoActive.get(i).width, World.ammoActive.get(i).length);
 			g.setColor(Color.BLACK);
-			g.drawRect(World.ammoActive.get(i).x, World.ammoActive.get(i).y, width, length);
+			g.drawRect(World.ammoActive.get(i).x, World.ammoActive.get(i).y, World.ammoActive.get(i).width, World.ammoActive.get(i).length);
 		}
 	}
 

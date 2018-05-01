@@ -374,7 +374,7 @@ class Alien extends Item{
 			for(int i = 0; i < World.ammoActive.size(); i++){
 				if(World.ammoActive.get(i).y >= this.y && World.ammoActive.get(i).y <= this.y + width){
 					if(this.x + this.width - 2 >= World.ammoActive.get(i).x){
-						if(this.x <= World.ammoActive.get(i).x + AmmoReleased.width - 2){
+						if(this.x <= World.ammoActive.get(i).x + World.ammoActive.get(i).width - 2){
 							this.deactivate(i);
 						}
 					}
