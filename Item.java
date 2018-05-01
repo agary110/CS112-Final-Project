@@ -81,6 +81,7 @@ class Item{
 		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
 		int y = pathY;
 
+		randNum = 2;
 		//Bomb
 		if(randNum == 0){
 			return new Bomb(x, y);
@@ -480,7 +481,7 @@ class ChangeSpeed extends Booster{
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
-		increment = 3.0;
+		increment = World.marble.XposIncrement * 0.8;
 		originalIncrement = World.marble.XposIncrement;
 	}
 
