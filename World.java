@@ -22,6 +22,7 @@ public class World{
 	static LinkedList<AmmoReleased> ammoActive;
 	static Random rand;
 	static boolean bumpersOn;
+	double currentHighScore;
 
 	//static Node itemsActive;
 //=======================================
@@ -41,6 +42,7 @@ public class World{
 		mapsOnScreen.add(Map.upcomingPaths);
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
+		currentHighScore = Logger.readHighScore("highscore.txt");
 
 		//itemsActive = new Node();
 	}
@@ -113,6 +115,9 @@ public class World{
 			g.drawString("to store for later. You will find some mystery boosters along the way as well. These include speed ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 80);
 			g.drawString("boosters, size boosters, and bumpers. But watch out! There are also some bombs to avoid and aliens ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 100);
 			g.drawString("to kill (10 bonus points for each alien hit).", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
+
+			g.drawString("The high score to beat is" + currentHighScore, Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
+
 			g.drawString("Good luck!", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 140);
 
 			//Draws coin
