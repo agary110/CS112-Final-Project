@@ -166,7 +166,7 @@ public class Marble{
 			if (marb.x + World.marble.radius >= path.exitX + path.WIDTH){ // going out of right side
 				if (Game.lpressed){
 					World.marble.moveLeft();
-					System.out.println("rightElbow right side");
+					//System.out.println("rightElbow right side");
 				}
 			}
 			if (marb.y + World.marble.radius > path.y + path.HEIGHT){ // going out of bottom
@@ -188,7 +188,7 @@ public class Marble{
 
 
 		else if(path.name == "leftElbow"){
-			if (marb.x < path.x){
+			/*if (marb.x < path.x){
 				if (Game.jpressed){
 					World.marble.moveRight();
 				}
@@ -205,6 +205,53 @@ public class Marble{
 				}
 				if (Game.lpressed){
 					World.marble.moveLeft();
+				}
+			} */
+			if (marb.x>path.x+path.WIDTH) {
+				System.out.println("in 1 and 2");
+				if (marb.y<path.y+path.WIDTH) {
+				System.out.println("going out top of 1 and 2");
+					if (Game.ipressed) {
+						World.marble.moveDown();
+					}
+				}
+				else if (marb.y>path.y+path.HEIGHT) {
+				System.out.println("going out bottom of 1 and 2");
+					if (Game.kpressed) {
+						World.marble.moveUp();
+					}
+				}
+			}
+			else if (marb.y>path.y+path.WIDTH) {
+				System.out.println("in 2");
+				if (marb.x<path.x) {
+				System.out.println("going out side of 2");
+					if (Game.jpressed) {
+					System.out.println("is j pressed?");
+						World.marble.moveRight();
+					}
+				}
+				else if (marb.y>path.y+path.HEIGHT) {
+				System.out.println("going out bottom of 2");
+					if(Game.kpressed) {
+						World.marble.moveUp();
+					}
+				}
+			}
+			else {
+			System.out.println("in 3");
+				if (marb.x == path.x) {
+				System.out.println("going out left side of 3");
+					if (Game.jpressed) {
+						World.marble.moveRight();
+					}
+				}
+				if (marb.x==path.x+path.WIDTH) {
+				System.out.println("going out right side of 3");
+
+					if (Game.lpressed) {
+						World.marble.moveLeft();
+					}
 				}
 			}
 		}
