@@ -243,10 +243,10 @@ public class World{
 //=======================================
 //When the key “a” is pressed and ammoCount > 0, the marble shoots ammo.
 
-	public void shootAmmo(char c){
+	public void shootAmmo(){
 		if(ammoCount > 0){
 			ammoReleased = true;
-			AmmoReleased.activate(c);
+			AmmoReleased.activate();
 		}
 		
 	}

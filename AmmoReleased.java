@@ -58,15 +58,15 @@ public class AmmoReleased{
 		}
 	}
 
-	public static void activate(char c){
+	public static void activate(){
 		int direction = 1;
-		if(c == 'l'){
+		if(Game.lpressed){
 			direction = 2;
 		}
-		else if(c == 'k'){
+		else if(Game.kpressed){
 			direction = 3;
 		}
-		else if(c == 'j'){
+		else if(Game.jpressed){
 			direction = 4;
 		}
 

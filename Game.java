@@ -105,7 +105,7 @@ public class Game extends JPanel implements KeyListener{
 	public void keyTyped(KeyEvent e) {
 		c = e.getKeyChar();
 		if (c == 'a'){
-			world.shootAmmo(c);
+			world.shootAmmo();
 		}
 		if (c == 'i'){
 			ipressed = true;

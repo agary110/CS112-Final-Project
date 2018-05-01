@@ -6,11 +6,11 @@ public class Trapezoid extends Path{
 	int [] [] triangle1;
 	int [] [] triangle2;
 
-	public Trapezoid(int exitX){
-		super(exitX);
+	public Trapezoid(int y){
+		super(0);
 		name = "Trapezoid";
 		x = Game.WIDTH / 2 - Path.WIDTH / 2;
-		y = Game.HEIGHT / 2;
+		this.y = y;
 
 		triangle1 = new int [2][3];
 		triangle1 [0][0] = 0;
