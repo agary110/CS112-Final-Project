@@ -11,7 +11,7 @@ public class World{
 	static double HEIGHT;
 	static double WIDTH;
 	static Marble marble;
-	static Map<E extends pathType> map;
+	static Map map;
 	static Item item;
 	static Ammo ammo;
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
@@ -23,7 +23,6 @@ public class World{
 	static Random rand;
 	static boolean bumpersOn;
 
-	//static Node itemsActive;
 //=======================================
 //Constructor
 	public World(double initHeight, double initWidth){

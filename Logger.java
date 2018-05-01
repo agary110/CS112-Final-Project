@@ -10,7 +10,7 @@ class Logger{
 			if (points >= currentHighScore){
 				File output = new File(outFileName);
 				PrintWriter pointPrinter = new PrintWriter(output);
-				pointPrinter.write("" + points);
+				pointPrinter.write("" + (int)(points));
 				pointPrinter.close();
 			} else {
 				File output = new File(outFileName);

@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.lang.Math;
 
-class Map<E extends pathType>{
-	public static LinkedList<E extends pathType> upcomingPaths;
+class Map{
+	public static LinkedList<Path> upcomingPaths;
 	public static LinkedList<Path> Map1;
 	public static LinkedList<Path> Map2;
 	public static LinkedList<Path> Map3;
@@ -18,15 +18,15 @@ class Map<E extends pathType>{
 //Constructor
 	public Map(){
 		rand = new Random(1);
-		upcomingPaths = new LinkedList<E extends pathType>();
+		upcomingPaths = new LinkedList<Path>();
 		Map1 = new LinkedList<Path>();
 		Map2 = new LinkedList<Path>();
 		Map3 = new LinkedList<Path>();
 		Map4 = new LinkedList<Path>();
-		allMaps = new LinkedList<LinkedList<E extends pathType>>();
+		allMaps = new LinkedList<LinkedList<Path>>();
 
-		upcomingPaths.add(new Trapezoid());
-		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
+		upcomingPaths.add(new Trapezoid(Game.HEIGHT));
+		upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 		upcomingPaths.get(0).y = Game.HEIGHT;
 		for(int i = 1; i < 6; i++){
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
@@ -52,6 +52,9 @@ class Map<E extends pathType>{
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
 				World.mapsOnScreen.get(i).get(j).y++;
+				if(World.mapsOnScreen.get(i).get(j).name == "Trapezoid"){
+					World.mapsOnScreen.get(i).get(j).update();
+				}
 			}
 		}
 
