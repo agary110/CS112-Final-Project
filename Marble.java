@@ -415,12 +415,18 @@ public class Marble{
 
 
 
-		else{//Horizontal
+		else if(path.name == "Horizontal"){
 			if(marb.y + World.marble.radius / 3 < path.y || marb.y - World.marble.radius / 3 > path.y + path.WIDTH){
 				Game.alive = false;
 				System.out.println("died bc horizontal");
 
 			}
+		}
+
+		else{//Trapezoid
+			System.out.println("In trapezoid");
+			int xCord
+			int yCord = (Game.HEIGHT - path. y) / (Game.WIDTH - path.exitX) * marb.y + path.y;
 		}
     }
 //============================================
