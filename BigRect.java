@@ -18,6 +18,7 @@ public class BigRect extends Path{
 
 	public void draw(Graphics g){
 		g.setColor(color);
-		g.fillRect(exitX+WIDTH/4, y, WIDTH/2, HEIGHT*2);
+		g.fillRect(enterX + WIDTH/4, y, WIDTH/2, HEIGHT*2);
+
 	}
 }

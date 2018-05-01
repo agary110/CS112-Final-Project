@@ -9,17 +9,17 @@ import java.awt.RenderingHints;
 
 public class LeftElbow extends Path{
 
-    public LeftElbow(int exitX){
-		super(exitX);
+    public LeftElbow(int enterX){
+		super(enterX);
 		super.name="leftElbow";
-		this.x=exitX-HEIGHT;
+		this.x=enterX-HEIGHT;
     }
 
 	public LeftElbow(Path previous){
 		super(previous);
 		name = "leftElbow";
-		exitX = previous.x;
-		x = exitX - Path.HEIGHT;
+		enterX = previous.x;
+		x = enterX - Path.HEIGHT;
 		y = previous.y - Path.WIDTH;
 	}
 

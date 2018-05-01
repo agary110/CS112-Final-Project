@@ -56,7 +56,7 @@ public class Game extends JPanel implements KeyListener{
 	class Runner implements Runnable{
 		public void run(){
 
-		    while(alive){//alive){
+		    while(alive){
 				if(hasGameStarted){
 					if(paused == false){
 
@@ -96,8 +96,6 @@ public class Game extends JPanel implements KeyListener{
 			frame.setContentPane(mainInstance);
 			frame.pack();
 			frame.setVisible(true);
-//could probably just call main() here but I'm not positive how to do that?
-//we should modify this so the whole thing totally resets (we're getting the weird floaty thing)
 		}
 
     }
@@ -167,9 +165,7 @@ public class Game extends JPanel implements KeyListener{
 			g.drawString("Hello! To begin playing, press the space bar.", WIDTH / 3, HEIGHT / 2);
 		}
 		if(!alive){
-			g.setColor(Color.GREEN);
-			//g.drawString("ur dead! Press escape to close or enter to restart.", WIDTH / 3, HEIGHT / 2);
-g.setColor(Color.WHITE);
+			g.setColor(Color.WHITE);
 			g.fillRect(Game.WIDTH / 2 - (Game.WIDTH/4)/2, Game.HEIGHT / 2 - (Game.HEIGHT/4)/2, Game.WIDTH / 4, Game.HEIGHT / 4);
 			g.setColor(Color.BLACK);
 			g.drawRect(Game.WIDTH / 2 - (Game.WIDTH/4)/2 + 2, Game.HEIGHT / 2 - (Game.HEIGHT/4)/2 + 2, Game.WIDTH / 4 - 4, Game.HEIGHT / 4 - 4);

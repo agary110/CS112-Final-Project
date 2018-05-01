@@ -9,17 +9,17 @@ import java.awt.RenderingHints;
 
 public class RightElbow extends Path{
 
-    public RightElbow(int exitX){
-		super(exitX);
+    public RightElbow(int enterX){
+		super(enterX);
 		this.name="rightElbow";
-		this.x=exitX+WIDTH;
+		this.x=enterX+WIDTH;
     }
 
 	public RightElbow(Path previous){
 		super(previous);
 		name = "rightElbow";
-		exitX = previous.x;
-		x = exitX + Path.WIDTH;
+		enterX = previous.x;
+		x = enterX + Path.WIDTH;
 		y = previous.y - Path.WIDTH;
 	}
 
@@ -29,13 +29,13 @@ public class RightElbow extends Path{
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         					RenderingHints.VALUE_ANTIALIAS_ON);
 		g.fill(new Rectangle2D.Double(x, y, WIDTH, HEIGHT));
-		g.fill(new Rectangle2D.Double(exitX, y + Path.WIDTH, WIDTH, WIDTH));
+		g.fill(new Rectangle2D.Double(enterX, y + Path.WIDTH, WIDTH, WIDTH));
 		if (World.bumpersOn){
 			g.setColor(Color.RED);
 			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, WIDTH)); // short vert side 
-			g.fill(new Rectangle2D.Double(exitX, y + WIDTH - bumperWidth, WIDTH, bumperWidth)); // short top side
+			g.fill(new Rectangle2D.Double(enterX, y + WIDTH - bumperWidth, WIDTH, bumperWidth)); // short top side
 			g.fill(new Rectangle2D.Double(x + WIDTH, y, bumperWidth, HEIGHT)); //long vert side
-			g.fill(new Rectangle2D.Double(exitX, y + HEIGHT, HEIGHT + bumperWidth, bumperWidth)); // long bottom side
+			g.fill(new Rectangle2D.Double(enterX, y + HEIGHT, HEIGHT + bumperWidth, bumperWidth)); // long bottom side
 		}
 		g.setColor(color);
     }
