@@ -147,12 +147,12 @@ public class Marble{
 					//canMoveUp = false;
 				}
 			}
-			if(marb.x + World.marble.radius > path.exitX + path.WIDTH){
+			if(marb.x + World.marble.radius > path.enterX + path.WIDTH){
 				if (Game.lpressed){
 					World.marble.moveLeft();
 				}
 			}
-			if(marb.x < path.exitX && marb.y + World.marble.radius > path.y + path.WIDTH){
+			if(marb.x < path.enterX && marb.y + World.marble.radius > path.y + path.WIDTH){
 				if (Game.kpressed){
 					World.marble.moveUp();
 				}
@@ -163,7 +163,7 @@ public class Marble{
 		}
 
 		else if(path.name == "rightElbow"){
-			if (marb.x + World.marble.radius >= path.exitX + path.HEIGHT){ // going out of right side
+			if (marb.x + World.marble.radius >= path.enterX + path.HEIGHT){ // going out of right side
 				if (Game.lpressed){
 					World.marble.moveLeft();
 					//System.out.println("rightElbow right side");
@@ -300,17 +300,17 @@ public class Marble{
 				System.out.println("died bc rightCorner");
 
 			}
-			if(marb.x + World.marble.radius / 3 < path.exitX){
+			if(marb.x + World.marble.radius / 3 < path.enterX){
 				Game.alive = false;
 				System.out.println("died bc rightCorner");
 			}
 
-			if(marb.y - World.marble.radius / 3 > path.y + path.WIDTH && marb.x + World.marble.radius > path.exitX + path.WIDTH){
+			if(marb.y - World.marble.radius / 3 > path.y + path.WIDTH && marb.x + World.marble.radius > path.enterX + path.WIDTH){
 				Game.alive = false;
 				System.out.println("died bc rightCorner");
 			} 
 			/*if (marb.x<path.x+path.WIDTH) {
-				if (marb.x<path.exitX || marb.y>path.y+path.HEIGHT || marb.y<path.y) {
+				if (marb.x<path.enterX || marb.y>path.y+path.HEIGHT || marb.y<path.y) {
 				Game.alive=false;
 	} 
 	}
@@ -327,11 +327,11 @@ public class Marble{
 				Game.alive = false;	
 				System.out.println("died bc leftCorner");			
 			}
-			if(marb.x + World.marble.radius / 3 * 2 > path.exitX + path.WIDTH){
+			if(marb.x + World.marble.radius / 3 * 2 > path.enterX + path.WIDTH){
 				Game.alive = false;
 				System.out.println("died bc leftCorner");
 			}
-			if(marb.x + World.marble.radius / 3 * 2 < path.exitX && marb.y + World.marble.radius > path.y + path.WIDTH){
+			if(marb.x + World.marble.radius / 3 * 2 < path.enterX && marb.y + World.marble.radius > path.y + path.WIDTH){
 				Game.alive = false;
 				System.out.println("died bc leftCorner");
 			}
@@ -339,7 +339,7 @@ public class Marble{
 
 		else if(path.name == "rightElbow"){ // DOESN'T DIE WHEN YOU GO OUT THE RIGHT SIDE
 			if(marb.y - World.marble.radius / 3 > path.y + path.WIDTH){
-				if(marb.x + World.marble.radius / 3 * 2 > path.exitX + path.HEIGHT){
+				if(marb.x + World.marble.radius / 3 * 2 > path.enterX + path.HEIGHT){
 					Game.alive = false;
 				System.out.println("died bc rightElbow");
 				}
@@ -368,7 +368,7 @@ public class Marble{
 			}
 		}
 	/*	else if(path.name == "rightElbow"){
-			if (marb.x + World.marble.radius >= path.exitX + path.WIDTH){ // going out of right side
+			if (marb.x + World.marble.radius >= path.enterX + path.WIDTH){ // going out of right side
 				Game.alive = false;
 			}
 			if (marb.y + World.marble.radius > path.y + path.HEIGHT){ // going out of bottom
@@ -399,7 +399,7 @@ public class Marble{
 
 			}
 */
-			if (marb.x<path.exitX && marb.x>path.exitX+path.WIDTH) {
+			if (marb.x<path.enterX && marb.x>path.enterX+path.WIDTH) {
 			    if (marb.y>path.y+path.HEIGHT || marb.y<path.y+path.WIDTH){
 				Game.alive=false;
 				System.out.println("died bc leftElbow");

@@ -11,17 +11,17 @@ import java.awt.RenderingHints;
 
 public class Straight extends Path{
 
-    public Straight(int exitX){
-		super(exitX);
+    public Straight(int enterX){
+		super(enterX);
 		this.name="Straight";
-		this.x=exitX;
+		this.x=enterX;
     }
 
 	public Straight(Path previous){
 		super(previous);
 		name = "Straight";
-		exitX = previous.x;
-		x = this.exitX;
+		enterX = previous.x;
+		x = this.enterX;
 		y = previous.y - Path.HEIGHT;
 	}
 
