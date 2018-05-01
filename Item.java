@@ -85,7 +85,7 @@ class Item{
 		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
 		int y = pathY;
 
-		randNum = 2;
+		randNum = 1;
 		//Bomb
 		if(randNum == 0){
 			return new Bomb(x, y);
@@ -421,6 +421,7 @@ class Booster extends Item{
 	}
 
 	public void activate(){
+		this.activated = true;
 	}
 
 	public void deactivate(){
@@ -441,7 +442,7 @@ class Bumpers extends Booster implements Deactivatable{
 
 	public void activate(){
 	//How to actually turn the bumpers on
-		this.activated = true;
+		super.activate();
 		World.bumpersOn = true;
 	}
 
@@ -451,6 +452,13 @@ class Bumpers extends Booster implements Deactivatable{
 	}
 
 	public void update(){
+		/*if(this.activated){
+			this.pickUp();
+			deactivateTime -= (1 / (double)(Game.FPS));
+		}
+		if(deactivateTime <= 0){
+			this.deactivate();
+		}*/
 		super.update(deactivateTime);
 		checkTopEdge();
 	}
@@ -491,13 +499,13 @@ class ChangeSpeed extends Booster implements Deactivatable{
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
-		increment = World.marble.XposIncrement * 0.8;
+		increment = World.marble.XposIncrement * 0.5;
 		originalIncrement = World.marble.XposIncrement;
 		deactivateTime = 10;
 	}
 
 	public void activate(){
-		this.activated = true;
+		super.activate();
 		if (increase) {
 			World.marble.XposIncrement += increment;
 		} else {
@@ -507,8 +515,8 @@ class ChangeSpeed extends Booster implements Deactivatable{
 	}
 
 	public void deactivate(){
+		super.deactivate();
 		World.marble.XposIncrement = originalIncrement;
-		this.activated = false;
 		//How to actually make the speed normal again
 	}
 	public void update(){
@@ -535,7 +543,7 @@ class ChangeSize extends Booster implements Deactivatable{
 	}
 
 	public void activate(){
-		this.activated = true;
+		super.activate();
 		if (increase){
 			World.marble.radius += proportion;
 		} else {
@@ -545,8 +553,8 @@ class ChangeSize extends Booster implements Deactivatable{
 	}
 
 	public void deactivate(){
-		World.marble.radius = originalSize;
-		this.activated = false;		
+		super.deactivate();
+		World.marble.radius = originalSize;		
 	}
 	public void update(){
 		super.update(deactivateTime);
