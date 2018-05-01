@@ -19,7 +19,7 @@ public class LeftElbow extends Path{
 		super(previous);
 		name = "leftElbow";
 		exitX = previous.x;
-		x = exitX - Path.WIDTH;
+		x = exitX - Path.HEIGHT;
 		y = previous.y - Path.WIDTH;
 	}
 

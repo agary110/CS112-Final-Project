@@ -19,7 +19,13 @@ public class Game extends JPanel implements KeyListener{
 	public static final int FPS = 60;
 	public static World world;
 	public static boolean alive;
+	public static boolean ipressed;
+	public static boolean jpressed;
+	public static boolean kpressed;
+	public static boolean lpressed;
 	public static boolean pressed;
+
+
 	public static boolean hasGameStarted;
 	public static boolean paused;
 	char c;
@@ -51,9 +57,10 @@ public class Game extends JPanel implements KeyListener{
 		    while(true){//alive){
 				if(hasGameStarted){
 					if(paused == false){
+
 						world.nextFrame(1.0 / (double)(FPS));
 						if (pressed){
-							world.moveMarble(c);
+							world.moveMarble();
 						}
 						repaint();
 					}
@@ -94,13 +101,6 @@ public class Game extends JPanel implements KeyListener{
 		if(c == 'h'){
 			if(paused == false){
 				paused = true;
-				JPanel screen = new JPanel();
-				screen.setLayout(new BoxLayout(screen, BoxLayout.X_AXIS));
-
-				JPanel maze = new JPanel();
-				JPanel helpMenu = new JPanel();
-				screen.add(maze);
-				screen.add(helpMenu);
 			}
 			else{
 				paused = false;
@@ -110,12 +110,38 @@ public class Game extends JPanel implements KeyListener{
 
 	public void keyTyped(KeyEvent e) {
 		c = e.getKeyChar();
-		world.shootAmmo(c);
+		if (c == 'a'){
+			world.shootAmmo(c);
+		}
+		if (c == 'i'){
+			ipressed = true;
+		}
+		if (c == 'j'){
+			jpressed = true;
+		}
+		if (c == 'k'){
+			kpressed = true;
+		}
+		if (c == 'l'){
+			lpressed = true;
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
 		c=e.getKeyChar();
 		pressed=false;
+		if (c == 'i'){
+			ipressed = false;
+		}
+		if (c == 'j'){
+			jpressed = false;
+		}
+		if (c == 'k'){
+			kpressed = false;
+		}
+		if (c == 'l'){
+			lpressed = false;
+		}
     }
 
 	public static void main(String [] args){

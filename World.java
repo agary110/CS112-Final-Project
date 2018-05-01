@@ -53,6 +53,7 @@ public class World{
 		drawPoints(g);
 		drawAmmoCount(g);
 		drawAmmoReleased(g);
+		drawHelpMenu(g);
 	}
 
 	public void drawMarble(Graphics g){
@@ -94,6 +95,15 @@ public class World{
 	public void drawAmmoReleased(Graphics g){
 		for(int i = 0; i < ammoActive.size(); i++){
 			ammoActive.get(i).draw(g);
+		}
+	}
+
+	public void drawHelpMenu(Graphics g){
+		if(Game.paused){
+			g.setColor(Color.WHITE);
+			g.fillRect(Game.WIDTH / 4, Game.HEIGHT / 4, Game.WIDTH / 2, Game.HEIGHT / 2);
+			g.setColor(Color.BLACK);
+			g.drawRect(Game.WIDTH / 4 + 2, Game.HEIGHT / 4 + 2, Game.WIDTH / 2 - 4, Game.HEIGHT / 2 - 4);
 		}
 	}
 
@@ -161,32 +171,31 @@ public class World{
 //=======================================
 // When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
 
-    public void moveMarble(char c){
-		if (c == 'i') {
+    public void moveMarble(){
+		if (Game.ipressed) {
 	    	marble.moveUp();
 		}
-		if (c == 'j') {
+		if (Game.jpressed) {
 		    marble.moveLeft();
 		}
-		if (c == 'k') {
+		if (Game.kpressed) {
 		    marble.moveDown();
 		}
-		if (c == 'l') {
+		if (Game.lpressed) {
 		    marble.moveRight();
 		}
 		if (bumpersOn)
-			marble.checkForBumpers(this, c);
+			marble.checkForBumpers(this);
 	}
 //=======================================
 //When the key “a” is pressed and ammoCount > 0, the marble shoots ammo.
 
 	public void shootAmmo(char c){
-		if (c == 'a') {
-			if(ammoCount > 0){
-				ammoReleased = true;
-				AmmoReleased.activate(c);
-			}
+		if(ammoCount > 0){
+			ammoReleased = true;
+			AmmoReleased.activate(c);
 		}
+		
 	}
 //=======================================
 //When the key “h” is pressed, the help menu pops up on the screen.
