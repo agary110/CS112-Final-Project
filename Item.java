@@ -402,6 +402,7 @@ class Alien extends Item{
 	public void activate(){				
 		if(this.activated && deadly){
 			Game.alive = false;
+			System.out.println("died bc of alien");
 		}
 	}
 

@@ -8,6 +8,12 @@ import java.awt.RenderingHints;
 
 public class Straight extends Path{
 
+	public Straight(int enterX){
+		super(enterX);
+		this.name="Straight";
+		this.x=enterX;
+    }
+
 	public Straight(Path previous){
 		super(previous);
 		name = "Straight";
