@@ -101,11 +101,11 @@ public class World{
 
 	public void drawHelpMenu(Graphics g){
 		if(Game.helpDrawn){
-			//Draws Frame
 			g.setColor(Color.WHITE);
 			g.fillRect(Game.WIDTH / 4, Game.HEIGHT / 4, Game.WIDTH / 2, Game.HEIGHT / 2);
 			g.setColor(Color.BLACK);
 			g.drawRect(Game.WIDTH / 4 + 2, Game.HEIGHT / 4 + 2, Game.WIDTH / 2 - 4, Game.HEIGHT / 2 - 4);
+
 
 			//Draws general instructions
 			g.drawString("Help Menu", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 20);

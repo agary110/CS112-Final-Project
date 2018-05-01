@@ -25,7 +25,8 @@ class Map{
 		Map4 = new LinkedList<Path>();
 		allMaps = new LinkedList<LinkedList<Path>>();
 
-		upcomingPaths.add(new Trapezoid(Game.HEIGHT / 2));
+		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
+		upcomingPaths.add(new Trapezoid(Game.HEIGHT));
 		upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 		upcomingPaths.get(0).y = Game.HEIGHT;
 		for(int i = 1; i < 6; i++){
