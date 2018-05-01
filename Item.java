@@ -197,11 +197,11 @@ class Bomb extends Item{
 
 class Coin extends Item implements Deactivatable{
 	int increase;
+	static final int width = Item.width - 2;
 
 	public Coin(int x, int y){
 		super(x, y);
 		increase = rand.nextInt(3) + 3;
-		width -= 2;
 	}
 
 	public void draw(Graphics g){

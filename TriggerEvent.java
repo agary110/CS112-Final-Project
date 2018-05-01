@@ -3,8 +3,6 @@ import java.util.Random;
 public class TriggerEvent{
 
 	public TriggerEvent(int randNum){
-		randNum = 2;
-
 		//Speed up
 		if(randNum == 0){
 			Game.FPS += 10;
@@ -21,7 +19,7 @@ public class TriggerEvent{
 		}
 
 		//Coin Madness
-		else{
+		else if(randNum == 2){
 			Random rand = new Random();
 			for(int i = 0; i < 10; i++){
 				World.itemsActive.add(Item.generateNextItem(5));
