@@ -441,6 +441,10 @@ public class Marble{
 
 				Path path = World.mapsOnScreen.get(i).get(j);
 
+				if(path.name == "BigRect"){
+					return path;
+				}
+
 				if(World.marble.position.y >= path.y && World.marble.position.y < path.y + path.HEIGHT){
 					int minX;
 					int maxX;
@@ -455,7 +459,6 @@ public class Marble{
 					if(World.marble.position.x >= minX && World.marble.position.x + World.marble.radius <= maxX){
 						return path;
 					}
-					//return path;
 				}
 			}
 		}
