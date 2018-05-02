@@ -476,13 +476,6 @@ class Bumpers extends Booster {
 	}
 
 	public void update(){
-		/*if(this.activated){
-			this.pickUp();
-			deactivateTime -= (1 / (double)(Game.FPS));
-		}
-		if(deactivateTime <= 0){
-			this.deactivate();
-		}*/
 		super.update();
 		checkTopEdge();
 	}
@@ -521,7 +514,6 @@ class ChangeSpeed extends Booster {
 	double originalXIncrement;
 	double originalYIncrement;
 
-	double originalIncrement;
 	double deactivateTime;
 
 	public ChangeSpeed(int x, int y){
@@ -556,9 +548,7 @@ class ChangeSpeed extends Booster {
 		World.marble.YposIncrement = originalYIncrement;
 		//How to actually make the speed normal again
 	}
-	public void update(){
-		super.update();
-	}
+
 }
 
 //=======================================
