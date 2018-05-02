@@ -299,8 +299,7 @@ class Ammo extends Item {
 
 class Alien extends Item{
 	boolean deadly;
-	final int eyeWidth = width / 3;
-	final int pupilWidth = eyeWidth / 3 * 2;
+	
 	
 	public Alien(int x, int y){
 		super(x, y);
@@ -311,6 +310,9 @@ class Alien extends Item{
 		//Body
 		g.setColor(Color.GREEN);
 		g.fillOval(x, y, width, width);
+
+		int eyeWidth = width / 3;
+		int pupilWidth = eyeWidth / 3 * 2;
 
 		//Eyes
 		g.setColor(Color.WHITE);
