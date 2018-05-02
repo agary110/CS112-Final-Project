@@ -85,7 +85,7 @@ class Map{
 
 	public static LinkedList<Path> getScreen1(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
-		//toR.add(new Straight(curr.getLast()));
+		toR.add(new Straight(curr.getLast()));
 		toR.add(new RightCorner(toR.getLast()));
 		toR.add(new RightElbow(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));

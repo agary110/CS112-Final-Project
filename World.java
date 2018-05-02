@@ -59,7 +59,7 @@ public class World{
 		}
 	}
 
-	public void drawPath(Graphics g){
+	public void drawPath(Graphics g){ // should change this to drawMap
 		map.draw(g);
 	}
 
