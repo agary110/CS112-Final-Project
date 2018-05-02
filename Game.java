@@ -219,5 +219,5 @@ public class Game extends JPanel implements KeyListener{
 }
 
 
-/** End of Game class **/
+/** END OF Game Class **/
 //==============================================

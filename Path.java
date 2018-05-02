@@ -59,5 +59,5 @@ public class Path{
     }
 
 }
-/** END OF PATH CLASS**/
+/** END OF Path CLASS**/
 //=================================================

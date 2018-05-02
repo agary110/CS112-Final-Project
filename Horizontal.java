@@ -1,4 +1,6 @@
-
+//===================================
+/** Importing necessary libraries **/
+//==================================
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
@@ -6,9 +8,21 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
+//==================================================================================
+/** The Horizontal class is a subclass of Path. It represents a straight, horizontal path. It’s main (and only) method is a draw method, that overrides Path’s draw method, and draws the a Horizontal Path on the Jpanel. **/
+//==================================================================================
 
 public class Horizontal extends Path{
-    boolean direction;
+
+//======================
+/** New member variables **/
+//======================
+
+    boolean direction; //member variable that is true when the marble is entering 				  horizontal from the right; determines x value and how to 				  draw the horizontal
+
+//======================
+/** Constructor **/
+//======================
 
 	public Horizontal(Path previous, boolean direction){
 		super(previous);
@@ -16,6 +30,9 @@ public class Horizontal extends Path{
 		enterX = previous.x;
 		this.direction = direction;
 		if(direction){
+	
+		//sets x depending on direction boolean
+
 			x = enterX + Path.HEIGHT;
 		}
 		else{
@@ -23,8 +40,15 @@ public class Horizontal extends Path{
 		}
 		y = previous.y;
 	}
+//=================================================
+/** Method: draw (Graphics g0ri)
+    Functionality: Draws the Horizontal Path on the screen **/
+//=================================================
 
 	public void draw(Graphics g0ri){
+
+	//Overrides Path’s draw method
+
 		Graphics2D g = (Graphics2D) g0ri;
 		g.setColor(color);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -36,6 +60,9 @@ public class Horizontal extends Path{
 			g.fill(new Rectangle2D.Double(x, y, HEIGHT, WIDTH));
 		}
 		if (World.bumpersOn){
+
+			//Draws bumpers if bumpersOn is true
+
 			g.setColor(Color.RED);
 			if(direction){
 				g.fill(new Rectangle2D.Double(enterX, y - bumperWidth, HEIGHT, bumperWidth));
@@ -49,3 +76,5 @@ public class Horizontal extends Path{
 		
     }
 }
+/** END OF Horizontal CLASS**/
+//=================================================
