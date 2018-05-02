@@ -11,7 +11,7 @@ class Map{
 	public static LinkedList<Path> Map2;
 	public static LinkedList<Path> Map3;
 	public static LinkedList<Path> Map4;
-	public static LinkedList<LinkedList<Path>> allMaps;
+	public static LinkedList<LinkedList<Path>> allScreens;
 	public static Random rand;
 //=======================================
 //Constructor
@@ -22,7 +22,7 @@ class Map{
 		Map2 = new LinkedList<Path>();
 		Map3 = new LinkedList<Path>();
 		Map4 = new LinkedList<Path>();
-		allMaps = new LinkedList<LinkedList<Path>>();
+		allScreens = new LinkedList<LinkedList<Path>>();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
 		upcomingPaths.get(0).y = Game.HEIGHT;
@@ -34,13 +34,13 @@ class Map{
 		
 	}
 //=======================================
-//Add maps to linked list allMaps
+//Add maps to linked list allScreens
 	public static void addMaps() {
-		allMaps.add(upcomingPaths);
-		allMaps.add(Map1);
-		allMaps.add(Map2);
-		allMaps.add(Map3);
-		allMaps.add(Map4);
+		allScreens.add(upcomingPaths);
+		allScreens.add(Map1);
+		allScreens.add(Map2);
+		allScreens.add(Map3);
+		allScreens.add(Map4);
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
@@ -163,7 +163,7 @@ class Map{
     }
 //=======================================
 public static LinkedList<Path> generateNext(){
-	int randNum = rand.nextInt(allMaps.size() - 1) + 1;
+	int randNum = rand.nextInt(allScreens.size() - 1) + 1;
 	//randNum = 0;x	
 	LinkedList<Path> toAppend = new LinkedList<Path>();
 
@@ -182,7 +182,7 @@ public static LinkedList<Path> generateNext(){
 	System.out.println("randNum: " + randNum);
 	System.out.flush();
 	if (randNum == 5) System.out.println("BAD");
-	System.out.println("in generate next and number of allMaps is: " + allMaps.size());
+	System.out.println("in generate next and number of allScreens is: " + allScreens.size());
 	return toAppend;
 }
 //=======================================
