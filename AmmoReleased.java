@@ -78,7 +78,7 @@ public class AmmoReleased{
 			direction = 4;
 		}
 
-		AmmoReleased toAppend = new AmmoReleased((int)(World.marble.position.x) + World.marble.radius / 2, (int)(World.marble.position.y), direction);
+		AmmoReleased toAppend = new AmmoReleased((int)(World.marble.position.x) + World.marble.diameter / 2, (int)(World.marble.position.y), direction);
 		World.ammoActive.add(toAppend);
 		World.ammoCount--;
 	}

@@ -42,7 +42,7 @@ class Item{
 		if(passed){
 			if(this.y  - 2 < World.marble.position.y && this.y + this.width + 2 > World.marble.position.y){
 				if(this.x + this.width - 2 >= World.marble.position.x){
-					if(this.x <= World.marble.position.x + World.marble.radius - 2){
+					if(this.x <= World.marble.position.x + World.marble.diameter - 2){
 						this.activated = true;
 						this.activate();
 					}
@@ -65,18 +65,18 @@ class Item{
 
 		int pathX = Game.WIDTH / 2 + Path.WIDTH / 2;
 		int pathY = 0;
-		for(int i = 0; i < World.mapsOnScreen.size(); i++){
-			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
-				if (World.mapsOnScreen.get(i).get(j).name == "Horizontal"){
-					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.WIDTH >= 0){
-						pathX = World.mapsOnScreen.get(i).get(j).x;
-						pathY = World.mapsOnScreen.get(i).get(j).y;
+		for(int i = 0; i < World.visibleScreens.size(); i++){
+			for(int j = 0; j < World.visibleScreens.get(i).size(); j++){
+				if (World.visibleScreens.get(i).get(j).name == "Horizontal"){
+					if(World.visibleScreens.get(i).get(j).y <= 0 && World.visibleScreens.get(i).get(j).y + Path.WIDTH >= 0){
+						pathX = World.visibleScreens.get(i).get(j).x;
+						pathY = World.visibleScreens.get(i).get(j).y;
 						break;
 					}
 				} else {
-					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.HEIGHT >= 0){
-						pathX = World.mapsOnScreen.get(i).get(j).x;
-						pathY = World.mapsOnScreen.get(i).get(j).y;
+					if(World.visibleScreens.get(i).get(j).y <= 0 && World.visibleScreens.get(i).get(j).y + Path.HEIGHT >= 0){
+						pathX = World.visibleScreens.get(i).get(j).x;
+						pathY = World.visibleScreens.get(i).get(j).y;
 						break;
 					}
 				} 
@@ -573,24 +573,24 @@ class ChangeSize extends Booster {
 	public ChangeSize(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
-		proportion = World.marble.radius * 0.3;
-		originalSize = World.marble.radius;
+		proportion = World.marble.diameter * 0.3;
+		originalSize = World.marble.diameter;
 		deactivateTime = 10;
 	}
 
 	public void activate(){
 		super.activate();
 		if (increase){
-			World.marble.radius += proportion;
+			World.marble.diameter += proportion;
 		} else {
-			World.marble.radius -= proportion;
+			World.marble.diameter -= proportion;
 		}
 		proportion = 0;
 	}
 
 	public void deactivate(){
 		super.deactivate();
-		World.marble.radius = originalSize;		
+		World.marble.diameter = originalSize;		
 	}
 	public void update(){
 		super.update();
