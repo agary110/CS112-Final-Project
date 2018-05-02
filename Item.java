@@ -183,7 +183,6 @@ class Bomb extends Item{
 		if(this.activated){
 			Game.alive = false;
 			exploded = true;
-			System.out.println("dying because an item has been activated");
 		}
 	}
 
@@ -392,9 +391,7 @@ class Alien extends Item{
 
 	public void activate(){				
 		if(this.activated && deadly){
-			Game.alive = false;
-			System.out.println("died bc of alien");
-		}
+			Game.alive = false;		}
 	}
 
 	public void deactivate(int ammoActiveIndex){
