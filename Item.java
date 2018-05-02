@@ -10,7 +10,7 @@ import java.lang.StringBuilder;
 
 
 //=======================================
-/** Class Item includes anything that the marble might encounter on the path — aliens, bombs, speed changers or size changers, etc. Item has 
+/** Class Item includes anything that the marble might encounter on the path — aliens, bombs, speed changers or size changers, etc. Item has  **/
 
 class Item{
 	public int x;

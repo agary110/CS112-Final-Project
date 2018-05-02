@@ -3,11 +3,13 @@
 //==================================
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
+//==================================================================================
+/** The TopRightCorner class is a subclass of Path. It represents a corner in which the marble is traveling up the screen in a straight direction, and must turn right. It’s main (and only) method is a draw method, that overrides Path’s draw method, and draws the a TopRightCorner Path on the Jpanel. **/
+//==================================================================================
 
 public class TopRightCorner extends Path {
 
