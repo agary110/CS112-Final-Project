@@ -130,19 +130,20 @@ public class Marble{
 	
 		}
 		
-		else if(path.name == "topLeftCorner"){
+		else if(path.name == "TopLeftCorner"){
+
 			if(marb.y < path.y){
 				if (Game.ipressed){
 					World.marble.moveDown();
 				}
 			}
-			if(marb.x < path.x - path.HEIGHT){
+			if(marb.x < path.enterX){
 				if (Game.jpressed){
 					World.marble.moveRight();
 				}
 			}
 
-			if (marb.y + World.marble.diameter > path.y + path.WIDTH && marb.x + World.marble.diameter > path.x - path.WIDTH){
+			if (marb.y + World.marble.diameter > path.y + path.WIDTH && marb.x + World.marble.diameter > path.enterX + path.WIDTH){
 				if (Game.kpressed){
 					World.marble.moveUp();
 				}
@@ -150,6 +151,7 @@ public class Marble{
 					World.marble.moveLeft();
 				}
 			}
+
 		}
 
 		else if(path.name == "TopRightCorner"){
