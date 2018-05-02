@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.LinkedList;
 import java.lang.String;
 
+//==================================================================================
+/** An instance of the World class is created in the Game class. The World class calls each of its member variables’ draw and update methods. The World class also calls the appropriate methods that correspond to each KeyEvent. **/
+//==================================================================================
+
 public class World{
 
 //======================
@@ -252,7 +256,7 @@ public class World{
 
 //=======================================
 /** Method shootAmmo()
-	Functionality: Calls AmmoReleased.activate() when ‘a’ is pressed and ammoCount > 0
+	Functionality: Calls AmmoReleased.activate() when ‘a’ is pressed and ammoCount > 0 **/
 //=======================================
 
 	public void shootAmmo(){
