@@ -428,7 +428,7 @@ public class Marble{
 		}
 
 		else{//BigRect
-			if(marb.x + World.marble.diameter / 2 < World.mapsOnScreen.get(0).get(1).x || marb.x - World.marble.diameter / 2 > World.mapsOnScreen.get(0).get(1).x + Path.WIDTH){
+			if(marb.x + World.marble.diameter / 2 < World.visibleScreens.get(0).get(1).x || marb.x - World.marble.diameter / 2 > World.visibleScreens.get(0).get(1).x + Path.WIDTH){
 				if(marb.y - World.marble.diameter / 3 < path.y){
 					Game.alive = false;
 					System.out.println("died bc of bigrect");
@@ -442,12 +442,12 @@ public class Marble{
 
 	public static Path checkPath(){
 
-		for(int i = 0; i < World.mapsOnScreen.size(); i++){
-			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
+		for(int i = 0; i < World.visibleScreens.size(); i++){
+			for(int j = 0; j < World.visibleScreens.get(i).size(); j++){
 
-				Path path = World.mapsOnScreen.get(i).get(j);
+				Path path = World.visibleScreens.get(i).get(j);
 
-				/*if(World.mapsOnScreen.get(i) == Map.upcomingPaths && j==0){
+				/*if(World.visibleScreens.get(i) == Map.upcomingPaths && j==0){
 					return path;
 				}*/
 

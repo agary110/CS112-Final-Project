@@ -68,18 +68,18 @@ class Item{
 
 		int pathX = Game.WIDTH / 2 + Path.WIDTH / 2;
 		int pathY = 0;
-		for(int i = 0; i < World.mapsOnScreen.size(); i++){
-			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
-				if (World.mapsOnScreen.get(i).get(j).name == "Horizontal"){
-					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.WIDTH >= 0){
-						pathX = World.mapsOnScreen.get(i).get(j).x;
-						pathY = World.mapsOnScreen.get(i).get(j).y;
+		for(int i = 0; i < World.visibleScreens.size(); i++){
+			for(int j = 0; j < World.visibleScreens.get(i).size(); j++){
+				if (World.visibleScreens.get(i).get(j).name == "Horizontal"){
+					if(World.visibleScreens.get(i).get(j).y <= 0 && World.visibleScreens.get(i).get(j).y + Path.WIDTH >= 0){
+						pathX = World.visibleScreens.get(i).get(j).x;
+						pathY = World.visibleScreens.get(i).get(j).y;
 						break;
 					}
 				} else {
-					if(World.mapsOnScreen.get(i).get(j).y <= 0 && World.mapsOnScreen.get(i).get(j).y + Path.HEIGHT >= 0){
-						pathX = World.mapsOnScreen.get(i).get(j).x;
-						pathY = World.mapsOnScreen.get(i).get(j).y;
+					if(World.visibleScreens.get(i).get(j).y <= 0 && World.visibleScreens.get(i).get(j).y + Path.HEIGHT >= 0){
+						pathX = World.visibleScreens.get(i).get(j).x;
+						pathY = World.visibleScreens.get(i).get(j).y;
 						break;
 					}
 				} 
