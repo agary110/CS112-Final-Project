@@ -1,3 +1,6 @@
+//=======================================
+/**Import necessary libraries
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
@@ -6,6 +9,7 @@ import java.util.Random;
 import java.lang.Math;
 
 class Map{
+
 	public static LinkedList<Path> initialScreens;
 	public static LinkedList<Path> Screen1;
 	public static LinkedList<Path> Screen2;
@@ -13,8 +17,10 @@ class Map{
 	public static LinkedList<Path> Screen4;
 	public static LinkedList<LinkedList<Path>> allScreens;
 	public static Random rand;
+
 //=======================================
-//Constructor
+/**Constructor**/
+
 	public Map(){
 		rand = new Random(1);
 		initialScreens = new LinkedList<Path>();
