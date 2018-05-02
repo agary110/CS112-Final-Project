@@ -514,8 +514,6 @@ class ChangeSpeed extends Booster {
 	double originalXIncrement;
 	double originalYIncrement;
 
-	double deactivateTime;
-
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
@@ -525,7 +523,7 @@ class ChangeSpeed extends Booster {
 		originalXIncrement = World.marble.XposIncrement;
 		originalYIncrement = World.marble.YposIncrement;
 
-		deactivateTime = 10;
+		deactivateTime = 7;
 	}
 
 	public void activate(){
@@ -546,7 +544,6 @@ class ChangeSpeed extends Booster {
 		super.deactivate();
 		World.marble.XposIncrement = originalXIncrement;
 		World.marble.YposIncrement = originalYIncrement;
-		//How to actually make the speed normal again
 	}
 
 }
@@ -559,14 +556,13 @@ class ChangeSize extends Booster {
 	boolean increase;
 	double proportion;
 	int originalSize;
-	double deactivateTime;
 
 	public ChangeSize(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
 		proportion = World.marble.diameter * 0.3;
 		originalSize = World.marble.diameter;
-		deactivateTime = 10;
+		deactivateTime = 7;
 	}
 
 	public void activate(){
@@ -583,7 +579,5 @@ class ChangeSize extends Booster {
 		super.deactivate();
 		World.marble.diameter = originalSize;		
 	}
-	public void update(){
-		super.update();
-	}
+	
 }
