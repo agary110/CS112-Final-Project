@@ -8,25 +8,20 @@ import java.util.LinkedList;
 import java.lang.String;
 
 public class World{
-	static double HEIGHT;
-	static double WIDTH;
 	static Marble marble;
-	static Map map;
-	static LinkedList<Item> itemsActive;
-	static Ammo ammo;
-	static LinkedList<LinkedList<Path>> mapsOnScreen;
-	static double points;
 	static int ammoCount;
+	static double points;
 	static boolean ammoReleased;
+	static Map map;
+	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	static LinkedList<AmmoReleased> ammoActive;
-	static Random rand;
 	static boolean bumpersOn;
+	static Random rand;
+	static LinkedList<Item> itemsActive;
 
 //=======================================
 //Constructor
-	public World(double initHeight, double initWidth){
-		HEIGHT = initHeight;
-		WIDTH = initWidth;
+	public World(){
 		marble = new Marble();
 		ammoCount = 10;
 		points = 0;
@@ -93,13 +88,14 @@ public class World{
 
 	public void drawHelpMenu(Graphics g){
 		if(Game.helpDrawn){
+
+			//Draws Container
 			g.setColor(Color.WHITE);
 			g.fillRect(Game.WIDTH / 4, Game.HEIGHT / 4, Game.WIDTH / 2, Game.HEIGHT / 2);
 			g.setColor(Color.BLACK);
 			g.drawRect(Game.WIDTH / 4 + 2, Game.HEIGHT / 4 + 2, Game.WIDTH / 2 - 4, Game.HEIGHT / 2 - 4);
 
-
-			//Draws general instructions
+			//Draws General instructions
 			g.drawString("Help Menu", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 20);
 			g.drawString("Objective: Navigate the marble through the maze. Be careful not to fall off the edge! There are some ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 40);
 			g.drawString("helpful boosters along the way. For example, pick up coins to increase your points and pick up ammo ", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 60);
@@ -108,42 +104,44 @@ public class World{
 			g.drawString("to kill (10 bonus points for each alien hit).", Game.WIDTH / 4 + 20, Game.HEIGHT / 4 + 120);
 			g.drawString("Good luck!", Game.WIDTH / 2 - 25, Game.HEIGHT / 4 + 140);
 
-			//Draws coin
+			//Draws Coin
 			Coin coin = new Coin(Game.WIDTH / 4 + 175, Game.HEIGHT / 2);
 			coin.draw(g);
 			g.setColor(Color.BLACK);
 			g.drawString("Coin", Game.WIDTH / 4 + 170, Game.HEIGHT / 2 + coin.width + 20);
 
-			//Draws ammo
+			//Draws Ammo
 			Ammo ammo = new Ammo(Game.WIDTH / 4 + 225, Game.HEIGHT / 2);
 			ammo.draw(g);
 			g.setColor(Color.BLACK);
 			g.drawString("Ammo", Game.WIDTH / 4 + 220, Game.HEIGHT / 2 + ammo.width + 20);
 
-			//Draws mystery booster
+			//Draws Mystery Booster
 			Booster booster = new Booster(Game.WIDTH / 4 + 305, Game.HEIGHT / 2);
 			booster.draw(g);
 			g.setColor(Color.BLACK);
 			g.drawString("Mystery Booster", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + booster.width + 20);
 
-			//Draws bomb
+			//Draws Bomb
 			Bomb bomb = new Bomb(Game.WIDTH / 4 + 395, Game.HEIGHT / 2);
 			bomb.draw(g);
 			g.setColor(Color.BLACK);
 			g.drawString("Bomb", Game.WIDTH / 4 + 390, Game.HEIGHT / 2 + bomb.width + 20);
 
-			//Draws alien
+			//Draws Alien
 			Alien alien = new Alien(Game.WIDTH / 4 + 450, Game.HEIGHT / 2);
 			alien.draw(g);
 			g.setColor(Color.BLACK);
 			g.drawString("Alien", Game.WIDTH / 4 + 445, Game.HEIGHT / 2 + alien.width + 20);
 
+			//Draws Keys
 			g.drawString("'i' = up		'h' = help menu", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 70);
 			g.drawString("'k' = down		'a' = shoot ammo", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 90);
 			g.drawString("'l' = right		'enter' = restart", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 110);
 			g.drawString("'j' = left		'esc' = quit", Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 130);
 
 
+			//Draws High Score and Start/Resume Instructions
 			g.setColor(Color.RED);
 			g.drawString("The high score to beat is " + (int)(Game.currentHighScore), Game.WIDTH / 4 + 270, Game.HEIGHT / 2 + 150);
 			g.setColor(Color.BLACK);
@@ -155,14 +153,11 @@ public class World{
 
 //=======================================
 //Update Methods
-	public void updateMarble(double time){
-		marble.update(time);
+	private void updateMarble(){
+		marble.update();
 		if (!bumpersOn){
-			//marble.checkForBumpers(this);
-		//} else {
 			marble.checkDead(this);
 		}
-		
 	}
 
 	private void updateItem(){
@@ -175,8 +170,8 @@ public class World{
 		}
 	}
 
-	private void updateMap(double time){
-		map.update(time);
+	private void updateMap(){
+		map.update();
 	}
 
 	private void updatePoints(){
@@ -195,7 +190,6 @@ public class World{
 
 	private void updateTriggerEvents(){
 		if((int)(points) % 25 == 0 && (int)(points) != 0){
-			System.out.println("trigE");
 			TriggerEvent trigEvent = new TriggerEvent(rand.nextInt(3));
 			points++;
 		}
@@ -204,9 +198,9 @@ public class World{
 //=======================================
 //Updates Frame and values that change by frame
 	public void nextFrame(double time){
-		updateMarble(time);
+		updateMarble();
 		updateItem();
-		updateMap(time);
+		updateMap();
 		updatePoints();
 		updateAmmoReleased();
 		updateTriggerEvents();
@@ -227,8 +221,9 @@ public class World{
 		if (Game.lpressed) {
 		    marble.moveRight();
 		}
-		if (bumpersOn)
+		if (bumpersOn){
 			marble.checkForBumpers(this);
+		}
 	}
 //=======================================
 //When the key “a” is pressed and ammoCount > 0, the marble shoots ammo.
@@ -240,13 +235,5 @@ public class World{
 		}
 		
 	}
-//=======================================
-//When the key “h” is pressed, the help menu pops up on the screen.
-//Is this being used at all?
-/*	public void helpMenu(boolean paused, Graphics g){
-		if(paused){
-			
-		}
-	}*/
 
 }
