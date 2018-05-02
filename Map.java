@@ -7,10 +7,10 @@ import java.lang.Math;
 
 class Map{
 	public static LinkedList<Path> upcomingPaths;
-	public static LinkedList<Path> Map1;
-	public static LinkedList<Path> Map2;
-	public static LinkedList<Path> Map3;
-	public static LinkedList<Path> Map4;
+	public static LinkedList<Path> Screen1;
+	public static LinkedList<Path> Screen2;
+	public static LinkedList<Path> Screen3;
+	public static LinkedList<Path> Screen4;
 	public static LinkedList<LinkedList<Path>> allScreens;
 	public static Random rand;
 //=======================================
@@ -18,10 +18,10 @@ class Map{
 	public Map(){
 		rand = new Random(1);
 		upcomingPaths = new LinkedList<Path>();
-		Map1 = new LinkedList<Path>();
-		Map2 = new LinkedList<Path>();
-		Map3 = new LinkedList<Path>();
-		Map4 = new LinkedList<Path>();
+		Screen1 = new LinkedList<Path>();
+		Screen2 = new LinkedList<Path>();
+		Screen3 = new LinkedList<Path>();
+		Screen4 = new LinkedList<Path>();
 		allScreens = new LinkedList<LinkedList<Path>>();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
@@ -37,10 +37,10 @@ class Map{
 //Add maps to linked list allScreens
 	public static void addMaps() {
 		allScreens.add(upcomingPaths);
-		allScreens.add(Map1);
-		allScreens.add(Map2);
-		allScreens.add(Map3);
-		allScreens.add(Map4);
+		allScreens.add(Screen1);
+		allScreens.add(Screen2);
+		allScreens.add(Screen3);
+		allScreens.add(Screen4);
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
@@ -83,7 +83,7 @@ class Map{
 //Returns an instance of random subclass of Path
  
 
-	public static LinkedList<Path> getMap1(LinkedList<Path> curr){
+	public static LinkedList<Path> getScreen1(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
 		//toR.add(new Straight(curr.getLast()));
 		toR.add(new RightCorner(toR.getLast()));
@@ -107,7 +107,7 @@ class Map{
 		return toR;
 	}
 
-	public static LinkedList<Path> getMap2(LinkedList<Path> curr){
+	public static LinkedList<Path> getScreen2(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
 		toR.add(new Straight(curr.getLast()));
 		toR.add(new LeftCorner(toR.getLast()));
@@ -129,7 +129,7 @@ class Map{
 
 	}
 
-	public static LinkedList<Path> getMap3(LinkedList<Path> curr){
+	public static LinkedList<Path> getScreen3(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
 		toR.add(new Straight(curr.getLast()));
 		toR.add(new RightCorner(toR.getLast()));
@@ -150,7 +150,7 @@ class Map{
 		return toR;
 
 	}
-	public static LinkedList<Path> getMap4(LinkedList<Path> curr){
+	public static LinkedList<Path> getScreen4(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
 		toR.add(new Straight(curr.getLast()));
 		toR.add(new Straight(toR.getLast()));
@@ -168,13 +168,13 @@ public static LinkedList<Path> generateNext(){
 	LinkedList<Path> toAppend = new LinkedList<Path>();
 
 	switch (randNum) {
-		case 1: toAppend = getMap1(World.visibleScreens.getLast());
+		case 1: toAppend = getScreen1(World.visibleScreens.getLast());
 				 break;
-		case 2: toAppend = getMap2(World.visibleScreens.getLast());
+		case 2: toAppend = getScreen2(World.visibleScreens.getLast());
 				 break;
-		case 3: toAppend = getMap3(World.visibleScreens.getLast());
+		case 3: toAppend = getScreen3(World.visibleScreens.getLast());
 				 break;
-		case 4: toAppend = getMap4(World.visibleScreens.getLast());
+		case 4: toAppend = getScreen4(World.visibleScreens.getLast());
 				 break;
 	}
 
