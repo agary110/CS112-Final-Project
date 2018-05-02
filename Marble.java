@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.util.Random;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.LinkedList;
 
 class Pair{
 
@@ -194,29 +196,10 @@ public class Marble{
 
 
 		else if(path.name == "leftElbow"){
-			/*if (marb.x < path.x){
-				if (Game.jpressed){
-					World.marble.moveRight();
-				}
-			}
-			if (marb.y + World.marble.radius > path.y + path.HEIGHT){
-				if (Game.kpressed){
-					World.marble.moveUp();
-				}
-			}
-			if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
-				if (Game.ipressed){
-					World.marble.moveDown();
-					//canMoveUp = false;
-				}
-				if (Game.lpressed){
-					World.marble.moveLeft();
-				}
-			} */
 			if (marb.x>path.x+path.WIDTH) {
 				System.out.println("in 1 and 2");
 				if (marb.y<path.y+path.WIDTH) {
-				System.out.println("going out top of 1 and 2");
+					System.out.println("going out top of 1 and 2");
 					if (Game.ipressed) {
 						World.marble.moveDown();
 					}
@@ -231,9 +214,9 @@ public class Marble{
 			else if (marb.y>path.y+path.WIDTH) {
 				System.out.println("in 2");
 				if (marb.x<path.x) {
-				System.out.println("going out side of 2");
+					System.out.println("going out side of 2");
 					if (Game.jpressed) {
-					System.out.println("is j pressed?");
+						System.out.println("is j pressed?");
 						World.marble.moveRight();
 					}
 				}
@@ -262,6 +245,21 @@ public class Marble{
 			}
 		}
 
+		//checkDead() statements
+		/*else if(path.name == "leftElbow"){
+			if (marb.x > path.x + path.WIDTH) {
+			    if (marb.y + World.marble.radius / 3 < path.y + path.WIDTH){
+					Game.alive=false;
+					System.out.println("died bc leftElbow");
+				}
+		   	 }
+			else if (marb.x - World.marble.radius / 3 < path.x || marb.y > path.y + path.HEIGHT) {
+				Game.alive=false;
+				System.out.println("died bc leftElbow");
+
+			}
+		}*/
+
 		else{ //Horizontal
 			if(marb.y < path.y){
 				if (Game.ipressed){
@@ -285,8 +283,6 @@ public class Marble{
 		Path path = checkPath();
 		Pair marb = World.marble.position;
 		
-
-		/*** Null pointer exception occurs here because checkPath() returns a null ***/
 		if(path.name == "Straight"){
 			if(marb.x + World.marble.radius / 3 < path.x || marb.x + World.marble.radius / 3 * 2 > path.x + path.WIDTH){
 				Game.alive = false;
@@ -341,20 +337,14 @@ public class Marble{
 			}
 		}
 
-		else if(path.name == "rightElbow"){ // DOESN'T DIE WHEN YOU GO OUT THE RIGHT SIDE
+		else if(path.name == "rightElbow"){
 			if(marb.y - World.marble.radius / 3 > path.y + path.WIDTH){
-				if(marb.x + World.marble.radius / 3 * 2 > path.enterX + path.HEIGHT){
+				/*if(marb.x + World.marble.radius / 3 * 2 > path.enterX + path.HEIGHT){
 					Game.alive = false;
 				System.out.println("died bc rightElbow");
-				}
+				}*/
 
-				if(marb.y + World.marble.radius / 3 * 2 > path.y + path.HEIGHT){
-					Game.alive = false;
-				System.out.println("died bc rightElbow");
-
-				}
-
-				if(marb.x - World.marble.radius / 3 < path.x){
+				if(marb.x < path.x){
 					if(marb.y + World.marble.radius / 3 < path.y + path.WIDTH){
 						Game.alive = false;
 				System.out.println("died bc rightElbow");
@@ -363,54 +353,22 @@ public class Marble{
 				}
 			}
 
-			else{
-				if(marb.x + World.marble.radius / 3 < path.x || marb.x + World.marble.radius / 3 * 2 > path.x + path.WIDTH){
+			else if(marb.x + World.marble.radius / 3 < path.x){
 					Game.alive = false;
 				System.out.println("died bc rightElbow");
-
-				}
 			}
+
+			if(marb.x + World.marble.radius / 3 > path.enterX + path.HEIGHT);
 		}
-	/*	else if(path.name == "rightElbow"){
-			if (marb.x + World.marble.radius >= path.enterX + path.WIDTH){ // going out of right side
-				Game.alive = false;
-			}
-			if (marb.y + World.marble.radius > path.y + path.HEIGHT){ // going out of bottom
-				Game.alive = false;
-			}
-			if (marb.x < path.x && marb.y < path.y + path.WIDTH){ // going into empty space
-				Game.alive = false;
-			}
-			
-		}*/
-
-
 
 		else if(path.name == "leftElbow"){
-/*			if (marb.x + World.marble.radius / 3 < path.x){
-				Game.alive = false;
-				System.out.println("died bc leftElbow");
-
-			}
-			if (marb.y + World.marble.radius / 3 * 2 > path.y + path.HEIGHT){
-				Game.alive = false;
-				System.out.println("died bc leftElbow");
-
-			}
-			if (marb.x - World.marble.radius / 3 > path.x + path.WIDTH && marb.y + World.marble.radius / 3 < path.y + path.WIDTH){
-				Game.alive = false;
-				System.out.println("died bc leftElbow");
-
-			}
-*/
-			if (marb.x<path.enterX && marb.x>path.enterX+path.WIDTH) {
-			    if (marb.y>path.y+path.HEIGHT || marb.y<path.y+path.WIDTH){
-				Game.alive=false;
-				System.out.println("died bc leftElbow");
-
+			if (marb.x > path.x + path.WIDTH) {
+			    if (marb.y + World.marble.radius / 3 < path.y + path.WIDTH){
+					Game.alive=false;
+					System.out.println("died bc leftElbow");
 				}
 		   	 }
-			else if (marb.x<path.x || marb.y>path.y+path.HEIGHT || marb.y<path.y) {
+			else if (marb.x - World.marble.radius / 3 < path.x || marb.y > path.y + path.HEIGHT) {
 				Game.alive=false;
 				System.out.println("died bc leftElbow");
 
@@ -442,43 +400,69 @@ public class Marble{
 
 	public static Path checkPath(){
 
+		LinkedList<Path> pathsWithSameYVals = new LinkedList<Path>();
+		Path path;
+
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
 
-				Path path = World.mapsOnScreen.get(i).get(j);
+				path = World.mapsOnScreen.get(i).get(j);
 
-				/*if(World.mapsOnScreen.get(i) == Map.upcomingPaths && j==0){
-					return path;
-				}*/
-
-				if(World.marble.position.y >= path.y && World.marble.position.y < path.y + path.HEIGHT){
-
-		//return path;
-
-						int minX;
-						int maxX;
-						if(path.x < path.enterX){
-							minX = path.x;
-							maxX = path.enterX;
-						}
-						else{
-							minX = path.enterX;
-							maxX = path.x;
-						}
-						if(World.marble.position.x >= minX && World.marble.position.x + World.marble.radius <= maxX){
-System.out.println("i: " + i);
-System.out.println("j: " + j);
-System.out.println(path.name);
-							return path;
-						}
+				if(path.name == "Horizontal"){
+					if(World.marble.position.y - World.marble.radius / 3 >= path.y && World.marble.position.y + World.marble.radius / 3 < path.y + path.WIDTH){
+						pathsWithSameYVals.add(path);
 					}
-					else{
-						return path;
+				}
+				else{
+					if(World.marble.position.y >= path.y && World.marble.position.y < path.y + path.HEIGHT){
+						pathsWithSameYVals.add(path);
+					}
 				}
 			}
 		}
 
-		return null;
+		if(pathsWithSameYVals.size() == 1){
+			return pathsWithSameYVals.get(0);
+		}
+
+		else{
+			Path path2;
+			for(int i = 0; i < pathsWithSameYVals.size(); i++){
+				path2 = pathsWithSameYVals.get(i);
+
+					int minX;
+					int maxX;
+					if(path2.x < path2.enterX){
+						minX = path2.x;
+						if(path2.name == "Straight"){
+							maxX = minX + Path.WIDTH;
+						}
+						else if(path2.name == "BigRect"){
+							maxX = minX + Game.WIDTH;
+						}
+						else{
+							maxX = minX + Path.HEIGHT;
+						}
+					}
+					else{
+						minX = path2.enterX;
+						if(path2.name == "Straight"){
+							maxX = minX + Path.WIDTH;
+						}
+						else if(path2.name == "BigRect"){
+							maxX = minX + Game.WIDTH;
+						}
+						else{
+							maxX = minX + Path.HEIGHT;
+						}
+					}
+					if(World.marble.position.x >= minX && World.marble.position.x + World.marble.radius / 2 <= maxX){
+						return path2;
+					}
+			}
+		}
+
+		return pathsWithSameYVals.get(0);
 
 	}
 

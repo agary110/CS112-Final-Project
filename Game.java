@@ -29,7 +29,6 @@ public class Game extends JPanel implements KeyListener{
 	public static boolean paused;
 	char c;
 
-	public static double tempHighScore;
 	public static double currentHighScore;
 
 
@@ -47,7 +46,6 @@ public class Game extends JPanel implements KeyListener{
 		paused = false;
 		pressed=false;
 		c = ' ';
-		tempHighScore = 100;
 		currentHighScore = Logger.readHighScore("highscore.txt");
 	}
 
