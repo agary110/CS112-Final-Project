@@ -1,9 +1,23 @@
+//=======================================
+/** Importing necessary libraries **/
+//=======================================
+
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.Scanner;
 
+//========================================================================================
+/** The Logger class reads the user’s previous high score from a file named “highscore.txt” and compares it to the user’s current points. If the user’s current points are higher than the value read from “highscore.txt”, then the Logger class rewrites “highscore.txt” with the new high score. **/
+//========================================================================================
+
 class Logger{
+
+//============================================================
+/** Method: writeHighScore(double points, String outFileName)
+	Functionality: Compares points to currentHighScore and writes the larger of the two in outFileName **/
+//=======================================
+
 	public static void writeHighScore(double points, String outFileName){
 		try {
 			double currentHighScore = readHighScore(outFileName);
@@ -25,6 +39,11 @@ class Logger{
 		}
 	}
 
+//=======================================
+/** Method: readHighScore(String inFileName)
+	Functionality: Returns the first double (the high score) found in inFileName **/
+//=======================================
+
 	public static double readHighScore(String inFileName){
 		try {
 			File input = new File(inFileName);
@@ -41,3 +60,6 @@ class Logger{
 	}
 
 }
+
+/** END OF LOGGER CLASS **/
+//=======================================

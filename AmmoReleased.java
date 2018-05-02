@@ -1,13 +1,29 @@
+//=======================================
+/** Importing necessary libraries **/
+//=======================================
+
 import java.awt.Graphics;
 import java.awt.Color;
 
+//==================================================================================
+/** An instance of the AmmoReleased class is appended to World.ammoActive whenever ‘a’ is pressed and World.ammoCount > 0. Instances of AmmoReleased are not to be confused with instances of Ammo (a subclass of Item), which only represent items that randomly appear on the path, not objects that are shoot using KeyEvents. **/
+//==================================================================================
+
 public class AmmoReleased{
+
+//=======================================
+/** Member Variables **/
+//=======================================
 
 	int x;
 	int y;
 	int direction; //[1] up; [2] right; [3] down; [4] left;
 	int width;
 	int length;
+
+//=======================================
+/** Constructor **/
+//=======================================
 
 	public AmmoReleased(int x, int y, int direction){
 		this.x = x;
@@ -23,6 +39,11 @@ public class AmmoReleased{
 		}
 	}
 
+//=======================================
+/** Method: draw(Graphics g)
+	Functionality: Loops through World.ammoActive and draws each instance of AmmoReleased **/
+//=======================================
+
 	public void draw(Graphics g){
 		for(int i = 0; i < World.ammoActive.size(); i++){
 			g.setColor(Color.GRAY);
@@ -31,6 +52,11 @@ public class AmmoReleased{
 			g.drawRect(World.ammoActive.get(i).x, World.ammoActive.get(i).y, World.ammoActive.get(i).width, World.ammoActive.get(i).length);
 		}
 	}
+
+//=======================================
+/** Method: update()
+	Functionality: Sets World.ammoReleased to false if all instances of AmmoReleased have been deactivated; increments or decrements the x or y values depending on the value of direction **/
+//=======================================
 
 	public void update(){
 		if(World.ammoActive.size() == 0){
@@ -66,6 +92,11 @@ public class AmmoReleased{
 		}
 	}
 
+//=======================================
+/** Method: activate()
+	Functionality: Adds a new instance of AmmoReleased to World.ammoActive and decrements World.ammoCount by 1 **/
+//=======================================
+
 	public static void activate(){
 		int direction = 1;
 		if(Game.lpressed){
@@ -83,12 +114,25 @@ public class AmmoReleased{
 		World.ammoCount--;
 	}
 
+//=======================================
+/** Method: deactivate()
+	Functionality: Removes the first element in World.ammoActive **/
+//=======================================
+
 	public static void deactivate(){
 		World.ammoActive.remove();
 	}
+
+//=======================================
+/** Method: deactivate(int index)
+	Functionality: Removes the element based on the specified index from World.ammoActive **/
+//=======================================
 
 	public static void deactivate(int index){
 		World.ammoActive.remove(index);
 	}
 
 }
+
+/** END OF AMMORELEASED CLASS **/
+//=======================================
