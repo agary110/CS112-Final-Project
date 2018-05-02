@@ -1,10 +1,14 @@
-//======================
+//===================================
 /** Importing necessary libraries **/
-//======================
+//===================================
 
 import java.awt.Graphics;
-import java.util.Random;
+//import java.util.Random;
 import java.awt.Color;
+
+//==================================================================================
+/** The Path class gets created when screens are generated in the World class. They represent a type of “path” that the user must navigate. It’s only method is a draw method, which draws the path on the JPanel. Most of it’s information (member variables, method) is overridden in Path’s subclasses. **/
+//==================================================================================
 
 public class Path{
 
@@ -56,3 +60,5 @@ public class Path{
     }
 
 }
+/** END OF PATH CLASS**/
+//=================================================
