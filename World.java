@@ -23,7 +23,7 @@ public class World{
 //Constructor
 	public World(){
 		marble = new Marble();
-		ammoCount = 10;
+		ammoCount = 5;
 		points = 0;
 		ammoReleased = false;
 		map = new Map();
