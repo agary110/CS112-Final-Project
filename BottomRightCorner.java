@@ -7,17 +7,17 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
-public class RightElbow extends Path{
+public class BottomRightCorner extends Path{
 
-    public RightElbow(int enterX){
+    public BottomRightCorner(int enterX){
 		super(enterX);
-		this.name="rightElbow";
+		this.name="BottomRightCorner";
 		this.x=enterX+WIDTH;
     }
 
-	public RightElbow(Path previous){
+	public BottomRightCorner(Path previous){
 		super(previous);
-		name = "rightElbow";
+		name = "BottomRightCorner";
 		enterX = previous.x;
 		x = enterX + Path.WIDTH;
 		y = previous.y - Path.WIDTH;

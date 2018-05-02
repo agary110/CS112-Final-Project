@@ -9,16 +9,16 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.RenderingHints;
 
-public class LeftCorner extends Path {
+public class TopLeftCorner extends Path {
 
-    public LeftCorner(int enterX) {
+    public TopLeftCorner(int enterX) {
 		super(enterX);
-		this.name="leftCorner";
+		this.name="TopLeftCorner";
 		this.x=enterX-WIDTH;
     }
-	public LeftCorner(Path previous) {
+	public TopLeftCorner(Path previous) {
 		super(previous);
-		name="leftCorner";
+		name="TopLeftCorner";
 		enterX=previous.x;
 		x = enterX - Path.WIDTH;	//was originally “x = enterX - Path.WIDTH;”
 		y=previous.y-Path.HEIGHT;

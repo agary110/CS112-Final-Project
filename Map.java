@@ -85,45 +85,45 @@ class Map{
 	public static LinkedList<Path> getScreen1(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
 		toR.add(new Straight(curr.getLast()));
-		toR.add(new RightCorner(toR.getLast()));
-		toR.add(new RightElbow(toR.getLast()));
+		toR.add(new TopRightCorner(toR.getLast()));
+		toR.add(new BottomRightCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
+		toR.add(new TopLeftCorner(toR.getLast()));
 		toR.add(new Horizontal(toR.getLast(), false));
 		toR.add(new Horizontal(toR.getLast(), false));
-		toR.add(new LeftElbow(toR.getLast()));
+		toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		toR.add(new RightCorner(toR.getLast()));
+		toR.add(new TopRightCorner(toR.getLast()));
 		toR.add(new Horizontal(toR.getLast(), true));
 		toR.add(new Horizontal(toR.getLast(), true));
-		toR.add(new RightElbow(toR.getLast()));
+		toR.add(new BottomRightCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
-		toR.add(new LeftElbow(toR.getLast()));
+		toR.add(new TopLeftCorner(toR.getLast()));
+		toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		//toR.add(new LeftCorner(toR.getLast()));
-		//toR.add(new LeftElbow(toR.getLast()));		
+		//toR.add(new TopRightCorner(toR.getLast()));
+		//toR.add(new BottomLeftCorner(toR.getLast()));		
 		return toR;
 	}
 
 	public static LinkedList<Path> getScreen2(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
 		toR.add(new Straight(curr.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
+		toR.add(new TopLeftCorner(toR.getLast()));
 		toR.add(new Horizontal(toR.getLast(), false));
-		toR.add(new LeftElbow(toR.getLast()));
-		toR.add(new RightCorner(toR.getLast()));
-		toR.add(new RightElbow(toR.getLast()));
+		toR.add(new BottomLeftCorner(toR.getLast()));
+		toR.add(new TopRightCorner(toR.getLast()));
+		toR.add(new BottomRightCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		toR.add(new RightCorner(toR.getLast()));
+		toR.add(new TopRightCorner(toR.getLast()));
 		toR.add(new Horizontal(toR.getLast(), true));
-		toR.add(new RightElbow(toR.getLast()));
+		toR.add(new BottomRightCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
-		toR.add(new LeftElbow(toR.getLast()));
+		toR.add(new TopLeftCorner(toR.getLast()));
+		toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		//toR.add(new LeftCorner(toR.getLast()));
-		//toR.add(new LeftElbow(toR.getLast()));
+		//toR.add(new TopRightCorner(toR.getLast()));
+		//toR.add(new BottomLeftCorner(toR.getLast()));
 		return toR;
 
 	}
@@ -131,20 +131,20 @@ class Map{
 	public static LinkedList<Path> getScreen3(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
 		toR.add(new Straight(curr.getLast()));
-		toR.add(new RightCorner(toR.getLast()));
-		toR.add(new RightElbow(toR.getLast()));
-		//toR.add(new RightCorner(toR.getLast()));
-		//toR.add(new RightElbow(toR.getLast()));
+		toR.add(new TopRightCorner(toR.getLast()));
+		toR.add(new BottomRightCorner(toR.getLast()));
+		//toR.add(new TopRightCorner(toR.getLast()));
+		//toR.add(new BottomRightCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		//toR.add(new LeftCorner(toR.getLast()));
-		//toR.add(new LeftElbow(toR.getLast()));
+		//toR.add(new TopLeftCorner(toR.getLast()));
+		//toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		toR.add(new LeftCorner(toR.getLast()));
+		toR.add(new TopLeftCorner(toR.getLast()));
 		//Left corner does not work— need to fix
-		toR.add(new LeftElbow(toR.getLast()));
-		//toR.add(new LeftCorner(toR.getLast()));
-		//toR.add(new LeftElbow(toR.getLast()));
+		toR.add(new BottomLeftCorner(toR.getLast()));
+		//toR.add(new TopRightCorner(toR.getLast()));
+		//toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
 		return toR;
 
