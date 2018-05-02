@@ -1,26 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import java.util.Random;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Ellipse2D;
 import java.awt.RenderingHints;
 
 public class TopLeftCorner extends Path {
 
-    public TopLeftCorner(int enterX) {
-		super(enterX);
-		this.name="TopLeftCorner";
-		this.x=enterX-WIDTH;
-    }
 	public TopLeftCorner(Path previous) {
 		super(previous);
 		name="TopLeftCorner";
 		enterX=previous.x;
-		x = enterX - Path.WIDTH;	//was originally “x = enterX - Path.WIDTH;”
+		x = enterX - Path.WIDTH;
 		y=previous.y-Path.HEIGHT;
 	}
 	
@@ -37,6 +28,5 @@ public class TopLeftCorner extends Path {
 			g.fill(new Rectangle2D.Double(x, y + WIDTH, WIDTH, bumperWidth));
 			g.fill(new Rectangle2D.Double(x + WIDTH - bumperWidth, y + WIDTH, bumperWidth, WIDTH));
 		}
-		g.setColor(color);
     }
 }

@@ -154,9 +154,8 @@ public class World{
 //=======================================
 //Update Methods
 	private void updateMarble(){
-		marble.update();
 		if (!bumpersOn){
-			marble.checkDead(this);
+			marble.checkDead();
 		}
 	}
 
@@ -222,7 +221,7 @@ public class World{
 		    marble.moveRight();
 		}
 		if (bumpersOn){
-			marble.checkForBumpers(this);
+			marble.checkForBumpers();
 		}
 	}
 //=======================================

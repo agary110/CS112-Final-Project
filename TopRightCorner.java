@@ -1,8 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
@@ -10,11 +8,6 @@ import java.awt.RenderingHints;
 
 public class TopRightCorner extends Path {
 
-    public TopRightCorner(int enterX) {
-		super(enterX);
-		this.name="TopRightCorner";
-		this.x=enterX+HEIGHT;
-    }
 	public TopRightCorner(Path previous) {
 		super(previous);
 		name="TopRightCorner";
@@ -38,6 +31,5 @@ public class TopRightCorner extends Path {
 			g.fill(new Rectangle2D.Double(x - WIDTH, y + WIDTH, WIDTH, bumperWidth)); 
 			g.fill(new Rectangle2D.Double(x - WIDTH, y + WIDTH, bumperWidth, WIDTH));
 		}
-		g.setColor(color);
     }	
 }

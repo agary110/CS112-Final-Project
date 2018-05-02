@@ -87,15 +87,6 @@ public class Game extends JPanel implements KeyListener{
 			hasGameStarted=true;
 		}
 
-		else if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-			JFrame frame = new JFrame("aMAZE-ing Maze");
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			Game mainInstance = new Game();
-			frame.setContentPane(mainInstance);
-			frame.pack();
-			frame.setVisible(true);
-		}
-
     }
 
 	public void keyTyped(KeyEvent e) {

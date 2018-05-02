@@ -1,19 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
 public class BottomLeftCorner extends Path{
-
-    public BottomLeftCorner(int enterX){
-		super(enterX);
-		super.name="BottomLeftCorner";
-		this.x=enterX-HEIGHT;
-    }
 
 	public BottomLeftCorner(Path previous){
 		super(previous);
@@ -37,6 +29,5 @@ public class BottomLeftCorner extends Path{
 			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, HEIGHT)); //long vert side
 			g.fill(new Rectangle2D.Double(x - bumperWidth, y + HEIGHT, HEIGHT + bumperWidth, bumperWidth)); // long bottom side
 		}
-		g.setColor(color);
     }
 }

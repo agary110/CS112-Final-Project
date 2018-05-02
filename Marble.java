@@ -1,5 +1,5 @@
-import javax.swing.JPanel;
-import javax.swing.JFrame;
+//import javax.swing.JPanel;
+//import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
@@ -27,41 +27,20 @@ public class Marble{
 /** Member variables **/
 
 	Pair position;
-	Pair acceleration;
 	int diameter;
-	double dampening;
 	Color color;
 	double XposIncrement;
 	double YposIncrement;
-	double speedIncrement = 0;
-
-//should delete these if don't use them
-	static boolean canMoveUp;
-	static boolean canMoveRight;
-	static boolean canMoveLeft;
-	static boolean canMoveDown;
-
 
 //================================================
 /** Constructor  **/
 
 	public Marble(){
-		Random rand = new Random(); 
 		position = new Pair(Game.WIDTH / 2, 500.0);
 		diameter = 25;
 		XposIncrement = 5.0;
 		YposIncrement = 0.6;
 		color = Color.BLUE;
-		canMoveUp = true;
-		canMoveRight = true;
-		canMoveLeft = true;
-		canMoveDown = true;
-    }
-//================================================
-/** Update method; moves the marble's position based on its velocity and how much time has passed  **/
-
-    public void update(){
-		position = position;
     }
     
 //================================================
@@ -84,7 +63,7 @@ public class Marble{
     } 
 
     public void moveDown(){
-		if(position.y < Game.HEIGHT - (Game.HEIGHT / 4)){
+		if(position.y < Game.HEIGHT / 4 * 3){
 			position.y += XposIncrement;
 		}
     }
@@ -102,9 +81,14 @@ public class Marble{
 /** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/
 
 
-	public static void checkForBumpers(World w){
+	public static void checkForBumpers(){
 		Path path = checkPath();
 		Pair marb = World.marble.position;
+
+		if(marb.y > Game.HEIGHT){
+			Game.alive = false;
+		}
+
 		if(path.name == "Straight"){
 			if(marb.x < path.x){
 				if (Game.jpressed){
@@ -123,7 +107,6 @@ public class Marble{
 			if(marb.y < path.y){
 				if (Game.ipressed){
 					World.marble.moveDown();
-					//canMoveUp = false;
 				}
 			}
 			if(marb.x < path.x - path.HEIGHT){
@@ -146,7 +129,6 @@ public class Marble{
 			if(marb.y < path.y){
 				if (Game.ipressed){
 					World.marble.moveDown();
-					//canMoveUp = false;
 				}
 			}
 			if(marb.x + World.marble.diameter > path.enterX + path.WIDTH){
@@ -165,27 +147,24 @@ public class Marble{
 		}
 
 		else if(path.name == "BottomRightCorner"){
-			if (marb.x + World.marble.diameter >= path.enterX + path.HEIGHT){ // going out of right side
+			if (marb.x + World.marble.diameter >= path.enterX + path.HEIGHT){
 				if (Game.lpressed){
 					World.marble.moveLeft();
-					//System.out.println("BottomRightCorner right side");
 				}
 			}
 			if (marb.x + World.marble.diameter > path.x + path.HEIGHT && marb.y > path.y + path.WIDTH){
 				if (Game.lpressed){
 					World.marble.moveLeft();
-					//System.out.println("BottomRightCorner right side");
 				}
 			}
-			if (marb.y + World.marble.diameter > path.y + path.HEIGHT){ // going out of bottom
+			if (marb.y + World.marble.diameter > path.y + path.HEIGHT){
 				if (Game.kpressed){
 					World.marble.moveUp();
 				}
 			}
-			if (marb.x < path.x && marb.y < path.y + path.WIDTH){ // going into empty space
+			if (marb.x < path.x && marb.y < path.y + path.WIDTH){
 				if (Game.ipressed){
 					World.marble.moveDown();
-					//canMoveUp = false;
 				}
 				if (Game.jpressed){
 					World.marble.moveRight();
@@ -197,47 +176,36 @@ public class Marble{
 
 		else if(path.name == "BottomLeftCorner"){
 			if (marb.x>path.x+path.WIDTH) {
-				System.out.println("in 1 and 2");
 				if (marb.y<path.y+path.WIDTH) {
-					System.out.println("going out top of 1 and 2");
 					if (Game.ipressed) {
 						World.marble.moveDown();
 					}
 				}
 				else if (marb.y>path.y+path.HEIGHT) {
-				System.out.println("going out bottom of 1 and 2");
 					if (Game.kpressed) {
 						World.marble.moveUp();
 					}
 				}
 			}
 			else if (marb.y>path.y+path.WIDTH) {
-				System.out.println("in 2");
 				if (marb.x<path.x) {
-					System.out.println("going out side of 2");
 					if (Game.jpressed) {
-						System.out.println("is j pressed?");
 						World.marble.moveRight();
 					}
 				}
 				else if (marb.y>path.y+path.HEIGHT) {
-				System.out.println("going out bottom of 2");
 					if(Game.kpressed) {
 						World.marble.moveUp();
 					}
 				}
 			}
 			else {
-			System.out.println("in 3");
 				if (marb.x == path.x) {
-				System.out.println("going out left side of 3");
 					if (Game.jpressed) {
 						World.marble.moveRight();
 					}
 				}
 				if (marb.x==path.x+path.WIDTH) {
-				System.out.println("going out right side of 3");
-
 					if (Game.lpressed) {
 						World.marble.moveLeft();
 					}
@@ -245,27 +213,10 @@ public class Marble{
 			}
 		}
 
-		//checkDead() statements
-		/*else if(path.name == "BottomLeftCorner"){
-			if (marb.x > path.x + path.WIDTH) {
-			    if (marb.y + World.marble.diameter / 3 < path.y + path.WIDTH){
-					Game.alive=false;
-					System.out.println("died bc BottomLeftCorner");
-				}
-		   	 }
-			else if (marb.x - World.marble.diameter / 3 < path.x || marb.y > path.y + path.HEIGHT) {
-				Game.alive=false;
-				System.out.println("died bc BottomLeftCorner");
-
-			}
-		}*/
-
 		else{ //Horizontal
 			if(marb.y < path.y){
 				if (Game.ipressed){
 					World.marble.moveDown();
-					//canMoveUp = false;
-
 				}
 			}
  			if (marb.y + World.marble.diameter > path.y + path.WIDTH){
@@ -278,7 +229,7 @@ public class Marble{
 //============================================
 /** This method checks to see if the marble has gone off the path. If it has, you die. **/
 
-    public static void checkDead(World w){
+    public static void checkDead(){
 
 		Path path = checkPath();
 		Pair marb = World.marble.position;
@@ -286,76 +237,46 @@ public class Marble{
 		if(path.name == "Straight"){
 			if(marb.x + World.marble.diameter / 3 < path.x || marb.x + World.marble.diameter / 3 * 2 > path.x + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc straight");
-				System.out.println("path.x: " + path.x);
-				System.out.println("path.y: " + path.y);
-				System.out.println("path.enterX: " + path.enterX);
-				System.out.println(path.name);
 			}
 		}
 
 		else if(path.name == "TopRightCorner"){
 			if(marb.y + World.marble.diameter / 3 < path.y){
 				Game.alive = false;
-				System.out.println("died bc TopRightCorner");
 
 			}
 			if(marb.x + World.marble.diameter / 3 < path.enterX){
 				Game.alive = false;
-				System.out.println("died bc TopRightCorner");
 			}
 
 			if(marb.y - World.marble.diameter / 3 > path.y + path.WIDTH && marb.x + World.marble.diameter > path.enterX + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc TopRightCorner");
 			} 
-			/*if (marb.x<path.x+path.WIDTH) {
-				if (marb.x<path.enterX || marb.y>path.y+path.HEIGHT || marb.y<path.y) {
-				Game.alive=false;
-	} 
-	}
-			else {
-				if(marb.y<path.y || marb.y>path.y+path.WIDTH) {
-				Game.alive=false;
-			}
-		} */
-
 		} 
 
 		else if(path.name == "TopLeftCorner"){
 			if(marb.y + World.marble.diameter / 3 < path.y){
 				Game.alive = false;	
-				System.out.println("died bc TopLeftCorner");			
 			}
 			if(marb.x + World.marble.diameter / 3 * 2 > path.enterX + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc TopLeftCorner");
 			}
 			if(marb.x + World.marble.diameter / 3 * 2 < path.enterX && marb.y + World.marble.diameter > path.y + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc TopLeftCorner");
 			}
 		}
 
 		else if(path.name == "BottomRightCorner"){
 			if(marb.y - World.marble.diameter / 3 > path.y + path.WIDTH){
-				/*if(marb.x + World.marble.diameter / 3 * 2 > path.enterX + path.HEIGHT){
-					Game.alive = false;
-				System.out.println("died bc BottomRightCorner");
-				}*/
-
 				if(marb.x < path.x){
 					if(marb.y - World.marble.diameter / 3 < path.y + path.WIDTH){
 						Game.alive = false;
-				System.out.println("died bc BottomRightCorner");
-
 					}
 				}
 			}
 
 			else if(marb.x + World.marble.diameter / 3 < path.x){
 					Game.alive = false;
-				System.out.println("died bc BottomRightCorner");
 			}
 
 			if(marb.x + World.marble.diameter / 3 > path.enterX + path.HEIGHT);
@@ -365,21 +286,16 @@ public class Marble{
 			if (marb.x > path.x + path.WIDTH) {
 			    if (marb.y + World.marble.diameter / 3 < path.y + path.WIDTH){
 					Game.alive=false;
-					System.out.println("died bc BottomLeftCorner");
 				}
 		   	 }
 			else if (marb.x + World.marble.diameter / 3 < path.x || marb.y + World.marble.diameter / 3 > path.y + path.HEIGHT) {
 				Game.alive=false;
-				System.out.println("died bc BottomLeftCorner");
-
 			}
 		}
 
 		else if(path.name == "Horizontal"){
 			if(marb.y + World.marble.diameter / 3 < path.y || marb.y - World.marble.diameter / 3 > path.y + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc horizontal");
-
 			}
 		}
 
@@ -387,8 +303,6 @@ public class Marble{
 			if(marb.x + World.marble.diameter / 2 < World.visibleScreens.get(0).get(1).x || marb.x - World.marble.diameter / 2 > World.visibleScreens.get(0).get(1).x + Path.WIDTH){
 				if(marb.y - World.marble.diameter / 3 < path.y){
 					Game.alive = false;
-					System.out.println("died bc of bigrect");
-					System.out.println(path.name);
 				}
 			}
 		}

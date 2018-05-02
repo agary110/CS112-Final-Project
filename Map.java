@@ -64,7 +64,6 @@ class Map{
 				World.visibleScreens.get(1).get(i).y += World.visibleScreens.get(0).getLast().WIDTH;
 //+World.visibleScreens.get(0).getLast().WIDTH/2;
 			}
-		System.out.println("we updating");
 		}
 
 	}
@@ -163,7 +162,6 @@ class Map{
 //=======================================
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allScreens.size() - 1) + 1;
-	//randNum = 0;x	
 	LinkedList<Path> toAppend = new LinkedList<Path>();
 
 	switch (randNum) {
@@ -177,34 +175,7 @@ public static LinkedList<Path> generateNext(){
 				 break;
 	}
 
-	System.out.println(toAppend);
-	System.out.println("randNum: " + randNum);
-	System.out.flush();
-	if (randNum == 5) System.out.println("BAD");
-	System.out.println("in generate next and number of allScreens is: " + allScreens.size());
 	return toAppend;
 }
-//=======================================
-//Returns an array of the Paths that are visible, where array [0] is the Path at the bottom of the screen
-	public static Path[] getVisiblePaths(){
-		int cumPathHeight = 0;
-		int index = 0;
-		while(cumPathHeight <= Game.HEIGHT){
-			for (int i=0; i<World.visibleScreens.size(); i++) {
-				cumPathHeight += World.visibleScreens.get(0).get(World.visibleScreens.get(i).size() - 1 - index).HEIGHT;
-				index++;
-			}
-		}
 
-		if(cumPathHeight < Game.HEIGHT){
-			index++;
-		}
-		Path [] visiblePaths = new Path [index];
-		for(int i = visiblePaths.length - 1; i >= 0; i--){
-			for (int j=0; i<World.visibleScreens.size(); j++){
-				visiblePaths [i] = World.visibleScreens.get(0).get(World.visibleScreens.get(j).size() - 1 - 1);
-			}
-		}
-		return visiblePaths;
-	}
 }

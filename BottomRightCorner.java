@@ -1,19 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
 public class BottomRightCorner extends Path{
-
-    public BottomRightCorner(int enterX){
-		super(enterX);
-		this.name="BottomRightCorner";
-		this.x=enterX+WIDTH;
-    }
 
 	public BottomRightCorner(Path previous){
 		super(previous);
@@ -32,11 +24,10 @@ public class BottomRightCorner extends Path{
 		g.fill(new Rectangle2D.Double(enterX, y + Path.WIDTH, WIDTH, WIDTH));
 		if (World.bumpersOn){
 			g.setColor(Color.RED);
-			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, WIDTH)); // short vert side 
-			g.fill(new Rectangle2D.Double(enterX, y + WIDTH - bumperWidth, WIDTH, bumperWidth)); // short top side
-			g.fill(new Rectangle2D.Double(x + WIDTH, y, bumperWidth, HEIGHT)); //long vert side
-			g.fill(new Rectangle2D.Double(enterX, y + HEIGHT, HEIGHT + bumperWidth, bumperWidth)); // long bottom side
+			g.fill(new Rectangle2D.Double(x - bumperWidth, y, bumperWidth, WIDTH));
+			g.fill(new Rectangle2D.Double(enterX, y + WIDTH - bumperWidth, WIDTH, bumperWidth));
+			g.fill(new Rectangle2D.Double(x + WIDTH, y, bumperWidth, HEIGHT));
+			g.fill(new Rectangle2D.Double(enterX, y + HEIGHT, HEIGHT + bumperWidth, bumperWidth));
 		}
-		g.setColor(color);
     }
 }
