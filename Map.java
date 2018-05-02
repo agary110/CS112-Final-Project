@@ -22,7 +22,7 @@ class Map{
 /**Constructor**/
 
 	public Map(){
-		rand = new Random(1);
+		rand = new Random();
 		initialScreens = new LinkedList<Path>();
 		Screen1 = new LinkedList<Path>();
 		Screen2 = new LinkedList<Path>();

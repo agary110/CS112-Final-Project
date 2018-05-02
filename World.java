@@ -46,7 +46,7 @@ public class World{
 		visibleScreens = new LinkedList<LinkedList<Path>>();
 		visibleScreens.add(Map.initialScreens);
 		ammoActive = new LinkedList<AmmoReleased>();
-		bumpersOn = true;
+		bumpersOn = false;
 		rand = new Random();	
 		itemsActive = new LinkedList<Item>();
 		itemsActive.add(Item.generateNextItem(rand.nextInt(6) + 1));

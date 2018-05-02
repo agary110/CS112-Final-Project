@@ -26,7 +26,6 @@ class Item{
 	public double timeUntilNextItem;
 	public boolean activated;
 	public boolean deactivated;
-	public boolean passed;
 	public boolean drawn;
 	static Random rand;
 
@@ -40,7 +39,6 @@ class Item{
 		timeUntilNextItem = originalTimeUntilNextItem + rand.nextInt(3);;
 		activated = false;
 		deactivated = false;
-		passed = true;
 		drawn = true;
 	}
 //======================
@@ -55,23 +53,16 @@ class Item{
 
 		this.y++;
 
-		if(passed){
 			if(this.y  - 2 < World.marble.position.y && this.y + this.width + 2 > World.marble.position.y){
-				if(this.x + this.width - 2 >= World.marble.position.x){
-					if(this.x <= World.marble.position.x + World.marble.diameter - 2){
-						this.activated = true;
-						this.activate();
-					}
+			if(this.x + this.width - 2 >= World.marble.position.x){
+				if(this.x <= World.marble.position.x + World.marble.diameter - 2){
+					this.activated = true;
+					this.activate();
 				}
 			}
-			if(this.y >= World.marble.position.y){
-				passed = false;
-			}
 		}
-		else{
-			if(this.timeUntilNextItem > 0){
-				this.timeUntilNextItem -= 1 / (double)(Game.FPS);
-			}
+		if(this.timeUntilNextItem > 0){
+			this.timeUntilNextItem -= 1 / (double)(Game.FPS);
 		}
 
 	}
@@ -708,7 +699,7 @@ class Bumpers extends Booster {
 				if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 					marb.y++;
 				}
-			}}
+			}
 		}
 	}
 }
