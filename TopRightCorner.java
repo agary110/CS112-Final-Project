@@ -1,3 +1,6 @@
+//======================
+/** Importing necessary libraries **/
+//======================
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
