@@ -708,7 +708,7 @@ class Bumpers extends Booster {
 				if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 					marb.y++;
 				}
-			}
+			}}
 		}
 	}
 }
