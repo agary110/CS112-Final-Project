@@ -11,7 +11,6 @@ class Map{
 	public static LinkedList<Path> Map2;
 	public static LinkedList<Path> Map3;
 	public static LinkedList<Path> Map4;
-	public static List<Path> pathTypes;
 	public static LinkedList<LinkedList<Path>> allMaps;
 	public static Random rand;
 //=======================================
