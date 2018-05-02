@@ -252,7 +252,7 @@ public class World{
 
 //=======================================
 /** Method shootAmmo()
-	Functionality: Calls AmmoReleased.activate() when ‘a’ is pressed and ammoCount > 0
+	Functionality: Calls AmmoReleased.activate() when ‘a’ is pressed and ammoCount > 0 **/
 //=======================================
 
 	public void shootAmmo(){
