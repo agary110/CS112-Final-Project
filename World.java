@@ -1,3 +1,7 @@
+//======================
+/** Importing necessary libraries **/
+//======================
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
@@ -7,7 +11,16 @@ import java.util.List;
 import java.util.LinkedList;
 import java.lang.String;
 
+//==================================================================================
+/** An instance of the World class is created in the Game class. The World class calls each of its member variables’ draw and update methods. The World class also calls the appropriate methods that correspond to each KeyEvent. **/
+//==================================================================================
+
 public class World{
+
+//======================
+/** Member Variables **/
+//======================
+
 	static Marble marble;
 	static int ammoCount;
 	static double points;
@@ -19,9 +32,12 @@ public class World{
 	static Random rand;
 	static LinkedList<Item> itemsActive;
 
-//=======================================
-//Constructor
+//======================
+/** Constructor **/
+//======================
+
 	public World(){
+
 		marble = new Marble();
 		ammoCount = 5;
 		points = 0;
@@ -34,11 +50,16 @@ public class World{
 		rand = new Random();	
 		itemsActive = new LinkedList<Item>();
 		itemsActive.add(Item.generateNextItem(rand.nextInt(6) + 1));
+
 	}
+
 //=======================================
-//Draw Methods
+/** Method: Draw Methods
+	Functionality: Calls all individual draw methods for member variables **/
+//=======================================
+
 	public void drawToScreen(Graphics g){
-		drawPath(g);
+		drawMap(g);
 		drawItem(g);
 		drawMarble(g);
 		drawPoints(g);
@@ -59,7 +80,7 @@ public class World{
 		}
 	}
 
-	public void drawPath(Graphics g){ // should change this to drawMap
+	public void drawMap(Graphics g){
 		map.draw(g);
 	}
 
@@ -152,7 +173,10 @@ public class World{
 	}
 
 //=======================================
-//Update Methods
+/** Method: Update Methods
+	Functionality: Calls all individual update methods for member variables **/
+//=======================================
+
 	private void updateMarble(){
 		if (!bumpersOn){
 			marble.checkDead();
@@ -163,7 +187,6 @@ public class World{
 		if(itemsActive.getLast().timeUntilNextItem <= 0){
 			itemsActive.add(Item.generateNextItem(rand.nextInt(7)));
 		}
-
 		for(int i = 0; i < itemsActive.size(); i++){
 			itemsActive.get(i).update();
 		}
@@ -195,7 +218,10 @@ public class World{
 	}
 
 //=======================================
-//Updates Frame and values that change by frame
+/** Method: newFrame(double time)
+	Functionality: Calls all update methods and executes them each frame **/
+//=======================================
+
 	public void nextFrame(double time){
 		updateMarble();
 		updateItem();
@@ -204,8 +230,11 @@ public class World{
 		updateAmmoReleased();
 		updateTriggerEvents();
 	}
+
 //=======================================
-// When the key (char c) is pressed, the marble will start moving in that direction. The more times you press the key, the faster the marble will go in that direction.
+/** Method moveMarble()
+	Functionality: Calls methods from Marble class to move the marble according to the keys that are pressed **/
+//=======================================
 
     public void moveMarble(){
 		if (Game.ipressed) {
@@ -224,15 +253,20 @@ public class World{
 			marble.checkForBumpers();
 		}
 	}
+
 //=======================================
-//When the key “a” is pressed and ammoCount > 0, the marble shoots ammo.
+/** Method shootAmmo()
+	Functionality: Calls AmmoReleased.activate() when ‘a’ is pressed and ammoCount > 0 **/
+//=======================================
 
 	public void shootAmmo(){
 		if(ammoCount > 0){
 			ammoReleased = true;
 			AmmoReleased.activate();
 		}
-		
 	}
 
 }
+
+/** END OF WORLD CLASS **/
+//=======================================

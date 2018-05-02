@@ -13,6 +13,7 @@ import java.lang.StringBuilder;
 //=======================================
 /** Class Item includes anything that the marble might encounter on the path — aliens, bombs, speed changers or size changers, etc. Item is a parent class which never actually gets instantiated, but its many subclasses do. **/
 
+
 class Item{
 
 //======================
@@ -693,7 +694,7 @@ class Bumpers extends Booster {
 		Pair marb = World.marble.position;
 
 		if(path.name != "Straight"){
-			if(path.name == "TopLeftCorner" || path.name == "TopRightCorner" || path.name == "Horizontal"){
+			if(path.name == "TopRightCorner" || path.name == "TopLeftCorner" || path.name == "Horizontal"){
 				if(marb.y < path.y){
 					marb.y++;
 				}

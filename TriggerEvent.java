@@ -1,8 +1,19 @@
+//=======================================
+/** Importing necessary libraries **/
+//=======================================
+
 import java.util.Random;
 
 public class TriggerEvent{
 
+//=======================================
+/** Constructor **/
+//=======================================
+
 	public TriggerEvent(int randNum){
+
+		//Generates an event (Speed up, Alien Army, or Coin Madness) based on the input
+
 		//Speed up
 		if(randNum == 0){
 			Game.FPS += 10;
@@ -30,3 +41,6 @@ public class TriggerEvent{
 	}
 
 }
+
+/** END OF TRIGGEREVENT **/
+//=======================================
