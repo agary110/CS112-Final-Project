@@ -11,7 +11,6 @@ class Map{
 	public static LinkedList<Path> Map2;
 	public static LinkedList<Path> Map3;
 	public static LinkedList<Path> Map4;
-	public static List<Path> pathTypes;
 	public static LinkedList<LinkedList<Path>> allMaps;
 	public static Random rand;
 //=======================================
@@ -25,15 +24,15 @@ class Map{
 		Map4 = new LinkedList<Path>();
 		allMaps = new LinkedList<LinkedList<Path>>();
 
+		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
+		//upcomingPaths.add(new BigRect(100));
 		//upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		upcomingPaths.add(new BigRect(100));
-		upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-		//upcomingPaths.get(0).y = Game.HEIGHT;
+		//upcomingPaths.add(new Straight(upcomingPaths.getLast()));
+		upcomingPaths.get(0).y = Game.HEIGHT;
 		for(int i = 1; i < 6; i++){
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
 		}
 
-		prototypePaths1();
 		addMaps();
 		
 	}
@@ -48,7 +47,7 @@ class Map{
 	}
 //=======================================
 //When marble moves up, the screen path will move down. When the lowest instance of Path on screen is no longer visible, a new Path is generated and inserted at the top of the screen.
-	public void update(double time){
+	public void update(){
 
 		for(int i = 0; i < World.mapsOnScreen.size(); i++){
 			for(int j = 0; j < World.mapsOnScreen.get(i).size(); j++){
@@ -85,92 +84,12 @@ class Map{
 	}
 //=======================================
 //Returns an instance of random subclass of Path
-
-public static void prototypePaths1(){
-	//option 1
-
-	Map1.add(new RightCorner(upcomingPaths.getLast()));
-	Map1.add(new RightElbow(Map1.getLast()));
-	Map1.add(new Straight(Map1.getLast()));
-	Map1.add(new LeftCorner(Map1.getLast()));
-	Map1.add(new Horizontal(Map1.getLast(), false));
-	Map1.add(new Horizontal(Map1.getLast(), false));
-	Map1.add(new LeftElbow(Map1.getLast()));
-	Map1.add(new Straight(Map1.getLast()));
-	Map1.add(new RightCorner(Map1.getLast()));
-	Map1.add(new Horizontal(Map1.getLast(), true));
-	Map1.add(new Horizontal(Map1.getLast(), true));
-	Map1.add(new RightElbow(Map1.getLast()));
-	Map1.add(new Straight(Map1.getLast()));
-	Map1.add(new LeftCorner(Map1.getLast()));
-	Map1.add(new LeftElbow(Map1.getLast()));
-	Map1.add(new Straight(Map1.getLast()));
-	Map1.add(new LeftCorner(Map1.getLast()));
-	Map1.add(new LeftElbow(Map1.getLast()));
-
-//option 2
-	Map2.add(new LeftCorner(upcomingPaths.getLast()));
-	Map2.add(new Horizontal(Map2.getLast(), false));
-	Map2.add(new LeftElbow(Map2.getLast()));
-	Map2.add(new RightCorner(Map2.getLast()));
-	Map2.add(new RightElbow(Map2.getLast()));
-	Map2.add(new Straight(Map2.getLast()));
-	Map2.add(new RightCorner(Map2.getLast()));
-	Map2.add(new Horizontal(Map2.getLast(), true));
-	Map2.add(new RightElbow(Map2.getLast()));
-	Map2.add(new Straight(Map2.getLast()));
-	Map2.add(new LeftCorner(Map2.getLast()));
-	Map2.add(new LeftElbow(Map2.getLast()));
-	Map2.add(new LeftCorner(Map2.getLast()));
-	Map2.add(new LeftElbow(Map2.getLast()));
-	
-//option 3
-	Map3.add(new RightCorner(upcomingPaths.getLast()));
-	Map3.add(new RightElbow(Map3.getLast()));
-		//Map3.add(new RightCorner(Map3.getLast()));
-		//Map3.add(new RightElbow(Map3.getLast()));
-	Map3.add(new Straight(Map3.getLast()));
-	Map3.add(new Straight(Map3.getLast()));
-		//Map3.add(new LeftCorner(Map3.getLast()));
-		//Map3.add(new LeftElbow(Map3.getLast()));
-	Map3.add(new Straight(Map3.getLast()));
-	Map3.add(new LeftCorner(Map3.getLast()));
-		//Left corner does not work— need to fix
-	Map3.add(new LeftElbow(Map3.getLast()));
-	Map3.add(new LeftCorner(Map3.getLast()));
-	Map3.add(new LeftElbow(Map3.getLast()));
-	Map3.add(new Straight(Map3.getLast()));
-
-//straight option, just for debugging
-	Map4.add(new Straight(upcomingPaths.getLast()));
-	Map4.add(new Straight(upcomingPaths.getLast()));
-	Map4.add(new Straight(upcomingPaths.getLast()));
-	Map4.add(new Straight(upcomingPaths.getLast()));
-	Map4.add(new Straight(upcomingPaths.getLast()));
-	Map4.add(new Straight(upcomingPaths.getLast()));
-	Map4.add(new Straight(upcomingPaths.getLast()));
-/*
-	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
-	upcomingPaths.add(new LeftElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new RightElbow(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new Straight(upcomingPaths.getLast()));
-	upcomingPaths.add(new LeftCorner(upcomingPaths.getLast()));
-	upcomingPaths.add(new Horizontal(upcomingPaths.getLast(), false));
-*/
-
-}
  
 
 	public static LinkedList<Path> getMap1(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
-		toR.add(new RightCorner(curr.getLast()));
+		//toR.add(new Straight(curr.getLast()));
+		toR.add(new RightCorner(toR.getLast()));
 		toR.add(new RightElbow(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
 		toR.add(new LeftCorner(toR.getLast()));
@@ -193,7 +112,8 @@ public static void prototypePaths1(){
 
 	public static LinkedList<Path> getMap2(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
-		toR.add(new LeftCorner(curr.getLast()));
+		toR.add(new Straight(curr.getLast()));
+		toR.add(new LeftCorner(toR.getLast()));
 		toR.add(new Horizontal(toR.getLast(), false));
 		toR.add(new LeftElbow(toR.getLast()));
 		toR.add(new RightCorner(toR.getLast()));
@@ -214,7 +134,8 @@ public static void prototypePaths1(){
 
 	public static LinkedList<Path> getMap3(LinkedList<Path> curr){
 		LinkedList<Path> toR = new LinkedList<Path>();
-		toR.add(new RightCorner(curr.getLast()));
+		toR.add(new Straight(curr.getLast()));
+		toR.add(new RightCorner(toR.getLast()));
 		toR.add(new RightElbow(toR.getLast()));
 		//toR.add(new RightCorner(toR.getLast()));
 		//toR.add(new RightElbow(toR.getLast()));
