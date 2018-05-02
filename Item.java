@@ -6,9 +6,6 @@ import java.util.Random;
 import java.lang.String;
 import java.lang.StringBuilder;
 
-interface Deactivatable{
-	public void deactivate();
-}
 
 //=======================================
 //Class Item (includes anything that the marble might encounter on the path)
@@ -195,7 +192,7 @@ class Bomb extends Item{
 //=======================================
 //Class Coin extends Item (increased points by 3-5)
 
-class Coin extends Item implements Deactivatable{
+class Coin extends Item {
 	int increase;
 	static final int width = Item.width - 2;
 
@@ -228,7 +225,7 @@ class Coin extends Item implements Deactivatable{
 //=======================================
 //Class Ammo extends Item (increases ammoCount by 1-3)
 
-class Ammo extends Item implements Deactivatable{
+class Ammo extends Item {
 	int increase;
 	static final int counterHeight = 40;
 	static final int counterWidth = 60;
@@ -459,7 +456,7 @@ class Booster extends Item{
 //=======================================
 //Class Bumpers extends Booster (activates bumpers that prevent the marble from falling off the path)
 
-class Bumpers extends Booster implements Deactivatable{
+class Bumpers extends Booster {
 	double deactivateTime;
 	
 	public Bumpers(int x, int y){
@@ -516,7 +513,7 @@ class Bumpers extends Booster implements Deactivatable{
 //=======================================
 //Class ChangeSpeed extends Booster (changes the speed of the path by a constant - positive or negative change is based on a Random)
 
-class ChangeSpeed extends Booster implements Deactivatable{
+class ChangeSpeed extends Booster {
 	boolean increase;
 	double xincrement;
 	double yincrement;
@@ -567,7 +564,7 @@ class ChangeSpeed extends Booster implements Deactivatable{
 //ChangeSize extends Booster (changes the size of the marble by a constant - positive or negative change is based on a Random)
 
 
-class ChangeSize extends Booster implements Deactivatable{
+class ChangeSize extends Booster {
 	boolean increase;
 	double proportion;
 	int originalSize;
