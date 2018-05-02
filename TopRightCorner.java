@@ -8,16 +8,16 @@ import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
 
-public class RightCorner extends Path {
+public class TopRightCorner extends Path {
 
-    public RightCorner(int enterX) {
+    public TopRightCorner(int enterX) {
 		super(enterX);
-		this.name="rightCorner";
+		this.name="TopRightCorner";
 		this.x=enterX+HEIGHT;
     }
-	public RightCorner(Path previous) {
+	public TopRightCorner(Path previous) {
 		super(previous);
-		name="rightCorner";
+		name="TopRightCorner";
 		enterX=previous.x;
 		x = enterX + Path.HEIGHT;
 		y=previous.y - Path.HEIGHT;

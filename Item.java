@@ -491,17 +491,17 @@ class Bumpers extends Booster {
 		Pair marb = World.marble.position;
 
 		if(path.name != "Straight"){
-			if(path.name == "leftCorner" || path.name == "rightCorner" || path.name == "Horizontal"){
+			if(path.name == "TopLeftCorner" || path.name == "TopRightCorner" || path.name == "Horizontal"){
 				if(marb.y < path.y){
 					marb.y++;
 				}
 			}
-			if (path.name == "rightElbow"){
+			if (path.name == "BottomRightCorner"){
 				if (marb.x < path.x && marb.y < path.y + path.WIDTH){
 					marb.y++;
 				}
 			}
-			if (path.name == "leftElbow"){
+			if (path.name == "BottomLeftCorner"){
 				if (marb.x > path.x + path.WIDTH && marb.y < path.y + path.WIDTH){
 					marb.y++;
 				}

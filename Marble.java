@@ -119,7 +119,7 @@ public class Marble{
 	
 		}
 		
-		else if(path.name == "rightCorner"){
+		else if(path.name == "TopRightCorner"){
 			if(marb.y < path.y){
 				if (Game.ipressed){
 					World.marble.moveDown();
@@ -142,7 +142,7 @@ public class Marble{
 			}
 		}
 
-		else if(path.name == "leftCorner"){
+		else if(path.name == "TopLeftCorner"){
 			if(marb.y < path.y){
 				if (Game.ipressed){
 					World.marble.moveDown();
@@ -164,17 +164,17 @@ public class Marble{
 			}
 		}
 
-		else if(path.name == "rightElbow"){
+		else if(path.name == "BottomRightCorner"){
 			if (marb.x + World.marble.diameter >= path.enterX + path.HEIGHT){ // going out of right side
 				if (Game.lpressed){
 					World.marble.moveLeft();
-					//System.out.println("rightElbow right side");
+					//System.out.println("BottomRightCorner right side");
 				}
 			}
 			if (marb.x + World.marble.diameter > path.x + path.HEIGHT && marb.y > path.y + path.WIDTH){
 				if (Game.lpressed){
 					World.marble.moveLeft();
-					//System.out.println("rightElbow right side");
+					//System.out.println("BottomRightCorner right side");
 				}
 			}
 			if (marb.y + World.marble.diameter > path.y + path.HEIGHT){ // going out of bottom
@@ -195,7 +195,7 @@ public class Marble{
 		}
 
 
-		else if(path.name == "leftElbow"){
+		else if(path.name == "BottomLeftCorner"){
 			if (marb.x>path.x+path.WIDTH) {
 				System.out.println("in 1 and 2");
 				if (marb.y<path.y+path.WIDTH) {
@@ -246,16 +246,16 @@ public class Marble{
 		}
 
 		//checkDead() statements
-		/*else if(path.name == "leftElbow"){
+		/*else if(path.name == "BottomLeftCorner"){
 			if (marb.x > path.x + path.WIDTH) {
 			    if (marb.y + World.marble.diameter / 3 < path.y + path.WIDTH){
 					Game.alive=false;
-					System.out.println("died bc leftElbow");
+					System.out.println("died bc BottomLeftCorner");
 				}
 		   	 }
 			else if (marb.x - World.marble.diameter / 3 < path.x || marb.y > path.y + path.HEIGHT) {
 				Game.alive=false;
-				System.out.println("died bc leftElbow");
+				System.out.println("died bc BottomLeftCorner");
 
 			}
 		}*/
@@ -294,20 +294,20 @@ public class Marble{
 			}
 		}
 
-		else if(path.name == "rightCorner"){
+		else if(path.name == "TopRightCorner"){
 			if(marb.y + World.marble.diameter / 3 < path.y){
 				Game.alive = false;
-				System.out.println("died bc rightCorner");
+				System.out.println("died bc TopRightCorner");
 
 			}
 			if(marb.x + World.marble.diameter / 3 < path.enterX){
 				Game.alive = false;
-				System.out.println("died bc rightCorner");
+				System.out.println("died bc TopRightCorner");
 			}
 
 			if(marb.y - World.marble.diameter / 3 > path.y + path.WIDTH && marb.x + World.marble.diameter > path.enterX + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc rightCorner");
+				System.out.println("died bc TopRightCorner");
 			} 
 			/*if (marb.x<path.x+path.WIDTH) {
 				if (marb.x<path.enterX || marb.y>path.y+path.HEIGHT || marb.y<path.y) {
@@ -322,32 +322,32 @@ public class Marble{
 
 		} 
 
-		else if(path.name == "leftCorner"){
+		else if(path.name == "TopLeftCorner"){
 			if(marb.y + World.marble.diameter / 3 < path.y){
 				Game.alive = false;	
-				System.out.println("died bc leftCorner");			
+				System.out.println("died bc TopLeftCorner");			
 			}
 			if(marb.x + World.marble.diameter / 3 * 2 > path.enterX + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc leftCorner");
+				System.out.println("died bc TopLeftCorner");
 			}
 			if(marb.x + World.marble.diameter / 3 * 2 < path.enterX && marb.y + World.marble.diameter > path.y + path.WIDTH){
 				Game.alive = false;
-				System.out.println("died bc leftCorner");
+				System.out.println("died bc TopLeftCorner");
 			}
 		}
 
-		else if(path.name == "rightElbow"){
+		else if(path.name == "BottomRightCorner"){
 			if(marb.y - World.marble.diameter / 3 > path.y + path.WIDTH){
 				/*if(marb.x + World.marble.diameter / 3 * 2 > path.enterX + path.HEIGHT){
 					Game.alive = false;
-				System.out.println("died bc rightElbow");
+				System.out.println("died bc BottomRightCorner");
 				}*/
 
 				if(marb.x < path.x){
 					if(marb.y - World.marble.diameter / 3 < path.y + path.WIDTH){
 						Game.alive = false;
-				System.out.println("died bc rightElbow");
+				System.out.println("died bc BottomRightCorner");
 
 					}
 				}
@@ -355,22 +355,22 @@ public class Marble{
 
 			else if(marb.x + World.marble.diameter / 3 < path.x){
 					Game.alive = false;
-				System.out.println("died bc rightElbow");
+				System.out.println("died bc BottomRightCorner");
 			}
 
 			if(marb.x + World.marble.diameter / 3 > path.enterX + path.HEIGHT);
 		}
 
-		else if(path.name == "leftElbow"){
+		else if(path.name == "BottomLeftCorner"){
 			if (marb.x > path.x + path.WIDTH) {
 			    if (marb.y + World.marble.diameter / 3 < path.y + path.WIDTH){
 					Game.alive=false;
-					System.out.println("died bc leftElbow");
+					System.out.println("died bc BottomLeftCorner");
 				}
 		   	 }
 			else if (marb.x + World.marble.diameter / 3 < path.x || marb.y + World.marble.diameter / 3 > path.y + path.HEIGHT) {
 				Game.alive=false;
-				System.out.println("died bc leftElbow");
+				System.out.println("died bc BottomLeftCorner");
 
 			}
 		}
