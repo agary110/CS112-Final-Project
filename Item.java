@@ -1,3 +1,5 @@
+//================================================
+/** Import necessary libraries **/
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.lang.StringBuilder;
 
 
 //=======================================
-//Class Item (includes anything that the marble might encounter on the path)
+/** Class Item includes anything that the marble might encounter on the path — aliens, bombs, speed changers or size changers, etc. Item has  **/
 
 class Item{
 	public int x;
