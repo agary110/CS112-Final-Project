@@ -459,11 +459,10 @@ class Booster extends Item{
 //Class Bumpers extends Booster (activates bumpers that prevent the marble from falling off the path)
 
 class Bumpers extends Booster {
-	double deactivateTime;
 	
 	public Bumpers(int x, int y){
 		super(x, y);
-		deactivateTime = 15;
+		deactivateTime = 10;
 	}
 
 	public void activate(){
