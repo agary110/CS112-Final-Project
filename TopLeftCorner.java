@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
 //==================================================================================
-/** The TopLeftCorner class is a subclass of Path. It represents a corner in which the marble is traveling up the screen in a straight direction, and must turn right. It’s main (and only) method is a draw method, that overrides Path’s draw method, and draws the a TopLeftCorner Path on the Jpanel. **/
+/** The TopLeftCorner class is a subclass of Path. It represents a corner in which the marble is traveling up the screen in a straight direction, and must turn right (i.e. if you were looking at a square, it would be the top left corner of the square). It’s main (and only) method is a draw method, that overrides Path’s draw method, and draws the a TopLeftCorner Path on the Jpanel. **/
 //==================================================================================
 
 public class TopLeftCorner extends Path {
