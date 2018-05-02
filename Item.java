@@ -84,7 +84,7 @@ class Item{
 		}
 
 		Random newRand = new Random();
-		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
+		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = pathY;
 	
 		//Bumpers
@@ -242,14 +242,6 @@ class Ammo extends Item {
 		g.drawRect(this.x, this.y, width, width);
 		g.setColor(Color.GRAY);
 		g.fillRect(this.x + width / 2 - 3, this.y + width / 2, width - 10, 5);
-
-		/*if(World.ammoReleased && World.ammo.y < -width){
-			World.ammo.draw(g);
-			World.ammo.y -= 2;
-			if(World.ammo.y < -width - 10){
-				World.ammoReleased = false;
-			}
-		}*/
 	}
 
 	public void activate(){
@@ -299,8 +291,7 @@ class Ammo extends Item {
 
 class Alien extends Item{
 	boolean deadly;
-	final int eyeWidth = width / 3;
-	final int pupilWidth = eyeWidth / 3 * 2;
+	
 	
 	public Alien(int x, int y){
 		super(x, y);
@@ -312,6 +303,9 @@ class Alien extends Item{
 		g.setColor(Color.GREEN);
 		g.fillOval(x, y, width, width);
 
+		int eyeWidth = width / 3;
+		int pupilWidth = eyeWidth / 3 * 2;
+
 		//Eyes
 		g.setColor(Color.WHITE);
 		g.fillOval(x + width / 6, y + width / 6, eyeWidth, eyeWidth);
@@ -322,7 +316,7 @@ class Alien extends Item{
 		g.fillOval(x + width / 6 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
 		g.fillOval(x + width / 2 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
 
-		//Mouth (unsure about which angles to use; set 45 and 45 as default)
+		//Mouth 
 		g.drawArc(x + width / 6, y + width / 4 * 3, width / 2, 3, 45, 45);
 
 		//Nose
@@ -457,11 +451,10 @@ class Booster extends Item{
 //Class Bumpers extends Booster (activates bumpers that prevent the marble from falling off the path)
 
 class Bumpers extends Booster {
-	double deactivateTime;
 	
 	public Bumpers(int x, int y){
 		super(x, y);
-		deactivateTime = 15;
+		deactivateTime = 10;
 	}
 
 	public void activate(){
@@ -475,13 +468,6 @@ class Bumpers extends Booster {
 	}
 
 	public void update(){
-		/*if(this.activated){
-			this.pickUp();
-			deactivateTime -= (1 / (double)(Game.FPS));
-		}
-		if(deactivateTime <= 0){
-			this.deactivate();
-		}*/
 		super.update();
 		checkTopEdge();
 	}
@@ -520,9 +506,6 @@ class ChangeSpeed extends Booster {
 	double originalXIncrement;
 	double originalYIncrement;
 
-	double originalIncrement;
-	double deactivateTime;
-
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
@@ -532,7 +515,7 @@ class ChangeSpeed extends Booster {
 		originalXIncrement = World.marble.XposIncrement;
 		originalYIncrement = World.marble.YposIncrement;
 
-		deactivateTime = 10;
+		deactivateTime = 7;
 	}
 
 	public void activate(){
@@ -553,11 +536,8 @@ class ChangeSpeed extends Booster {
 		super.deactivate();
 		World.marble.XposIncrement = originalXIncrement;
 		World.marble.YposIncrement = originalYIncrement;
-		//How to actually make the speed normal again
 	}
-	public void update(){
-		super.update();
-	}
+
 }
 
 //=======================================
@@ -568,14 +548,13 @@ class ChangeSize extends Booster {
 	boolean increase;
 	double proportion;
 	int originalSize;
-	double deactivateTime;
 
 	public ChangeSize(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
 		proportion = World.marble.diameter * 0.3;
 		originalSize = World.marble.diameter;
-		deactivateTime = 10;
+		deactivateTime = 7;
 	}
 
 	public void activate(){
@@ -592,7 +571,5 @@ class ChangeSize extends Booster {
 		super.deactivate();
 		World.marble.diameter = originalSize;		
 	}
-	public void update(){
-		super.update();
-	}
+	
 }

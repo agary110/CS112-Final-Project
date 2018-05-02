@@ -48,9 +48,6 @@ class Map{
 		for(int i = 0; i < World.visibleScreens.size(); i++){
 			for(int j = 0; j < World.visibleScreens.get(i).size(); j++){
 				World.visibleScreens.get(i).get(j).y++;
-				/*if(World.visibleScreens.get(i).get(j).name == "Trapezoid"){
-					World.visibleScreens.get(i).get(j).update();
-				}*/
 			}
 		}
 
@@ -62,7 +59,6 @@ class Map{
 			World.visibleScreens.add(generateNext());
 			for (int i = 0; i<World.visibleScreens.get(1).size(); i++) {
 				World.visibleScreens.get(1).get(i).y += World.visibleScreens.get(0).getLast().WIDTH;
-//+World.visibleScreens.get(0).getLast().WIDTH/2;
 			}
 		}
 
@@ -99,9 +95,7 @@ class Map{
 		toR.add(new Straight(toR.getLast()));
 		toR.add(new TopLeftCorner(toR.getLast()));
 		toR.add(new BottomLeftCorner(toR.getLast()));
-		toR.add(new Straight(toR.getLast()));
-		//toR.add(new TopRightCorner(toR.getLast()));
-		//toR.add(new BottomLeftCorner(toR.getLast()));		
+		toR.add(new Straight(toR.getLast()));		
 		return toR;
 	}
 
@@ -121,8 +115,6 @@ class Map{
 		toR.add(new TopLeftCorner(toR.getLast()));
 		toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		//toR.add(new TopRightCorner(toR.getLast()));
-		//toR.add(new BottomLeftCorner(toR.getLast()));
 		return toR;
 
 	}
@@ -132,18 +124,11 @@ class Map{
 		toR.add(new Straight(curr.getLast()));
 		toR.add(new TopRightCorner(toR.getLast()));
 		toR.add(new BottomRightCorner(toR.getLast()));
-		//toR.add(new TopRightCorner(toR.getLast()));
-		//toR.add(new BottomRightCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
-		//toR.add(new TopLeftCorner(toR.getLast()));
-		//toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
 		toR.add(new TopLeftCorner(toR.getLast()));
-		//Left corner does not work— need to fix
 		toR.add(new BottomLeftCorner(toR.getLast()));
-		//toR.add(new TopRightCorner(toR.getLast()));
-		//toR.add(new BottomLeftCorner(toR.getLast()));
 		toR.add(new Straight(toR.getLast()));
 		return toR;
 
@@ -163,7 +148,6 @@ class Map{
 public static LinkedList<Path> generateNext(){
 	int randNum = rand.nextInt(allScreens.size() - 1) + 1;
 	LinkedList<Path> toAppend = new LinkedList<Path>();
-
 	switch (randNum) {
 		case 1: toAppend = getScreen1(World.visibleScreens.getLast());
 				 break;
