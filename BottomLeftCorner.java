@@ -1,11 +1,17 @@
+//===================================
+/** Importing necessary libraries **/
+//==================================
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 
 public class BottomLeftCorner extends Path{
+
+//==================================================================================
+/** The BottomLeftCorner class is a subclass of Path. It represents a corner in which the marble is traveling across the screen horizontally, and must turn left. It’s main (and only) method is a draw method, that overrides Path’s draw method, and draws the a TopLeftCorner Path on the Jpanel. **/
+//==================================================================================
 
 	public BottomLeftCorner(Path previous){
 		super(previous);
