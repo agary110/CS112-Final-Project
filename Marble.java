@@ -1,3 +1,7 @@
+//===============================
+/** Importing necessary libraries **/
+//===============================
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
@@ -7,10 +11,22 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.LinkedList;
 
+//=================================================================
+/** The Pair class stores a double x and a double y. These values refer to the x and y coordinates of the top left-hand corner of its corresponding object. **/
+//=================================================================
+
 class Pair{
+
+//===============================
+/** Member Variables **/
+//===============================
 
     public double x;
     public double y;
+
+//===============================
+/** Constructor **/
+//===============================
     
     public Pair(double initX, double initY){
 		x = initX;
@@ -18,11 +34,17 @@ class Pair{
     }
 }
 
+/** END OF PAIR CLASS **/
+
+//=================================================================
+/** An instance of the Marble class is created in the World class. The Marble class contains all of the necessary methods to draw and move the marble. The Marble class also contains other methods that check if the marble has exceeded the limits of the path. **/
+//=================================================================
 
 public class Marble{
 
 //================================================
 /** Member variables **/
+//================================================
 
 	Pair position;
 	int diameter;
@@ -32,6 +54,7 @@ public class Marble{
 
 //================================================
 /** Constructor  **/
+//================================================
 
 	public Marble(){
 		position = new Pair(Game.WIDTH / 2, 500.0);
@@ -42,7 +65,9 @@ public class Marble{
     }
     
 //================================================
-/** Draw method **/
+/** Method: draw(Graphics g)
+	Functionality: Draws the marble **/
+//================================================
 
     public void draw(Graphics g){
 		Color c = g.getColor();
@@ -52,7 +77,9 @@ public class Marble{
     }
 
 //================================================
-/** Takes the move commands from the KeyboardEvent in Game.java. If the marble is able to move (i.e. the bumpers are down, or the bumpers are down but the marble isn't hitting the sides), then it will move. **/
+/** Methods: moveUp(), moveDown(), moveRight(), moveLeft()
+	Functionality: Increment or decrement the marble’s ‘x’ and ‘y’ values **/
+//================================================
 
     public void moveUp(){
 		if(position.y > Game.HEIGHT / 4){
@@ -75,9 +102,11 @@ public class Marble{
 	    position.x -= XposIncrement;
 		position.y += YposIncrement;		
     }
-//===================================================
-/** If the marble has picked up the Bumpers booster, bumpers are on, and the marble should be unable to move off the path (aka you can't die). It does this by checking where the marble is in relation to the current path; if it's about to be off the path, all the move methods (above) do not work. **/
 
+//===================================================
+/** Method: checkForBumpers()
+	Functionality: If the marble has exceeded the limits of the path, its ‘x’ and ‘y’ values are adjusted so that the marble is pushed back within the limits of the path **/
+//================================================
 
 	public static void checkForBumpers(){
 		Path path = checkPath();
@@ -224,8 +253,11 @@ public class Marble{
 			}			
 		}
 	}
+
 //============================================
-/** This method checks to see if the marble has gone off the path. If it has, you die. **/
+/** Method: checkDead()
+	Functionality: If the marble has exceeded the limits of the path, Game.alive is set to false **/
+//============================================
 
     public static void checkDead(){
 
@@ -265,19 +297,29 @@ public class Marble{
 		}
 
 		else if(path.name == "BottomRightCorner"){
-			if(marb.y - World.marble.diameter / 3 > path.y + path.WIDTH){
-				if(marb.x < path.x){
-					if(marb.y - World.marble.diameter / 3 < path.y + path.WIDTH){
-						Game.alive = false;
-					}
+
+			if(marb.x - World.marble.diameter / 3 > path.enterX + path.HEIGHT){
+				Game.alive = false;
+			}
+
+			if(marb.x  + World.marble.diameter < path.x){
+				if(marb.y + World.marble.diameter / 3 < path.y + path.WIDTH || marb.y - World.marble.diameter / 3 > path.y + path.HEIGHT){
+					Game.alive = false;
 				}
 			}
-
-			else if(marb.x + World.marble.diameter / 3 < path.x){
+			else if (marb.x > path.x){
+				if (marb.y - World.marble.diameter > path.y + path.HEIGHT || marb.x + World.marble.diameter > path.x + path.WIDTH){
 					Game.alive = false;
+				}
 			}
-
-			if(marb.x + World.marble.diameter / 3 > path.enterX + path.HEIGHT);
+			if(marb.y - World.marble.diameter / 3 < path.y + path.WIDTH){
+				if(marb.x + World.marble.diameter / 3 < path.x){
+					Game.alive = false;
+				}
+			}
+			
+			
+			
 		}
 
 		else if(path.name == "BottomLeftCorner"){
@@ -305,8 +347,11 @@ public class Marble{
 			}
 		}
     }
+
 //============================================
-/** Get all the paths that currently exist, check which one the marble is currently on, and return it. **/
+/** Method: checkPath()
+	Functionality: Uses the marble’s current ‘x’ and ‘y’ values to determine which segment of path the marble is on and then returns that path **/
+//============================================
 
 	public static Path checkPath(){
 
@@ -380,3 +425,6 @@ public class Marble{
 	}
 
 }
+
+/** END OF MARBLE CLASS **/
+//============================================
