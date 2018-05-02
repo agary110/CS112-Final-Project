@@ -13,15 +13,27 @@ import java.awt.RenderingHints;
 
 public class TopRightCorner extends Path {
 
+//======================
+/** Constructor **/
+//======================
+
 	public TopRightCorner(Path previous) {
 		super(previous);
 		name="TopRightCorner";
-		enterX=previous.x;
+		enterX=previous.x; 
 		x = enterX + Path.HEIGHT;
 		y=previous.y - Path.HEIGHT;
 	}
+
+//=================================================
+/** Method: draw (Graphics g0ri)
+    Functionality: Draws the TopRightCorner Path on the screen **/
+//=================================================
 	
     public void draw(Graphics g0ri){
+
+	//Overrides Path’s draw method
+
 		Graphics2D g = (Graphics2D) g0ri;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 			   RenderingHints.VALUE_ANTIALIAS_ON);
@@ -29,6 +41,9 @@ public class TopRightCorner extends Path {
 		g.fill (new Rectangle2D.Double(x-WIDTH, y, WIDTH, WIDTH)); 
 		g.fill (new Rectangle2D.Double(x-HEIGHT, y, WIDTH, HEIGHT)); 
 		if (World.bumpersOn){
+
+			//Draws bumpers if bumpersOn is true
+
 			g.setColor(Color.RED);
 			
 			g.fill(new Rectangle2D.Double(x - HEIGHT, y - bumperWidth, HEIGHT, bumperWidth));
@@ -38,3 +53,5 @@ public class TopRightCorner extends Path {
 		}
     }	
 }
+/** END OF TOPRIGHTCORNER CLASS**/
+//=================================================
