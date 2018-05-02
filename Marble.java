@@ -265,19 +265,29 @@ public class Marble{
 		}
 
 		else if(path.name == "BottomRightCorner"){
-			if(marb.y - World.marble.diameter / 3 > path.y + path.WIDTH){
-				if(marb.x < path.x){
-					if(marb.y - World.marble.diameter / 3 < path.y + path.WIDTH){
-						Game.alive = false;
-					}
+
+			if(marb.x - World.marble.diameter / 3 > path.enterX + path.HEIGHT){
+				Game.alive = false;
+			}
+
+			if(marb.x  + World.marble.diameter < path.x){
+				if(marb.y + World.marble.diameter / 3 < path.y + path.WIDTH || marb.y - World.marble.diameter / 3 > path.y + path.HEIGHT){
+					Game.alive = false;
 				}
 			}
-
-			else if(marb.x + World.marble.diameter / 3 < path.x){
+			else if (marb.x > path.x){
+				if (marb.y - World.marble.diameter > path.y + path.HEIGHT || marb.x + World.marble.diameter > path.x + path.WIDTH){
 					Game.alive = false;
+				}
 			}
-
-			if(marb.x + World.marble.diameter / 3 > path.enterX + path.HEIGHT);
+			if(marb.y - World.marble.diameter / 3 < path.y + path.WIDTH){
+				if(marb.x + World.marble.diameter / 3 < path.x){
+					Game.alive = false;
+				}
+			}
+			
+			
+			
 		}
 
 		else if(path.name == "BottomLeftCorner"){
