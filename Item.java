@@ -45,7 +45,7 @@ class Item{
 		if(passed){
 			if(this.y  - 2 < World.marble.position.y && this.y + this.width + 2 > World.marble.position.y){
 				if(this.x + this.width - 2 >= World.marble.position.x){
-					if(this.x <= World.marble.position.x + World.marble.radius - 2){
+					if(this.x <= World.marble.position.x + World.marble.diameter - 2){
 						this.activated = true;
 						this.activate();
 					}
@@ -576,24 +576,24 @@ class ChangeSize extends Booster implements Deactivatable{
 	public ChangeSize(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
-		proportion = World.marble.radius * 0.3;
-		originalSize = World.marble.radius;
+		proportion = World.marble.diameter * 0.3;
+		originalSize = World.marble.diameter;
 		deactivateTime = 10;
 	}
 
 	public void activate(){
 		super.activate();
 		if (increase){
-			World.marble.radius += proportion;
+			World.marble.diameter += proportion;
 		} else {
-			World.marble.radius -= proportion;
+			World.marble.diameter -= proportion;
 		}
 		proportion = 0;
 	}
 
 	public void deactivate(){
 		super.deactivate();
-		World.marble.radius = originalSize;		
+		World.marble.diameter = originalSize;		
 	}
 	public void update(){
 		super.update();

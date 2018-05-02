@@ -25,9 +25,6 @@ class Map{
 		allMaps = new LinkedList<LinkedList<Path>>();
 
 		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		//upcomingPaths.add(new BigRect(100));
-		//upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		//upcomingPaths.add(new Straight(upcomingPaths.getLast()));
 		upcomingPaths.get(0).y = Game.HEIGHT;
 		for(int i = 1; i < 6; i++){
 			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
