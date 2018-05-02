@@ -459,11 +459,10 @@ class Booster extends Item{
 //Class Bumpers extends Booster (activates bumpers that prevent the marble from falling off the path)
 
 class Bumpers extends Booster {
-	double deactivateTime;
 	
 	public Bumpers(int x, int y){
 		super(x, y);
-		deactivateTime = 15;
+		deactivateTime = 10;
 	}
 
 	public void activate(){
@@ -477,13 +476,6 @@ class Bumpers extends Booster {
 	}
 
 	public void update(){
-		/*if(this.activated){
-			this.pickUp();
-			deactivateTime -= (1 / (double)(Game.FPS));
-		}
-		if(deactivateTime <= 0){
-			this.deactivate();
-		}*/
 		super.update();
 		checkTopEdge();
 	}
@@ -522,9 +514,6 @@ class ChangeSpeed extends Booster {
 	double originalXIncrement;
 	double originalYIncrement;
 
-	double originalIncrement;
-	double deactivateTime;
-
 	public ChangeSpeed(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
@@ -534,7 +523,7 @@ class ChangeSpeed extends Booster {
 		originalXIncrement = World.marble.XposIncrement;
 		originalYIncrement = World.marble.YposIncrement;
 
-		deactivateTime = 10;
+		deactivateTime = 7;
 	}
 
 	public void activate(){
@@ -555,11 +544,8 @@ class ChangeSpeed extends Booster {
 		super.deactivate();
 		World.marble.XposIncrement = originalXIncrement;
 		World.marble.YposIncrement = originalYIncrement;
-		//How to actually make the speed normal again
 	}
-	public void update(){
-		super.update();
-	}
+
 }
 
 //=======================================
@@ -570,14 +556,13 @@ class ChangeSize extends Booster {
 	boolean increase;
 	double proportion;
 	int originalSize;
-	double deactivateTime;
 
 	public ChangeSize(int x, int y){
 		super(x, y);
 		increase = rand.nextBoolean();
 		proportion = World.marble.diameter * 0.3;
 		originalSize = World.marble.diameter;
-		deactivateTime = 10;
+		deactivateTime = 7;
 	}
 
 	public void activate(){
@@ -594,7 +579,5 @@ class ChangeSize extends Booster {
 		super.deactivate();
 		World.marble.diameter = originalSize;		
 	}
-	public void update(){
-		super.update();
-	}
+	
 }
