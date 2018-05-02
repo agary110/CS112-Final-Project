@@ -84,7 +84,7 @@ class Item{
 		}
 
 		Random newRand = new Random();
-		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);		//NullPointerException at “rand.nextInt(2)”
+		int x = pathX + 2 + newRand.nextInt(2) * (Path.WIDTH / 3 - 2);
 		int y = pathY;
 	
 		//Bumpers
@@ -242,14 +242,6 @@ class Ammo extends Item {
 		g.drawRect(this.x, this.y, width, width);
 		g.setColor(Color.GRAY);
 		g.fillRect(this.x + width / 2 - 3, this.y + width / 2, width - 10, 5);
-
-		/*if(World.ammoReleased && World.ammo.y < -width){
-			World.ammo.draw(g);
-			World.ammo.y -= 2;
-			if(World.ammo.y < -width - 10){
-				World.ammoReleased = false;
-			}
-		}*/
 	}
 
 	public void activate(){
@@ -324,7 +316,7 @@ class Alien extends Item{
 		g.fillOval(x + width / 6 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
 		g.fillOval(x + width / 2 + eyeWidth / 8, y + width / 3 + eyeWidth / 8, pupilWidth, pupilWidth);
 
-		//Mouth (unsure about which angles to use; set 45 and 45 as default)
+		//Mouth 
 		g.drawArc(x + width / 6, y + width / 4 * 3, width / 2, 3, 45, 45);
 
 		//Nose
