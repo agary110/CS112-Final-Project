@@ -13,7 +13,7 @@ public class World{
 	static double points;
 	static boolean ammoReleased;
 	static Map map;
-	static LinkedList<LinkedList<Path>> mapsOnScreen;
+	static LinkedList<LinkedList<Path>> visibleScreens;
 	static LinkedList<AmmoReleased> ammoActive;
 	static boolean bumpersOn;
 	static Random rand;
@@ -27,8 +27,8 @@ public class World{
 		points = 0;
 		ammoReleased = false;
 		map = new Map();
-		mapsOnScreen = new LinkedList<LinkedList<Path>>();
-		mapsOnScreen.add(Map.upcomingPaths);
+		visibleScreens = new LinkedList<LinkedList<Path>>();
+		visibleScreens.add(Map.initialScreens);
 		ammoActive = new LinkedList<AmmoReleased>();
 		bumpersOn = false;
 		rand = new Random();	
@@ -59,7 +59,7 @@ public class World{
 		}
 	}
 
-	public void drawPath(Graphics g){
+	public void drawPath(Graphics g){ // should change this to drawMap
 		map.draw(g);
 	}
 
