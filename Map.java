@@ -24,8 +24,7 @@ class Map{
 		Screen4 = new LinkedList<Path>();
 		allScreens = new LinkedList<LinkedList<Path>>();
 
-		initialScreens.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		initialScreens.get(0).y = Game.HEIGHT;
+		initialScreens.add(new BigRect(Game.HEIGHT / 2));
 		for(int i = 1; i < 6; i++){
 			initialScreens.add(new Straight(initialScreens.get(i - 1)));
 		}
