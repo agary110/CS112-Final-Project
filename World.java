@@ -13,7 +13,7 @@ public class World{
 	static Marble marble;
 	static Map map;
 	static LinkedList<Item> itemsActive;
-	static Ammo ammo;
+	static Ammo ammo; // do we need this
 	static LinkedList<LinkedList<Path>> mapsOnScreen;
 	static double points;
 	static int ammoCount;
