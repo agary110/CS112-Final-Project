@@ -6,7 +6,7 @@ import java.util.Random;
 import java.lang.Math;
 
 class Map{
-	public static LinkedList<Path> upcomingPaths;
+	public static LinkedList<Path> initialScreens;
 	public static LinkedList<Path> Screen1;
 	public static LinkedList<Path> Screen2;
 	public static LinkedList<Path> Screen3;
@@ -17,17 +17,17 @@ class Map{
 //Constructor
 	public Map(){
 		rand = new Random(1);
-		upcomingPaths = new LinkedList<Path>();
+		initialScreens = new LinkedList<Path>();
 		Screen1 = new LinkedList<Path>();
 		Screen2 = new LinkedList<Path>();
 		Screen3 = new LinkedList<Path>();
 		Screen4 = new LinkedList<Path>();
 		allScreens = new LinkedList<LinkedList<Path>>();
 
-		upcomingPaths.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
-		upcomingPaths.get(0).y = Game.HEIGHT;
+		initialScreens.add(new Straight(Game.WIDTH / 2 - Path.WIDTH / 2));
+		initialScreens.get(0).y = Game.HEIGHT;
 		for(int i = 1; i < 6; i++){
-			upcomingPaths.add(new Straight(upcomingPaths.get(i - 1)));
+			initialScreens.add(new Straight(initialScreens.get(i - 1)));
 		}
 
 		addMaps();
@@ -36,7 +36,7 @@ class Map{
 //=======================================
 //Add maps to linked list allScreens
 	public static void addMaps() {
-		allScreens.add(upcomingPaths);
+		allScreens.add(initialScreens);
 		allScreens.add(Screen1);
 		allScreens.add(Screen2);
 		allScreens.add(Screen3);
